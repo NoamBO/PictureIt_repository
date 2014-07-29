@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="google_maps_v2_api_key">AIzaSyBSdbrWX6ZVZcBrH49locn8Ol8nuauSeBA</string>
+    <string name="preference_key_settings_distance">PREF_RADIUS_SEEK_BAR</string>
+    <string name="preference_key_my_profile_picture">PREF_PROFILE_IMAGE</string>
+    <string name="preference_key_my_profile_first_name">PREF_PROFILE_FIRST_NAME</string>
+    <string name="preference_key_my_profile_last_name">PREF_PROFILE_LAST_NAME</string>
+
+    <string name="question_mark">"?"</string>
+    <string name="press_again_to_exit">Press again to exit</string>
+    <string name="loading">Loading..</string>
+    
+    <string name="app_name">Beauty App</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_service_order">Ask For Service</string>
+    
+    <string name="settings_preference_category_title_distance">Distance</string>
+    <string name="settings_preference_title_radius">Radius</string>
+    <string name="settings_preference_summary_radius">Change search radius</string>
+    
+    <string name="settings_preference_category_title_personal_details">Personal Details</string>
+    <string name="settings_preference_title_first_name">First Name</string>
+    <string name="settings_preference_title_last_name">Last Name</string>
+    
+    <string name="action_settings">Settings</string>
+    <string name="action_my_profile">My Profile</string>
+    <string name="action_explanation">Explanation</string>
+    <string name="action_terms_of_service">Terms of service</string>
+    <string name="action_search_radius">Search radius</string>
+    <string name="action_ask_for_service">Service Order</string>
+    <string name="action_search_providers">Locating a beautician</string>
+    
+    <!-- Dialog presented on main screen when no visible marker on screen if onpening the SLIDER -->
+    <string name="main_screen_slider_empty_dialog_title">No Results</string>
+    <string name="main_screen_slider_empty_dialog_messege">There is no visible beautician..</string>
+    
+    <!-- Beautician page -->
+    <string name="beautician_page_title">Beautician</string>
+    <string name="beautician_page_raters">raters</string>
+
+   	<!-- Search Provider -->
+   	<string name="search_provider_title">Search Beautician</string>
+    <string name="search_provider_search_by">Search by:</string>
+    <string name="search_provider_search_by_name">Name</string>
+    <string name="search_provider_search_by_location">Location</string>
+    <string name="search_provider_search_by_type">Classified</string>
+    <string name="search_provider_search_by_services_type">Service Type</string>
+    <string name="search_provider_search">Search</string>
+    
+    <!-- Search Provider Error Dialog -->
+    <string name="search_provider_error_dialog_title">Error</string>
+    <string name="search_provider_error_dialog_no_results">No results</string>
+    <string name="search_provider_error_dialog_all_fields_are_empty">You must fill at least one of the fields</string>
+    
+    <!-- Service Order -->
+    <string name="service_for">For</string>
+    <string name="service_when">When</string>
+    <string name="service_select_treatment">Select Treatment</string>
+    <string name="service_location">Location</string>
+    <string name="service_remarks">Remarks</string>
+    <string name="service_order_one">Order</string>
+   
+    <!-- general dialogs text -->
+    <string name="dialog_ok_text">OK</string>
+    <string name="dialog_cancel_text">@android:string/cancel</string>
+    <string name="else_">Else</string>
+    
+    <!-- Service Order dialog For Who text -->
+    <string name="dialog_title_for">For</string>
+    <string name="for_me">Me</string>
+    <string name="for_group">Group</string>
+    <string-array name="for_who_array">
+        <item>@string/for_me</item>
+        <item>@string/for_group</item>
+        <item>@string/else_</item>
+    </string-array>
+    
+    <!-- Service Order Dialog Location text -->
+	<string name="dialog_title_location">Location</string>
+	<string name="at_my_home">At home</string>
+	<string name="at_the_beautician">At the beautician</string>
+	    <string-array name="dialog_location_array">
+        <item>@string/at_my_home</item>
+        <item>@string/at_the_beautician</item>
+        <item>@string/else_</item>
+    </string-array>
+    
+    <!-- Service Order dialog When text -->
+    <string name="dialog_title_when">When</string>
+    <string name="today">Today</string>
+    
+    <string-array name="dialog_when_array">
+        <item>@string/today</item>
+        <item>@string/else_</item>
+    </string-array>
+    
+    <string name="dialog_title_remarks">Remarks</string>
+    
+    <!-- Service Order dialog Select Treatment text -->
+    <string name="dialog_title_select_treatment">Select Treatment</string>
+    <string name="dialog_subtitle_select_treatment">Choose treatment type - you can select more than one</string>
+   
+    
+    <!-- Service Order Treatments List -->
+    <string-array name="treatment_1">
+        <item name="id">1</item>
+        <item name="title">treatment 1</item>
+        <item name="description">treatment 1</item>
+    </string-array>
+    <string-array name="treatment_2">
+        <item name="id">2</item>
+        <item name="title">treatment 2</item>
+        <item name="description">treatment 2</item>
+    </string-array>
+    <string-array name="treatment_3">
+        <item name="id">3</item>
+        <item name="title">treatment 3</item>
+        <item name="description">treatment 3</item>
+    </string-array>
+    <string-array name="treatment_4">
+        <item name="id">4</item>
+        <item name="title">treatment 4</item>
+        <item name="description">treatment 4</item>
+    </string-array>
+    <string-array name="treatment_5">
+        <item name="id">5</item>
+        <item name="title">treatment 5</item>
+        <item name="description">treatment 5</item>
+    </string-array>
+    <string-array name="treatment_6">
+        <item name="id">6</item>
+        <item name="title">treatment 6</item>
+        <item name="description">treatment 6</item>
+    </string-array>
+        <string-array name="treatment_7">
+        <item name="id">7</item>
+        <item name="title">treatment 7</item>
+        <item name="description">treatment 7</item>
+    </string-array>
+        <string-array name="treatment_8">
+        <item name="id">8</item>
+        <item name="title">treatment 8</item>
+        <item name="description">treatment 8</item>
+    </string-array>
+        <string-array name="treatment_9">
+        <item name="id">9</item>
+        <item name="title">treatment 9</item>
+        <item name="description">treatment 9</item>
+    </string-array>
+        <string-array name="treatment_10">
+        <item name="id">10</item>
+        <item name="title">treatment 10</item>
+        <item name="description">treatment 10</item>
+    </string-array>
+        <string-array name="treatment_11">
+        <item name="id">11</item>
+        <item name="title">treatment 11</item>
+        <item name="description">treatment 11</item>
+    </string-array>
+        <string-array name="treatment_12">
+        <item name="id">12</item>
+        <item name="title">treatment 12</item>
+        <item name="description">treatment 12</item>
+    </string-array>
+        <string-array name="treatment_13">
+        <item name="id">13</item>
+        <item name="title">treatment 13</item>
+        <item name="description">treatment 13</item>
+    </string-array>
+            <string-array name="treatment_14">
+        <item name="id">14</item>
+        <item name="title">treatment 14</item>
+        <item name="description">treatment 14</item>
+    </string-array>
+            <string-array name="treatment_15">
+        <item name="id">15</item>
+        <item name="title">treatment 15</item>
+        <item name="description">treatment 16</item>
+    </string-array>
+            <string-array name="treatment_16">
+        <item name="id">16</item>
+        <item name="title">treatment 16</item>
+        <item name="description">treatment 16</item>
+    </string-array>
+            <string-array name="treatment_17">
+        <item name="id">17</item>
+        <item name="title">treatment 17</item>
+        <item name="description">treatment 17</item>
+    </string-array>
+            <string-array name="treatment_18">
+        <item name="id">18</item>
+        <item name="title">treatment 18</item>
+        <item name="description">treatment 18</item>
+    </string-array>
+            <string-array name="treatment_19">
+        <item name="id">19</item>
+        <item name="title">treatment 19</item>
+        <item name="description">treatment 19</item>
+    </string-array>
+            <string-array name="treatment_20">
+        <item name="id">20</item>
+        <item name="title">treatment 20</item>
+        <item name="description">treatment 20</item>
+    </string-array>
+            <string-array name="treatment_21">
+        <item name="id">21</item>
+        <item name="title">treatment 21</item>
+        <item name="description">treatment 21</item>
+    </string-array>
+    <array name="treatments_list">
+        <item>@array/treatment_1</item>
+        <item>@array/treatment_2</item>
+        <item>@array/treatment_3</item>
+        <item>@array/treatment_4</item>
+        <item>@array/treatment_5</item>
+        <item>@array/treatment_6</item>
+        <item>@array/treatment_7</item>
+        <item>@array/treatment_8</item>
+        <item>@array/treatment_9</item>
+        <item>@array/treatment_10</item>
+        <item>@array/treatment_11</item>
+        <item>@array/treatment_12</item>
+        <item>@array/treatment_13</item>
+        <item>@array/treatment_14</item>
+        <item>@array/treatment_15</item>
+        <item>@array/treatment_16</item>
+        <item>@array/treatment_17</item>
+        <item>@array/treatment_18</item>
+        <item>@array/treatment_19</item>
+        <item>@array/treatment_20</item>
+        <item>@array/treatment_21</item>
+    </array>
+    
+    <string name="wanted_treatment">Wanted treatment:</string>
+    <string name="order_service">Order service</string>
+    
+</resources>

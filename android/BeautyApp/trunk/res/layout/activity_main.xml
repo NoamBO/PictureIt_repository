@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pictureit.noambaroz.beautyapp.MainActivity" >
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.MapFragment" />
+
+    <LinearLayout
+        android:id="@+id/ll_main_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/ib_main_touch_to_slide_list"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#ff00ff" />
+
+        <FrameLayout
+            android:id="@+id/fl_main_providers_slider_list_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ff00"
+            android:clickable="true"
+            android:visibility="gone" >
+
+            <ListView
+                android:id="@+id/lv_main_providers_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

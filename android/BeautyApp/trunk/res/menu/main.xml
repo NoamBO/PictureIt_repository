@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pictureit.noambaroz.beautyapp.MainActivity" >
+
+    <item
+        android:id="@+id/action_search_providers"
+        android:icon="@drawable/ic_action_paste"
+        android:showAsAction="always"
+        android:title="@string/action_search_providers"/>
+    <item
+        android:id="@+id/action_ask_for_service"
+        android:icon="@drawable/ic_action_call"
+        android:showAsAction="always"
+        android:title="@string/action_ask_for_service"/>
+    <item
+        android:id="@+id/action_search_radius"
+        android:icon="@drawable/ic_action_call"
+        android:showAsAction="never"
+        android:title="@string/action_search_radius"/>
+    <item
+        android:id="@+id/action_my_profile"
+        android:icon="@drawable/ic_action_call"
+        android:showAsAction="never"
+        android:title="@string/action_my_profile"/>
+    <item
+        android:id="@+id/action_explanation"
+        android:icon="@drawable/ic_action_call"
+        android:showAsAction="never"
+        android:title="@string/action_explanation"/>
+    <item
+        android:id="@+id/action_terms_of_service"
+        android:icon="@drawable/ic_action_call"
+        android:showAsAction="never"
+        android:title="@string/action_terms_of_service"/>
+
+</menu>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp" >
+
+        <ImageView
+            android:id="@+id/iv_beautician_page_image"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="7dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_beautician_page_image"
+            android:layout_toLeftOf="@+id/iv_beautician_page_image"
+            android:orientation="vertical" >
+
+            <utilities.view.AutoResizeTextView
+                android:id="@+id/tv_beautician_page_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <utilities.view.AutoResizeTextView
+                android:id="@+id/tv_beautician_page_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/b_beautician_page_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_beautician_page_image"
+            android:layout_toLeftOf="@+id/iv_beautician_page_image"
+            android:text="@string/order_service" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="7dp" >
+
+        <Button
+            android:id="@+id/b_beautician_page_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
+
+        <View
+            android:id="@+id/viewDeviderRatingRow"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_toRightOf="@id/b_beautician_page_rate"
+            android:background="@android:color/black" />
+
+        <utilities.view.AutoResizeTextView
+            android:id="@+id/tv_beautician_page_raters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="7dp"
+            android:layout_toRightOf="@+id/viewDeviderRatingRow" />
+
+        <RatingBar
+            android:id="@+id/rb_beautician_page_rating"
+            style="@style/MyRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="7dp"
+            android:isIndicator="true"
+            android:numStars="5" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <utilities.view.AutoResizeTextView
+        android:id="@+id/tv_beautician_page_degrees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <utilities.view.AutoResizeTextView
+        android:id="@+id/tv_beautician_page_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <utilities.view.AutoResizeTextView
+            android:id="@+id/tv_beautician_page_treatments1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="7dp" />
+
+        <utilities.view.AutoResizeTextView
+            android:id="@+id/tv_beautician_page_treatments2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="7dp" />
+    </LinearLayout>
+
+</LinearLayout>

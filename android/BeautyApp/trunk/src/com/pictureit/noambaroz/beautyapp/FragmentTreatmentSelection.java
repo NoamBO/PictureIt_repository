@@ -1,0 +1,136 @@
+package com.pictureit.noambaroz.beautyapp;
+
+import java.util.ArrayList;
+
+import utilities.view.MyNumberPicker;
+import utilities.view.MyNumberPicker.onValueChangeListener;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.util.SparseIntArray;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.pictureit.noambaroz.beautyapp.data.DataUtil;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatmentsSelectedListener;
+
+public class FragmentTreatmentSelection extends Fragment {
+
+	ListView mListView;
+	SparseIntArray s;
+	ArrayList<TreatmentType> treatments;
+	private OnTreatmentsSelectedListener mListener;
+
+	@Override
+	public void onDetach() {
+		if (mListener != null)
+			mListener.onTreatmentSelected(treatments);
+		super.onDetach();
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		treatments = DataUtil.genarateTreatmentsList(getActivity());
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.dialog_select_treatment_layout, container, false);
+		mListView = (ListView) v.findViewById(R.id.lv_treatment_selection);
+		return v;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		MyAdapter adapter = new MyAdapter();
+		mListView.setAdapter(adapter);
+	}
+
+	private class MyAdapter extends BaseAdapter {
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return treatments.size();
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			final ViewHolder holder;
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = getActivity().getLayoutInflater().inflate(R.layout.dialog_select_treatment_row, parent,
+						false);
+
+				holder.tvDescription = (TextView) convertView
+						.findViewById(R.id.tv_row_treatment_selection_additional_data);
+				holder.tvName = (TextView) convertView.findViewById(R.id.tv_row_treatment_selection);
+				holder.picker = (MyNumberPicker) convertView.findViewById(R.id.np_row_treatment_selection);
+				holder.checkBox = (CheckBox) convertView.findViewById(R.id.cb_row_treatment_selection);
+				holder.checkBox.setEnabled(false);
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolder) convertView.getTag();
+			}
+			final TreatmentType item = getItem(position);
+			holder.tvDescription.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(getActivity(), item.getDescription(), Toast.LENGTH_SHORT).show();
+				}
+			});
+			holder.tvName.setText(item.getName());
+
+			holder.picker.setValue(item.getCount());
+			holder.checkBox.setChecked(item.getCount() != 0 ? true : false);
+			holder.picker.addOnValueChangeListener(new onValueChangeListener() {
+
+				@Override
+				public void onValueChange(int value) {
+					item.count = value;
+					notifyDataSetChanged();
+				}
+			});
+
+			return convertView;
+		}
+
+		@Override
+		public TreatmentType getItem(int position) {
+			// TODO Auto-generated method stub
+			return treatments.get(position);
+		}
+
+	}
+
+	private static class ViewHolder {
+		MyNumberPicker picker;
+		TextView tvDescription;
+		TextView tvName;
+		CheckBox checkBox;
+	}
+
+	public void setListener(OnTreatmentsSelectedListener l) {
+		mListener = l;
+	}
+
+	public void setTreatments(ArrayList<TreatmentType> tretments1) {
+		treatments = tretments1;
+	}
+}

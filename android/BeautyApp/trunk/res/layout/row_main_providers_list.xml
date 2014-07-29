@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/iv_row_providers_list"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp" />
+
+    <utilities.view.AutoResizeTextView
+        android:id="@+id/tv_row_providers_list_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_row_providers_list"
+        android:layout_toLeftOf="@+id/iv_row_providers_list"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <utilities.view.AutoResizeTextView
+        android:id="@+id/tv_row_providers_list_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_row_providers_list_name"
+        android:layout_toLeftOf="@+id/iv_row_providers_list"
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
+
+    <utilities.view.AutoResizeTextView
+        android:id="@+id/tv_row_providers_list_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_row_providers_list_address"
+        android:layout_toLeftOf="@+id/iv_row_providers_list"
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_row_providers_list_role"
+        android:layout_toLeftOf="@+id/iv_row_providers_list"
+        android:orientation="horizontal" >
+
+        <RatingBar
+            android:id="@+id/rb_row_providers_list_rating"
+            style="@style/MyRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:isIndicator="true"
+            android:numStars="5" />
+
+        <utilities.view.AutoResizeTextView
+            android:id="@+id/tv_row_providers_list_raters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/rb_row_providers_list_rating"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

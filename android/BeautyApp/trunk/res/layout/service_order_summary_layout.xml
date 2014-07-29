@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="7dp" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <utilities.view.AutoResizeTextView
+                android:id="@+id/tv_service_summary_for"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_shape"
+                android:ellipsize="end"
+                android:padding="7dp"
+                android:singleLine="true"
+                android:text="For Me"
+                android:textSize="20sp" />
+
+            <utilities.view.AutoResizeTextView
+                android:id="@+id/tv_service_summary_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_shape"
+                android:ellipsize="end"
+                android:padding="7dp"
+                android:singleLine="true"
+                android:text="Date"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_shape"
+                android:orientation="vertical"
+                android:padding="7dp" >
+
+                <utilities.view.AutoResizeTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/wanted_treatment"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="7dp" >
+
+                    <utilities.view.AutoResizeTextView
+                        android:id="@+id/tv_service_summary_wanted_treatment1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="1"
+                        android:textSize="20sp" />
+
+                    <utilities.view.AutoResizeTextView
+                        android:id="@+id/tv_service_summary_wanted_treatment2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="2"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <utilities.view.AutoResizeTextView
+                android:id="@+id/tv_service_summary_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_shape"
+                android:ellipsize="end"
+                android:padding="7dp"
+                android:singleLine="true"
+                android:text="Location"
+                android:textSize="20sp" />
+
+            <utilities.view.AutoResizeTextView
+                android:id="@+id/tv_service_summary_remarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_shape"
+                android:ellipsize="end"
+                android:padding="7dp"
+                android:text="Remarks"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/b_service_summary_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/gray_button_shape"
+        android:gravity="center"
+        android:text="@string/service_order_one" />
+
+</RelativeLayout>
