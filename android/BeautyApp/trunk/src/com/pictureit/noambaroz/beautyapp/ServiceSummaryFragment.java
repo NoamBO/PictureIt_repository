@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beautyapp.data.Treatment;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
 public class ServiceSummaryFragment extends BaseFragment {
 
-	private Treatment mTreatment;
+	private TreatmentSummary mTreatment;
 
-	public void setTreatment(Treatment treatment) {
+	public void setTreatment(TreatmentSummary treatment) {
 		mTreatment = treatment;
 	}
 

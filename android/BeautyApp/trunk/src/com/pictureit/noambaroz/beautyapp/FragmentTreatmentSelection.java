@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pictureit.noambaroz.beautyapp.data.DataUtil;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatmentsSelectedListener;
 
@@ -25,20 +25,21 @@ public class FragmentTreatmentSelection extends Fragment {
 
 	ListView mListView;
 	SparseIntArray s;
-	ArrayList<TreatmentType> treatments;
+	ArrayList<TreatmentType> treatmentsArrayList;
 	private OnTreatmentsSelectedListener mListener;
+	private String[] treatmentStringArray;
 
 	@Override
 	public void onDetach() {
 		if (mListener != null)
-			mListener.onTreatmentSelected(treatments);
+			mListener.onTreatmentSelected(treatmentsArrayList);
 		super.onDetach();
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		treatments = DataUtil.genarateTreatmentsList(getActivity());
+		treatmentsArrayList = TreatmentSummary.TreatmentList.genarate(getActivity(), treatmentStringArray);
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class FragmentTreatmentSelection extends Fragment {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return treatments.size();
+			return treatmentsArrayList.size();
 		}
 
 		@Override
@@ -114,7 +115,7 @@ public class FragmentTreatmentSelection extends Fragment {
 		@Override
 		public TreatmentType getItem(int position) {
 			// TODO Auto-generated method stub
-			return treatments.get(position);
+			return treatmentsArrayList.get(position);
 		}
 
 	}
@@ -130,7 +131,11 @@ public class FragmentTreatmentSelection extends Fragment {
 		mListener = l;
 	}
 
-	public void setTreatments(ArrayList<TreatmentType> tretments1) {
-		treatments = tretments1;
+	public void setTreatments(ArrayList<TreatmentType> array) {
+		treatmentsArrayList = array;
+	}
+
+	public void putTreatments(String[] treatments) {
+		treatmentStringArray = treatments;
 	}
 }

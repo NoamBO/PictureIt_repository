@@ -17,13 +17,13 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.pictureit.noambaroz.beautyapp.FragmentTreatmentSelection;
 import com.pictureit.noambaroz.beautyapp.R;
-import com.pictureit.noambaroz.beautyapp.data.Treatment;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
 public class ServiceOrderManager {
 
 	private Activity activity;
-	private Treatment mTreatment;
+	private TreatmentSummary mTreatment;
 	private Dialog mDialog;
 
 	private final int DIALOG_TYPE_FOR = 1;
@@ -32,7 +32,7 @@ public class ServiceOrderManager {
 
 	public ServiceOrderManager(Activity activity) {
 		this.activity = activity;
-		mTreatment = new Treatment();
+		mTreatment = new TreatmentSummary();
 	}
 
 	public interface OnItemSelectedListener {
@@ -195,11 +195,11 @@ public class ServiceOrderManager {
 		}).create();
 	}
 
-	public Treatment getTreatment() {
+	public TreatmentSummary getTreatment() {
 		return mTreatment;
 	}
 
-	public void setTreatment(Treatment treatment) {
+	public void setTreatment(TreatmentSummary treatment) {
 		mTreatment = treatment;
 	}
 

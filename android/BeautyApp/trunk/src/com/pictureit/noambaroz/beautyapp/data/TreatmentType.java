@@ -2,7 +2,7 @@ package com.pictureit.noambaroz.beautyapp.data;
 
 public class TreatmentType {
 
-	public Integer id;
+	public String id;
 	public String name;
 	public String description;
 	public int count;
@@ -10,18 +10,18 @@ public class TreatmentType {
 	public TreatmentType() {
 	}
 
-	public TreatmentType(Integer id, String name, String description, int count) {
+	public TreatmentType(String id, String name, String description, int count) {
 		this.id = id;
 		this.count = count;
 		this.name = name;
 		this.description = description;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

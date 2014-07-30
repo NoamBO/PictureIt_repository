@@ -9,7 +9,7 @@ import android.content.Intent;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.Beautician.Address;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
-import com.pictureit.noambaroz.beautyapp.data.DataUtil;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
 public class BeauticianUtil {
@@ -45,10 +45,10 @@ public class BeauticianUtil {
 		int half = (treatmentsId.length / 2) + 1;
 		boolean __Added = false;
 		StringBuilder sb1 = new StringBuilder();
-		ArrayList<TreatmentType> arrayList = DataUtil.genarateTreatmentsList(context);
+		ArrayList<TreatmentType> arrayList = TreatmentSummary.TreatmentList.genarate(context, null);
 		for (int i = 0; i < treatmentsId.length; i++) {
 			for (TreatmentType type : arrayList) {
-				if (type.id.equals(Integer.parseInt(treatmentsId[i]))) {
+				if (type.id.equals(treatmentsId[i])) {
 					if (half >= i)
 						if (__Added) {
 							__Added = true;

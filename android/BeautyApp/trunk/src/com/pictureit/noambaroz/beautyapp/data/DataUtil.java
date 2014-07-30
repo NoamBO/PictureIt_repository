@@ -4,16 +4,13 @@ import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.preference.PreferenceManager;
 
 import com.pictureit.noambaroz.beautyapp.Application;
-import com.pictureit.noambaroz.beautyapp.R;
 
 public class DataUtil {
 
-	public static void saveHistoryRow(Treatment treatment, Context context) {
+	public static void saveHistoryRow(TreatmentSummary treatment, Context context) {
 		ContentValues values = new ContentValues(2);
 		values.put(DataProvider.COL_DATE, treatment.when);
 		values.put(DataProvider.COL_FOR, treatment.forWho);
@@ -51,7 +48,7 @@ public class DataUtil {
 		for (String s : arr) {
 			TreatmentType treatment = new TreatmentType();
 			String[] t = s.split(idSeparator + "|" + countSeparator);
-			treatment.setId(Integer.valueOf(t[0]));
+			treatment.setId(t[0]);
 			treatment.setCount(Integer.valueOf(t[1]));
 			treatment.setName(t[2]);
 			arrayList.add(treatment);
@@ -66,30 +63,6 @@ public class DataUtil {
 
 	public static String getPendingTreatmentId(Context ctx) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(Application.PENDING_TREATMENT_ID, "");
-	}
-
-	public static ArrayList<TreatmentType> genarateTreatmentsList(Context context) {
-
-		ArrayList<TreatmentType> treatments = new ArrayList<TreatmentType>();
-		Resources res = context.getResources();
-		TypedArray ta = res.obtainTypedArray(R.array.treatments_list);
-		for (int i = 0; i < ta.length(); ++i) {
-			int id = ta.getResourceId(i, -1);
-			if (id > -1) {
-				String[] array = res.getStringArray(id);
-
-				TreatmentType tt = new TreatmentType();
-				tt.setId(Integer.valueOf(array[0]));
-				tt.setName(array[1]);
-				tt.setDescription(array[2]);
-				treatments.add(tt);
-
-			} else {
-				// something wrong with the XML
-			}
-		}
-		ta.recycle(); // Important
-		return treatments;
 	}
 
 }
