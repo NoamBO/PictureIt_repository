@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity {
 		} else if (id == R.id.action_explanation) {
 
 		} else if (id == R.id.action_terms_of_service) {
-
+			return launchActivity(ActivityTermsOfService.class);
 		} else if (id == R.id.action_search_providers) {
 			return launchActivity(SearchProviderActivity.class);
 		} else if (id == R.id.action_my_profile) {
