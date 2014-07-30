@@ -18,10 +18,15 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		setContentView(R.layout.fragment_container);
 		setFragment();
 		setFragmentTag();
-		getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();
 
 		initActivity();
 		initActionBar();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();
 	}
 
 	@Override

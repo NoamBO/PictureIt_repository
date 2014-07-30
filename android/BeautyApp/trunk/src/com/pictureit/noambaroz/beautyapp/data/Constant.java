@@ -4,6 +4,10 @@ public class Constant {
 
 	public static final String EXTRA_BEAUTICIAN_ID = "extra_beautician_id";
 
+	public static final String EXTRA_BEAUTICIAN_NAME = "extra_beautician_name";
+
+	public static final String EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY = "extra_beautician_treatment_string_array";
+
 	public static final String EXTRA_BEAUTICIAN_OBJECT = "parcelable_beautician_object";
 
 	public static final String EXTRA_FLAG_HOW_MANY_TREATMENTS = "how_many_treatments";

@@ -2,10 +2,12 @@ package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseFragment;
 import utilities.server.HttpBase.HttpCallback;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.R.anim;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.server.GetBeauticianById;
@@ -128,6 +131,19 @@ public class ActivityBeautician extends ActivityWithFragment {
 				tvTreatment2.setText(treatmentsList[1]);
 			else
 				tvTreatment2.setVisibility(View.GONE);
+
+			bOrder.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getActivity(), ServiceOrder.class);
+					intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mBeautician.getId());
+					intent.putExtra(Constant.EXTRA_BEAUTICIAN_NAME, mBeautician.getName());
+					intent.putExtra(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY, mBeautician.getTreatments());
+					startActivity(intent);
+					overridePendingTransition(anim.activity_enter_slidein_anim, anim.activity_exit_shrink_anim);
+				}
+			});
 		}
 	}
 

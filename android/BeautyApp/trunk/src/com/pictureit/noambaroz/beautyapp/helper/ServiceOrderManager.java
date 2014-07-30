@@ -43,7 +43,7 @@ public class ServiceOrderManager {
 		public void onTreatmentSelected(ArrayList<TreatmentType> treatmentTypes);
 	}
 
-	public void showTreatmentSelectionDialog() {
+	public void showTreatmentSelectionDialog(String[] treatments) {
 		FragmentTreatmentSelection f = new FragmentTreatmentSelection();
 		f.setListener(new OnTreatmentsSelectedListener() {
 
@@ -53,7 +53,9 @@ public class ServiceOrderManager {
 			}
 		});
 		f.setTreatments(mTreatment.tretments);
-		activity.getFragmentManager().beginTransaction().replace(R.id.fragment_container, f).addToBackStack(null).commit();
+		f.putTreatments(treatments);
+		activity.getFragmentManager().beginTransaction().replace(R.id.fragment_container, f).addToBackStack(null)
+				.commit();
 	}
 
 	public void showFORDialog() {
@@ -141,7 +143,8 @@ public class ServiceOrderManager {
 
 	}
 
-	private void showSingleChoice(String title, int checkedItem, final String[] selections, final OnItemSelectedListener l, final int type) {
+	private void showSingleChoice(String title, int checkedItem, final String[] selections,
+			final OnItemSelectedListener l, final int type) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		builder.setTitle(title);
 		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
@@ -150,18 +153,18 @@ public class ServiceOrderManager {
 			public void onClick(DialogInterface dialog, int which) {
 				if (which == selections.length - 1) {
 					switch (type) {
-						case DIALOG_TYPE_FOR:
-							getEditableDialog(l, mTreatment.forWho).show();
-							break;
-						case DIALOG_TYPE_WHEN:
-							DialogFragment newFragment = new DatePickerFragment(l);
-							newFragment.show(activity.getFragmentManager(), "timePicker");
-							break;
-						case DIALOG_TYPE_LOCATION:
-							// TODO
-							break;
-						default:
-							break;
+					case DIALOG_TYPE_FOR:
+						getEditableDialog(l, mTreatment.forWho).show();
+						break;
+					case DIALOG_TYPE_WHEN:
+						DialogFragment newFragment = new DatePickerFragment(l);
+						newFragment.show(activity.getFragmentManager(), "timePicker");
+						break;
+					case DIALOG_TYPE_LOCATION:
+						// TODO
+						break;
+					default:
+						break;
 					}
 				} else
 					l.onItemSelected(selections[which]);

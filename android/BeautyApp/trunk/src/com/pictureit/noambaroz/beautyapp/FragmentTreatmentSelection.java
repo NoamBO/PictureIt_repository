@@ -39,7 +39,8 @@ public class FragmentTreatmentSelection extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		treatmentsArrayList = TreatmentSummary.TreatmentList.genarate(getActivity(), treatmentStringArray);
+		if (treatmentsArrayList == null)
+			treatmentsArrayList = TreatmentSummary.TreatmentList.genarate(getActivity(), treatmentStringArray);
 	}
 
 	@Override

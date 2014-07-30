@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 
@@ -29,11 +30,32 @@ public class ServiceOrder extends ActivityWithFragment {
 		FRAGMENT_TAG = "order_service_fragmrnt";
 	}
 
-	private class OrderServiceFragment extends Fragment implements
-			OnClickListener {
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null && !bundle.isEmpty()) {
+			String beauticianId = bundle.getString(Constant.EXTRA_BEAUTICIAN_ID, null);
+			String beauticianName = bundle.getString(Constant.EXTRA_BEAUTICIAN_NAME, "");
+			String[] treatmentStringArray = bundle.getStringArray(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY);
+			((OrderServiceFragment) fragment)
+					.setBeauticianIdAndName(beauticianId, beauticianName, treatmentStringArray);
+		}
+	}
 
-		private TextView tvFor, tvWhen, tvTreatmentSelection, tvLocation,
-				tvRemarks, tvOrder;
+	private class OrderServiceFragment extends Fragment implements OnClickListener {
+
+		public void setBeauticianIdAndName(String beauticianId, String beauticianName, String[] treatmentStringArray) {
+			this.beauticianId = beauticianId;
+			this.beauticianName = beauticianName;
+			this.treatmentStringArray = treatmentStringArray;
+		}
+
+		private String beauticianId;
+		private String beauticianName;
+		private String[] treatmentStringArray;
+
+		private TextView tvFor, tvWhen, tvTreatmentSelection, tvLocation, tvRemarks, tvOrder;
 		private ServiceOrderManager mManager;
 
 		@Override
@@ -43,14 +65,11 @@ public class ServiceOrder extends ActivityWithFragment {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View v = inflater.inflate(R.layout.order_service_layout, container,
-					false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.order_service_layout, container, false);
 			tvFor = findView(v, R.id.tv_service_order_for);
 			tvWhen = findView(v, R.id.tv_service_order_when);
-			tvTreatmentSelection = findView(v,
-					R.id.tv_service_order_select_treatment);
+			tvTreatmentSelection = findView(v, R.id.tv_service_order_select_treatment);
 			tvLocation = findView(v, R.id.tv_service_order_location);
 			tvRemarks = findView(v, R.id.tv_service_order_remarks);
 			tvOrder = findView(v, R.id.tv_service_order_one);
@@ -82,7 +101,7 @@ public class ServiceOrder extends ActivityWithFragment {
 				mManager.showWHENDialog();
 				break;
 			case R.id.tv_service_order_select_treatment:
-				mManager.showTreatmentSelectionDialog();
+				mManager.showTreatmentSelectionDialog(treatmentStringArray);
 				break;
 			case R.id.tv_service_order_location:
 				mManager.showLocationDialog();
@@ -101,48 +120,35 @@ public class ServiceOrder extends ActivityWithFragment {
 
 		public void order() {
 			if (!isOrderOk()) {
-				new AlertDialog.Builder(getActivity())
-						.setTitle("Can't procceed")
-						.setMessage("Something is missing")
-						.setPositiveButton(R.string.dialog_ok_text, null)
-						.create().show();
+				new AlertDialog.Builder(getActivity()).setTitle("Can't procceed").setMessage("Something is missing")
+						.setPositiveButton(R.string.dialog_ok_text, null).create().show();
 				return;
 			}
 			ServiceSummaryFragment f = new ServiceSummaryFragment();
 			f.setTreatment(mManager.getTreatment());
-			getActivity().getFragmentManager().beginTransaction()
-					.replace(FRAGMENT_CONTAINER, f).addToBackStack(null)
+			getActivity().getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, f).addToBackStack(null)
 					.commit();
 		}
 
 		public boolean isOrderOk() {
 			boolean isOk = true;
-			if (mManager.getTreatment().forWho == null
-					|| mManager.getTreatment().forWho.equalsIgnoreCase("")) {
+			if (mManager.getTreatment().forWho == null || mManager.getTreatment().forWho.equalsIgnoreCase("")) {
 				isOk = false;
-				tvFor.setTextColor(getResources().getColor(
-						R.color.text_color_un_filled));
+				tvFor.setTextColor(getResources().getColor(R.color.text_color_un_filled));
 			} else {
-				tvFor.setTextColor(getResources().getColor(
-						R.color.text_color_filled));
+				tvFor.setTextColor(getResources().getColor(R.color.text_color_filled));
 			}
-			if (mManager.getTreatment().whare == null
-					|| mManager.getTreatment().whare.equalsIgnoreCase("")) {
+			if (mManager.getTreatment().whare == null || mManager.getTreatment().whare.equalsIgnoreCase("")) {
 				isOk = false;
-				tvLocation.setTextColor(getResources().getColor(
-						R.color.text_color_un_filled));
+				tvLocation.setTextColor(getResources().getColor(R.color.text_color_un_filled));
 			} else {
-				tvLocation.setTextColor(getResources().getColor(
-						R.color.text_color_filled));
+				tvLocation.setTextColor(getResources().getColor(R.color.text_color_filled));
 			}
-			if (mManager.getTreatment().when == null
-					|| mManager.getTreatment().when.equalsIgnoreCase("")) {
+			if (mManager.getTreatment().when == null || mManager.getTreatment().when.equalsIgnoreCase("")) {
 				isOk = false;
-				tvWhen.setTextColor(getResources().getColor(
-						R.color.text_color_un_filled));
+				tvWhen.setTextColor(getResources().getColor(R.color.text_color_un_filled));
 			} else {
-				tvWhen.setTextColor(getResources().getColor(
-						R.color.text_color_filled));
+				tvWhen.setTextColor(getResources().getColor(R.color.text_color_filled));
 			}
 			if (mManager.getTreatment().tretments != null) {
 				boolean temp = false;
@@ -152,16 +158,13 @@ public class ServiceOrder extends ActivityWithFragment {
 				}
 				if (!temp) {
 					isOk = false;
-					tvTreatmentSelection.setTextColor(getResources().getColor(
-							R.color.text_color_un_filled));
+					tvTreatmentSelection.setTextColor(getResources().getColor(R.color.text_color_un_filled));
 				} else {
-					tvTreatmentSelection.setTextColor(getResources().getColor(
-							R.color.text_color_filled));
+					tvTreatmentSelection.setTextColor(getResources().getColor(R.color.text_color_filled));
 				}
 			} else {
 				isOk = false;
-				tvTreatmentSelection.setTextColor(getResources().getColor(
-						R.color.text_color_un_filled));
+				tvTreatmentSelection.setTextColor(getResources().getColor(R.color.text_color_un_filled));
 			}
 			return isOk;
 		}

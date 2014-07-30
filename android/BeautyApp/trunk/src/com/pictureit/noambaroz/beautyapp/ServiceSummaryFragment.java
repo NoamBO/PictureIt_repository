@@ -15,6 +15,13 @@ import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 public class ServiceSummaryFragment extends BaseFragment {
 
 	private TreatmentSummary mTreatment;
+	private String beauticianId;
+	private String beauticianName;
+
+	public void setBeautician(String beauticianId, String beauticianName) {
+		this.beauticianId = beauticianId;
+		this.beauticianName = beauticianName;
+	}
 
 	public void setTreatment(TreatmentSummary treatment) {
 		mTreatment = treatment;
