@@ -47,7 +47,6 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 		super.onCreate(savedInstanceState);
 
 		if (googlePlayServicesAvailable()) {

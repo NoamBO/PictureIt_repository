@@ -121,7 +121,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 			mLocationClient = new LocationClient(mActivity, this, // ConnectionCallbacks
 					this); // OnConnectionFailedListener
 		} else {
-			setUpMapIfNeeded();
+
 		}
 	}
 

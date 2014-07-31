@@ -12,17 +12,15 @@ public class Application extends android.app.Application {
 	public void onCreate() {
 		super.onCreate();
 
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				getApplicationContext())
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
 
 		.threadPoolSize(3)
-				// default
+		// default
 				.threadPriority(Thread.NORM_PRIORITY - 1)
 				// default
 				.tasksProcessingOrder(QueueProcessingType.FIFO)
 				// default
-				.denyCacheImageMultipleSizesInMemory().discCacheFileCount(100)
-				.build();
+				.denyCacheImageMultipleSizesInMemory().discCacheFileCount(100).build();
 
 		ImageLoader.getInstance().init(config);
 	}
