@@ -7,8 +7,10 @@ import java.util.List;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -31,7 +33,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beautyapp.ActivityBeautician;
 import com.pictureit.noambaroz.beautyapp.R;
-import com.pictureit.noambaroz.beautyapp.Settings;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.MarkerData;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
@@ -102,12 +103,20 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 	private void setUpMap() {
 
 		Location location = mLocationClient.getLastLocation();
-		double lat = location.getLatitude();
-		double lng = location.getLongitude();
-		LatLng coordinate = new LatLng(lat, lng);
+		if (location == null) {
+			LocationManager m = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
+			location = m.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+		}
+		if (location != null) {
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
+			LatLng coordinate = new LatLng(lat, lng);
 
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(coordinate, 15);
-		mMap.animateCamera(cameraUpdate);
+			CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(coordinate, MIN_ZOOM_ALLOWED);
+			mMap.animateCamera(cameraUpdate);
+		} else {
+			// TODO show "no location found" dialog and exit app
+		}
 
 		mMap.setOnMarkerClickListener(this);
 		mMap.setOnCameraChangeListener(this);
@@ -255,7 +264,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 	}
 
 	private int getDistance(LatLng latLng) {
-		if (mLocationClient != null && mLocationClient.isConnected()) {
+		if (mLocationClient != null && mLocationClient.isConnected() && mLocationClient.getLastLocation() != null) {
 			Location loc = new Location("dummyprovider");
 
 			loc.setLatitude(latLng.latitude);
@@ -270,10 +279,10 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 	public boolean checkIfMarkerOnScreen(LatLng markerPosition, LatLngBounds bounds) {
 		if (!bounds.contains(markerPosition))
 			return false;
-		int settingsDistance = Settings.getRadius(mActivity);
-		int distance = getDistance(markerPosition);
-		if (distance < 0 || distance > settingsDistance)
-			return false;
+		// int settingsDistance = Settings.getRadius(mActivity);
+		// int distance = getDistance(markerPosition);
+		// if (distance < 0 || distance > settingsDistance)
+		// return false;
 
 		return true;
 	}
