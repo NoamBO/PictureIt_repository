@@ -65,4 +65,10 @@ public class DataUtil {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(Application.PENDING_TREATMENT_ID, "");
 	}
 
+	public static void pushOrderNotificationIdToTable(Context ctx, String notification_id) {
+		ContentValues values = new ContentValues(1);
+		values.put(DataProvider.COL_NOTIFICATION_ID, notification_id);
+		ctx.getContentResolver().insert(DataProvider.CONTENT_URI_ORDER_OPTIONS, values);
+	}
+
 }

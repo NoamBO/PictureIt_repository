@@ -16,6 +16,7 @@
     <string name="title_settings">Settings</string>
     <string name="title_service_order">Ask For Service</string>
     <string name="title_terms_of_service">Terms of Service</string>
+    <string name="title_order_notification">Orders available</string>
     
     <string name="settings_preference_category_title_distance">Distance</string>
     <string name="settings_preference_title_radius">Radius</string>

@@ -59,6 +59,7 @@
         <activity
             android:name="com.pictureit.noambaroz.beautyapp.MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -92,12 +93,22 @@
             android:label="@string/title_terms_of_service"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityNotification"
+            android:label="@string/title_order_notification"
+            android:screenOrientation="portrait" >
+        </activity>
 
-        <receiver
-            android:name="com.pictureit.noambaroz.beautyapp.gcm.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+        <receiver android:name="com.pictureit.noambaroz.beautyapp.gcm.GcmBroadcastReceiver" >
+
+            <!--
+             android:permission="com.google.android.c2dm.permission.SEND" > 
+             need to go one level up
+            -->
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <!-- <action android:name="com.google.android.c2dm.intent.RECEIVE" /> -->
+                <action android:name="com.pictureit.android.intent.action.BROADCAST" />
 
                 <category android:name="com.pictureit.noambaroz.beautyapp.server" />
             </intent-filter>

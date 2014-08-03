@@ -39,13 +39,13 @@ public class ServiceOrder extends ActivityWithFragment {
 			String beauticianName = bundle.getString(Constant.EXTRA_BEAUTICIAN_NAME, "");
 			String[] treatmentStringArray = bundle.getStringArray(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY);
 			((OrderServiceFragment) fragment)
-					.setBeauticianIdAndName(beauticianId, beauticianName, treatmentStringArray);
+					.setBeauticianIdNameAndTreatments(beauticianId, beauticianName, treatmentStringArray);
 		}
 	}
 
 	private class OrderServiceFragment extends Fragment implements OnClickListener {
 
-		public void setBeauticianIdAndName(String beauticianId, String beauticianName, String[] treatmentStringArray) {
+		public void setBeauticianIdNameAndTreatments(String beauticianId, String beauticianName, String[] treatmentStringArray) {
 			this.beauticianId = beauticianId;
 			this.beauticianName = beauticianName;
 			this.treatmentStringArray = treatmentStringArray;

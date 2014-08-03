@@ -13,8 +13,6 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class GcmUtil {
 
-	private static String TAG = "My GcmUtil";
-
 	public static final String EXTRA_MESSAGE = "message";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
 	public static final String PROPERTY_REG_ID = "gcm_registration_id";
@@ -66,7 +64,7 @@ public class GcmUtil {
 		final SharedPreferences prefs = getGCMPreferences();
 		String registrationId = prefs.getString(PROPERTY_REG_ID, "");
 		if (registrationId.isEmpty()) {
-			Log.i(TAG, "Registration not found.");
+			Log.i("Registration not found.");
 			return "";
 		}
 		// Check if app was updated; if so, it must clear the registration ID
@@ -75,7 +73,7 @@ public class GcmUtil {
 		int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
 		int currentVersion = getAppVersion();
 		if (registeredVersion != currentVersion) {
-			Log.i(TAG, "App version changed.");
+			Log.i("App version changed.");
 			return "";
 		}
 		return registrationId;
@@ -164,7 +162,7 @@ public class GcmUtil {
 	private void storeRegistrationId(String regId) {
 		final SharedPreferences prefs = getGCMPreferences();
 		int appVersion = getAppVersion();
-		Log.i(TAG, "Saving regId on app version " + appVersion);
+		Log.i("Saving regId on app version " + appVersion);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PROPERTY_REG_ID, regId);
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);

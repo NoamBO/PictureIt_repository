@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity {
 			initActivity();
 			GcmUtil.get(getApplicationContext()).registerToGcm();
 		}
+
 	}
 
 	private void initActivity() {

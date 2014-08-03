@@ -13,6 +13,17 @@ public class DataProvider extends ContentProvider {
 
 	public static final String COL_ID = "_id";
 
+	public static final String TABLE_ORDER_OPTIONS = "ordersnotification";
+	public static final String COL_BEAUTICIAN_ID = "beauticianid";
+	public static final String COL_NOTIFICATION_ID = "notificationid";
+	public static final String COL_NAME = "name";
+	public static final String COL_ADDRESS = "address";
+	public static final String COL_RATERS = "raters";
+	public static final String COL_RATE = "rate";
+	public static final String COL_WHEN = "at";
+	public static final String COL_LOCATION = "location";
+	public static final String COL_PRICE = "price";
+
 	public static final String TABLE_HISTORY = "history";
 	public static final String COL_FOR = "for";
 	public static final String COL_DATE = "date";
@@ -22,16 +33,24 @@ public class DataProvider extends ContentProvider {
 
 	private DbHelper dbHelper;
 
-	public static final Uri CONTENT_URI_HISTORY = Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/history");
+	public static final Uri CONTENT_URI_HISTORY = Uri
+			.parse("content://com.pictureit.noambaroz.beautyapp.provider/history");
+	public static final Uri CONTENT_URI_ORDER_OPTIONS = Uri
+			.parse("content://com.pictureit.noambaroz.beautyapp.provider/ordersnotification");
 
 	private static final int HISTORY_ALLROWS = 1;
 	private static final int HISTORY_SINGLE_ROW = 2;
+	private static final int ORDER_OPTIONS_ALLROWS = 3;
+	private static final int ORDER_OPTIONS_SINGLE_ROW = 4;
 
 	private static final UriMatcher uriMatcher;
 	static {
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "history", HISTORY_ALLROWS);
 		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "history/#", HISTORY_SINGLE_ROW);
+		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "ordersnotification/", ORDER_OPTIONS_ALLROWS);
+		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "ordersnotification/#",
+				ORDER_OPTIONS_SINGLE_ROW);
 	}
 
 	@Override
@@ -46,17 +65,19 @@ public class DataProvider extends ContentProvider {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
 		switch (uriMatcher.match(uri)) {
-			case HISTORY_ALLROWS:
-				qb.setTables(getTableName(uri));
-				break;
+		case HISTORY_ALLROWS:
+		case ORDER_OPTIONS_ALLROWS:
+			qb.setTables(getTableName(uri));
+			break;
 
-			case HISTORY_SINGLE_ROW:
-				qb.setTables(getTableName(uri));
-				qb.appendWhere("_id = " + uri.getLastPathSegment());
-				break;
+		case HISTORY_SINGLE_ROW:
+		case ORDER_OPTIONS_SINGLE_ROW:
+			qb.setTables(getTableName(uri));
+			qb.appendWhere("_id = " + uri.getLastPathSegment());
+			break;
 
-			default:
-				throw new IllegalArgumentException("Unsupported URI: " + uri);
+		default:
+			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 		// String limit = uri.getQueryParameter("limit");
 		// Cursor c = qb.query(db, projection, selection, selectionArgs, null,
@@ -77,12 +98,15 @@ public class DataProvider extends ContentProvider {
 
 		long id;
 		switch (uriMatcher.match(uri)) {
-			case HISTORY_ALLROWS:
-				id = db.insertOrThrow(TABLE_HISTORY, null, values);
-				break;
+		case HISTORY_ALLROWS:
+			id = db.insertOrThrow(TABLE_HISTORY, null, values);
+			break;
+		case ORDER_OPTIONS_ALLROWS:
+			id = db.insertOrThrow(TABLE_ORDER_OPTIONS, null, values);
+			break;
 
-			default:
-				throw new IllegalArgumentException("Unsupported URI: " + uri);
+		default:
+			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 
 		Uri insertUri = ContentUris.withAppendedId(uri, id);
@@ -96,16 +120,18 @@ public class DataProvider extends ContentProvider {
 
 		int count;
 		switch (uriMatcher.match(uri)) {
-			case HISTORY_ALLROWS:
-				count = db.delete(getTableName(uri), selection, selectionArgs);
-				break;
+		case HISTORY_ALLROWS:
+		case ORDER_OPTIONS_ALLROWS:
+			count = db.delete(getTableName(uri), selection, selectionArgs);
+			break;
 
-			case HISTORY_SINGLE_ROW:
-				count = db.delete(getTableName(uri), "_id = ?", new String[] { uri.getLastPathSegment() });
-				break;
+		case HISTORY_SINGLE_ROW:
+		case ORDER_OPTIONS_SINGLE_ROW:
+			count = db.delete(getTableName(uri), "_id = ?", new String[] { uri.getLastPathSegment() });
+			break;
 
-			default:
-				throw new IllegalArgumentException("Unsupported URI: " + uri);
+		default:
+			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 
 		getContext().getContentResolver().notifyChange(uri, null);
@@ -118,16 +144,18 @@ public class DataProvider extends ContentProvider {
 
 		int count;
 		switch (uriMatcher.match(uri)) {
-			case HISTORY_ALLROWS:
-				count = db.update(getTableName(uri), values, selection, selectionArgs);
-				break;
+		case HISTORY_ALLROWS:
+		case ORDER_OPTIONS_ALLROWS:
+			count = db.update(getTableName(uri), values, selection, selectionArgs);
+			break;
 
-			case HISTORY_SINGLE_ROW:
-				count = db.update(getTableName(uri), values, "_id = ?", new String[] { uri.getLastPathSegment() });
-				break;
+		case HISTORY_SINGLE_ROW:
+		case ORDER_OPTIONS_SINGLE_ROW:
+			count = db.update(getTableName(uri), values, "_id = ?", new String[] { uri.getLastPathSegment() });
+			break;
 
-			default:
-				throw new IllegalArgumentException("Unsupported URI: " + uri);
+		default:
+			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
 
 		getContext().getContentResolver().notifyChange(uri, null);
@@ -137,10 +165,14 @@ public class DataProvider extends ContentProvider {
 
 	private String getTableName(Uri uri) {
 		switch (uriMatcher.match(uri)) {
-			case HISTORY_ALLROWS:
-			case HISTORY_SINGLE_ROW:
-				return TABLE_HISTORY;
+		case HISTORY_ALLROWS:
+		case HISTORY_SINGLE_ROW:
+			return TABLE_HISTORY;
+		case ORDER_OPTIONS_ALLROWS:
+		case ORDER_OPTIONS_SINGLE_ROW:
+			return TABLE_ORDER_OPTIONS;
 		}
+
 		return null;
 	}
 

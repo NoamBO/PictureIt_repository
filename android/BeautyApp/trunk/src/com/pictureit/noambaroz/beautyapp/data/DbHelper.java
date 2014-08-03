@@ -16,6 +16,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("create table history (_id integer primary key autoincrement, for text, date text, treatments text, whare text, remarks text);");
+		db.execSQL("create table ordersnotification (_id integer primary key autoincrement, notificationid text, beauticianid text, name text, address text, raters text, rate text, at text, location text, remarks text, price text);");
 		// db.execSQL("create table profile (_id integer primary key autoincrement, name text, email text unique, count integer default 0, at datetime default current_timestamp);");
 	}
 

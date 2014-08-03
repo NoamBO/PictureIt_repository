@@ -2,18 +2,24 @@ package com.pictureit.noambaroz.beautyapp.gcm;
 
 import utilities.Log;
 import android.app.IntentService;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.pictureit.noambaroz.beautyapp.ActivityNotification;
+import com.pictureit.noambaroz.beautyapp.R;
+import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
-	private static final String TAG = "My GcmIntentService";
 	// private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
+	private NotificationManager mNotificationManager;
 
 	public GcmIntentService() {
 		super("GcmIntentService");
@@ -35,45 +41,58 @@ public class GcmIntentService extends IntentService {
 			 * don't recognize.
 			 */
 			if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-				sendNotification("Send error: " + extras.toString());
+				// sendNotification("Send error: " + extras.toString(), extras);
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-				sendNotification("Deleted messages on server: " + extras.toString());
+				// sendNotification("Deleted messages on server: " +
+				// extras.toString(), extras);
 				// If it's a regular GCM message, do some work.
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
 				// This loop represents the service doing some work.
 				for (int i = 0; i < 5; i++) {
-					Log.i(TAG, "Working... " + (i + 1) + "/5 @ " + SystemClock.elapsedRealtime());
+					Log.i("Working... " + (i + 1) + "/5 @ " + SystemClock.elapsedRealtime());
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 					}
 				}
-				Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
+				Log.i("Completed work @ " + SystemClock.elapsedRealtime());
 				// Post notification of received message.
-				sendNotification("Received: " + extras.toString());
-				Log.i(TAG, "Received: " + extras.toString());
+				sendNotification("Received: " + extras.toString(), extras);
+				Log.i("Received: " + extras.toString());
+			}
+			// TODO Remove:
+			else {
+				testPush(extras.toString(), extras);
 			}
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
+	private void testPush(String s, Bundle data) {
+		sendNotification("Received: " + s, data);
+		DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), "ss");
+	}
+
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
-	private void sendNotification(String msg) {
-		// mNotificationManager = (NotificationManager)
-		// this.getSystemService(Context.NOTIFICATION_SERVICE);
-		//
-		// PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new
-		// Intent(this, MainActivity.class), 0);
-		//
-		// NotificationCompat.Builder mBuilder = new
-		// NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_gcm)
-		// .setContentTitle("GCM Notification").setStyle(new
-		// NotificationCompat.BigTextStyle().bigText(msg)).setContentText(msg);
-		//
-		// mBuilder.setContentIntent(contentIntent);
-		// mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+	private void sendNotification(String msg, Bundle data) {
+		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		Intent notificationIntent = new Intent(this, ActivityNotification.class);
+		// notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+		// Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		notificationIntent.putExtras(data);
+
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+		// Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR);
+
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_gcm)
+				.setContentTitle("GCM Notification").setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+				.setContentText(msg).setAutoCancel(true);
+
+		mBuilder.setContentIntent(contentIntent);
+		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}
 }
