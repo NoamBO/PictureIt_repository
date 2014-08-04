@@ -20,7 +20,7 @@ public class DataProvider extends ContentProvider {
 	public static final String COL_ADDRESS = "address";
 	public static final String COL_RATERS = "raters";
 	public static final String COL_RATE = "rate";
-	public static final String COL_WHEN = "at";
+	public static final String COL_AT = "at";
 	public static final String COL_LOCATION = "location";
 	public static final String COL_PRICE = "price";
 

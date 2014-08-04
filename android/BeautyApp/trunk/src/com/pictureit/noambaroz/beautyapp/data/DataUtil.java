@@ -71,4 +71,9 @@ public class DataUtil {
 		ctx.getContentResolver().insert(DataProvider.CONTENT_URI_ORDER_OPTIONS, values);
 	}
 
+	public static void pushOrderNotificationToTable(Context ctx, ContentValues values, String orderIdInRow) {
+		ctx.getContentResolver().update(DataProvider.CONTENT_URI_ORDER_OPTIONS, values,
+				DataProvider.COL_NOTIFICATION_ID + " =" + orderIdInRow, null);
+	}
+
 }
