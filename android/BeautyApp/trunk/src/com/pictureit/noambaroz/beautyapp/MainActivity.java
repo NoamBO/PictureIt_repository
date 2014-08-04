@@ -121,9 +121,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_search_radius) {
-			return launchActivity(PreferenceActivityRadius.class);
-		} else if (id == R.id.action_ask_for_service) {
+		if (id == R.id.action_ask_for_service) {
 			return launchActivity(ServiceOrder.class);
 		} else if (id == R.id.action_explanation) {
 

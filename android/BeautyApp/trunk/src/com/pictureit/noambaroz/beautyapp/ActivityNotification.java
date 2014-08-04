@@ -9,6 +9,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
@@ -63,11 +64,24 @@ public class ActivityNotification extends ActivityWithFragment {
 			setListAdapter(adapter);
 		}
 
+		@Override
+		public void onViewCreated(View view, Bundle savedInstanceState) {
+			super.onViewCreated(view, savedInstanceState);
+			initListview();
+		}
+
 		protected void getOrderInBackgroundByNotificationId(String row_id) {
 			if (!getOrderNotificationThreadPoll.containsKey(row_id)) {
 				getOrderNotificationThreadPoll.put(row_id, new GetOrderNotification(getActivity(), row_id));
 				// TODO getOrderNotificationThreadPoll.get(row_id).execute();
 			}
+		}
+
+		private void initListview() {
+			getListView().setOnItemClickListener(null);
+			getListView().setPadding(15, 0, 15, 0);
+			getListView().setDivider(new ColorDrawable(getResources().getColor(R.color.transparent)));
+			getListView().setDividerHeight(15);
 		}
 
 		@Override

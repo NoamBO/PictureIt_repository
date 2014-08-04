@@ -4,5 +4,5 @@
     <color name="treatment_selection_dialog_title_background">#888888</color>
     <color name="text_color_un_filled">#ff0000</color>
     <color name="text_color_filled">#000000</color>
-    
+    <color name="transparent">#00000000</color>
 </resources>

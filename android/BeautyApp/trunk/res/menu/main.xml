@@ -12,11 +12,11 @@
         android:icon="@drawable/ic_action_call"
         android:showAsAction="always"
         android:title="@string/action_ask_for_service"/>
-    <item
-        android:id="@+id/action_search_radius"
+        <item
+        android:id="@+id/action_pending_orders"
         android:icon="@drawable/ic_action_call"
-        android:showAsAction="never"
-        android:title="@string/action_search_radius"/>
+        android:showAsAction="always"
+        android:title="@string/action_pending_orders"/>
     <item
         android:id="@+id/action_my_profile"
         android:icon="@drawable/ic_action_call"
