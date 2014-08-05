@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import utilities.BaseActivity;
+import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.AlertDialog;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -21,7 +26,10 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -31,13 +39,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.animation.BaseAnimationListener;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
+import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 import com.pictureit.noambaroz.beautyapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beautyapp.helper.MainProviderListAdapter;
 import com.pictureit.noambaroz.beautyapp.location.MapManager;
 import com.pictureit.noambaroz.beautyapp.server.GetBeauticianArrayByIds;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
 	boolean isOkToFinishApp;
 	private ImageButton mTouchToOpenSlider;
@@ -113,8 +122,44 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		CursorLoader loader = new CursorLoader(getApplicationContext(), DataProvider.CONTENT_URI_ORDER_OPTIONS,
+				new String[] { DataProvider.COL_ID }, null, null, DataProvider.COL_ID + " DESC");
+		return loader;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		int count = data.getCount();
+		Log.i(count + " Pending Notifications");
+		if (tvNotificationBadge != null) {
+			tvNotificationBadge.setText(String.valueOf(data.getCount()));
+			tvNotificationBadge.setVisibility(count < 1 ? View.GONE : View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+	};
+
+	private TextView tvNotificationBadge;
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.i("");
 		getMenuInflater().inflate(R.menu.main, menu);
+		getLoaderManager().initLoader(0, null, this);
+		final MenuItem badgeItem = menu.findItem(R.id.action_pending_orders);
+		RelativeLayout badgeLayout = (RelativeLayout) badgeItem.getActionView();
+		tvNotificationBadge = findView(badgeLayout, R.id.tv_orders_notification_badge);
+		ImageView iv = findView(badgeLayout, R.id.myButton);
+		iv.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onOptionsItemSelected(badgeItem);
+			}
+		});
 		return true;
 	}
 
@@ -142,56 +187,6 @@ public class MainActivity extends BaseActivity {
 		startActivity(intent);
 		overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		return true;
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		resume();
-	}
-
-	private void resume() {
-		if (googlePlayServicesAvailable()) {
-			MapManager.getInstance(MainActivity.this).setUpLocationClientIfNeeded();
-			MapManager.getInstance(MainActivity.this).mLocationClient.connect();
-		}
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		if (MapManager.getInstance(MainActivity.this).mLocationClient != null) {
-			MapManager.getInstance(MainActivity.this).mLocationClient.disconnect();
-		}
-	}
-
-	@Override
-	protected void onDestroy() {
-		MapManager.getInstance(MainActivity.this).onDestroy();
-		super.onDestroy();
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		final int LENGTH_SHORT = 2000; // 2 seconds
-		if (keyCode != KeyEvent.KEYCODE_BACK)
-			return super.onKeyDown(keyCode, event);
-		if (getFragmentManager().getBackStackEntryCount() == 0) {
-			if (isOkToFinishApp)
-				this.finish();
-			else {
-				Toast.makeText(getApplicationContext(), R.string.press_again_to_exit, Toast.LENGTH_SHORT).show();
-				isOkToFinishApp = true;
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						isOkToFinishApp = false;
-					}
-				}, LENGTH_SHORT);
-			}
-			return false;
-		}
-		return super.onKeyDown(keyCode, event);
 	}
 
 	private void changeProvidersUiList() {
@@ -258,6 +253,7 @@ public class MainActivity extends BaseActivity {
 		return true;
 	}
 
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_UPDATE_GOOGLE_PLAY_APK) {
 			if (resultCode == RESULT_OK) {
@@ -267,6 +263,56 @@ public class MainActivity extends BaseActivity {
 				finish();
 			}
 		}
-	};
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		resume();
+	}
+
+	private void resume() {
+		if (googlePlayServicesAvailable()) {
+			MapManager.getInstance(MainActivity.this).setUpLocationClientIfNeeded();
+			MapManager.getInstance(MainActivity.this).mLocationClient.connect();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (MapManager.getInstance(MainActivity.this).mLocationClient != null) {
+			MapManager.getInstance(MainActivity.this).mLocationClient.disconnect();
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		MapManager.getInstance(MainActivity.this).onDestroy();
+		super.onDestroy();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		final int LENGTH_SHORT = 2000; // 2 seconds
+		if (keyCode != KeyEvent.KEYCODE_BACK)
+			return super.onKeyDown(keyCode, event);
+		if (getFragmentManager().getBackStackEntryCount() == 0) {
+			if (isOkToFinishApp)
+				this.finish();
+			else {
+				Toast.makeText(getApplicationContext(), R.string.press_again_to_exit, Toast.LENGTH_SHORT).show();
+				isOkToFinishApp = true;
+				new Handler().postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						isOkToFinishApp = false;
+					}
+				}, LENGTH_SHORT);
+			}
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 }

@@ -12,8 +12,9 @@
         android:icon="@drawable/ic_action_call"
         android:showAsAction="always"
         android:title="@string/action_ask_for_service"/>
-        <item
+    <item
         android:id="@+id/action_pending_orders"
+        android:actionLayout="@layout/action_layout_order_notification"
         android:icon="@drawable/ic_action_settings"
         android:showAsAction="always"
         android:title="@string/action_pending_orders"/>
