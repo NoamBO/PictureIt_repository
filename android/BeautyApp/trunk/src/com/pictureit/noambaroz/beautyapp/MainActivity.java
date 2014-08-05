@@ -125,6 +125,8 @@ public class MainActivity extends BaseActivity {
 			return launchActivity(ServiceOrder.class);
 		} else if (id == R.id.action_explanation) {
 
+		} else if (id == R.id.action_pending_orders) {
+			return launchActivity(ActivityNotification.class);
 		} else if (id == R.id.action_terms_of_service) {
 			return launchActivity(ActivityTermsOfService.class);
 		} else if (id == R.id.action_search_providers) {

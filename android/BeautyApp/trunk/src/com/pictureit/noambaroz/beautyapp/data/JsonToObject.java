@@ -63,9 +63,10 @@ public class JsonToObject {
 	}
 
 	public static ContentValues jsonToOrderNotificationContentValues(String json) {
-		ContentValues values = new ContentValues(8);
+		ContentValues values = new ContentValues(9);
 		String beauticianId = JsonToObject.jsonGetString(json, "beautician_id");
 		String name = JsonToObject.jsonGetString(json, "name");
+		String picUrl = JsonToObject.jsonGetString(json, "pic");
 		String address = JsonToObject.jsonGetString(json, "address");
 		int raters = JsonToObject.jsonGetInt(json, "raters");
 		int rate = JsonToObject.jsonGetInt(json, "rate");
@@ -77,6 +78,9 @@ public class JsonToObject {
 		}
 		if (name != null && !name.equalsIgnoreCase("")) {
 			values.put(DataProvider.COL_NAME, name);
+		}
+		if (picUrl != null && !picUrl.equalsIgnoreCase("")) {
+			values.put(DataProvider.COL_PIC, picUrl);
 		}
 		if (address != null && !address.equalsIgnoreCase("")) {
 			values.put(DataProvider.COL_ADDRESS, address);

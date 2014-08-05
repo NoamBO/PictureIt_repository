@@ -17,6 +17,7 @@ public class DataProvider extends ContentProvider {
 	public static final String COL_BEAUTICIAN_ID = "beauticianid";
 	public static final String COL_NOTIFICATION_ID = "notificationid";
 	public static final String COL_NAME = "name";
+	public static final String COL_PIC = "pic";
 	public static final String COL_ADDRESS = "address";
 	public static final String COL_RATERS = "raters";
 	public static final String COL_RATE = "rate";

@@ -4,4 +4,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="beautician_picture_width">75dp</dimen>
+    <dimen name="beautician_picture_height">75dp</dimen>
 </resources>

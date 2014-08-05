@@ -14,7 +14,7 @@
         android:title="@string/action_ask_for_service"/>
         <item
         android:id="@+id/action_pending_orders"
-        android:icon="@drawable/ic_action_call"
+        android:icon="@drawable/ic_action_settings"
         android:showAsAction="always"
         android:title="@string/action_pending_orders"/>
     <item

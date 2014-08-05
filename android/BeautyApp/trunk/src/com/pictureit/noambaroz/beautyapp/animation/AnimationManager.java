@@ -18,6 +18,10 @@ import com.pictureit.noambaroz.beautyapp.R;
 
 public class AnimationManager {
 
+	public interface OnRowCollapseCallback {
+		public void onCollapse(View v, int initialHeight);
+	}
+
 	public static int getHeightToExpand(int heightPersents, Activity activity, HashMap<String, View> additionalViews) {
 		Display display = activity.getWindowManager().getDefaultDisplay();
 
@@ -92,13 +96,32 @@ public class AnimationManager {
 	}
 
 	public static void collapse(final View v, int additionalDurationTime) {
+		collapse(v, additionalDurationTime, null);
+	}
+
+	public static void collapse(final View v, int additionalDurationTime, AnimationListener listener) {
+		collapse(v, additionalDurationTime, listener, true, null);
+	}
+
+	public static void collapseCursorAdapterRow(final View v, int additionalDurationTime,
+			final OnRowCollapseCallback callback) {
+		collapse(v, additionalDurationTime, null, false, callback);
+	}
+
+	private static void collapse(final View v, int additionalDurationTime, AnimationListener listener,
+			final boolean leaveViewInvisible, final OnRowCollapseCallback callback) {
 		final int initialHeight = v.getMeasuredHeight();
 
 		Animation a = new Animation() {
 			@Override
 			protected void applyTransformation(float interpolatedTime, Transformation t) {
 				if (interpolatedTime == 1) {
-					v.setVisibility(View.GONE);
+					if (leaveViewInvisible)
+						v.setVisibility(View.GONE);
+					else {
+						if (callback != null)
+							callback.onCollapse(v, initialHeight);
+					}
 				} else {
 					v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
 					v.requestLayout();
@@ -112,6 +135,7 @@ public class AnimationManager {
 		};
 
 		// 1dp/ms
+		a.setAnimationListener(listener);
 		a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density)
 				+ additionalDurationTime);
 		v.startAnimation(a);
