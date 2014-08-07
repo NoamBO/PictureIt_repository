@@ -31,7 +31,8 @@ public class CropMenager {
 	public void start(final Fragment fragment) {
 
 		final String[] items = new String[] { "Take from camera", "Select from gallery" };
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragment.getActivity(), android.R.layout.select_dialog_item, items);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragment.getActivity(),
+				android.R.layout.select_dialog_item, items);
 		AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getActivity());
 
 		builder.setTitle("Select Image");
@@ -59,7 +60,8 @@ public class CropMenager {
 					intent.setType("image/*");
 					intent.setAction(Intent.ACTION_GET_CONTENT);
 
-					fragment.startActivityForResult(Intent.createChooser(intent, "Complete action using"), PICK_FROM_FILE);
+					fragment.startActivityForResult(Intent.createChooser(intent, "Complete action using"),
+							PICK_FROM_FILE);
 				}
 			}
 		});
@@ -104,8 +106,10 @@ public class CropMenager {
 				for (ResolveInfo res : list) {
 					final CropOption co = new CropOption();
 
-					co.title = fragment.getActivity().getPackageManager().getApplicationLabel(res.activityInfo.applicationInfo);
-					co.icon = fragment.getActivity().getPackageManager().getApplicationIcon(res.activityInfo.applicationInfo);
+					co.title = fragment.getActivity().getPackageManager()
+							.getApplicationLabel(res.activityInfo.applicationInfo);
+					co.icon = fragment.getActivity().getPackageManager()
+							.getApplicationIcon(res.activityInfo.applicationInfo);
 					co.appIntent = new Intent(intent);
 
 					co.appIntent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
@@ -113,7 +117,8 @@ public class CropMenager {
 					cropOptions.add(co);
 				}
 
-				CropOptionAdapter adapter = new CropOptionAdapter(fragment.getActivity().getApplicationContext(), cropOptions);
+				CropOptionAdapter adapter = new CropOptionAdapter(fragment.getActivity().getApplicationContext(),
+						cropOptions);
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getActivity());
 				builder.setTitle("Choose Crop App");
@@ -128,7 +133,10 @@ public class CropMenager {
 					public void onCancel(DialogInterface dialog) {
 
 						if (getImageCaptureUri() != null) {
-							fragment.getActivity().getContentResolver().delete(getImageCaptureUri(), null, null);
+							try {
+								fragment.getActivity().getContentResolver().delete(getImageCaptureUri(), null, null);
+							} catch (Exception e) {
+							}
 							setImageCaptureUri(null);
 						}
 					}

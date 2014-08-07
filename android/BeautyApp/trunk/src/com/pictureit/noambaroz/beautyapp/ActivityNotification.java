@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.HashMap;
 
 import utilities.Log;
+import utilities.server.HttpBase.HttpCallback;
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
@@ -18,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
@@ -65,17 +65,6 @@ public class ActivityNotification extends ActivityWithFragment {
 					R.id.iv_row_order_notification_pic };
 
 			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_order_notification, null, from, to, 0);
-			adapter.setViewBinder(new ViewBinder() {
-
-				@Override
-				public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-					if (cursor.getString(cursor.getColumnIndex(DataProvider.COL_NAME)) == null
-							&& cursor.getString(cursor.getColumnIndex(DataProvider.COL_NOTIFICATION_ID)) != null) {
-						getOrderInBackgroundByNotificationId(DataProvider.COL_NOTIFICATION_ID);
-					}
-					return false;
-				}
-			});
 			setListAdapter(adapter);
 		}
 
@@ -85,9 +74,10 @@ public class ActivityNotification extends ActivityWithFragment {
 			initListview();
 		}
 
-		protected void getOrderInBackgroundByNotificationId(String row_id) {
+		protected void getOrderInBackgroundByNotificationId(int position, String row_id, HttpCallback callback) {
 			if (!getOrderNotificationThreadPoll.containsKey(row_id)) {
-				getOrderNotificationThreadPoll.put(row_id, new GetOrderNotification(getActivity(), row_id));
+				getOrderNotificationThreadPoll.put(String.valueOf(position), new GetOrderNotification(getActivity(),
+						row_id, callback));
 				// TODO getOrderNotificationThreadPoll.get(row_id).execute();
 			}
 		}
@@ -125,6 +115,7 @@ public class ActivityNotification extends ActivityWithFragment {
 
 		@Override
 		public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+			Log.i("");
 			adapter.swapCursor(data);
 			if (mRowViewInitialHeight != 0 && mRowViewToRemove != null) {
 				mRowViewToRemove.getLayoutParams().height = mRowViewInitialHeight;
@@ -151,6 +142,7 @@ public class ActivityNotification extends ActivityWithFragment {
 
 			@Override
 			public void setViewImage(ImageView view, String value) {
+				Log.i("");
 				if (view.getId() == R.id.iv_row_order_notification_pic && value != null && value.contains("http")) {
 					imageLoader.displayImage(value, (ImageView) view, options);
 				}
@@ -158,9 +150,26 @@ public class ActivityNotification extends ActivityWithFragment {
 
 			@Override
 			public void bindView(final View view, final Context context, final Cursor cursor) {
+				Log.i("");
 				super.bindView(view, context, cursor);
+
+				String rowId = getCursor().getString(getCursor().getColumnIndex(DataProvider.COL_NOTIFICATION_ID));
+				if (getCursor().getString(getCursor().getColumnIndex(DataProvider.COL_NAME)) == null && rowId != null) {
+					getOrderInBackgroundByNotificationId(cursor.getPosition(), rowId, new HttpCallback() {
+
+						@Override
+						public void onAnswerReturn(Object answer) {
+							if (answer != null) {
+								Log.i("getView", "Finised downloading notification");
+								findView(view, R.id.pb_row_order_notification_spinner).setVisibility(View.GONE);
+								findView(view, R.id.ll_row_order_notification_data_container).setVisibility(
+										View.VISIBLE);
+							}
+						}
+					});
+				}
+
 				Button b = findView(view, R.id.b_row_order_notification_dismiss);
-				final String rowId = cursor.getString(cursor.getColumnIndex("_id"));
 				b.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -169,9 +178,9 @@ public class ActivityNotification extends ActivityWithFragment {
 
 							@Override
 							public void onCollapse(View v, int initialHeight) {
-								context.getContentResolver()
-										.delete(Uri.withAppendedPath(DataProvider.CONTENT_URI_ORDER_OPTIONS, rowId),
-												null, null);
+								context.getContentResolver().delete(
+										Uri.withAppendedPath(DataProvider.CONTENT_URI_ORDER_OPTIONS,
+												cursor.getString(cursor.getColumnIndex("_id"))), null, null);
 								mRowViewInitialHeight = initialHeight;
 								mRowViewToRemove = v;
 							}

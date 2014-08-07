@@ -76,33 +76,34 @@ public class PreferenceActivityMyProfile extends ActivityWithFragment {
 				return;
 
 			switch (requestCode) {
-				case CropMenager.PICK_FROM_CAMERA:
-					cropUtil.doCrop(this);
+			case CropMenager.PICK_FROM_CAMERA:
+				cropUtil.doCrop(this);
 
-					break;
+				break;
 
-				case CropMenager.PICK_FROM_FILE:
-					cropUtil.setImageCaptureUri(data.getData());
+			case CropMenager.PICK_FROM_FILE:
+				cropUtil.setImageCaptureUri(data.getData());
 
-					cropUtil.doCrop(this);
+				cropUtil.doCrop(this);
 
-					break;
+				break;
 
-				case CropMenager.CROP_FROM_CAMERA:
-					Bundle extras = data.getExtras();
+			case CropMenager.CROP_FROM_CAMERA:
+				Bundle extras = data.getExtras();
 
-					if (extras != null) {
-						Bitmap photo = extras.getParcelable("data");
+				if (extras != null) {
+					Bitmap photo = extras.getParcelable("data");
 
-						prefImage.setNewImage(photo);
-					}
+					prefImage.setNewImage(photo);
+					// TODO update server for new image
+				}
 
-					File f = new File(cropUtil.getImageCaptureUri().getPath());
+				File f = new File(cropUtil.getImageCaptureUri().getPath());
 
-					if (f.exists())
-						f.delete();
+				if (f.exists())
+					f.delete();
 
-					break;
+				break;
 
 			}
 		}

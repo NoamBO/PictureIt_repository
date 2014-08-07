@@ -71,7 +71,8 @@ public class GcmIntentService extends IntentService {
 
 	private void testPush(String s, Bundle data) {
 		sendNotification("Received: " + s, data);
-		DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), "ss");
+		String id = data.getString("extras_from_push_notification", "ss");
+		DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), id);
 	}
 
 	// Put the message into a notification and post it.

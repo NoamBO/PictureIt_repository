@@ -12,8 +12,9 @@ public class GetOrderNotification extends BaseHttpGet {
 	// TODO remove
 	String orderId;
 
-	public GetOrderNotification(Context ctx, String orderId) {
+	public GetOrderNotification(Context ctx, String orderId, HttpCallback callback) {
 		super(ctx);
+		this.callback = callback;
 		prepare(orderId);
 		// TODO remove
 		this.orderId = orderId;
