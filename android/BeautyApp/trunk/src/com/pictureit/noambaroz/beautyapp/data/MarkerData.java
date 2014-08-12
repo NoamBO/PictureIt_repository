@@ -3,8 +3,8 @@ package com.pictureit.noambaroz.beautyapp.data;
 public class MarkerData {
 
 	private String id;
-	private String latitude;
-	private String longitude;
+	private double latitude;
+	private double longitude;
 
 	public String getId() {
 		return id;
@@ -14,19 +14,19 @@ public class MarkerData {
 		this.id = id;
 	}
 
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 }

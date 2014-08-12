@@ -44,7 +44,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		public void onZoomChange(CameraPosition position);
 	}
 
-	private static final int MIN_ZOOM_ALLOWED = 15;
+	private static final int MIN_ZOOM_ALLOWED = 16;
 
 	private Activity mActivity;
 	private GoogleMap mMap;
@@ -72,7 +72,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 
 	private static final LocationRequest LOCATION_REQUEST = LocationRequest.create().setInterval(5 * 60 * 1000) // 5
 																												// minutes
-			// .setFastestInterval(16) // 16ms = 60fps
+			.setFastestInterval(16) // 16ms = 60fps
 			.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 	private MapManager(Activity activity) {
@@ -88,25 +88,20 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		INSTANCE = null;
 	}
 
-	public void setUpMapIfNeeded() {
+	public void setUpMapIfNeeded(Location location) {
 		// Do a null check to confirm that we have not already instantiated the
 		// map.
 		if (mMap == null) {
 			mMap = ((MapFragment) mActivity.getFragmentManager().findFragmentById(R.id.map)).getMap();
 			// Check if we were successful in obtaining the map.
 			if (mMap != null && mLocationClient != null && mLocationClient.isConnected()) {
-				setUpMap();
+				setUpMap(location);
 			}
 		}
 	}
 
-	private void setUpMap() {
+	private void setUpMap(Location location) {
 
-		Location location = mLocationClient.getLastLocation();
-		if (location == null) {
-			LocationManager m = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
-			location = m.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-		}
 		if (location != null) {
 			double lat = location.getLatitude();
 			double lng = location.getLongitude();
@@ -197,8 +192,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 	private MarkerOptions getMarkerForItem(MarkerData markerData) {
 		MarkerOptions mo = new MarkerOptions();
 
-		LatLng position = new LatLng(Double.parseDouble(markerData.getLatitude()), Double.parseDouble(markerData
-				.getLongitude()));
+		LatLng position = new LatLng(markerData.getLatitude(), markerData.getLongitude());
 		mo.position(position);
 		mo.icon(BitmapDescriptorFactory.defaultMarker());
 
@@ -246,6 +240,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 
 	@Override
 	public void onLocationChanged(Location arg0) {
+		setUpMapIfNeeded(arg0);
 	}
 
 	@Override
@@ -256,7 +251,14 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 	@Override
 	public void onConnected(Bundle arg0) {
 		mLocationClient.requestLocationUpdates(LOCATION_REQUEST, this);
-		setUpMapIfNeeded();
+		if (mLocationClient.getLastLocation() != null)
+			setUpMapIfNeeded(mLocationClient.getLastLocation());
+		else {
+			LocationManager m = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
+			Location location = m.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+			if (location == null)
+				setUpMapIfNeeded(location);
+		}
 	}
 
 	@Override
@@ -310,9 +312,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 				}
 			}
 		}, latLng.latitude, latLng.longitude);
-
-		// TODO add
-		// getMarkers.execute();
+		getMarkers.execute();
 	}
 
 	public GoogleMap getMap() {

@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,9 +34,16 @@ public class JsonToObject {
 
 	public static ArrayList<MarkerData> jsonToMarkers(String json) {
 		ArrayList<MarkerData> arrayList = new ArrayList<MarkerData>();
-		Type arrayType = new TypeToken<ArrayList<MarkerData>>() {
-		}.getType();
-		arrayList = new Gson().fromJson(json, arrayType);
+		try {
+			JSONObject o = new JSONObject(json);
+			JSONArray ja = o.getJSONArray("d");
+			Type arrayType = new TypeToken<ArrayList<MarkerData>>() {
+			}.getType();
+			arrayList = new Gson().fromJson(ja.toString(), arrayType);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return arrayList;
 	}
 
