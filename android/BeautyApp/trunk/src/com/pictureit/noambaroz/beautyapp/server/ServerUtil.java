@@ -5,7 +5,7 @@ public class ServerUtil {
 	private static final String URL_BASE = "http://192.168.1.50/BeautyUpService.asmx/";
 
 	public static final String URL_REQUEST_SEARCH_BEAUTICIAN = URL_BASE + "";
-	public static final String URL_REQUEST_GET_BEAUTICIAN_BY_ID = URL_BASE + "";
+	public static final String URL_REQUEST_GET_BEAUTICIAN_BY_ID = URL_BASE + "getbeauticianbyid";
 	public static final String URL_REQUEST_GET_BEAUTICIAN_ARRAY_BY_IDs = URL_BASE + "";
 	public static final String URL_REQUEST_GET_MARKERS = URL_BASE + "PostLatitudeLongitude";
 

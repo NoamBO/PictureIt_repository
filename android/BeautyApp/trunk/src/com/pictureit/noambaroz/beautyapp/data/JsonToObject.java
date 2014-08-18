@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utilities.Log;
 import android.content.ContentValues;
 
 import com.google.gson.Gson;
@@ -15,6 +16,40 @@ import com.google.gson.reflect.TypeToken;
 import com.pictureit.noambaroz.beautyapp.server.ServerUtil;
 
 public class JsonToObject {
+
+	private interface JsonType {
+		String TYPE_ARRAY = "JSONArray";
+		String TYPE_OBJECT = "JSONObject";
+	}
+
+	private static String getJson(String json, String type) {
+		String s = "";
+		if (type.equals(JsonType.TYPE_ARRAY)) {
+
+			try {
+				JSONObject o = new JSONObject(json);
+				JSONArray ja = o.getJSONArray("d");
+				s = ja.toString();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (type.equals(JsonType.TYPE_OBJECT)) {
+
+			try {
+				JSONObject o = new JSONObject(json);
+				JSONObject ja = o.getJSONObject("d");
+				s = ja.toString();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return s;
+
+	}
 
 	public static boolean isResponseOk(String json) {
 		boolean isOk = false;
@@ -35,26 +70,41 @@ public class JsonToObject {
 	public static ArrayList<MarkerData> jsonToMarkers(String json) {
 		ArrayList<MarkerData> arrayList = new ArrayList<MarkerData>();
 		try {
-			JSONObject o = new JSONObject(json);
-			JSONArray ja = o.getJSONArray("d");
+			String finalString = getJson(json, JsonType.TYPE_ARRAY);
 			Type arrayType = new TypeToken<ArrayList<MarkerData>>() {
 			}.getType();
-			arrayList = new Gson().fromJson(ja.toString(), arrayType);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			arrayList = new Gson().fromJson(finalString, arrayType);
+
+		} catch (Exception e) {
 			e.printStackTrace();
+			// TODO: handle exception
 		}
 		return arrayList;
 	}
 
 	public static ArrayList<Beautician> jsonToBeauticianArray(String json) {
+		ArrayList<Beautician> arrayList = new ArrayList<Beautician>();
+		String finalString = getJson(json, JsonType.TYPE_ARRAY);
 		Type type = new TypeToken<ArrayList<Beautician>>() {
 		}.getType();
-		return new Gson().fromJson(json, type);
+		try {
+			arrayList = new Gson().fromJson(finalString, type);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayList;
 	}
 
 	public static Beautician jsonToBeautician(String json) {
-		return new Gson().fromJson(json, Beautician.class);
+		Beautician b = new Beautician();
+		try {
+			String finalString = getJson(json, JsonType.TYPE_OBJECT);
+			b = new Gson().fromJson(finalString, Beautician.class);
+		} catch (Exception e) {
+			Log.i("");
+			// TODO: handle exception
+		}
+		return b;
 	}
 
 	public static List<Beautician> convertObjectToBeauticianArrayList(Object object) {

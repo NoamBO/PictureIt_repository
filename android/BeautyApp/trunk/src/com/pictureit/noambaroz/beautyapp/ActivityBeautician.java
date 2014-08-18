@@ -103,7 +103,8 @@ public class ActivityBeautician extends ActivityWithFragment {
 							// TODO error dialog
 						}
 					}
-				});
+				}, beautycianId);
+				httpGet.execute();
 			} else {
 				initPage();
 			}

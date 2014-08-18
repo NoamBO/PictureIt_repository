@@ -167,6 +167,9 @@ public class ActivityNotification extends ActivityWithFragment {
 							}
 						}
 					});
+				} else {
+					findView(view, R.id.pb_row_order_notification_spinner).setVisibility(View.GONE);
+					findView(view, R.id.ll_row_order_notification_data_container).setVisibility(View.VISIBLE);
 				}
 
 				Button b = findView(view, R.id.b_row_order_notification_dismiss);

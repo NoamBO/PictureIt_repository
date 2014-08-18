@@ -1,5 +1,7 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
+import java.util.Locale;
+
 import utilities.server.BaseHttpGet;
 import android.content.Context;
 
@@ -8,13 +10,10 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 
 public class GetBeauticianById extends BaseHttpGet {
 
-	public GetBeauticianById(Context ctx, HttpCallback callback) {
+	public GetBeauticianById(Context ctx, HttpCallback callback, String id) {
 		super(ctx);
 		this.callback = callback;
-		prepare(ServerUtil.URL_REQUEST_GET_BEAUTICIAN_BY_ID);
-		// TODO execute() from activity/fragment;
-		// And Remove >
-		onPostExecute(continueInBackground(json));
+		prepare(id);
 	}
 
 	@Override
@@ -27,10 +26,13 @@ public class GetBeauticianById extends BaseHttpGet {
 	}
 
 	@Override
-	protected void prepare(String request) {
-		setUrl(request);
+	protected void prepare(String id) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ServerUtil.URL_REQUEST_GET_BEAUTICIAN_BY_ID.toLowerCase(Locale.ENGLISH)).append("?ID=").append(id);
+		setUrl(sb.toString());
 	}
 
-	String json = "{\"id\":\"3464647767\",\"photo\":\"http://img2.wikia.nocookie.net/__cb20110918202014/marvelmovies/images/d/df/Beast-x-men.jpeg\",\"name\":\"Motti\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"Degree 1\",\"Degree 2\",\"Degree 3\"],\"description\":\"Description1\",\"treatments\":[\"1\",\"2\",\"3\"]}";
+	// String json =
+	// "{\"id\":\"3464647767\",\"photo\":\"http://img2.wikia.nocookie.net/__cb20110918202014/marvelmovies/images/d/df/Beast-x-men.jpeg\",\"name\":\"Motti\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"Degree 1\",\"Degree 2\",\"Degree 3\"],\"description\":\"Description1\",\"treatments\":[\"1\",\"2\",\"3\"]}";
 
 }

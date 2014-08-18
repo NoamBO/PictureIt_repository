@@ -24,7 +24,7 @@ public abstract class BaseHttpGet extends HttpBase {
 	@Override
 	protected Object doInBackground(String... params) {
 		HttpGet httpGet = new HttpGet(getUrl());
-		httpGet.setHeader(HTTP.CONTENT_TYPE, HTTP.PLAIN_TEXT_TYPE);
+		httpGet.setHeader(HTTP.CONTENT_TYPE, "application/json");
 		httpGet.setParams(getParams());
 		try {
 			setResponse(new DefaultHttpClient().execute(httpGet));

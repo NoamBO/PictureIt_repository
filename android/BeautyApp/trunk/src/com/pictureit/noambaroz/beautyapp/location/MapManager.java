@@ -7,10 +7,8 @@ import java.util.List;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -35,6 +33,7 @@ import com.pictureit.noambaroz.beautyapp.ActivityBeautician;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.MarkerData;
+import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
 public class MapManager implements OnCameraChangeListener, OnMarkerClickListener, ConnectionCallbacks,
@@ -70,7 +69,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		return INSTANCE;
 	}
 
-	private static final LocationRequest LOCATION_REQUEST = LocationRequest.create().setInterval(5 * 60 * 1000) // 5
+	private static final LocationRequest LOCATION_REQUEST = LocationRequest.create().setInterval(1 * 1 * 1000) // 5
 																												// minutes
 			.setFastestInterval(16) // 16ms = 60fps
 			.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -94,7 +93,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		if (mMap == null) {
 			mMap = ((MapFragment) mActivity.getFragmentManager().findFragmentById(R.id.map)).getMap();
 			// Check if we were successful in obtaining the map.
-			if (mMap != null && mLocationClient != null && mLocationClient.isConnected()) {
+			if (mMap != null) {
 				setUpMap(location);
 			}
 		}
@@ -254,16 +253,39 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		if (mLocationClient.getLastLocation() != null)
 			setUpMapIfNeeded(mLocationClient.getLastLocation());
 		else {
-			LocationManager m = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
-			Location location = m.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-			if (location == null)
-				setUpMapIfNeeded(location);
+			setCurrentLocation();
 		}
 	}
 
 	@Override
 	public void onDisconnected() {
 	}
+
+	private void setCurrentLocation() {
+		LocationResult locationResult = new LocationResult() {
+
+			@Override
+			public void gotLocation(Location location) {
+				if (location != null)
+					setUpMapIfNeeded(location);
+			}
+		};
+		MyLocation myLocation = new MyLocation();
+		myLocation.getLocation(mActivity, locationResult);
+	}
+
+	// private String getAvailableLocationProvider() {
+	// LocationManager locationManager = (LocationManager)
+	// mActivity.getSystemService(Context.LOCATION_SERVICE);
+	// if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+	// return LocationManager.GPS_PROVIDER;
+	// }
+	// if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+	// {
+	// return LocationManager.NETWORK_PROVIDER;
+	// }
+	// return null;
+	// }
 
 	private int getDistance(LatLng latLng) {
 		if (mLocationClient != null && mLocationClient.isConnected() && mLocationClient.getLastLocation() != null) {
