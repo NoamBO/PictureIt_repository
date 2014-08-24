@@ -130,15 +130,13 @@ public class ActivityBeautician extends ActivityWithFragment {
 			});
 			tvDegrees.setText(BeauticianUtil.formatDegrees(getActivity(), mBeautician.getDegrees()));
 			tvDescription.setText(mBeautician.getDescription());
-			// String[] treatmentsList =
-			// BeauticianUtil.formatTreatmentsWith__(getActivity(),
-			// mBeautician.getTreatments())
-			// .split("__");
-			// tvTreatment1.setText(treatmentsList[0]);
-			// if (treatmentsList.length > 1)
-			// tvTreatment2.setText(treatmentsList[1]);
-			// else
-			// tvTreatment2.setVisibility(View.GONE);
+			String[] treatmentsList = BeauticianUtil.formatTreatmentsWith__(getActivity(), mBeautician.getTreatments())
+					.split("__");
+			tvTreatment1.setText(treatmentsList[0]);
+			if (treatmentsList.length > 1)
+				tvTreatment2.setText(treatmentsList[1]);
+			else
+				tvTreatment2.setVisibility(View.GONE);
 
 			bOrder.setOnClickListener(new OnClickListener() {
 

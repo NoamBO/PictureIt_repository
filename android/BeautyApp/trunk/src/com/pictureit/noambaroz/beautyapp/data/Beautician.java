@@ -120,31 +120,31 @@ public class Beautician implements Parcelable {
 	}
 
 	public static class Rating implements Parcelable {
-		private int raters;
-		private double rate;
+		private int ratersCounter;
+		private double rateCalculated;
 
 		public Rating() {
 		}
 
 		public int getRaters() {
-			return raters;
+			return ratersCounter;
 		}
 
 		public void setRaters(int raters) {
-			this.raters = raters;
+			this.ratersCounter = raters;
 		}
 
 		public double getRate() {
-			return rate;
+			return rateCalculated;
 		}
 
 		public void setRate(double rate) {
-			this.rate = rate;
+			this.rateCalculated = rate;
 		}
 
 		private Rating(Parcel in) {
-			raters = in.readInt();
-			rate = in.readDouble();
+			ratersCounter = in.readInt();
+			rateCalculated = in.readDouble();
 		}
 
 		@Override
@@ -154,8 +154,8 @@ public class Beautician implements Parcelable {
 
 		@Override
 		public void writeToParcel(Parcel dest, int flags) {
-			dest.writeInt(raters);
-			dest.writeDouble(rate);
+			dest.writeInt(ratersCounter);
+			dest.writeDouble(rateCalculated);
 		}
 
 		public static final Parcelable.Creator<Rating> CREATOR = new Parcelable.Creator<Rating>() {

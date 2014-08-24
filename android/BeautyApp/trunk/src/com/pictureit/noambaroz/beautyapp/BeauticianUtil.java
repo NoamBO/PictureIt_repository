@@ -46,15 +46,15 @@ public class BeauticianUtil {
 	}
 
 	public static String formatTreatmentsWith__(Context context, String[] treatmentsId) {
-		int half = (treatmentsId.length / 2) + 1;
+		int half = (treatmentsId.length / 2);
 		boolean __Added = false;
 		StringBuilder sb1 = new StringBuilder();
 		ArrayList<TreatmentType> arrayList = TreatmentSummary.TreatmentList.genarate(context, null);
 		for (int i = 0; i < treatmentsId.length; i++) {
 			for (TreatmentType type : arrayList) {
 				if (type.id.equals(treatmentsId[i])) {
-					if (half >= i)
-						if (__Added) {
+					if (half == i)
+						if (!__Added) {
 							__Added = true;
 							sb1.append("__");
 						}
