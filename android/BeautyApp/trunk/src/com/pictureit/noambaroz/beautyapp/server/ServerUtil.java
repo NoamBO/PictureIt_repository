@@ -6,8 +6,9 @@ public class ServerUtil {
 
 	public static final String URL_REQUEST_SEARCH_BEAUTICIAN = URL_BASE + "";
 	public static final String URL_REQUEST_GET_BEAUTICIAN_BY_ID = URL_BASE + "getbeauticianbyid";
-	public static final String URL_REQUEST_GET_BEAUTICIAN_ARRAY_BY_IDs = URL_BASE + "";
+	public static final String URL_REQUEST_GET_BEAUTICIAN_ARRAY_BY_IDs = URL_BASE + "postarraybeauticianbyid";
 	public static final String URL_REQUEST_GET_MARKERS = URL_BASE + "PostLatitudeLongitude";
+	public static final String URL_REQUEST_ORDER_TREATMENT = URL_BASE + "postordertreatment";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";
@@ -20,7 +21,7 @@ public class ServerUtil {
 	// POST Order Treatment
 	public static final String TREATMENTS = "treatments";
 	public static final String COMMENTS = "comments";
-	public static final String FOR = "for";
+	public static final String FOR = "forwho";
 	public static final String DATE = "date";
 	public static final String ID = "id";
 	public static final String AMOUNT = "amount";

@@ -69,7 +69,7 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 		imageLoader.displayImage(getItem(position).getPhoto(), holder.pic, options);
 		holder.name.setText(getItem(position).getName());
 		if (getItem(position).getAddress() != null)
-			holder.address.setText(BeauticianUtil.formatAddress(getItem(position).getAddress()));
+			holder.address.setText(BeauticianUtil.formatAddress(ctx, getItem(position).getAddress()));
 		if (getItem(position).getRating() != null) {
 			holder.raters.setText(BeauticianUtil.formatRaters(getItem(position).getRating().getRaters(), ctx));
 			holder.ratingBar.setRating((float) getItem(position).getRating().getRate());

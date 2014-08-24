@@ -5,6 +5,7 @@ public class MarkerData {
 	private String id;
 	private double latitude;
 	private double longitude;
+	private String name;
 
 	public String getId() {
 		return id;
@@ -28,5 +29,13 @@ public class MarkerData {
 
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

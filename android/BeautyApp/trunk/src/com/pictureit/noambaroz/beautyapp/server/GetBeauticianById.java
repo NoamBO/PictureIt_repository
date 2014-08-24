@@ -1,7 +1,5 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
-import java.util.Locale;
-
 import utilities.server.BaseHttpGet;
 import android.content.Context;
 
@@ -28,7 +26,7 @@ public class GetBeauticianById extends BaseHttpGet {
 	@Override
 	protected void prepare(String id) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(ServerUtil.URL_REQUEST_GET_BEAUTICIAN_BY_ID.toLowerCase(Locale.ENGLISH)).append("?ID=").append(id);
+		sb.append(ServerUtil.URL_REQUEST_GET_BEAUTICIAN_BY_ID).append("?").append("ID=").append(id);
 		setUrl(sb.toString());
 	}
 

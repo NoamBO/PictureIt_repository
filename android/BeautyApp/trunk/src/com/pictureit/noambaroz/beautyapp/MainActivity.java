@@ -204,19 +204,11 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 				IDs.add(entry.getValue());
 		}
 		if (IDs.size() < 1) {
-			new AlertDialog.Builder(MainActivity.this).setTitle(R.string.main_screen_slider_empty_dialog_title)
-					.setMessage(R.string.main_screen_slider_empty_dialog_messege)
-					.setNeutralButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							onFooterClick();
-						}
-					}).setCancelable(false).create().show();
+			showEmptyBeauticianArrayDialog(R.string.main_screen_slider_empty_dialog_messege_no_pins_on_screen);
 			return;
 		}
 
-		getBeauticianArrayByIds = new GetBeauticianArrayByIds(getApplicationContext(), new HttpCallback() {
+		getBeauticianArrayByIds = new GetBeauticianArrayByIds(MainActivity.this, new HttpCallback() {
 
 			@Override
 			public void onAnswerReturn(Object answer) {
@@ -225,12 +217,27 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 					if (result.size() > 1) {
 						mAdapter.addAll(result);
 						mAdapter.notifyDataSetChanged();
+					} else {
+						showEmptyBeauticianArrayDialog(R.string.main_screen_slider_empty_dialog_messege_no_pins_on_screen);
 					}
+				} else {
+					showEmptyBeauticianArrayDialog(R.string.dialog_messege_server_error);
 				}
 				getBeauticianArrayByIds = null;
 			}
 		}, IDs);
-		// TODO getBeauticianArrayByIds.execute();
+		getBeauticianArrayByIds.execute();
+	}
+
+	private void showEmptyBeauticianArrayDialog(int resId) {
+		new AlertDialog.Builder(MainActivity.this).setTitle(R.string.main_screen_slider_empty_dialog_title)
+				.setMessage(resId).setNeutralButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						onFooterClick();
+					}
+				}).setCancelable(false).create().show();
 	}
 
 	private boolean googlePlayServicesAvailable() {

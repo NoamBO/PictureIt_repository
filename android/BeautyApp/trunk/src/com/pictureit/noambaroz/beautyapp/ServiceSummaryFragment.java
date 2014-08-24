@@ -1,6 +1,8 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseFragment;
+import utilities.Log;
+import utilities.server.HttpBase.HttpCallback;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.server.PostOrderTreatment;
 
 public class ServiceSummaryFragment extends BaseFragment {
 
@@ -65,7 +68,20 @@ public class ServiceSummaryFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View v) {
+				PostOrderTreatment httpPost = new PostOrderTreatment(getActivity(), new HttpCallback() {
 
+					@Override
+					public void onAnswerReturn(Object answer) {
+						Log.i("finish");
+					}
+				});
+				try {
+					httpPost.start(mTreatment.forWho, mTreatment.when, mTreatment.remarks, mTreatment.whare,
+							mTreatment.tretments);
+				} catch (Exception e) {
+					Log.i("failed while building the request to the server");
+					e.printStackTrace();
+				}
 			}
 		});
 	}

@@ -21,7 +21,9 @@ public class BeauticianUtil {
 		activity.overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 	}
 
-	public static String formatAddress(Address address) {
+	public static String formatAddress(Context context, Address address) {
+		if (address == null)
+			return context.getResources().getString(R.string.error_no_address);
 		return new StringBuilder().append(address.getStreet()).append(", ").append(address.getCity()).toString();
 	}
 
@@ -30,7 +32,9 @@ public class BeauticianUtil {
 				.append(context.getString(R.string.beautician_page_raters)).append(" ").append(")").toString();
 	}
 
-	public static String formatDegrees(String[] degrees) {
+	public static String formatDegrees(Context context, String[] degrees) {
+		if (degrees == null)
+			return context.getResources().getString(R.string.error_no_degrees);
 		StringBuilder builder = new StringBuilder();
 		int length = degrees.length;
 		for (int i = 0; i < length; i++) {

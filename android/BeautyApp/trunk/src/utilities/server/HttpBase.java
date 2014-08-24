@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.params.BasicHttpParams;
@@ -133,7 +134,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
+		this.url = url.toLowerCase(Locale.ENGLISH);
 	}
 
 	public HttpResponse getResponse() {

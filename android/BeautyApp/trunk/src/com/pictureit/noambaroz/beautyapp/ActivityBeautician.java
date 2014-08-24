@@ -1,6 +1,7 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseFragment;
+import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
 import android.content.Intent;
 import android.os.Bundle;
@@ -61,20 +62,22 @@ public class ActivityBeautician extends ActivityWithFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			if (getActivity().getIntent().getExtras() != null)
-				beautycianId = getActivity().getIntent().getExtras().getString(Constant.EXTRA_BEAUTICIAN_ID, "");
-			else
+			Bundle extras = getActivity().getIntent().getExtras();
+			if (extras == null)
 				return;
-			if (beautycianId.equalsIgnoreCase(""))
+			if (extras.containsKey(Constant.EXTRA_BEAUTICIAN_ID))
+				beautycianId = extras.getString(Constant.EXTRA_BEAUTICIAN_ID, "");
+
+			if (beautycianId == null || beautycianId.equalsIgnoreCase(""))
 				mBeautician = getActivity().getIntent().getExtras().getParcelable(Constant.EXTRA_BEAUTICIAN_OBJECT);
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-			if (beautycianId.equalsIgnoreCase("") && mBeautician == null) {
+			if (beautycianId != null && beautycianId.equalsIgnoreCase("") && mBeautician == null) {
 				getFragmentManager().popBackStack();
-				getActivity().finish();
+				Dialogs.closeActivity(getActivity(), Dialogs.somthing_went_wrong);
 				return super.onCreateView(inflater, container, savedInstanceState);
 			}
 			View v = inflater.inflate(R.layout.fragment_beautician, container, false);
@@ -100,7 +103,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 							mBeautician = (Beautician) answer;
 							initPage();
 						} else {
-							// TODO error dialog
+							Dialogs.closeActivity(getActivity(), Dialogs.somthing_went_wrong);
 						}
 					}
 				}, beautycianId);
@@ -115,23 +118,27 @@ public class ActivityBeautician extends ActivityWithFragment {
 		protected void initPage() {
 			imageLoader.displayImage(mBeautician.getPhoto(), ivPic, options);
 			tvName.setText(mBeautician.getName());
-			tvAddress.setText(BeauticianUtil.formatAddress(mBeautician.getAddress()));
-			tvRaters.setText(BeauticianUtil.formatRaters(mBeautician.getRating().getRaters(), getActivity()));
-			rbRating.setRating((float) mBeautician.getRating().getRate());
+			tvAddress.setText(BeauticianUtil.formatAddress(getActivity(), mBeautician.getAddress()));
+			int raters = mBeautician.getRating() == null ? 0 : mBeautician.getRating().getRaters();
+			tvRaters.setText(BeauticianUtil.formatRaters(raters, getActivity()));
+			float rating = (float) (mBeautician.getRating() == null ? 0 : mBeautician.getRating().getRate());
+			rbRating.setRating(rating);
 			rbRating.setOnTouchListener(new OnTouchListener() {
 				public boolean onTouch(View v, MotionEvent event) {
 					return true;
 				}
 			});
-			tvDegrees.setText(BeauticianUtil.formatDegrees(mBeautician.getDegrees()));
+			tvDegrees.setText(BeauticianUtil.formatDegrees(getActivity(), mBeautician.getDegrees()));
 			tvDescription.setText(mBeautician.getDescription());
-			String[] treatmentsList = BeauticianUtil.formatTreatmentsWith__(getActivity(), mBeautician.getTreatments())
-					.split("__");
-			tvTreatment1.setText(treatmentsList[0]);
-			if (treatmentsList.length > 1)
-				tvTreatment2.setText(treatmentsList[1]);
-			else
-				tvTreatment2.setVisibility(View.GONE);
+			// String[] treatmentsList =
+			// BeauticianUtil.formatTreatmentsWith__(getActivity(),
+			// mBeautician.getTreatments())
+			// .split("__");
+			// tvTreatment1.setText(treatmentsList[0]);
+			// if (treatmentsList.length > 1)
+			// tvTreatment2.setText(treatmentsList[1]);
+			// else
+			// tvTreatment2.setVisibility(View.GONE);
 
 			bOrder.setOnClickListener(new OnClickListener() {
 
@@ -140,7 +147,8 @@ public class ActivityBeautician extends ActivityWithFragment {
 					Intent intent = new Intent(getActivity(), ServiceOrder.class);
 					intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mBeautician.getId());
 					intent.putExtra(Constant.EXTRA_BEAUTICIAN_NAME, mBeautician.getName());
-					intent.putExtra(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY, mBeautician.getTreatments());
+					// intent.putExtra(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY,
+					// mBeautician.getTreatments());
 					startActivity(intent);
 					overridePendingTransition(anim.activity_enter_slidein_anim, anim.activity_exit_shrink_anim);
 				}

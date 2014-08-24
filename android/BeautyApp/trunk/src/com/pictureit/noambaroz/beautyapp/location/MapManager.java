@@ -21,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -37,7 +38,7 @@ import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
 public class MapManager implements OnCameraChangeListener, OnMarkerClickListener, ConnectionCallbacks,
-		OnConnectionFailedListener, LocationListener {
+		OnConnectionFailedListener, OnInfoWindowClickListener, LocationListener {
 
 	public interface MapMoovingListener {
 		public void onZoomChange(CameraPosition position);
@@ -113,6 +114,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		}
 
 		mMap.setOnMarkerClickListener(this);
+		mMap.setOnInfoWindowClickListener(this);
 		mMap.setOnCameraChangeListener(this);
 		mMap.setMyLocationEnabled(true);
 		mMap.getUiSettings().setTiltGesturesEnabled(false);
@@ -193,19 +195,27 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 
 		LatLng position = new LatLng(markerData.getLatitude(), markerData.getLongitude());
 		mo.position(position);
+		if (markerData.getName() != null && !markerData.getName().equalsIgnoreCase(""))
+			mo.title(markerData.getName());
 		mo.icon(BitmapDescriptorFactory.defaultMarker());
 
 		return mo;
 	}
 
 	@Override
-	public boolean onMarkerClick(Marker marker) {
+	public void onInfoWindowClick(Marker marker) {
 		if (mVisibleMarkers.containsKey(marker)) {
 			Intent intent = new Intent(mActivity, ActivityBeautician.class);
 			intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mVisibleMarkers.get(marker));
 			mActivity.startActivity(intent);
 			mActivity.overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker arg0) {
+		if (arg0.isInfoWindowShown())
+			arg0.hideInfoWindow();
 		return false;
 	}
 

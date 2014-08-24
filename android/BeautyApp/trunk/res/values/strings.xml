@@ -35,9 +35,12 @@
     <string name="action_ask_for_service">Service Order</string>
     <string name="action_search_providers">Locating a beautician</string>
     
+    <!-- General Dialog Messages -->
+    <string name="dialog_messege_server_error">There was a server error. We working on it to solve the problem</string>
+    
     <!-- Dialog presented on main screen when no visible marker on screen if onpening the SLIDER -->
     <string name="main_screen_slider_empty_dialog_title">No Results</string>
-    <string name="main_screen_slider_empty_dialog_messege">There is no visible beautician..</string>
+    <string name="main_screen_slider_empty_dialog_messege_no_pins_on_screen">There is no visible beautician..</string>
     
     <!-- Beautician page -->
     <string name="beautician_page_title">Beautician</string>
@@ -240,4 +243,7 @@
     <string name="order_service">Order service</string>
     
     <string name="terms_of_service_text">the terms of service will be written here</string>
+    
+    <string name="error_no_address">No address found</string>
+    <string name="error_no_degrees">No degrees found</string>
 </resources>
