@@ -35,6 +35,18 @@
     <string name="action_ask_for_service">Service Order</string>
     <string name="action_search_providers">Locating a beautician</string>
     
+    <!-- Register screen -->
+    <string name="first_name">שם פרטי</string>
+    <string name="last_name">שם משפחה</string>
+    <string name="email">מייל</string>
+    <string name="address">כתובת</string>
+    <string name="proceed">המשך</string>
+    <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
+    <string name="phone_number_confirmation"><b>אימות מספר טלפון</b></string>
+    <string name="phone_number_confirmation_explanation">על מנת להנות מהשירותים של האפליקציה עליכם לאמת את מספר הטלפון שברשותכם על ידי הזנת קוד שישלח אליכם ב סמס</string>
+    <string name="one_of_two"><b>1/2</b></string>
+    <string name="two_of_two"><b>2/2</b></string>
+    
     <!-- General Dialog Messages -->
     <string name="dialog_messege_server_error">There was a server error. We working on it to solve the problem</string>
     
