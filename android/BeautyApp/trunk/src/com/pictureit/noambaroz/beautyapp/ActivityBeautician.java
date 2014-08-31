@@ -54,7 +54,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 		private TextView tvRaters;
 		private RatingBar rbRating;
 		private Button bRate;
-		private TextView tvDegrees;
+		private TextView tvAcademicDegrees;
 		private TextView tvDescription;
 		private TextView tvTreatment1;
 		private TextView tvTreatment2;
@@ -89,7 +89,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 			tvRaters = findView(v, R.id.tv_beautician_page_raters);
 			rbRating = findView(v, R.id.rb_beautician_page_rating);
 			bRate = findView(v, R.id.b_beautician_page_rate);
-			tvDegrees = findView(v, R.id.tv_beautician_page_degrees);
+			tvAcademicDegrees = findView(v, R.id.tv_beautician_page_academic_degrees);
 			tvDescription = findView(v, R.id.tv_beautician_page_description);
 			tvTreatment1 = findView(v, R.id.tv_beautician_page_treatments1);
 			tvTreatment2 = findView(v, R.id.tv_beautician_page_treatments2);
@@ -128,7 +128,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 					return true;
 				}
 			});
-			tvDegrees.setText(BeauticianUtil.formatDegrees(getActivity(), mBeautician.getDegrees()));
+			tvAcademicDegrees.setText(BeauticianUtil.formatDegrees(getActivity(), mBeautician.getDegrees()));
 			tvDescription.setText(mBeautician.getDescription());
 			String[] treatmentsList = BeauticianUtil.formatTreatmentsWith__(getActivity(), mBeautician.getTreatments())
 					.split("__");

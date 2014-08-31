@@ -96,7 +96,7 @@
         android:background="@android:color/black" />
 
     <utilities.view.AutoResizeTextView
-        android:id="@+id/tv_beautician_page_degrees"
+        android:id="@+id/tv_beautician_page_academic_degrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="7dp" />
