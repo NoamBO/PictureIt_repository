@@ -10,6 +10,7 @@
     <string name="question_mark">"?"</string>
     <string name="press_again_to_exit">Press again to exit</string>
     <string name="loading">Loading..</string>
+    <string name="please_write_valid_email_string">הכנס כתובת תקינה</string>
     
     <string name="app_name">Beauty App</string>
     <string name="title_settings">Settings</string>
@@ -48,6 +49,9 @@
     <string name="two_of_two"><b>2/2</b></string>
     
     <!-- General Dialog Messages -->
+    <string name="dialog_error_message_all_feilds_are_empty">You must fill at least one of the feilds</string>
+    <string name="dialog_error_message_must_fill_all_feilde">You must fill all of the feilds</string>
+    <string name="dialog_title_error">Error</string>
     <string name="dialog_messege_server_error">There was a server error. We working on it to solve the problem</string>
     
     <!-- Dialog presented on main screen when no visible marker on screen if onpening the SLIDER -->
@@ -70,7 +74,6 @@
     <!-- Search Provider Error Dialog -->
     <string name="search_provider_error_dialog_title">Error</string>
     <string name="search_provider_error_dialog_no_results">No results</string>
-    <string name="search_provider_error_dialog_all_fields_are_empty">You must fill at least one of the fields</string>
     
     <!-- Service Order -->
     <string name="service_for">For</string>

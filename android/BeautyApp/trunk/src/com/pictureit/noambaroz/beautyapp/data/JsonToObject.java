@@ -13,6 +13,7 @@ import android.content.ContentValues;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
 import com.pictureit.noambaroz.beautyapp.server.ServerUtil;
 
 public class JsonToObject {
@@ -179,5 +180,19 @@ public class JsonToObject {
 			e.printStackTrace();
 		}
 		return value;
+	}
+
+	public static String jsonToVerifyUser(String json) {
+		try {
+			JSONObject jsonObject = new JSONObject(json);
+			boolean isActive = jsonObject.getBoolean("active");
+			if (isActive)
+				return PostVerifyUser.VERIFY_USER_RESULT_ACTIVE;
+			else
+				return PostVerifyUser.VERIFY_USER_RESULT_NOT_ACTIVE;
+		} catch (JSONException e) {
+			Log.i(e.getMessage());
+		}
+		return null;
 	}
 }

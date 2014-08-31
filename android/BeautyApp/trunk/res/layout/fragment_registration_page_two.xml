@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:background="@android:color/black" >
 
-    <LinearLayout 
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,22 +30,21 @@
             android:background="@android:drawable/editbox_background"
             android:hint="@string/first_name" />
 
-        <TextView 
-            android:layout_marginBottom="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="@string/phone_number_confirmation_explanation"
-            android:textColor="@android:color/white" />
-
-        <Button 
+        <Button
             android:id="@+id/b_registration_page_two_proceed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:background="#bbb"
             android:text="@string/proceed" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/phone_number_confirmation_explanation"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <TextView

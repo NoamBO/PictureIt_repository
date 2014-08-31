@@ -9,6 +9,8 @@ public class ServerUtil {
 	public static final String URL_REQUEST_GET_BEAUTICIAN_ARRAY_BY_IDs = URL_BASE + "postarraybeauticianbyid";
 	public static final String URL_REQUEST_GET_MARKERS = URL_BASE + "PostLatitudeLongitude";
 	public static final String URL_REQUEST_ORDER_TREATMENT = URL_BASE + "postordertreatment";
+	public static final String URL_REQUEST_VERIFY_USER = URL_BASE + "verifyuser";
+	public static final String URL_REQUEST_VERIFY_ADDRESS = URL_BASE + "";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";
@@ -37,5 +39,9 @@ public class ServerUtil {
 
 	// POST Get Beautician Array By IDs
 	public static final String IDs = "ids";
+
+	// POST Verify User
+	public static final String EXIST = "exist";
+	public static final String ACTIVE = "active";
 
 }

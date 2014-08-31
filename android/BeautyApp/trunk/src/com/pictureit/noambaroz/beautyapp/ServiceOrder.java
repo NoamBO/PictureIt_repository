@@ -38,14 +38,15 @@ public class ServiceOrder extends ActivityWithFragment {
 			String beauticianId = bundle.getString(Constant.EXTRA_BEAUTICIAN_ID, null);
 			String beauticianName = bundle.getString(Constant.EXTRA_BEAUTICIAN_NAME, "");
 			String[] treatmentStringArray = bundle.getStringArray(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY);
-			((OrderServiceFragment) fragment)
-					.setBeauticianIdNameAndTreatments(beauticianId, beauticianName, treatmentStringArray);
+			((OrderServiceFragment) fragment).setBeauticianIdNameAndTreatments(beauticianId, beauticianName,
+					treatmentStringArray);
 		}
 	}
 
 	private class OrderServiceFragment extends Fragment implements OnClickListener {
 
-		public void setBeauticianIdNameAndTreatments(String beauticianId, String beauticianName, String[] treatmentStringArray) {
+		public void setBeauticianIdNameAndTreatments(String beauticianId, String beauticianName,
+				String[] treatmentStringArray) {
 			this.beauticianId = beauticianId;
 			this.beauticianName = beauticianName;
 			this.treatmentStringArray = treatmentStringArray;
@@ -120,7 +121,8 @@ public class ServiceOrder extends ActivityWithFragment {
 
 		public void order() {
 			if (!isOrderOk()) {
-				new AlertDialog.Builder(getActivity()).setTitle("Can't procceed").setMessage("Something is missing")
+				new AlertDialog.Builder(getActivity()).setTitle(getResources().getString(R.string.dialog_title_error))
+						.setMessage(getResources().getString(R.string.dialog_error_message_must_fill_all_feilde))
 						.setPositiveButton(R.string.dialog_ok_text, null).create().show();
 				return;
 			}

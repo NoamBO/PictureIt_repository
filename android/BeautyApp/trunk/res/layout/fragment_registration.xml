@@ -24,7 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@android:drawable/editbox_background"
-            android:hint="@string/first_name" />
+            android:hint="@string/first_name"
+            android:nextFocusDown="@+id/et_registration_last_name"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/et_registration_last_name"
@@ -32,7 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@android:drawable/editbox_background"
-            android:hint="@string/last_name" />
+            android:hint="@string/last_name"
+            android:nextFocusDown="@+id/et_registration_email"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/et_registration_email"
@@ -41,7 +45,9 @@
             android:layout_marginBottom="10dp"
             android:background="@android:drawable/editbox_background"
             android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:nextFocusDown="@+id/et_registration_address"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/et_registration_address"
@@ -49,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@android:drawable/editbox_background"
-            android:hint="@string/address" />
+            android:hint="@string/address"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/b_registration_page_one_proceed"

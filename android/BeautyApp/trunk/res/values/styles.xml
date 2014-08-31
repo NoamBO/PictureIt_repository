@@ -21,7 +21,7 @@
         <item name="android:background">@color/action_bar_color</item>
     </style>
 
-    <style name="SplashTheme" parent="AppBaseTheme">
+    <style name="ThemeNoActionBar" parent="AppBaseTheme">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>

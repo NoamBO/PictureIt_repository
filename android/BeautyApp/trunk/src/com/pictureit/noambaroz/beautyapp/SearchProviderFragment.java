@@ -98,7 +98,7 @@ public class SearchProviderFragment extends BaseFragment {
 		builder.setTitle(R.string.search_provider_error_dialog_title);
 		switch (status) {
 		case SEARCH_STATUS_ALL_FIELDS_EMPTY:
-			builder.setMessage(R.string.search_provider_error_dialog_all_fields_are_empty);
+			builder.setMessage(R.string.dialog_error_message_all_feilds_are_empty);
 			break;
 		case SEARCH_STATUS_NO_RESULTS:
 			builder.setMessage(R.string.search_provider_error_dialog_no_results);
