@@ -1,6 +1,8 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseFragment;
+import utilities.Dialogs;
+import utilities.Dialogs.OnDialogItemSelectedListener;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,6 +35,10 @@ public class ActivityRegistrationPersonalData extends Activity {
 		private Button bProceed;
 		private EditText etFirstName, etLastName, etEmail, etAddress;
 
+		private void register() {
+
+		}
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_registration, container, false);
@@ -63,13 +69,24 @@ public class ActivityRegistrationPersonalData extends Activity {
 		}
 
 		protected void verifyAddress(String address) {
-			PostVerifyAddress.verify(getActivity(), "", new HttpCallback() {
+			PostVerifyAddress.verify(getActivity(), address, new HttpCallback() {
 
 				@Override
 				public void onAnswerReturn(Object answer) {
-					// TODO
+					Dialogs.singleChoiseDialog(getActivity(), (String[]) answer, new OnDialogItemSelectedListener() {
+
+						@Override
+						public void onDialogItemSelected(String selection) {
+							setValidAddress(selection);
+							register();
+						}
+					});
 				}
 			});
+		}
+
+		private void setValidAddress(String address) {
+			etAddress.setText(address);
 		}
 
 		private void setPhoneNumberFragment() {

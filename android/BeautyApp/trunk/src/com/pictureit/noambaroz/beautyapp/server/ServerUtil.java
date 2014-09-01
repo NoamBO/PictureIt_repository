@@ -10,7 +10,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_GET_MARKERS = URL_BASE + "PostLatitudeLongitude";
 	public static final String URL_REQUEST_ORDER_TREATMENT = URL_BASE + "postordertreatment";
 	public static final String URL_REQUEST_VERIFY_USER = URL_BASE + "verifyuser";
-	public static final String URL_REQUEST_VERIFY_ADDRESS = URL_BASE + "";
+	public static final String URL_REQUEST_VERIFY_ADDRESS = URL_BASE + "getvalidaddress";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";
