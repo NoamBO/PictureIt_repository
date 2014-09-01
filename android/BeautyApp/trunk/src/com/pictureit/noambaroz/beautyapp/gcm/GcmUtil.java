@@ -2,7 +2,11 @@ package com.pictureit.noambaroz.beautyapp.gcm;
 
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import utilities.Log;
+import utilities.server.BaseHttpPost;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -10,6 +14,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
+import com.pictureit.noambaroz.beautyapp.server.ServerUtil;
 
 public class GcmUtil {
 
@@ -128,16 +134,8 @@ public class GcmUtil {
 					// your app
 					// is using accounts.
 
-					sendRegistrationIdToBackend();
+					sendRegistrationIdToBackend(regid);
 
-					// For this demo: we don't need to send it because the
-					// device
-					// will send upstream messages to a server that echo back
-					// the
-					// message using the 'from' address in the message.
-
-					// Persist the regID - no need to register again.
-					storeRegistrationId(regid);
 				} catch (IOException ex) {
 					msg = "Error :" + ex.getMessage();
 					// If there is an error, don't just keep trying to register.
@@ -169,8 +167,49 @@ public class GcmUtil {
 		editor.commit();
 	}
 
-	private void sendRegistrationIdToBackend() {
-		// TODO
+	private void sendRegistrationIdToBackend(String regid) {
+		RegistrationIdSender sender = new RegistrationIdSender(context, regid);
+		sender.execute();
+	}
+
+	private class RegistrationIdSender extends BaseHttpPost {
+
+		String regId;
+
+		@Override
+		protected void onPostExecute(Object result) {
+			storeRegistrationId(regId);
+			super.onPostExecute(result);
+		}
+
+		public RegistrationIdSender(Context ctx, String regId) {
+			super(ctx);
+			this.regId = regId;
+		}
+
+		@Override
+		protected Object continueInBackground(String result) {
+			if (JsonToObject.isResponseOk(result))
+				return regId;
+			return null;
+		}
+
+		@Override
+		protected void prepare(String request) {
+			setUrl(ServerUtil.URL_REQUEST_SEND_GCM_REG_ID);
+			showProgressDialog = false;
+			JSONObject jsonObject = new JSONObject();
+			try {
+				jsonObject.put(ServerUtil.UID, getUid());
+				jsonObject.put(ServerUtil.GCM_REGISTRATION_ID, request);
+				jsonObject.put(ServerUtil.OS, "android");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mMainJson = jsonObject;
+		}
+
 	}
 
 }

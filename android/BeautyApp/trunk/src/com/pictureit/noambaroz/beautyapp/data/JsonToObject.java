@@ -55,7 +55,7 @@ public class JsonToObject {
 	public static boolean isResponseOk(String json) {
 		boolean isOk = false;
 		try {
-			JSONObject j = new JSONObject(json);
+			JSONObject j = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
 			if (j.has(ServerUtil.SERVER_RESPONSE_STATUS)) {
 				if (j.getString(ServerUtil.SERVER_RESPONSE_STATUS).equalsIgnoreCase(
 						ServerUtil.SERVER_RESPONSE_STATUS_SUCCESS)) {

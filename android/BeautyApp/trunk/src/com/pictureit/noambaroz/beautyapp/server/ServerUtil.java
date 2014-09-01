@@ -11,12 +11,15 @@ public class ServerUtil {
 	public static final String URL_REQUEST_ORDER_TREATMENT = URL_BASE + "postordertreatment";
 	public static final String URL_REQUEST_VERIFY_USER = URL_BASE + "verifyuser";
 	public static final String URL_REQUEST_VERIFY_ADDRESS = URL_BASE + "getvalidaddress";
+	public static final String URL_REQUEST_SEND_GCM_REG_ID = URL_BASE + "pushsenderid";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";
 	public static final String SERVER_RESPONSE_STATUS_SUCCESS = "success";
 	public static final String LATITUDE = "latitude";
 	public static final String LONGITUDE = "longitude";
+	public static final String GCM_REGISTRATION_ID = "registration_id";
+	public static final String OS = "os";
 
 	public static final String LOCATION = "location";
 
