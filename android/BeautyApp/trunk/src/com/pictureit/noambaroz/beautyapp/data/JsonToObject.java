@@ -49,7 +49,6 @@ public class JsonToObject {
 
 		}
 		return s;
-
 	}
 
 	public static boolean isResponseOk(String json) {

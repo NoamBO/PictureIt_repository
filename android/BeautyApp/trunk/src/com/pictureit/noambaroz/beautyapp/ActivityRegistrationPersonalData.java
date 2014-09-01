@@ -18,9 +18,10 @@ import android.widget.EditText;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class ActivityRegistrationPersonalData extends Activity {
+
+	private String mFirstName, mLastName, mEmail, mAddress;
 	protected final int FRAGMENT_CONTAINER = R.id.fragment_container;
 	Fragment fragment1 = new FragmentRegistrationPersonalData();
-	Fragment fragment2 = new FragmentRegistrationPhoneField();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,6 @@ public class ActivityRegistrationPersonalData extends Activity {
 
 		private Button bProceed;
 		private EditText etFirstName, etLastName, etEmail, etAddress;
-
-		private void register() {
-
-		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +75,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 						@Override
 						public void onDialogItemSelected(String selection) {
 							setValidAddress(selection);
-							register();
+							setPhoneNumberFragment();
 						}
 					});
 				}
@@ -90,6 +87,10 @@ public class ActivityRegistrationPersonalData extends Activity {
 		}
 
 		private void setPhoneNumberFragment() {
+			mFirstName = etFirstName.getText().toString();
+			mLastName = etLastName.getText().toString();
+			mEmail = etEmail.getText().toString();
+			mAddress = etAddress.getText().toString();
 			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentRegistrationPhoneField())
 					.addToBackStack(null).commit();
 		}
