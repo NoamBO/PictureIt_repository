@@ -7,7 +7,9 @@ import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -125,10 +127,31 @@ public class ActivityRegistrationPersonalData extends Activity {
 
 	private class FragmentRegistrationPhoneField extends BaseFragment {
 
+		private EditText etTelephoneNum;
+
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+		}
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_registration_page_two, container, false);
+			etTelephoneNum = findView(v, R.id.et_registration_telephone_number);
+			etTelephoneNum.setText(getLocalPhoneNumber());
 			return v;
+		}
+
+		@Override
+		public void onResume() {
+			super.onResume();
+			etTelephoneNum.requestFocus();
+		}
+
+		private String getLocalPhoneNumber() {
+			TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(
+					Context.TELEPHONY_SERVICE);
+			return tMgr.getLine1Number();
 		}
 
 	}

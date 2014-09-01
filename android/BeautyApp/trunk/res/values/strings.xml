@@ -38,6 +38,7 @@
     <string name="action_search_providers">Locating a beautician</string>
     
     <!-- Register screen -->
+    <string name="telephone_number">מספר טלפון</string>
     <string name="first_name">שם פרטי</string>
     <string name="last_name">שם משפחה</string>
     <string name="email">מייל</string>

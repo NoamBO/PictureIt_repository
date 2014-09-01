@@ -23,12 +23,13 @@
             android:textSize="22sp" />
 
         <EditText
-            android:id="@+id/et_registration_first_name"
+            android:id="@+id/et_registration_telephone_number"
+            android:inputType="numberSigned"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:background="@android:drawable/editbox_background"
-            android:hint="@string/first_name" />
+            android:hint="@string/telephone_number" />
 
         <Button
             android:id="@+id/b_registration_page_two_proceed"

@@ -7,12 +7,11 @@ import android.view.inputmethod.InputMethodManager;
 
 public class SoftKeyboard {
 
-	public static void hideSoftKeyboard(Activity activity) {
+	public static void hide(Activity activity) {
 		InputMethodManager inputMethodManager = (InputMethodManager) activity
 				.getSystemService(Activity.INPUT_METHOD_SERVICE);
 		if (inputMethodManager != null && activity.getCurrentFocus() != null)
-			inputMethodManager.hideSoftInputFromWindow(activity
-					.getCurrentFocus().getWindowToken(), 0);
+			inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 	}
 
 	public static boolean isRTL(CharSequence charSequence) {
@@ -22,8 +21,7 @@ public class SoftKeyboard {
 	private static boolean isRTLFromString(CharSequence charSequence) {
 		if (charSequence.length() < 1)
 			return false;
-		final int directionality = Character
-				.getDirectionality(charSequence.charAt(0));
+		final int directionality = Character.getDirectionality(charSequence.charAt(0));
 		return directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT
 				|| directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC;
 
@@ -34,8 +32,7 @@ public class SoftKeyboard {
 	}
 
 	private static boolean isRTL(Locale locale) {
-		final int directionality = Character.getDirectionality(locale
-				.getDisplayName().charAt(0));
+		final int directionality = Character.getDirectionality(locale.getDisplayName().charAt(0));
 		return directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT
 				|| directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC;
 	}
