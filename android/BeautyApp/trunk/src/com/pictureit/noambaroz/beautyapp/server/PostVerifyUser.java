@@ -40,6 +40,6 @@ public class PostVerifyUser extends BaseHttpPost {
 		mMainJson = object;
 	}
 
-	private final String TEMPORARY_JSON = "{\"active\":\"false\"}";
+	private final String TEMPORARY_JSON = "{\"active\":\"true\"}";
 
 }

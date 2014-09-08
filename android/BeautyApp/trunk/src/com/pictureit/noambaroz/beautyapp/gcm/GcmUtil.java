@@ -14,7 +14,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 import com.pictureit.noambaroz.beautyapp.server.ServerUtil;
 
 public class GcmUtil {
@@ -181,12 +180,13 @@ public class GcmUtil {
 		public RegistrationIdSender(Context ctx, String regId) {
 			super(ctx);
 			this.regId = regId;
+			prepare(null);
 		}
 
 		@Override
 		protected Object continueInBackground(String result) {
-			if (JsonToObject.isResponseOk(result))
-				return regId;
+			// if (JsonToObject.isResponseOk(result))
+			// return regId;
 			return null;
 		}
 
@@ -197,7 +197,7 @@ public class GcmUtil {
 			JSONObject jsonObject = new JSONObject();
 			try {
 				jsonObject.put(ServerUtil.UID, getUid());
-				jsonObject.put(ServerUtil.GCM_REGISTRATION_ID, request);
+				jsonObject.put(ServerUtil.GCM_REGISTRATION_ID, regId);
 				jsonObject.put(ServerUtil.OS, "android");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

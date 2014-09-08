@@ -99,17 +99,11 @@
             android:theme="@style/ThemeNoActionBar" >
         </activity>
 
-        <receiver android:name="com.pictureit.noambaroz.beautyapp.gcm.GcmBroadcastReceiver" >
+        <receiver android:name="com.pictureit.noambaroz.beautyapp.gcm.GcmBroadcastReceiver" 
+             android:permission="com.google.android.c2dm.permission.SEND" >
 
-            <!--
-             android:permission="com.google.android.c2dm.permission.SEND" > 
-             need to go one level up
-            -->
             <intent-filter>
-
-                <!-- <action android:name="com.google.android.c2dm.intent.RECEIVE" /> -->
-                <action android:name="com.pictureit.android.intent.action.BROADCAST" />
-
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="com.pictureit.noambaroz.beautyapp.server" />
             </intent-filter>
         </receiver>
