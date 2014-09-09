@@ -146,7 +146,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 			mVisibleMarkers.clear();
 			for (MarkerData item : arrayList) {
 
-				mVisibleMarkers.put(mMap.addMarker(getMarkerForItem(item)), item.getId());
+				mVisibleMarkers.put(mMap.addMarker(getMarkerForItem(item)), item.getBeautician_id());
 
 				// If the item is within the the bounds of the screen
 				// if (bounds.contains(new

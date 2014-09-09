@@ -42,7 +42,7 @@ public class PostOrderTreatment extends BaseHttpPost {
 		JSONArray array = new JSONArray();
 		for (TreatmentType treatment : treatments) {
 			if (treatment.count > 0)
-				array.put(new JSONObject().put(ServerUtil.ID, treatment.id).put(ServerUtil.AMOUNT, treatment.count));
+				array.put(new JSONObject().put(ServerUtil.TREATMENT_ID, treatment.id).put(ServerUtil.AMOUNT, treatment.count));
 		}
 		tempJson.put(ServerUtil.TREATMENTS, array);
 		mMainJson = tempJson;

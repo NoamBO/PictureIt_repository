@@ -2,18 +2,10 @@ package com.pictureit.noambaroz.beautyapp.data;
 
 public class MarkerData {
 
-	private String id;
+	private String beautician_id;
 	private double latitude;
 	private double longitude;
 	private String name;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public double getLatitude() {
 		return latitude;
@@ -37,5 +29,13 @@ public class MarkerData {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getBeautician_id() {
+		return beautician_id;
+	}
+
+	public void setBeautician_id(String beautician_id) {
+		this.beautician_id = beautician_id;
 	}
 }

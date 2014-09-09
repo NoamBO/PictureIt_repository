@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -35,10 +34,8 @@ public class GcmIntentService extends IntentService {
 
 		if (!extras.isEmpty()) { // has effect of unparcelling Bundle
 			/*
-			 * Filter messages based on message type. Since it is likely that
-			 * GCM will be extended in the future with new message types, just
-			 * ignore any message types you're not interested in, or that you
-			 * don't recognize.
+			 * Filter messages based on message type. Since it is likely that GCM will be extended in the future with new message types, just ignore any message types you're not
+			 * interested in, or that you don't recognize.
 			 */
 			if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
 				// sendNotification("Send error: " + extras.toString(), extras);
@@ -47,15 +44,6 @@ public class GcmIntentService extends IntentService {
 				// extras.toString(), extras);
 				// If it's a regular GCM message, do some work.
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-				// This loop represents the service doing some work.
-				for (int i = 0; i < 5; i++) {
-					Log.i("Working... " + (i + 1) + "/5 @ " + SystemClock.elapsedRealtime());
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-					}
-				}
-				Log.i("Completed work @ " + SystemClock.elapsedRealtime());
 				// Post notification of received message.
 				sendNotification("Received: " + extras.toString(), extras);
 				Log.i("Received: " + extras.toString());

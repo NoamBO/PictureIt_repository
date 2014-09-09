@@ -29,7 +29,7 @@ public class ServerUtil {
 	public static final String COMMENTS = "comments";
 	public static final String FOR = "forwho";
 	public static final String DATE = "date";
-	public static final String ID = "id";
+	public static final String TREATMENT_ID = "treatments_id";
 	public static final String AMOUNT = "amount";
 	public static final String ORDER_ID = "order_id";
 

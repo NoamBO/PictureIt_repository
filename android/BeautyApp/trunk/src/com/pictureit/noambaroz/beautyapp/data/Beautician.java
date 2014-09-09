@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Beautician implements Parcelable {
 
-	private String id;
+	private String beautician_id;
 	private String photo;
 	private String name;
 	private Address address;
@@ -15,7 +15,7 @@ public class Beautician implements Parcelable {
 	String[] treatments;
 
 	private Beautician(Parcel in) {
-		id = in.readString();
+		beautician_id = in.readString();
 		photo = in.readString();
 		name = in.readString();
 		address = (Address) in.readParcelable(Address.class.getClassLoader());
@@ -35,7 +35,7 @@ public class Beautician implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(id);
+		dest.writeString(beautician_id);
 		dest.writeString(photo);
 		dest.writeString(name);
 		dest.writeParcelable(address, flags);
@@ -56,11 +56,11 @@ public class Beautician implements Parcelable {
 	};
 
 	public String getId() {
-		return id;
+		return beautician_id;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.beautician_id = id;
 	}
 
 	public String getPhoto() {
