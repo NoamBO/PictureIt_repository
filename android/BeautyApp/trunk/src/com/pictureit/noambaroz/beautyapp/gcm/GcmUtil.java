@@ -18,16 +18,13 @@ import com.pictureit.noambaroz.beautyapp.server.ServerUtil;
 
 public class GcmUtil {
 
-	public static final String EXTRA_MESSAGE = "message";
-	private static final String PROPERTY_APP_VERSION = "appVersion";
-	public static final String PROPERTY_REG_ID = "gcm_registration_id";
+	public final String EXTRA_MESSAGE = "message";
+	private final String PROPERTY_APP_VERSION = "appVersion";
+	public final String PROPERTY_REG_ID = "gcm_registration_id";
 
-	/**
-	 * Substitute you own sender ID here. This is the project number you got from the API Console, as described in "Getting Started."
-	 */
-	public static final String SENDER_ID = "564652940367";
+	private final String SENDER_ID = "564652940367";
 
-	private static final String PREF_GCM_KEY = "com.pictureit.noambaroz.beautyapp.gcm.GcmUtil";
+	private final String PREF_GCM_KEY = "com.pictureit.noambaroz.beautyapp.gcm.GcmUtil";
 
 	private GoogleCloudMessaging gcm;
 
@@ -61,7 +58,8 @@ public class GcmUtil {
 	 * <p>
 	 * If result is empty, the app needs to register.
 	 * 
-	 * @return registration ID, or empty string if there is no existing registration ID.
+	 * @return registration ID, or empty string if there is no existing
+	 *         registration ID.
 	 */
 	private String getRegistrationId() {
 		final SharedPreferences prefs = getGCMPreferences();
@@ -108,7 +106,8 @@ public class GcmUtil {
 	/**
 	 * Registers the application with GCM servers asynchronously.
 	 * <p>
-	 * Stores the registration ID and app versionCode in the application's shared preferences.
+	 * Stores the registration ID and app versionCode in the application's
+	 * shared preferences.
 	 */
 	private void registerInBackground() {
 		new AsyncTask<Void, Void, String>() {
@@ -145,7 +144,8 @@ public class GcmUtil {
 	}
 
 	/**
-	 * Stores the registration ID and app versionCode in the application's {@code SharedPreferences}.
+	 * Stores the registration ID and app versionCode in the application's
+	 * {@code SharedPreferences}.
 	 * 
 	 * @param context
 	 *            application's context.

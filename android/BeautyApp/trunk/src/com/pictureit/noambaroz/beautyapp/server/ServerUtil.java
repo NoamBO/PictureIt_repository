@@ -2,7 +2,7 @@ package com.pictureit.noambaroz.beautyapp.server;
 
 public class ServerUtil {
 
-	private static final String URL_BASE = "http://192.168.1.50/BeautyUpService.asmx/";
+	private static final String URL_BASE = "http://pictureit.co.il/beautyapp/BeautyUpService.asmx/";
 
 	public static final String URL_REQUEST_SEARCH_BEAUTICIAN = URL_BASE + "";
 	public static final String URL_REQUEST_GET_BEAUTICIAN_BY_ID = URL_BASE + "getbeauticianbyid";
