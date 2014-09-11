@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="google_maps_v2_api_key">AIzaSyB5cTDJXYs82kBv6zJCkBpZSMLFArV6dLA</string>
+    <string name="google_maps_v2_api_key">AIzaSyDzN299UGIvDC4usUuCyrMgVemF322xwZk</string>
     <string name="preference_key_my_profile_picture">PREF_PROFILE_IMAGE</string>
     <string name="preference_key_my_profile_first_name">PREF_PROFILE_FIRST_NAME</string>
     <string name="preference_key_my_profile_last_name">PREF_PROFILE_LAST_NAME</string>
