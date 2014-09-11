@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	private void initActivity() {
 		setContentView(R.layout.activity_main);
 		mTouchToOpenSlider = findView(R.id.ib_main_touch_to_slide_list);
-
+		getActionBar().setTitle("");
 		MapManager.getInstance(MainActivity.this);
 		initListeners();
 		setListView();
@@ -146,7 +146,6 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.i("");
 		getMenuInflater().inflate(R.menu.main, menu);
 		getLoaderManager().initLoader(0, null, this);
 		final MenuItem badgeItem = menu.findItem(R.id.action_pending_orders);
@@ -166,12 +165,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_ask_for_service) {
-			return launchActivity(ServiceOrder.class);
-		} else if (id == R.id.action_explanation) {
+		if (id == R.id.action_explanation) {
 
 		} else if (id == R.id.action_pending_orders) {
-			return launchActivity(ActivityNotification.class);
+			return launchActivity(ActivityTreatments.class);
 		} else if (id == R.id.action_terms_of_service) {
 			return launchActivity(ActivityTermsOfService.class);
 		} else if (id == R.id.action_search_providers) {

@@ -1,6 +1,7 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseActivity;
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,7 +21,7 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		setFragmentTag();
 
 		initActivity();
-		initActionBar();
+		initActionBar(getActionBar());
 	}
 
 	@Override
@@ -38,9 +39,9 @@ public abstract class ActivityWithFragment extends BaseActivity {
 
 	}
 
-	protected void initActionBar() {
+	protected void initActionBar(ActionBar actionBar) {
 		if (initActionBar) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 	}
 

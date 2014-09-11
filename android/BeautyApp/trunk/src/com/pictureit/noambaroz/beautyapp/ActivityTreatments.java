@@ -14,6 +14,8 @@ import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,7 +29,7 @@ import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.server.GetOrderNotification;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
-public class ActivityNotification extends ActivityWithFragment {
+public class ActivityTreatments extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {
@@ -44,6 +46,24 @@ public class ActivityNotification extends ActivityWithFragment {
 	@Override
 	protected void setFragmentTag() {
 		FRAGMENT_TAG = "notification_fragment";
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_activity_treatments, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.action_ask_for_service) {
+			Intent intent = new Intent(ActivityTreatments.this, ServiceOrder.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private class NotificationActivity extends ListFragment implements LoaderCallbacks<Cursor> {

@@ -59,7 +59,6 @@
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beautyapp.MainActivity"
-            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
@@ -89,7 +88,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beautyapp.ActivityNotification"
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityTreatments"
             android:label="@string/title_order_notification"
             android:screenOrientation="portrait" >
         </activity>
