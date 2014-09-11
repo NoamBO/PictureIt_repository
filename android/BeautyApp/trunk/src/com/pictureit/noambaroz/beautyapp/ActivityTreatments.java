@@ -12,20 +12,16 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
-import com.pictureit.noambaroz.beautyapp.animation.AnimationManager.OnRowCollapseCallback;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
+import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.server.GetOrderNotification;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
@@ -78,13 +74,13 @@ public class ActivityTreatments extends ActivityWithFragment {
 			super.onCreate(savedInstanceState);
 			getOrderNotificationThreadPoll = new HashMap<String, GetOrderNotification>();
 
-			String[] from = { DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_PIC,
-					DataProvider.COL_RATERS, DataProvider.COL_RATE, DataProvider.COL_AT, DataProvider.COL_LOCATION,
+			String[] from = { DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_AT,
+					DataProvider.COL_RATERS, DataProvider.COL_RATE, DataProvider.COL_PIC, DataProvider.COL_LOCATION,
 					DataProvider.COL_PRICE };
-			int[] to = { R.id.tv_row_order_notification, R.id.tv_row_order_notification1,
-					R.id.iv_row_order_notification_pic };
+			int[] to = { R.id.tv_row_treatment_beautician_name, R.id.tv_row_treatment_address,
+					R.id.tv_row_treatment_date };
 
-			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_order_notification, null, from, to, 0);
+			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_treatment, null, from, to, 0);
 			setListAdapter(adapter);
 		}
 
@@ -125,7 +121,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 		@Override
 		public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-			CursorLoader loader = new CursorLoader(getActivity(), DataProvider.CONTENT_URI_ORDER_OPTIONS, new String[] {
+			CursorLoader loader = new CursorLoader(getActivity(), DataProvider.CONTENT_URI_TREATMENTS, new String[] {
 					DataProvider.COL_ID, DataProvider.COL_NOTIFICATION_ID, DataProvider.COL_BEAUTICIAN_ID,
 					DataProvider.COL_PIC, DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_RATERS,
 					DataProvider.COL_RATE, DataProvider.COL_AT, DataProvider.COL_LOCATION, DataProvider.COL_REMARKS,
@@ -161,11 +157,10 @@ public class ActivityTreatments extends ActivityWithFragment {
 			}
 
 			@Override
-			public void setViewImage(ImageView view, String value) {
-				Log.i("");
-				if (view.getId() == R.id.iv_row_order_notification_pic && value != null && value.contains("http")) {
-					imageLoader.displayImage(value, (ImageView) view, options);
-				}
+			public void setViewText(TextView v, String text) {
+				if (v.getId() == R.id.tv_row_treatment_date && text != null && text.length() > 1)
+					text = new Formater().getDate(text);
+				super.setViewText(v, text);
 			}
 
 			@Override
@@ -182,35 +177,37 @@ public class ActivityTreatments extends ActivityWithFragment {
 							if (answer != null) {
 								Log.i("getView", "Finised downloading notification");
 								findView(view, R.id.pb_row_order_notification_spinner).setVisibility(View.GONE);
-								findView(view, R.id.ll_row_order_notification_data_container).setVisibility(
+								findView(view, R.id.vg_row_order_notification_data_container).setVisibility(
 										View.VISIBLE);
 							}
 						}
 					});
 				} else {
 					findView(view, R.id.pb_row_order_notification_spinner).setVisibility(View.GONE);
-					findView(view, R.id.ll_row_order_notification_data_container).setVisibility(View.VISIBLE);
+					findView(view, R.id.vg_row_order_notification_data_container).setVisibility(View.VISIBLE);
 				}
 
-				Button b = findView(view, R.id.b_row_order_notification_dismiss);
-				b.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						AnimationManager.collapseCursorAdapterRow(view, 0, new OnRowCollapseCallback() {
-
-							@Override
-							public void onCollapse(View v, int initialHeight) {
-								context.getContentResolver().delete(
-										Uri.withAppendedPath(DataProvider.CONTENT_URI_ORDER_OPTIONS,
-												cursor.getString(cursor.getColumnIndex("_id"))), null, null);
-								mRowViewInitialHeight = initialHeight;
-								mRowViewToRemove = v;
-							}
-
-						});
-					}
-				});
+				// Button b = findView(view,
+				// R.id.b_row_order_notification_dismiss);
+				// b.setOnClickListener(new OnClickListener() {
+				//
+				// @Override
+				// public void onClick(View v) {
+				// AnimationManager.collapseCursorAdapterRow(view, 0, new
+				// OnRowCollapseCallback() {
+				//
+				// @Override
+				// public void onCollapse(View v, int initialHeight) {
+				// context.getContentResolver().delete(
+				// Uri.withAppendedPath(DataProvider.CONTENT_URI_ORDER_OPTIONS,
+				// cursor.getString(cursor.getColumnIndex("_id"))), null, null);
+				// mRowViewInitialHeight = initialHeight;
+				// mRowViewToRemove = v;
+				// }
+				//
+				// });
+				// }
+				// });
 			}
 		}
 	}

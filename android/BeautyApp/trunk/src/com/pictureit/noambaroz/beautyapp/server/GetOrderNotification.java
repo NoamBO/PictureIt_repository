@@ -38,8 +38,8 @@ public class GetOrderNotification extends BaseHttpGet {
 		setUrl("URL/" + request);
 	}
 
-	String json = "{" + "\"order_id\":\"34545650\"," + "\"beautician_id\":\"45645645645\"," + "\"name\":\"Olga Rova\","
+	String json = "{" + "\"order_id\":\"67\"," + "\"beautician_id\":\"4\"," + "\"name\":\"אלונה\","
 			+ "\"pic\":\"http://saints.blogs.com/saint_of_the_month_club/images/olga.jpg\","
-			+ "\"address\":\"Menachem Begin 55, Tel Aviv\"," + "\"raters\":24," + "\"rate\":2.5,"
-			+ "\"at\":456566435456," + "\"location\":\"at the beautician\"," + "\"price\":\"56 nis\"" + "}";
+			+ "\"address\":\"מנחם בגין 55, תל אביב\"," + "\"raters\":24," + "\"rate\":2.5," + "\"at\":1410434070189,"
+			+ "\"location\":\"at the beautician\"," + "\"price\":\"56 nis\"" + "}";
 }

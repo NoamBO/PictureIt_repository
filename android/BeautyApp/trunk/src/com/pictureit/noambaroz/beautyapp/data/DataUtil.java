@@ -68,11 +68,11 @@ public class DataUtil {
 	public static void pushOrderNotificationIdToTable(Context ctx, String notification_id) {
 		ContentValues values = new ContentValues(1);
 		values.put(DataProvider.COL_NOTIFICATION_ID, notification_id);
-		ctx.getContentResolver().insert(DataProvider.CONTENT_URI_ORDER_OPTIONS, values);
+		ctx.getContentResolver().insert(DataProvider.CONTENT_URI_TREATMENTS, values);
 	}
 
 	public static void pushOrderNotificationToTable(Context ctx, ContentValues values, String orderIdInRow) {
-		ctx.getContentResolver().update(DataProvider.CONTENT_URI_ORDER_OPTIONS, values,
+		ctx.getContentResolver().update(DataProvider.CONTENT_URI_TREATMENTS, values,
 				DataProvider.COL_NOTIFICATION_ID + " =" + orderIdInRow, null);
 	}
 

@@ -49,6 +49,7 @@ public class GcmIntentService extends IntentService {
 				// If it's a regular GCM message, do some work.
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
 				// Post notification of received message.
+				DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), "5555");
 				sendNotification("Received: " + extras.toString(), extras);
 				Log.i("Received: " + extras.toString());
 			}

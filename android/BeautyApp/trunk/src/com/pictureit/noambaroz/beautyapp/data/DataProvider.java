@@ -13,10 +13,10 @@ public class DataProvider extends ContentProvider {
 
 	public static final String COL_ID = "_id";
 
-	public static final String TABLE_ORDER_OPTIONS = "ordersnotification";
+	public static final String TABLE_TREATMENTS = "tabletreatments";
 	public static final String COL_BEAUTICIAN_ID = "beauticianid";
 	public static final String COL_NOTIFICATION_ID = "notificationid";
-	public static final String COL_NAME = "name";
+	public static final String COL_NAME = "beautician_name";
 	public static final String COL_PIC = "pic";
 	public static final String COL_ADDRESS = "address";
 	public static final String COL_RATERS = "raters";
@@ -34,10 +34,10 @@ public class DataProvider extends ContentProvider {
 
 	private DbHelper dbHelper;
 
-	public static final Uri CONTENT_URI_HISTORY = Uri
-			.parse("content://com.pictureit.noambaroz.beautyapp.provider/history");
-	public static final Uri CONTENT_URI_ORDER_OPTIONS = Uri
-			.parse("content://com.pictureit.noambaroz.beautyapp.provider/ordersnotification");
+	public static final Uri CONTENT_URI_HISTORY = Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/"
+			+ TABLE_HISTORY);
+	public static final Uri CONTENT_URI_TREATMENTS = Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/"
+			+ TABLE_TREATMENTS);
 
 	private static final int HISTORY_ALLROWS = 1;
 	private static final int HISTORY_SINGLE_ROW = 2;
@@ -47,10 +47,10 @@ public class DataProvider extends ContentProvider {
 	private static final UriMatcher uriMatcher;
 	static {
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "history", HISTORY_ALLROWS);
-		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "history/#", HISTORY_SINGLE_ROW);
-		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "ordersnotification/", ORDER_OPTIONS_ALLROWS);
-		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", "ordersnotification/#",
+		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", TABLE_HISTORY, HISTORY_ALLROWS);
+		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", TABLE_HISTORY + "/#", HISTORY_SINGLE_ROW);
+		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", TABLE_TREATMENTS + "/", ORDER_OPTIONS_ALLROWS);
+		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", TABLE_TREATMENTS + "/#",
 				ORDER_OPTIONS_SINGLE_ROW);
 	}
 
@@ -103,7 +103,7 @@ public class DataProvider extends ContentProvider {
 			id = db.insertOrThrow(TABLE_HISTORY, null, values);
 			break;
 		case ORDER_OPTIONS_ALLROWS:
-			id = db.insertOrThrow(TABLE_ORDER_OPTIONS, null, values);
+			id = db.insertOrThrow(TABLE_TREATMENTS, null, values);
 			break;
 
 		default:
@@ -171,7 +171,7 @@ public class DataProvider extends ContentProvider {
 			return TABLE_HISTORY;
 		case ORDER_OPTIONS_ALLROWS:
 		case ORDER_OPTIONS_SINGLE_ROW:
-			return TABLE_ORDER_OPTIONS;
+			return TABLE_TREATMENTS;
 		}
 
 		return null;
