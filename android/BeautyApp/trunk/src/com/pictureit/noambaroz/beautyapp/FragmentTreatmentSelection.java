@@ -6,7 +6,6 @@ import utilities.view.MyNumberPicker;
 import utilities.view.MyNumberPicker.onValueChangeListener;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +23,6 @@ import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatments
 public class FragmentTreatmentSelection extends Fragment {
 
 	ListView mListView;
-	SparseIntArray s;
 	ArrayList<TreatmentType> treatmentsArrayList;
 	private OnTreatmentsSelectedListener mListener;
 	private String[] treatmentStringArray;
@@ -115,7 +113,6 @@ public class FragmentTreatmentSelection extends Fragment {
 
 		@Override
 		public TreatmentType getItem(int position) {
-			// TODO Auto-generated method stub
 			return treatmentsArrayList.get(position);
 		}
 

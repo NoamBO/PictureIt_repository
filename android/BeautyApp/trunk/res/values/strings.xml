@@ -88,12 +88,12 @@
     <!-- general dialogs text -->
     <string name="dialog_ok_text">OK</string>
     <string name="dialog_cancel_text">@android:string/cancel</string>
-    <string name="else_">Else</string>
+    <string name="else_">אחר</string>
     
     <!-- Service Order dialog For Who text -->
     <string name="dialog_title_for">For</string>
-    <string name="for_me">Me</string>
-    <string name="for_group">Group</string>
+    <string name="for_me">עבורי</string>
+    <string name="for_group">קבוצה</string>
     <string-array name="for_who_array">
         <item>@string/for_me</item>
         <item>@string/for_group</item>
@@ -107,15 +107,6 @@
 	    <string-array name="dialog_location_array">
         <item>@string/at_my_home</item>
         <item>@string/at_the_beautician</item>
-        <item>@string/else_</item>
-    </string-array>
-    
-    <!-- Service Order dialog When text -->
-    <string name="dialog_title_when">When</string>
-    <string name="today">Today</string>
-    
-    <string-array name="dialog_when_array">
-        <item>@string/today</item>
         <item>@string/else_</item>
     </string-array>
     

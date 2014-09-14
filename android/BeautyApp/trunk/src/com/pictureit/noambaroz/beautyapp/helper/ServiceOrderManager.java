@@ -13,28 +13,38 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.FragmentTreatmentSelection;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
+import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
 public class ServiceOrderManager {
 
+	private boolean isTodaySelected;
 	private Activity activity;
 	private TreatmentSummary mTreatment;
-	private Dialog mDialog;
+	private Dialog mDialog, dFor, dGroup;
+	private DatePickerFragment dDate;
 
 	private final int DIALOG_TYPE_FOR = 1;
-	private final int DIALOG_TYPE_WHEN = 2;
 	private final int DIALOG_TYPE_LOCATION = 3;
 
 	public ServiceOrderManager(Activity activity) {
@@ -65,14 +75,14 @@ public class ServiceOrderManager {
 				.commit();
 	}
 
-	public void showFORDialog(OnFieldChangeListener onFieldChangeListener) {
+	public void showFORDialog(final OnFieldChangeListener onFieldChangeListener) {
 		String title = activity.getString(R.string.dialog_title_for);
 		String[] stringArray = activity.getResources().getStringArray(R.array.for_who_array);
 		int checkedItem = 0;
 		if (mTreatment.forWho != null) {
 			if (mTreatment.forWho.equalsIgnoreCase(stringArray[0]))
 				checkedItem = 0;
-			else if (mTreatment.forWho.equalsIgnoreCase(stringArray[1]))
+			else if (Formater.isNumeric(mTreatment.forWho))
 				checkedItem = 1;
 			else
 				checkedItem = 2;
@@ -82,10 +92,64 @@ public class ServiceOrderManager {
 			@Override
 			public void onItemSelected(String selection) {
 				mTreatment.forWho = selection;
+				onFieldChangeListener.onFieldChange(selection);
 			}
 		};
 
-		showSingleChoice(title, checkedItem, stringArray, l, DIALOG_TYPE_FOR);
+		createDialogTypeFor(title, checkedItem, stringArray, l);
+	}
+
+	private void createDialogTypeFor(String title, int checkedItem, final String[] selections,
+			final OnItemSelectedListener l) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setTitle(title);
+		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (which == selections.length - 1) {
+					getEditableDialog(l, mTreatment.forWho, dFor).show();
+				} else if (which == selections.length - 2) {
+					createGroupDialog(l, selections[which]);
+				} else
+					l.onItemSelected(selections[which]);
+				dFor.dismiss();
+			}
+		});
+		dFor = builder.create();
+		dFor.show();
+	}
+
+	private void createGroupDialog(final OnItemSelectedListener l, String title) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.number_picker_dialog_layout, null);
+		builder.setCustomTitle(getDialogTitleTextView(title));
+		Button bOk = (Button) view.findViewById(R.id.number_picker_dialog_ok);
+		Button bCancel = (Button) view.findViewById(R.id.number_picker_dialog_cancel);
+		final NumberPicker np = (NumberPicker) view.findViewById(R.id.number_picker_dialog_wheel);
+		np.setMaxValue(20); // max value 20
+		np.setMinValue(2); // min value 2
+		np.setWrapSelectorWheel(false);
+		bCancel.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dGroup.dismiss();
+				dFor.show();
+			}
+		});
+		bOk.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				l.onItemSelected(String.valueOf(activity.getString(R.string.for_group) + ": " + np.getValue()));
+				dGroup.dismiss();
+			}
+		});
+		builder.setView(view);
+		dGroup = builder.create();
+		dGroup.show();
 	}
 
 	public void showLocationDialog() {
@@ -110,37 +174,52 @@ public class ServiceOrderManager {
 		showSingleChoice(title, checkedItem, stringArray, l, DIALOG_TYPE_LOCATION);
 	}
 
-	public void showWHENDialog() {
-		String title = activity.getString(R.string.dialog_title_when);
-		String[] stringArray = activity.getResources().getStringArray(R.array.dialog_when_array);
-		int checkedItem = 0;
-		if (mTreatment.when != null) {
-			if (mTreatment.when.equalsIgnoreCase(stringArray[0]))
-				checkedItem = 0;
-			else
-				checkedItem = 1;
-		}
+	public void showWHENDialog(final OnFieldChangeListener onFieldChangeListener) {
 		OnItemSelectedListener l = new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(String selection) {
-				final String tempTime = selection;
-				final Calendar c = Calendar.getInstance();
-				int currentHour = c.get(Calendar.HOUR_OF_DAY);
-				int currentMinute = c.get(Calendar.MINUTE);
-				TimePickerDialog tpd = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
-
-					@Override
-					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-						mTreatment.when = tempTime + " " + hourOfDay + ":" + minute;
-					}
-				}, currentHour, currentMinute, false);
-				tpd.show();
+				createTimeDialog(selection, onFieldChangeListener);
 			}
 		};
 
-		DialogFragment newFragment = new DatePickerFragment(l);
-		newFragment.show(activity.getFragmentManager(), "timePicker");
+		dDate = new DatePickerFragment(l);
+		dDate.show(activity.getFragmentManager(), "timePicker");
+	}
+
+	private void createTimeDialog(final String selection, final OnFieldChangeListener onFieldChangeListener) {
+		final String tempTime = selection;
+		final Calendar c = Calendar.getInstance();
+		int currentHour = c.get(Calendar.HOUR_OF_DAY);
+		int currentMinute = c.get(Calendar.MINUTE);
+		TimePickerDialog dialog = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+
+			private void updateDisplay(int hour, int minute) {
+				String min = String.valueOf(minute);
+				String hr = String.valueOf(hour);
+				min = min.length() == 1 ? "0" + min : min;
+				hr = hr.length() == 1 ? "0" + hr : hr;
+				mTreatment.when = tempTime + " " + hr + ":" + min;
+				onFieldChangeListener.onFieldChange(mTreatment.when);
+			}
+
+			@Override
+			public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+				if (isTodaySelected) {
+					Calendar c = Calendar.getInstance();
+					if (selectedHour < c.get(Calendar.HOUR_OF_DAY)
+							|| (selectedHour == c.get(Calendar.HOUR_OF_DAY) && selectedMinute < c.get(Calendar.MINUTE))) {
+						Toast.makeText(activity, "invalid time", Toast.LENGTH_SHORT).show();
+						createTimeDialog(selection, onFieldChangeListener);
+					} else {
+						updateDisplay(selectedHour, selectedMinute);
+					}
+				} else {
+					updateDisplay(selectedHour, selectedMinute);
+				}
+			}
+		}, currentHour, currentMinute, false);
+		dialog.show();
 	}
 
 	public void showRemarksDialog() {
@@ -172,9 +251,6 @@ public class ServiceOrderManager {
 			public void onClick(DialogInterface dialog, int which) {
 				if (which == selections.length - 1) {
 					switch (type) {
-					case DIALOG_TYPE_FOR:
-						getEditableDialog(l, mTreatment.forWho).show();
-						break;
 					case DIALOG_TYPE_LOCATION:
 						// TODO
 						break;
@@ -190,7 +266,7 @@ public class ServiceOrderManager {
 		mDialog.show();
 	}
 
-	private Dialog getEditableDialog(final OnItemSelectedListener l, String text) {
+	private Dialog getEditableDialog(final OnItemSelectedListener l, String text, final Dialog d) {
 		AlertDialog.Builder b = new AlertDialog.Builder(activity);
 		final EditText editText = new EditText(activity);
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -208,9 +284,19 @@ public class ServiceOrderManager {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				mDialog.show();
+				d.show();
 			}
 		}).create();
+	}
+
+	private TextView getDialogTitleTextView(String title) {
+		TextView textView = new TextView(activity);
+		textView.setText(title);
+		textView.setPadding(10, 10, 10, 10);
+		textView.setGravity(Gravity.CENTER);
+		textView.setTextColor(activity.getResources().getColor(android.R.color.holo_blue_light));
+		textView.setTextSize(30);
+		return textView;
 	}
 
 	public TreatmentSummary getTreatment() {
@@ -224,6 +310,8 @@ public class ServiceOrderManager {
 	private class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 		private OnItemSelectedListener mListener;
+
+		private int mYear, mMonth, mDay;
 
 		public DatePickerFragment(OnItemSelectedListener l) {
 			mListener = l;
@@ -245,15 +333,24 @@ public class ServiceOrderManager {
 			}
 
 			// Use the current date as the default date in the picker
-			int year = calendar.get(Calendar.YEAR);
-			int month = calendar.get(Calendar.MONTH);
-			int day = calendar.get(Calendar.DAY_OF_MONTH);
+			mYear = calendar.get(Calendar.YEAR);
+			mMonth = calendar.get(Calendar.MONTH);
+			mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(), this, year, month, day);
+			DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, mYear, mMonth, mDay);
+			return dpd;
 		}
 
 		public void onDateSet(DatePicker view, int year, int month, int day) {
+			if (mYear > year || (mYear == year && mMonth > month) || (mYear == year && mMonth == month && mDay > day)) {
+				Toast.makeText(activity, "invalid date", Toast.LENGTH_SHORT).show();
+				dDate.show(activity.getFragmentManager(), "timePicker");
+				return;
+			}
+			if (mYear == year && mMonth == month && mDay == day)
+				isTodaySelected = true;
+			else
+				isTodaySelected = false;
 			StringBuilder sb = new StringBuilder();
 			sb.append(day).append("/").append(month + 1).append("/").append(year);
 			String selection = sb.toString();

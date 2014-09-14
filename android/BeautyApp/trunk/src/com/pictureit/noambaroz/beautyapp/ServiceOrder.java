@@ -103,12 +103,17 @@ public class ServiceOrder extends ActivityWithFragment {
 				mManager.showFORDialog(new OnFieldChangeListener() {
 					@Override
 					public void onFieldChange(String result) {
-
+						tvFor.setText(result);
 					}
 				});
 				break;
 			case R.id.tv_service_order_when:
-				mManager.showWHENDialog();
+				mManager.showWHENDialog(new OnFieldChangeListener() {
+					@Override
+					public void onFieldChange(String result) {
+						tvWhen.setText(result);
+					}
+				});
 				break;
 			case R.id.tv_service_order_select_treatment:
 				mManager.showTreatmentSelectionDialog(treatmentStringArray);
