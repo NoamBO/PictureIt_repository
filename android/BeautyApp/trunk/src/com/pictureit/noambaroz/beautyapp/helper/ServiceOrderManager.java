@@ -1,22 +1,29 @@
 package com.pictureit.noambaroz.beautyapp.helper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TimePicker;
 
 import com.pictureit.noambaroz.beautyapp.FragmentTreatmentSelection;
 import com.pictureit.noambaroz.beautyapp.R;
+import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
@@ -58,7 +65,7 @@ public class ServiceOrderManager {
 				.commit();
 	}
 
-	public void showFORDialog() {
+	public void showFORDialog(OnFieldChangeListener onFieldChangeListener) {
 		String title = activity.getString(R.string.dialog_title_for);
 		String[] stringArray = activity.getResources().getStringArray(R.array.for_who_array);
 		int checkedItem = 0;
@@ -117,11 +124,23 @@ public class ServiceOrderManager {
 
 			@Override
 			public void onItemSelected(String selection) {
-				mTreatment.when = selection;
+				final String tempTime = selection;
+				final Calendar c = Calendar.getInstance();
+				int currentHour = c.get(Calendar.HOUR_OF_DAY);
+				int currentMinute = c.get(Calendar.MINUTE);
+				TimePickerDialog tpd = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+
+					@Override
+					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+						mTreatment.when = tempTime + " " + hourOfDay + ":" + minute;
+					}
+				}, currentHour, currentMinute, false);
+				tpd.show();
 			}
 		};
 
-		showSingleChoice(title, checkedItem, stringArray, l, DIALOG_TYPE_WHEN);
+		DialogFragment newFragment = new DatePickerFragment(l);
+		newFragment.show(activity.getFragmentManager(), "timePicker");
 	}
 
 	public void showRemarksDialog() {
@@ -155,10 +174,6 @@ public class ServiceOrderManager {
 					switch (type) {
 					case DIALOG_TYPE_FOR:
 						getEditableDialog(l, mTreatment.forWho).show();
-						break;
-					case DIALOG_TYPE_WHEN:
-						DialogFragment newFragment = new DatePickerFragment(l);
-						newFragment.show(activity.getFragmentManager(), "timePicker");
 						break;
 					case DIALOG_TYPE_LOCATION:
 						// TODO
@@ -209,31 +224,30 @@ public class ServiceOrderManager {
 	private class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 		private OnItemSelectedListener mListener;
-		private boolean dataSet;
 
 		public DatePickerFragment(OnItemSelectedListener l) {
 			mListener = l;
-			dataSet = false;
 		}
 
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+			Calendar calendar = Calendar.getInstance();
 			if (mTreatment.when != null) {
-				String[] s = mTreatment.when.split("/");
-				if (s.length == 3) {
-					int year = Integer.valueOf(s[2]);
-					int month = Integer.valueOf(s[1]);
-					int day = Integer.valueOf(s[0]);
-					return new DatePickerDialog(getActivity(), this, year, month, day);
+				SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+				Date yourDate = null;
+				try {
+					yourDate = parser.parse(mTreatment.when);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				calendar.setTime(yourDate);
 			}
 
 			// Use the current date as the default date in the picker
-			final Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
-			int day = c.get(Calendar.DAY_OF_MONTH);
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH);
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 			// Create a new instance of DatePickerDialog and return it
 			return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -241,18 +255,11 @@ public class ServiceOrderManager {
 
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			StringBuilder sb = new StringBuilder();
-			sb.append(day).append("/").append(month).append("/").append(year);
+			sb.append(day).append("/").append(month + 1).append("/").append(year);
 			String selection = sb.toString();
 			mListener.onItemSelected(selection);
-			dataSet = true;
 		}
 
-		@Override
-		public void onDismiss(DialogInterface dialog) {
-			super.onDismiss(dialog);
-			if (!dataSet)
-				mDialog.show();
-		}
 	}
 
 }

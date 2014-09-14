@@ -12,4 +12,8 @@ public class Formater {
 		String date = df.format(new Date(Long.valueOf(text).longValue())).toString();
 		return date;
 	}
+
+	public static boolean isNumeric(String str) {
+		return str.matches("-?\\d+(\\.\\d+)?");
+	}
 }

@@ -1,7 +1,9 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -12,7 +14,6 @@ import org.json.JSONObject;
 import utilities.server.BaseHttpPost;
 import android.content.Context;
 
-import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
@@ -26,23 +27,31 @@ public class PostOrderTreatment extends BaseHttpPost {
 	public void start(String for_who, String time, String comments, String location, ArrayList<TreatmentType> treatments)
 			throws Exception {
 
-		String[] stringArray = ctx.getResources().getStringArray(R.array.dialog_when_array);
 		JSONObject tempJson = new JSONObject();
 		tempJson.put(ServerUtil.UID, getUid());
 		tempJson.put(ServerUtil.FOR, for_who);
-		if (stringArray[0].equalsIgnoreCase(time)) {
-			SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy", Locale.US);
-			String currentDateandTime = sdf.format(new Date());
-			time = currentDateandTime;
+		Calendar calendar = Calendar.getInstance();
+
+		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+		Date yourDate = null;
+		try {
+			yourDate = parser.parse(time);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		tempJson.put(ServerUtil.DATE, time);
+		calendar.setTime(yourDate);
+		long timeInMilis = calendar.getTimeInMillis();
+
+		tempJson.put(ServerUtil.DATE, timeInMilis);
 		tempJson.put(ServerUtil.LOCATION, location);
-		tempJson.put(ServerUtil.COMMENTS, comments);
+		tempJson.put(ServerUtil.COMMENTS, comments == null ? "" : comments);
 
 		JSONArray array = new JSONArray();
 		for (TreatmentType treatment : treatments) {
 			if (treatment.count > 0)
-				array.put(new JSONObject().put(ServerUtil.TREATMENT_ID, treatment.id).put(ServerUtil.AMOUNT, treatment.count));
+				array.put(new JSONObject().put(ServerUtil.TREATMENT_ID, treatment.id).put(ServerUtil.AMOUNT,
+						treatment.count));
 		}
 		tempJson.put(ServerUtil.TREATMENTS, array);
 		mMainJson = tempJson;

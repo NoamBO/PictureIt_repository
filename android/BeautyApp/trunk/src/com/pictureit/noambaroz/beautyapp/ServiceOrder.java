@@ -43,6 +43,10 @@ public class ServiceOrder extends ActivityWithFragment {
 		}
 	}
 
+	public interface OnFieldChangeListener {
+		public void onFieldChange(String result);
+	}
+
 	private class OrderServiceFragment extends Fragment implements OnClickListener {
 
 		public void setBeauticianIdNameAndTreatments(String beauticianId, String beauticianName,
@@ -96,7 +100,12 @@ public class ServiceOrder extends ActivityWithFragment {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.tv_service_order_for:
-				mManager.showFORDialog();
+				mManager.showFORDialog(new OnFieldChangeListener() {
+					@Override
+					public void onFieldChange(String result) {
+
+					}
+				});
 				break;
 			case R.id.tv_service_order_when:
 				mManager.showWHENDialog();

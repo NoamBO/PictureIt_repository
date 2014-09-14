@@ -42,7 +42,7 @@ public class PostSearchBeautician extends BaseHttpPost {
 		setUrl(request);
 	}
 
-	String json = "[{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"1\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]},"
+	String json = "{\"d\":[{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"1\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]},"
 			+ "{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"2\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]},"
 			+ "{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"3\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]},"
 			+ "{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"4\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]},"
@@ -53,6 +53,6 @@ public class PostSearchBeautician extends BaseHttpPost {
 			+ "{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"9\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]},"
 			+ "{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"10\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]},"
 			+ "{\"id\":\"3464647767\",\"photo\":\"url\",\"name\":\"19\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"\",\"\"],\"description\":\"\",\"treatments\":[\"6\",\"7\",\"8\"]}"
-			+ "]";
+			+ "]}";
 
 }
