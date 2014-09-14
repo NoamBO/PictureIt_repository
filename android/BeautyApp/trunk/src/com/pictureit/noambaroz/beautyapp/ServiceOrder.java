@@ -119,7 +119,13 @@ public class ServiceOrder extends ActivityWithFragment {
 				mManager.showTreatmentSelectionDialog(treatmentStringArray);
 				break;
 			case R.id.tv_service_order_location:
-				mManager.showLocationDialog();
+				mManager.showLocationDialog(new OnFieldChangeListener() {
+
+					@Override
+					public void onFieldChange(String result) {
+						tvLocation.setText(result);
+					}
+				});
 				break;
 			case R.id.tv_service_order_remarks:
 				mManager.showRemarksDialog();

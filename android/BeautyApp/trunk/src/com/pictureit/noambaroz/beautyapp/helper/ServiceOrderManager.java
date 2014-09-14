@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import utilities.Log;
+import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -35,17 +37,15 @@ import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
 import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class ServiceOrderManager {
 
 	private boolean isTodaySelected;
 	private Activity activity;
 	private TreatmentSummary mTreatment;
-	private Dialog mDialog, dFor, dGroup;
+	private Dialog dLocation, dFor, dGroup;
 	private DatePickerFragment dDate;
-
-	private final int DIALOG_TYPE_FOR = 1;
-	private final int DIALOG_TYPE_LOCATION = 3;
 
 	public ServiceOrderManager(Activity activity) {
 		this.activity = activity;
@@ -102,7 +102,7 @@ public class ServiceOrderManager {
 	private void createDialogTypeFor(String title, int checkedItem, final String[] selections,
 			final OnItemSelectedListener l) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setTitle(title);
+		builder.setCustomTitle(getDialogTitleTextView(title));
 		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
 
 			@Override
@@ -152,7 +152,7 @@ public class ServiceOrderManager {
 		dGroup.show();
 	}
 
-	public void showLocationDialog() {
+	public void showLocationDialog(final OnFieldChangeListener onFieldChangeListener) {
 		String title = activity.getString(R.string.dialog_title_location);
 		String[] stringArray = activity.getResources().getStringArray(R.array.dialog_location_array);
 		int checkedItem = 0;
@@ -169,9 +169,57 @@ public class ServiceOrderManager {
 			@Override
 			public void onItemSelected(String selection) {
 				mTreatment.whare = selection;
+				onFieldChangeListener.onFieldChange(selection);
 			}
 		};
-		showSingleChoice(title, checkedItem, stringArray, l, DIALOG_TYPE_LOCATION);
+		createLocationDialog(title, checkedItem, stringArray, l);
+	}
+
+	private void createLocationDialog(String title, int checkedItem, final String[] selections,
+			final OnItemSelectedListener l) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setCustomTitle(getDialogTitleTextView(title));
+		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (which == selections.length - 1) {
+					AlertDialog.Builder b = new AlertDialog.Builder(activity);
+					final EditText editText = new EditText(activity);
+					LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+					editText.setLayoutParams(lp);
+					if (mTreatment.whare != null)
+						editText.setHint(mTreatment.whare);
+					b.setView(editText);
+					b.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							PostVerifyAddress httpPost = new PostVerifyAddress(activity, new HttpCallback() {
+
+								@Override
+								public void onAnswerReturn(Object answer) {
+									Log.i(answer.toString());
+									if (answer != null)
+										l.onItemSelected(answer.toString());
+								}
+							}, editText.getText().toString());
+							httpPost.execute();
+						}
+					}).setNegativeButton(R.string.dialog_cancel_text, new OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dLocation.show();
+						}
+					}).create().show();
+				} else
+					l.onItemSelected(selections[which]);
+				dLocation.dismiss();
+			}
+		});
+		dLocation = builder.create();
+		dLocation.show();
 	}
 
 	public void showWHENDialog(final OnFieldChangeListener onFieldChangeListener) {
@@ -228,7 +276,7 @@ public class ServiceOrderManager {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		editText.setLayoutParams(lp);
 		b.setView(editText);
-		b.setTitle(R.string.dialog_title_remarks);
+		b.setCustomTitle(getDialogTitleTextView(activity.getString(R.string.dialog_title_remarks)));
 		if (mTreatment.remarks != null)
 			editText.setText(mTreatment.remarks);
 		b.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
@@ -239,31 +287,6 @@ public class ServiceOrderManager {
 			}
 		}).setNegativeButton(R.string.dialog_cancel_text, null).create().show();
 
-	}
-
-	private void showSingleChoice(String title, int checkedItem, final String[] selections,
-			final OnItemSelectedListener l, final int type) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setTitle(title);
-		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (which == selections.length - 1) {
-					switch (type) {
-					case DIALOG_TYPE_LOCATION:
-						// TODO
-						break;
-					default:
-						break;
-					}
-				} else
-					l.onItemSelected(selections[which]);
-				mDialog.dismiss();
-			}
-		});
-		mDialog = builder.create();
-		mDialog.show();
 	}
 
 	private Dialog getEditableDialog(final OnItemSelectedListener l, String text, final Dialog d) {
