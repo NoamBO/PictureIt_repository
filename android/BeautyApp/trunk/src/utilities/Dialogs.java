@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.view.Gravity;
+import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.R;
 
@@ -41,13 +43,23 @@ public class Dialogs {
 	}
 
 	public static void singleChoiseDialog(Context ctx, final String[] strings,
-			final OnDialogItemSelectedListener listener) {
+			final OnDialogItemSelectedListener listener, String title) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-		builder.setTitle(R.string.select_address).setItems(strings, new DialogInterface.OnClickListener() {
+		builder.setTitle(title).setItems(strings, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				listener.onDialogItemSelected(strings[which]);
 			}
 		});
 		builder.create().show();
+	}
+
+	public static TextView getDialogTitleTextView(Context context, String title) {
+		TextView textView = new TextView(context);
+		textView.setText(title);
+		textView.setPadding(10, 10, 10, 10);
+		textView.setGravity(Gravity.CENTER);
+		textView.setTextColor(context.getResources().getColor(android.R.color.holo_blue_light));
+		textView.setTextSize(30);
+		return textView;
 	}
 }

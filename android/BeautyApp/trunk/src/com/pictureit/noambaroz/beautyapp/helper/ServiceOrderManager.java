@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
@@ -19,7 +20,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +27,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -102,7 +101,7 @@ public class ServiceOrderManager {
 	private void createDialogTypeFor(String title, int checkedItem, final String[] selections,
 			final OnItemSelectedListener l) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setCustomTitle(getDialogTitleTextView(title));
+		builder.setCustomTitle(Dialogs.getDialogTitleTextView(activity, title));
 		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
 
 			@Override
@@ -124,7 +123,7 @@ public class ServiceOrderManager {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.number_picker_dialog_layout, null);
-		builder.setCustomTitle(getDialogTitleTextView(title));
+		builder.setCustomTitle(Dialogs.getDialogTitleTextView(activity, title));
 		Button bOk = (Button) view.findViewById(R.id.number_picker_dialog_ok);
 		Button bCancel = (Button) view.findViewById(R.id.number_picker_dialog_cancel);
 		final NumberPicker np = (NumberPicker) view.findViewById(R.id.number_picker_dialog_wheel);
@@ -178,7 +177,7 @@ public class ServiceOrderManager {
 	private void createLocationDialog(String title, int checkedItem, final String[] selections,
 			final OnItemSelectedListener l) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setCustomTitle(getDialogTitleTextView(title));
+		builder.setCustomTitle(Dialogs.getDialogTitleTextView(activity, title));
 		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
 
 			@Override
@@ -276,7 +275,7 @@ public class ServiceOrderManager {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		editText.setLayoutParams(lp);
 		b.setView(editText);
-		b.setCustomTitle(getDialogTitleTextView(activity.getString(R.string.dialog_title_remarks)));
+		b.setCustomTitle(Dialogs.getDialogTitleTextView(activity, activity.getString(R.string.dialog_title_remarks)));
 		if (mTreatment.remarks != null)
 			editText.setText(mTreatment.remarks);
 		b.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
@@ -310,16 +309,6 @@ public class ServiceOrderManager {
 				d.show();
 			}
 		}).create();
-	}
-
-	private TextView getDialogTitleTextView(String title) {
-		TextView textView = new TextView(activity);
-		textView.setText(title);
-		textView.setPadding(10, 10, 10, 10);
-		textView.setGravity(Gravity.CENTER);
-		textView.setTextColor(activity.getResources().getColor(android.R.color.holo_blue_light));
-		textView.setTextSize(30);
-		return textView;
 	}
 
 	public TreatmentSummary getTreatment() {

@@ -1,8 +1,6 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseFragment;
-import utilities.Dialogs;
-import utilities.Dialogs.OnDialogItemSelectedListener;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
@@ -68,20 +67,21 @@ public class ActivityRegistrationPersonalData extends Activity {
 		}
 
 		protected void verifyAddress(String address) {
-			PostVerifyAddress.verify(getActivity(), address, new HttpCallback() {
+			PostVerifyAddress httpPost = new PostVerifyAddress(getActivity(), new HttpCallback() {
 
 				@Override
 				public void onAnswerReturn(Object answer) {
-					Dialogs.singleChoiseDialog(getActivity(), (String[]) answer, new OnDialogItemSelectedListener() {
+					if (answer != null) {
+						setValidAddress((String) answer);
+						setPhoneNumberFragment();
+					} else {
+						Toast.makeText(getActivity(), "invalid address", Toast.LENGTH_SHORT).show();
+					}
 
-						@Override
-						public void onDialogItemSelected(String selection) {
-							setValidAddress(selection);
-							setPhoneNumberFragment();
-						}
-					});
-				}
-			});
+				};
+
+			}, address);
+			httpPost.execute();
 		}
 
 		private void setValidAddress(String address) {

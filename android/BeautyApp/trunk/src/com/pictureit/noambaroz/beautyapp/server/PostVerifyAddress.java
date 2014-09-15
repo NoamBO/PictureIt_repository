@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utilities.Dialogs;
 import utilities.server.BaseHttpPost;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
+import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 
 public class PostVerifyAddress extends BaseHttpPost {
@@ -18,11 +20,6 @@ public class PostVerifyAddress extends BaseHttpPost {
 	private Dialog addressesDialog;
 
 	private static final String KEY_ADDRESS = "address";
-
-	public static void verify(Context context, String address, HttpCallback callback) {
-		PostVerifyAddress httpPost = new PostVerifyAddress(context, callback, address);
-		httpPost.execute();
-	}
 
 	public PostVerifyAddress(Context ctx, HttpCallback callback, String address) {
 		super(ctx);
@@ -42,6 +39,7 @@ public class PostVerifyAddress extends BaseHttpPost {
 			myCallback.onAnswerReturn(null);
 		} else {
 			AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+			builder.setCustomTitle(Dialogs.getDialogTitleTextView(ctx, ctx.getString(R.string.select_address)));
 			builder.setSingleChoiceItems(array, 0, new OnClickListener() {
 
 				@Override
