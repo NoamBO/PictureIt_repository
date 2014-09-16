@@ -17,8 +17,6 @@ public class PostVerifyUser extends BaseHttpPost {
 		super(ctx);
 		this.callback = callback;
 		prepare(ServerUtil.URL_REQUEST_VERIFY_USER);
-		// TODO remove
-		onPostExecute(continueInBackground(TEMPORARY_JSON));
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
@@ -16,11 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.server.PostRegister;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class ActivityRegistrationPersonalData extends Activity {
 
-	private String mFirstName, mLastName, mEmail, mAddress;
+	private String mFirstName, mLastName, mEmail, mAddress, mPhoneNumber;
 	protected final int FRAGMENT_CONTAINER = R.id.fragment_container;
 	Fragment fragment1 = new FragmentRegistrationPersonalData();
 
@@ -128,6 +132,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 	private class FragmentRegistrationPhoneField extends BaseFragment {
 
 		private EditText etTelephoneNum;
+		private Button bProceed;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -138,6 +143,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_registration_page_two, container, false);
 			etTelephoneNum = findView(v, R.id.et_registration_telephone_number);
+			bProceed = findView(v, R.id.b_registration_page_two_proceed);
 			etTelephoneNum.setText(getLocalPhoneNumber());
 			return v;
 		}
@@ -146,6 +152,38 @@ public class ActivityRegistrationPersonalData extends Activity {
 		public void onResume() {
 			super.onResume();
 			etTelephoneNum.requestFocus();
+			bProceed.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					mPhoneNumber = etTelephoneNum.getText().toString();
+					PostRegister httpPost = new PostRegister(getActivity(), new HttpCallback() {
+
+						@Override
+						public void onAnswerReturn(Object uis) {
+							if (uis == null) {
+								Toast.makeText(getApplicationContext(), R.string.dialog_messege_server_error,
+										Toast.LENGTH_SHORT).show();
+								finish();
+							}
+							storeUidOnDevice(uis);
+							Intent intent = new Intent(getActivity(), MainActivity.class);
+							startActivity(intent);
+							overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+							finish();
+						}
+
+						private void storeUidOnDevice(Object uis) {
+							SharedPreferences prefs = getSharedPreferences(Constant.APP_PREFS_NAME,
+									Context.MODE_PRIVATE);
+							SharedPreferences.Editor editor = prefs.edit();
+							editor.putString(Constant.PREFS_KEY_UID, "");
+							editor.commit();
+						}
+					}, mFirstName, mLastName, mEmail, mAddress, mPhoneNumber);
+					httpPost.execute();
+				}
+			});
 		}
 
 		private String getLocalPhoneNumber() {

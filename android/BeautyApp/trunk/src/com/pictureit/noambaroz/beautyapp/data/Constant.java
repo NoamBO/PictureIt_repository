@@ -18,4 +18,8 @@ public class Constant {
 
 	public static final int FLAG_SOME_TREATMENTS = 12;
 
+	public static final String APP_PREFS_NAME = "com.pictureit.beautyapp.prefs";
+
+	public static final String PREFS_KEY_UID = "uid";
+
 }

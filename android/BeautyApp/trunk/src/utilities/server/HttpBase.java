@@ -18,9 +18,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
+
+import com.pictureit.noambaroz.beautyapp.data.Constant;
 
 //Written by @Noam Bar-Oz
 
@@ -169,6 +171,8 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	}
 
 	protected String getUid() {
-		return Secure.getString(ctx.getContentResolver(), Secure.ANDROID_ID);
+		SharedPreferences pref = ctx.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE);
+		return pref.getString(Constant.PREFS_KEY_UID, "");
+		// return Secure.getString(ctx.getContentResolver(), Secure.ANDROID_ID);
 	}
 }

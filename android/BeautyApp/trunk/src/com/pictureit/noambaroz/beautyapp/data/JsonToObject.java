@@ -183,7 +183,7 @@ public class JsonToObject {
 
 	public static String jsonToVerifyUser(String json) {
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			JSONObject jsonObject = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
 			boolean isActive = jsonObject.getBoolean("active");
 			if (isActive)
 				return PostVerifyUser.VERIFY_USER_RESULT_ACTIVE;

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
 
@@ -21,6 +22,9 @@ public class Splash extends Activity {
 				else if (result.equalsIgnoreCase(PostVerifyUser.VERIFY_USER_RESULT_NOT_ACTIVE)) {
 					launchActivity(ActivityRegistrationPersonalData.class);
 				}
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.dialog_messege_server_error, Toast.LENGTH_LONG).show();
+				finish();
 			}
 		}
 	};
@@ -41,7 +45,7 @@ public class Splash extends Activity {
 			@Override
 			public void run() {
 				PostVerifyUser httpPost = new PostVerifyUser(Splash.this, callback);
-				// TODO httpPost.execute()
+				httpPost.execute();
 			}
 		}, 1000);
 	}
