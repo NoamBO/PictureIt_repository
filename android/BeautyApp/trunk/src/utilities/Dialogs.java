@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.view.Gravity;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.R;
 
@@ -61,5 +62,10 @@ public class Dialogs {
 		textView.setTextColor(context.getResources().getColor(android.R.color.holo_blue_light));
 		textView.setTextSize(30);
 		return textView;
+	}
+
+	public static void makeToastThatCloseActivity(Activity activity, int stringResId) {
+		Toast.makeText(activity, stringResId, Toast.LENGTH_LONG).show();
+		activity.finish();
 	}
 }

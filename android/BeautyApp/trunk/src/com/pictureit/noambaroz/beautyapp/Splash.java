@@ -1,11 +1,11 @@
 package com.pictureit.noambaroz.beautyapp;
 
+import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
 
@@ -23,8 +23,7 @@ public class Splash extends Activity {
 					launchActivity(ActivityRegistrationPersonalData.class);
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.dialog_messege_server_error, Toast.LENGTH_LONG).show();
-				finish();
+				Dialogs.makeToastThatCloseActivity(Splash.this, R.string.dialog_messege_server_error);
 			}
 		}
 	};
