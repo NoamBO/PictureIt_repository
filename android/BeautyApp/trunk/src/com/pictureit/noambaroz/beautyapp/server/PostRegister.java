@@ -31,16 +31,21 @@ public class PostRegister extends BaseHttpPost {
 	protected Object continueInBackground(String result) {
 		if (result != null && JsonToObject.isResponseOk(result)) {
 			try {
-				String uid = new JSONObject(result).getString(ServerUtil.UID);
+				String uid = new JSONObject(result).getJSONObject("d").getString(ServerUtil.UID);
 				return uid;
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			Dialogs.makeToastThatCloseActivity((Activity) ctx, R.string.dialog_messege_server_error);
 		}
 		return null;
+	}
+
+	@Override
+	protected void onPostExecute(Object result) {
+		if (result == null)
+			Dialogs.makeToastThatCloseActivity((Activity) ctx, R.string.dialog_messege_server_error);
+		super.onPostExecute(result);
 	}
 
 	@Override

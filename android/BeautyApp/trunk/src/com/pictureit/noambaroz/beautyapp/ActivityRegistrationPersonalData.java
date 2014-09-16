@@ -160,13 +160,13 @@ public class ActivityRegistrationPersonalData extends Activity {
 					PostRegister httpPost = new PostRegister(getActivity(), new HttpCallback() {
 
 						@Override
-						public void onAnswerReturn(Object uis) {
-							if (uis == null) {
+						public void onAnswerReturn(Object uid) {
+							if (uid == null || ((String) uid).equalsIgnoreCase("")) {
 								Toast.makeText(getApplicationContext(), R.string.dialog_messege_server_error,
 										Toast.LENGTH_SHORT).show();
 								finish();
 							}
-							storeUidOnDevice(uis);
+							storeUidOnDevice(uid);
 							Intent intent = new Intent(getActivity(), MainActivity.class);
 							startActivity(intent);
 							overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
