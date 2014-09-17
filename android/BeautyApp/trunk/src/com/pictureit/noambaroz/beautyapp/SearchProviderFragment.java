@@ -72,17 +72,16 @@ public class SearchProviderFragment extends BaseFragment {
 			public void onAnswerReturn(Object answer) {
 				if (answer != null) {
 					List<Beautician> result = JsonToObject.convertObjectToBeauticianArrayList(answer);
-					if (result.size() > 1) {
+					if (result.size() > 0) {
 						startResultsFragment(result);
 						return;
 					}
 				}
 				onSearchFailed(SEARCH_STATUS_NO_RESULTS);
 			}
-		});
-
-		post.start(etName.getText().toString(), etLocation.getText().toString(), etType.getText().toString(),
-				etServiceType.getText().toString());
+		}, etName.getText().toString(), etLocation.getText().toString(), etType.getText().toString(), etServiceType
+				.getText().toString());
+		post.execute();
 	}
 
 	protected void startResultsFragment(List<Beautician> result) {

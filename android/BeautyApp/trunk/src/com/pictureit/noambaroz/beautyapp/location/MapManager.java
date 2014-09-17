@@ -44,7 +44,8 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		public void onZoomChange(CameraPosition position);
 	}
 
-	private static final int MIN_ZOOM_ALLOWED = 16;
+	private static final float INITIAL_ZOOM = 17;
+	private static final float MIN_ZOOM_ALLOWED = INITIAL_ZOOM - 1;
 
 	private Activity mActivity;
 	private GoogleMap mMap;
@@ -107,7 +108,7 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 			double lng = location.getLongitude();
 			LatLng coordinate = new LatLng(lat, lng);
 
-			CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(coordinate, MIN_ZOOM_ALLOWED);
+			CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(coordinate, INITIAL_ZOOM);
 			mMap.animateCamera(cameraUpdate);
 		} else {
 			// TODO show "no location found" dialog and exit app

@@ -27,7 +27,8 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();
+		if (getFragmentManager().findFragmentByTag(FRAGMENT_TAG) == null)
+			getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();
 	}
 
 	@Override

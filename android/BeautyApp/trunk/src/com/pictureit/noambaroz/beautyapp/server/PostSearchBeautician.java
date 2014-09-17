@@ -10,13 +10,14 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 
 public class PostSearchBeautician extends BaseHttpPost {
 
-	public PostSearchBeautician(Context ctx, HttpCallback callback) {
+	public PostSearchBeautician(Context ctx, HttpCallback callback, String name, String location, String type, String treatment) {
 		super(ctx);
 		this.callback = callback;
 		prepare(ServerUtil.URL_REQUEST_SEARCH_BEAUTICIAN);
+		setRequest(name, location, type, treatment);
 	}
 
-	public void start(String name, String location, String type, String treatment) {
+	private void setRequest(String name, String location, String type, String treatment) {
 		JSONObject temp = new JSONObject();
 		try {
 			temp.put(ServerUtil.NAME, name);
@@ -27,9 +28,6 @@ public class PostSearchBeautician extends BaseHttpPost {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		// TODO this.execute();
-		// And Remove >
-		onPostExecute(continueInBackground(json));
 	}
 
 	@Override

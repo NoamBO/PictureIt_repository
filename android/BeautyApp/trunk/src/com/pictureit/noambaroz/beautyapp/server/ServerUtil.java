@@ -4,7 +4,7 @@ public class ServerUtil {
 
 	private static final String URL_BASE = "http://pictureit.co.il/beautyapp/BeautyUpService.asmx/";
 
-	public static final String URL_REQUEST_SEARCH_BEAUTICIAN = URL_BASE + "";
+	public static final String URL_REQUEST_SEARCH_BEAUTICIAN = URL_BASE + "postsearchbeautician";
 	public static final String URL_REQUEST_GET_BEAUTICIAN_BY_ID = URL_BASE + "getbeauticianbyid";
 	public static final String URL_REQUEST_GET_BEAUTICIAN_ARRAY_BY_IDs = URL_BASE + "postarraybeauticianbyid";
 	public static final String URL_REQUEST_GET_MARKERS = URL_BASE + "PostLatitudeLongitude";
