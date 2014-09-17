@@ -120,6 +120,10 @@ public class ActivityRegistrationPersonalData extends Activity {
 				etEmail.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
 				isOk = false;
 			}
+			if (etAddress.getText().toString().equalsIgnoreCase("")) {
+				etAddress.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
+				isOk = false;
+			}
 			if (!isOk) {
 				new AlertDialog.Builder(getActivity())
 						.setMessage(getResources().getString(R.string.dialog_error_message_must_fill_all_feilde))
@@ -173,11 +177,11 @@ public class ActivityRegistrationPersonalData extends Activity {
 							finish();
 						}
 
-						private void storeUidOnDevice(Object uis) {
+						private void storeUidOnDevice(Object uid) {
 							SharedPreferences prefs = getSharedPreferences(Constant.APP_PREFS_NAME,
 									Context.MODE_PRIVATE);
 							SharedPreferences.Editor editor = prefs.edit();
-							editor.putString(Constant.PREFS_KEY_UID, "");
+							editor.putString(Constant.PREFS_KEY_UID, (String) uid);
 							editor.commit();
 						}
 					}, mFirstName, mLastName, mEmail, mAddress, mPhoneNumber);
