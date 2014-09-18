@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 import com.pictureit.noambaroz.beautyapp.server.PostOrderTreatment;
 
 public class ServiceSummaryFragment extends BaseFragment {
@@ -73,6 +74,10 @@ public class ServiceSummaryFragment extends BaseFragment {
 					@Override
 					public void onAnswerReturn(Object answer) {
 						Log.i("finish");
+						if (answer != null && !((String) answer).equalsIgnoreCase("")) {
+							ServiceOrderManager.setPending(getActivity(), true);
+							getActivity().finish();
+						}
 					}
 				});
 				try {

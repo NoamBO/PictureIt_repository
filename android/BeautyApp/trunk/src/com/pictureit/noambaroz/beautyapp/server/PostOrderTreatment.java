@@ -14,8 +14,9 @@ import org.json.JSONObject;
 import utilities.server.BaseHttpPost;
 import android.content.Context;
 
-import com.pictureit.noambaroz.beautyapp.data.DataUtil;
+import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 
 public class PostOrderTreatment extends BaseHttpPost {
 
@@ -61,17 +62,20 @@ public class PostOrderTreatment extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
+		if (result == null || !JsonToObject.isResponseOk(result))
+			return null;
+		String s = "";
 		try {
-			JSONObject json = new JSONObject(result);
+			JSONObject json = new JSONObject(result).getJSONObject("d");
 			if (json.has(ServerUtil.ORDER_ID)) {
-				DataUtil.savePendingTreatmentId(ctx, json.getString(ServerUtil.ORDER_ID));
+				ServiceOrderManager.savePendingTreatmentId(ctx, json.getString(ServerUtil.ORDER_ID));
+				s = json.getString(ServerUtil.ORDER_ID);
 			}
-			callback.onAnswerReturn(null);
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return null;
 		}
-		return "";
+		return s;
 	}
 
 	@Override

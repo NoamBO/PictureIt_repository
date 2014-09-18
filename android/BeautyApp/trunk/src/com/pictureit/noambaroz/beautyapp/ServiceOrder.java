@@ -128,7 +128,13 @@ public class ServiceOrder extends ActivityWithFragment {
 				});
 				break;
 			case R.id.tv_service_order_remarks:
-				mManager.showRemarksDialog();
+				mManager.showRemarksDialog(new OnFieldChangeListener() {
+
+					@Override
+					public void onFieldChange(String result) {
+						tvRemarks.setText(result);
+					}
+				});
 				break;
 			case R.id.tv_service_order_one:
 				order();

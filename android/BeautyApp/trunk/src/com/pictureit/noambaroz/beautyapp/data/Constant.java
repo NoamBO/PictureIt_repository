@@ -22,4 +22,6 @@ public class Constant {
 
 	public static final String PREFS_KEY_UID = "uid";
 
+	public static final String PREFS_KEY_IS_APP_WAITING = "is_treatment_response_needed";
+
 }

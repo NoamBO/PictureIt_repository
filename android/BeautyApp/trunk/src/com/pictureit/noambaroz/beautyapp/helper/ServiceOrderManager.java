@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -30,9 +31,11 @@ import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.pictureit.noambaroz.beautyapp.Application;
 import com.pictureit.noambaroz.beautyapp.FragmentTreatmentSelection;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
+import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
@@ -234,6 +237,8 @@ public class ServiceOrderManager {
 		dDate.show(activity.getFragmentManager(), "timePicker");
 	}
 
+	private boolean isTimeDialogCanceled;
+
 	private void createTimeDialog(final String selection, final OnFieldChangeListener onFieldChangeListener) {
 		final String tempTime = selection;
 		final Calendar c = Calendar.getInstance();
@@ -252,6 +257,10 @@ public class ServiceOrderManager {
 
 			@Override
 			public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+				if (isTimeDialogCanceled) {
+					isTimeDialogCanceled = false;
+					return;
+				}
 				if (isTodaySelected) {
 					Calendar c = Calendar.getInstance();
 					if (selectedHour < c.get(Calendar.HOUR_OF_DAY)
@@ -264,12 +273,13 @@ public class ServiceOrderManager {
 				} else {
 					updateDisplay(selectedHour, selectedMinute);
 				}
+				isTimeDialogCanceled = true;
 			}
 		}, currentHour, currentMinute, false);
 		dialog.show();
 	}
 
-	public void showRemarksDialog() {
+	public void showRemarksDialog(final OnFieldChangeListener onFieldChangeListener) {
 		AlertDialog.Builder b = new AlertDialog.Builder(activity);
 		final EditText editText = new EditText(activity);
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -283,6 +293,7 @@ public class ServiceOrderManager {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				mTreatment.remarks = (editText.getText().toString());
+				onFieldChangeListener.onFieldChange(editText.getText().toString());
 			}
 		}).setNegativeButton(R.string.dialog_cancel_text, null).create().show();
 
@@ -319,9 +330,29 @@ public class ServiceOrderManager {
 		mTreatment = treatment;
 	}
 
+	public static void setPending(Context context, boolean isPending) {
+		context.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE).edit()
+				.putBoolean(Constant.PREFS_KEY_IS_APP_WAITING, isPending).commit();
+	}
+
+	public static boolean isPending(Context context) {
+		return context.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE).getBoolean(
+				Constant.PREFS_KEY_IS_APP_WAITING, false);
+	}
+
+	public static void savePendingTreatmentId(Context ctx, String treatmentId) {
+		PreferenceManager.getDefaultSharedPreferences(ctx).edit()
+				.putString(Application.PENDING_TREATMENT_ID, treatmentId).commit();
+	}
+
+	public static String getPendingTreatmentId(Context ctx) {
+		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(Application.PENDING_TREATMENT_ID, "");
+	}
+
 	private class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 		private OnItemSelectedListener mListener;
+		private boolean isPositiveButtonClicked;
 
 		private int mYear, mMonth, mDay;
 
@@ -353,7 +384,26 @@ public class ServiceOrderManager {
 			return dpd;
 		}
 
+		@Override
+		public void onResume() {
+			((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(
+					new View.OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							isPositiveButtonClicked = true;
+							dismiss();
+						}
+					});
+			super.onResume();
+		}
+
+		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
+			if (!isPositiveButtonClicked) {
+				return;
+			}
+			isPositiveButtonClicked = false;
 			if (mYear > year || (mYear == year && mMonth > month) || (mYear == year && mMonth == month && mDay > day)) {
 				Toast.makeText(activity, "invalid date", Toast.LENGTH_SHORT).show();
 				dDate.show(activity.getFragmentManager(), "timePicker");

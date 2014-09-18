@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.preference.PreferenceManager;
-
-import com.pictureit.noambaroz.beautyapp.Application;
 
 public class DataUtil {
 
@@ -54,15 +51,6 @@ public class DataUtil {
 			arrayList.add(treatment);
 		}
 		return arrayList;
-	}
-
-	public static void savePendingTreatmentId(Context ctx, String treatmentId) {
-		PreferenceManager.getDefaultSharedPreferences(ctx).edit()
-				.putString(Application.PENDING_TREATMENT_ID, treatmentId).commit();
-	}
-
-	public static String getPendingTreatmentId(Context ctx) {
-		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(Application.PENDING_TREATMENT_ID, "");
 	}
 
 	public static void pushOrderNotificationIdToTable(Context ctx, String notification_id) {

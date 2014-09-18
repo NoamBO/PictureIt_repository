@@ -53,9 +53,9 @@ public abstract class BaseHttpPost extends HttpBase {
 
 	@Override
 	protected void onPostExecute(Object result) {
+		super.onPostExecute(result);
 		if (callback != null)
 			callback.onAnswerReturn(result);
-		super.onPostExecute(result);
 	}
 
 }
