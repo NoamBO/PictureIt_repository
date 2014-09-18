@@ -59,7 +59,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/et_search_provider_search_by_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

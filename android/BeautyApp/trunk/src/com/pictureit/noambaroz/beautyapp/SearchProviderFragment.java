@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +26,8 @@ public class SearchProviderFragment extends BaseFragment {
 	private final int SEARCH_STATUS_ALL_FIELDS_EMPTY = 1;
 	private final int SEARCH_STATUS_NO_RESULTS = 2;
 
-	EditText etName, etLocation, etType, etServiceType;
+	EditText etName, etType, etServiceType;
+	AutoCompleteTextView etLocation;
 	CheckBox cbName, cbLocation, cbType, cbServiceType;
 	TextView tvSearch;
 
@@ -32,8 +35,12 @@ public class SearchProviderFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_search_provider, container, false);
 
+		ArrayAdapter<String> locationsAdapter = new ArrayAdapter<String>(getActivity(),
+				android.R.layout.select_dialog_item, getResources().getStringArray(R.array.israel_cities));
 		etName = findView(v, R.id.et_search_provider_search_by_name);
 		etLocation = findView(v, R.id.et_search_provider_search_by_location);
+		etLocation.setThreshold(1);
+		etLocation.setAdapter(locationsAdapter);
 		etType = findView(v, R.id.et_search_provider_search_by_type);
 		etServiceType = findView(v, R.id.et_search_provider_search_by_services_type);
 		cbName = findView(v, R.id.cb_search_provider_search_by_name);

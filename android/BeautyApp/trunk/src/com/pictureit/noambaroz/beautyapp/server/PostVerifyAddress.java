@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import utilities.Dialogs;
 import utilities.server.BaseHttpPost;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -34,6 +35,10 @@ public class PostVerifyAddress extends BaseHttpPost {
 
 	@Override
 	protected void onPostExecute(Object result) {
+		if (result == null) {
+			Dialogs.makeToastThatCloseActivity((Activity) ctx, R.string.dialog_messege_server_error);
+			return;
+		}
 		final String[] array = (String[]) result;
 		if (array.length == 0) {
 			myCallback.onAnswerReturn(null);
