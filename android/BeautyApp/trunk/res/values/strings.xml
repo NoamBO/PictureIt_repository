@@ -46,9 +46,12 @@
     <string name="proceed">המשך</string>
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
     <string name="phone_number_confirmation"><b>אימות מספר טלפון</b></string>
+    <string name="phone_number_confirmation_code"><b>הקלדת קוד רישום</b></string>
     <string name="phone_number_confirmation_explanation">על מנת להנות מהשירותים של האפליקציה עליכם לאמת את מספר הטלפון שברשותכם על ידי הזנת קוד שישלח אליכם ב סמס</string>
-    <string name="one_of_two"><b>1/2</b></string>
-    <string name="two_of_two"><b>2/2</b></string>
+    <string name="phone_number_confirmation_code_explanation">הקלידו את הקוד שקיבלתם במסרון</string>
+    <string name="one_of_three"><b>1/3</b></string>
+    <string name="two_of_three"><b>2/3</b></string>
+    <string name="three_of_three"><b>3/3</b></string>
     
     <!-- General Dialog Messages -->
     <string name="dialog_error_message_all_feilds_are_empty">You must fill at least one of the feilds</string>

@@ -80,7 +80,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:text="@string/one_of_two"
+        android:text="@string/one_of_three"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
