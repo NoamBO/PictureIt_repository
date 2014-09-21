@@ -53,8 +53,11 @@
     <string name="two_of_three"><b>2/3</b></string>
     <string name="three_of_three"><b>3/3</b></string>
     <string name="code_expaired">פג תוקפו של הקוד. בקש קוד חדש</string>
+    <string name="code_expaired_send_new_one">שלח קוד אימות חדש</string>
     <string name="invalid_phone_verification_code">קוד שגוי.\nנסה שוב</string>
     <string name="failed_on_re_sending_code">שליחה נכשלה. נסה שוב במועד מאוחר יותר</string>
+    <string name="time_left_to_type_code">זמן להקלדת קוד:</string>
+    <string name="code_resended">הצליח! תקבל הודעה ברגעים הקרובים</string>
     
     <!-- General Dialog Messages -->
     <string name="dialog_error_message_all_feilds_are_empty">You must fill at least one of the feilds</string>

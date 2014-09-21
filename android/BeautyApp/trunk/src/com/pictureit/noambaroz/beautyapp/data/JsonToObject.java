@@ -209,4 +209,19 @@ public class JsonToObject {
 		}
 		return null;
 	}
+
+	public static String jsonToVerifiedCode(String json) {
+		if (!isResponseOk(json))
+			return null;
+
+		String s = null;
+		try {
+			JSONObject object = new JSONObject(json);
+			s = object.getString("code_status");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return s;
+	}
 }

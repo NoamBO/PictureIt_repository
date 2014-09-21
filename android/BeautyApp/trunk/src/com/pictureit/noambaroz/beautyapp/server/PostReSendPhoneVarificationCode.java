@@ -34,6 +34,7 @@ public class PostReSendPhoneVarificationCode extends BaseHttpPost {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		mMainJson = temp;
 	}
 
 }

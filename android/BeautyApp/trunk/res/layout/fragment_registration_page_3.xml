@@ -22,7 +22,7 @@
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
-        <EditText 
+        <EditText
             android:id="@+id/et_registration_page_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +63,8 @@
             android:id="@+id/b_registration_page_three_proceed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#bbb"
+            android:background="@android:color/holo_orange_dark"
+            android:padding="10dp"
             android:text="@string/proceed" />
 
         <LinearLayout
@@ -76,7 +77,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="ok" />
+                android:background="@android:color/holo_orange_light"
+                android:padding="10dp"
+                android:text="@string/code_expaired_send_new_one" />
+
+            <FrameLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/black" />
 
             <TextView
                 android:id="@+id/tv_registration_page_three_counter"
@@ -85,8 +93,8 @@
                 android:layout_weight="1"
                 android:background="@android:color/holo_orange_light"
                 android:gravity="center"
-                android:text="ok"
-                android:textColor="@android:color/white" />
+                android:padding="10dp"
+                android:textColor="@android:color/black" />
         </LinearLayout>
     </LinearLayout>
 

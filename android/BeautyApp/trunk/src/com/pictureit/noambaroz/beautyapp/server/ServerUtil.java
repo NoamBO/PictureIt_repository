@@ -14,7 +14,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_SEND_GCM_REG_ID = URL_BASE + "updatepushregid";
 	public static final String URL_REQUEST_REGISTER = URL_BASE + "register";
 	public static final String URL_REQUEST_VERIFICATION_REGISTER_CODE = URL_BASE + "verificationRegisterCode";
-	public static final String URL_REQUEST_RE_SEND_REGISTER_CODE = "reSendCode";
+	public static final String URL_REQUEST_RE_SEND_REGISTER_CODE = URL_BASE + "reSendCode";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";

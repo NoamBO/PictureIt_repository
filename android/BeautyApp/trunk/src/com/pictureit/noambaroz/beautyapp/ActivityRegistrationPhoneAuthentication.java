@@ -1,6 +1,7 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.Dialogs;
+import utilities.server.HttpBase;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Fragment;
 import android.content.Intent;
@@ -70,8 +71,13 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 
 						@Override
 						public void onAnswerReturn(Object answer) {
+							if (answer == null) {
+								HttpBase.showErrorDialog(getActivity());
+								return;
+							}
 							if ((Boolean) answer) {
-								startCountDown();
+								Dialogs.generalDialog(getActivity(), getString(R.string.code_resended));
+								startCountDown(true);
 							} else {
 								Dialogs.generalDialog(getActivity(), getString(R.string.failed_on_re_sending_code),
 										getString(R.string.dialog_title_error));
@@ -85,8 +91,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 				@Override
 				public void onClick(View v) {
 					if (!isCounting) {
-						Dialogs.generalDialog(getActivity(), getString(R.string.code_expaired),
-								getString(R.string.dialog_title_error));
+						showExpiredDialog();
 						return;
 					}
 					if (editText.getText().length() == 6)
@@ -94,37 +99,69 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 
 							@Override
 							public void onAnswerReturn(Object answer) {
-								if ((Boolean) answer) {
+								if (answer == null) {
+									HttpBase.showErrorDialog(getActivity());
+									return;
+								}
+								String result = (String) answer;
+								if (result.equalsIgnoreCase("valide")) {
 									Intent intent = new Intent(getActivity(), MainActivity.class);
 									startActivity(intent);
 									overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 									finish();
 								} else {
-									onIncorrectCodeTyped();
+									onIncorrectCodeTyped(result);
 								}
 							}
 						}, editText.getText().toString()).execute();
 				}
 			});
 
-			startCountDown();
+			startCountDown(isCounting);
 		}
 
-		private void onIncorrectCodeTyped() {
-			Dialogs.generalDialog(getActivity(), getString(R.string.invalid_phone_verification_code),
+		private void onIncorrectCodeTyped(String result) {
+			if (result.equalsIgnoreCase("invalid"))
+				Dialogs.generalDialog(getActivity(), getString(R.string.invalid_phone_verification_code),
+						getString(R.string.dialog_title_error));
+			else {
+				showExpiredDialog();
+				cancelTimer();
+			}
+		}
+
+		private void showExpiredDialog() {
+			Dialogs.generalDialog(getActivity(), getString(R.string.code_expaired),
 					getString(R.string.dialog_title_error));
 		}
 
-		private void startCountDown() {
-			if (isCounting)
+		public void cancelTimer() {
+			if (mTimer == null)
+				return;
+
+		}
+
+		private void startCountDown(boolean isCount) {
+			if (isCount)
 				return;
 
 			mTimer = new CountDownTimer(TIMER_TOTAL_TIME, TIMER_INTERVAL) {
 
 				@Override
 				public void onTick(long millisUntilFinished) {
+					int seconds = (int) (millisUntilFinished / 1000);
+					int min = (int) ((millisUntilFinished / 1000) / 60);
+					int sec = seconds < min ? (min * 60) - seconds : seconds - (min * 60);
+
 					isCounting = true;
-					tvCounter.setText(String.valueOf(millisUntilFinished / 1000));
+					StringBuilder sb = new StringBuilder();
+					sb.append(getString(R.string.time_left_to_type_code));
+					sb.append("\n");
+					sb.append(min);
+					sb.append(":");
+					sb.append(sec > 9 ? "" : "0");
+					sb.append(sec);
+					tvCounter.setText(sb.toString());
 				}
 
 				@Override

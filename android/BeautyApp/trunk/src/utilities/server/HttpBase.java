@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 
 //Written by @Noam Bar-Oz
@@ -30,7 +31,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 
 	private HttpResponse response;
 	private String url;
-	private int statusCode;
+	protected int statusCode;
 	protected Context ctx;
 	protected MyProgressDialog mProgressDialog;
 	protected boolean showProgressDialog = true;
@@ -174,5 +175,10 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 		SharedPreferences pref = ctx.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE);
 		return pref.getString(Constant.PREFS_KEY_UID, "");
 		// return Secure.getString(ctx.getContentResolver(), Secure.ANDROID_ID);
+	}
+
+	public static void showErrorDialog(Activity activity) {
+		Dialogs.generalDialog(activity, activity.getString(R.string.dialog_messege_server_error),
+				activity.getString(R.string.dialog_title_error));
 	}
 }

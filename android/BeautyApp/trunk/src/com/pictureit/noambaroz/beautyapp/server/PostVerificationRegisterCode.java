@@ -18,10 +18,7 @@ public class PostVerificationRegisterCode extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		if (JsonToObject.isResponseOk(result))
-			return true;
-		else
-			return false;
+		return JsonToObject.jsonToVerifiedCode(result);
 	}
 
 	@Override
