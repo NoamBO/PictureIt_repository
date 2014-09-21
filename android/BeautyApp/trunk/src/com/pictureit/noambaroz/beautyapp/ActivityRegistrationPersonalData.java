@@ -171,7 +171,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 								finish();
 							}
 							storeUidOnDevice(uid);
-							Intent intent = new Intent(getActivity(), MainActivity.class);
+							Intent intent = new Intent(getActivity(), ActivityRegistrationPhoneAuthentication.class);
 							startActivity(intent);
 							overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 							finish();

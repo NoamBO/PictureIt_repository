@@ -3,10 +3,13 @@ package com.pictureit.noambaroz.beautyapp;
 import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
+import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
 
 public class Splash extends Activity {
@@ -39,6 +42,10 @@ public class Splash extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
+		Log.i("uid",
+				getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE).getString(Constant.PREFS_KEY_UID,
+						""));
+
 		new Handler().postDelayed(new Runnable() {
 
 			@Override

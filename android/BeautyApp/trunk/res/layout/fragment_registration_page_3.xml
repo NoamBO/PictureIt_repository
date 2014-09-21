@@ -22,15 +22,16 @@
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
-        <EditText
-            android:id="@+id/et_registration_telephone_number"
+        <EditText 
+            android:id="@+id/et_registration_page_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:background="@android:drawable/editbox_background"
             android:gravity="center"
             android:hint="_ _ _ _ _ _"
-            android:inputType="numberSigned" />
+            android:inputType="numberSigned"
+            android:maxLength="6" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,7 +60,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/b_registration_page_two_proceed"
+            android:id="@+id/b_registration_page_three_proceed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#bbb"
@@ -71,12 +72,14 @@
             android:orientation="horizontal" >
 
             <Button
+                android:id="@+id/b_registration_page_three_resend"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="ok" />
 
             <TextView
+                android:id="@+id/tv_registration_page_three_counter"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

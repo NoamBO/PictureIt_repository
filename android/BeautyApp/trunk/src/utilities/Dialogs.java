@@ -22,9 +22,23 @@ public class Dialogs {
 	}
 
 	public static void generalDialog(Activity activity, String message) {
+		generalDialog(activity, message, null);
+	}
+
+	public static void generalDialog(Activity activity, String message, String title) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		builder.setMessage(message);
+		if (title != null)
+			builder.setTitle(title);
+		builder.setPositiveButton(activity.getString(R.string.dialog_ok_text), new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
 		Dialog d = builder.create();
+		d.setCanceledOnTouchOutside(false);
 		d.show();
 	}
 

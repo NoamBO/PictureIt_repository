@@ -96,6 +96,11 @@
             android:name="com.pictureit.noambaroz.beautyapp.ActivityRegistrationPersonalData"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeNoActionBar" >
+        </activity> 
+        <activity
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityRegistrationPhoneAuthentication"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeNoActionBar" >
         </activity>
 
         <receiver android:name="com.pictureit.noambaroz.beautyapp.gcm.GcmBroadcastReceiver" 
