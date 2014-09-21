@@ -11,7 +11,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_ORDER_TREATMENT = URL_BASE + "postordertreatment";
 	public static final String URL_REQUEST_VERIFY_USER = URL_BASE + "verifyuser";
 	public static final String URL_REQUEST_VERIFY_ADDRESS = URL_BASE + "getvalidaddress";
-	public static final String URL_REQUEST_SEND_GCM_REG_ID = URL_BASE + "pushsenderid";
+	public static final String URL_REQUEST_SEND_GCM_REG_ID = URL_BASE + "updatepushregid";
 	public static final String URL_REQUEST_REGISTER = URL_BASE + "register";
 	public static final String URL_REQUEST_VERIFICATION_REGISTER_CODE = URL_BASE + "verificationRegisterCode";
 	public static final String URL_REQUEST_RE_SEND_REGISTER_CODE = "reSendCode";
