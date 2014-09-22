@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,6 @@ import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class ActivityRegistrationPersonalData extends Activity {
 
-	private String mFirstName, mLastName, mEmail, mAddress, mPhoneNumber;
 	protected final int FRAGMENT_CONTAINER = R.id.fragment_container;
 	Fragment fragment1 = new FragmentRegistrationPersonalData();
 
@@ -60,11 +60,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 				@Override
 				public void onClick(View v) {
 					if (verifyFeilds()) {
-						if (etAddress.getText().toString() != null
-								&& !etAddress.getText().toString().equalsIgnoreCase("")) {
-							verifyAddress(etAddress.getText().toString());
-						} else
-							setPhoneNumberFragment();
+						verifyAddress(etAddress.getText().toString());
 					}
 				}
 			});
@@ -93,10 +89,15 @@ public class ActivityRegistrationPersonalData extends Activity {
 		}
 
 		private void setPhoneNumberFragment() {
-			mFirstName = etFirstName.getText().toString();
-			mLastName = etLastName.getText().toString();
-			mEmail = etEmail.getText().toString();
-			mAddress = etAddress.getText().toString();
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString(getString(R.string.preference_key_my_profile_email), etEmail.getText().toString());
+			editor.putString(getString(R.string.preference_key_my_profile_first_name), etFirstName.getText().toString());
+			editor.putString(getString(R.string.preference_key_my_profile_last_name), etLastName.getText().toString());
+			editor.putString(getString(R.string.preference_key_my_profile_address), etAddress.getText().toString());
+			editor.commit();
+
 			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentRegistrationPhoneField())
 					.addToBackStack(null).commit();
 		}
@@ -135,6 +136,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 
 	private class FragmentRegistrationPhoneField extends BaseFragment {
 
+		private String phoneNumber;
 		private EditText etTelephoneNum;
 		private Button bProceed;
 
@@ -160,7 +162,9 @@ public class ActivityRegistrationPersonalData extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					mPhoneNumber = etTelephoneNum.getText().toString();
+					phoneNumber = etTelephoneNum.getText().toString();
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 					PostRegister httpPost = new PostRegister(getActivity(), new HttpCallback() {
 
 						@Override
@@ -170,30 +174,42 @@ public class ActivityRegistrationPersonalData extends Activity {
 										Toast.LENGTH_SHORT).show();
 								finish();
 							}
-							storeUidOnDevice(uid);
+							storeUidOnPreference(uid);
+							storePhoneNumberOnPreference();
 							Intent intent = new Intent(getActivity(), ActivityRegistrationPhoneAuthentication.class);
 							startActivity(intent);
 							overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 							finish();
 						}
 
-						private void storeUidOnDevice(Object uid) {
+						private void storeUidOnPreference(Object uid) {
 							SharedPreferences prefs = getSharedPreferences(Constant.APP_PREFS_NAME,
 									Context.MODE_PRIVATE);
 							SharedPreferences.Editor editor = prefs.edit();
 							editor.putString(Constant.PREFS_KEY_UID, (String) uid);
 							editor.commit();
 						}
-					}, mFirstName, mLastName, mEmail, mAddress, mPhoneNumber);
+					}, prefs.getString(getString(R.string.preference_key_my_profile_first_name), ""), prefs.getString(
+							getString(R.string.preference_key_my_profile_last_name), ""), prefs.getString(
+							getString(R.string.preference_key_my_profile_email), ""), prefs.getString(
+							getString(R.string.preference_key_my_profile_address), ""), phoneNumber);
 					httpPost.execute();
 				}
 			});
 		}
 
+		private void storePhoneNumberOnPreference() {
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString(getString(R.string.preference_key_my_profile_phone_number), phoneNumber);
+			editor.commit();
+		}
+
 		private String getLocalPhoneNumber() {
 			TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(
 					Context.TELEPHONY_SERVICE);
-			return tMgr.getLine1Number();
+			return PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(
+					getString(R.string.preference_key_my_profile_phone_number), tMgr.getLine1Number());
 		}
 
 	}

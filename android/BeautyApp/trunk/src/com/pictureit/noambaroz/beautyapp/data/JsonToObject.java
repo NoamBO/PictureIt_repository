@@ -216,7 +216,7 @@ public class JsonToObject {
 
 		String s = null;
 		try {
-			JSONObject object = new JSONObject(json);
+			JSONObject object = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
 			s = object.getString("code_status");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

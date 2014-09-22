@@ -6,6 +6,8 @@
     <string name="preference_key_my_profile_first_name">PREF_PROFILE_FIRST_NAME</string>
     <string name="preference_key_my_profile_last_name">PREF_PROFILE_LAST_NAME</string>
     <string name="preference_key_my_profile_email">PREF_PROFILE_EMAIL</string>
+    <string name="preference_key_my_profile_address">PREF_PROFILE_ADDRESS</string>
+	<string name="preference_key_my_profile_phone_number">PREF_PROFILE_PHONE_NUMBER</string>
 
     <string name="question_mark">"?"</string>
     <string name="press_again_to_exit">Press again to exit</string>
@@ -27,6 +29,7 @@
     <string name="settings_preference_title_first_name">First Name</string>
     <string name="settings_preference_title_last_name">Last Name</string>
     <string name="settings_preference_title_email">E-Mail</string>
+    <string name="settings_preference_title_address">Address</string>
     
     <string name="action_settings">Settings</string>
     <string name="action_pending_orders">Pending Orders</string>
