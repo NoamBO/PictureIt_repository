@@ -11,7 +11,16 @@ import android.net.Uri;
 
 public class DataProvider extends ContentProvider {
 
+	public static final String SORT_ORDER_LAST_TO_FIRST = "DESC";
+	public static final String SORT_ORDER_FIRST_TO_LAST = "ASC";
+
 	public static final String COL_ID = "_id";
+
+	// public static final String TABLE_MY_PROFILE = "tabletreatments";
+	// public static final String COL_MY_NAME = "myname";
+	// public static final String COL_MY_LAST_NAME = "mylastname";
+	// public static final String COL_MY_ADDRESS = "myaddress";
+	// public static final String COL_MY_EMAIL = "myemail";
 
 	public static final String TABLE_TREATMENTS = "tabletreatments";
 	public static final String COL_BEAUTICIAN_ID = "beauticianid";
@@ -34,11 +43,16 @@ public class DataProvider extends ContentProvider {
 
 	private DbHelper dbHelper;
 
+	// public static final Uri CONTENT_URI_MY_PROFILE =
+	// Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/"
+	// + TABLE_HISTORY);
 	public static final Uri CONTENT_URI_HISTORY = Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/"
 			+ TABLE_HISTORY);
 	public static final Uri CONTENT_URI_TREATMENTS = Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/"
 			+ TABLE_TREATMENTS);
 
+	// private static final int MY_PROFILE_ALLROWS = 5;
+	// private static final int MY_PROFILE_SINGLE_ROW = 6;
 	private static final int HISTORY_ALLROWS = 1;
 	private static final int HISTORY_SINGLE_ROW = 2;
 	private static final int ORDER_OPTIONS_ALLROWS = 3;
@@ -52,6 +66,10 @@ public class DataProvider extends ContentProvider {
 		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", TABLE_TREATMENTS + "/", ORDER_OPTIONS_ALLROWS);
 		uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider", TABLE_TREATMENTS + "/#",
 				ORDER_OPTIONS_SINGLE_ROW);
+		// uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider",
+		// TABLE_MY_PROFILE, MY_PROFILE_ALLROWS);
+		// uriMatcher.addURI("com.pictureit.noambaroz.beautyapp.provider",
+		// TABLE_MY_PROFILE + "/#", MY_PROFILE_SINGLE_ROW);
 	}
 
 	@Override
@@ -68,11 +86,13 @@ public class DataProvider extends ContentProvider {
 		switch (uriMatcher.match(uri)) {
 		case HISTORY_ALLROWS:
 		case ORDER_OPTIONS_ALLROWS:
+			// case MY_PROFILE_ALLROWS:
 			qb.setTables(getTableName(uri));
 			break;
 
 		case HISTORY_SINGLE_ROW:
 		case ORDER_OPTIONS_SINGLE_ROW:
+			// case MY_PROFILE_SINGLE_ROW:
 			qb.setTables(getTableName(uri));
 			qb.appendWhere("_id = " + uri.getLastPathSegment());
 			break;
@@ -80,9 +100,6 @@ public class DataProvider extends ContentProvider {
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
-		// String limit = uri.getQueryParameter("limit");
-		// Cursor c = qb.query(db, projection, selection, selectionArgs, null,
-		// null, sortOrder, limit);
 		Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
 		c.setNotificationUri(getContext().getContentResolver(), uri);
 		return c;
@@ -105,7 +122,9 @@ public class DataProvider extends ContentProvider {
 		case ORDER_OPTIONS_ALLROWS:
 			id = db.insertOrThrow(TABLE_TREATMENTS, null, values);
 			break;
-
+		// case MY_PROFILE_ALLROWS:
+		// id = db.insertOrThrow(TABLE_MY_PROFILE, null, values);
+		// break;
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
@@ -147,11 +166,13 @@ public class DataProvider extends ContentProvider {
 		switch (uriMatcher.match(uri)) {
 		case HISTORY_ALLROWS:
 		case ORDER_OPTIONS_ALLROWS:
+			// case MY_PROFILE_ALLROWS:
 			count = db.update(getTableName(uri), values, selection, selectionArgs);
 			break;
 
 		case HISTORY_SINGLE_ROW:
 		case ORDER_OPTIONS_SINGLE_ROW:
+			// case MY_PROFILE_SINGLE_ROW:
 			count = db.update(getTableName(uri), values, "_id = ?", new String[] { uri.getLastPathSegment() });
 			break;
 
@@ -172,9 +193,11 @@ public class DataProvider extends ContentProvider {
 		case ORDER_OPTIONS_ALLROWS:
 		case ORDER_OPTIONS_SINGLE_ROW:
 			return TABLE_TREATMENTS;
+			// case MY_PROFILE_ALLROWS:
+			// case MY_PROFILE_SINGLE_ROW:
+			// return TABLE_MY_PROFILE;
 		}
 
 		return null;
 	}
-
 }

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 import com.pictureit.noambaroz.beautyapp.server.PostRegister;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
@@ -89,14 +89,8 @@ public class ActivityRegistrationPersonalData extends Activity {
 		}
 
 		private void setPhoneNumberFragment() {
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.putString(getString(R.string.preference_key_my_profile_email), etEmail.getText().toString());
-			editor.putString(getString(R.string.preference_key_my_profile_first_name), etFirstName.getText().toString());
-			editor.putString(getString(R.string.preference_key_my_profile_last_name), etLastName.getText().toString());
-			editor.putString(getString(R.string.preference_key_my_profile_address), etAddress.getText().toString());
-			editor.commit();
+			DataUtil.updateMyProfile(getActivity(), etFirstName.getText().toString(), etLastName.getText().toString(),
+					etEmail.getText().toString(), etAddress.getText().toString());
 
 			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentRegistrationPhoneField())
 					.addToBackStack(null).commit();
@@ -150,7 +144,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 			View v = inflater.inflate(R.layout.fragment_registration_page_two, container, false);
 			etTelephoneNum = findView(v, R.id.et_registration_telephone_number);
 			bProceed = findView(v, R.id.b_registration_page_two_proceed);
-			etTelephoneNum.setText(getLocalPhoneNumber());
+			etTelephoneNum.setText(DataUtil.getLocalPhoneNumber(getActivity()));
 			return v;
 		}
 
@@ -175,7 +169,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 								finish();
 							}
 							storeUidOnPreference(uid);
-							storePhoneNumberOnPreference();
+							DataUtil.storePhoneNumberOnPreference(getActivity(), phoneNumber);
 							Intent intent = new Intent(getActivity(), ActivityRegistrationPhoneAuthentication.class);
 							startActivity(intent);
 							overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -196,20 +190,6 @@ public class ActivityRegistrationPersonalData extends Activity {
 					httpPost.execute();
 				}
 			});
-		}
-
-		private void storePhoneNumberOnPreference() {
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.putString(getString(R.string.preference_key_my_profile_phone_number), phoneNumber);
-			editor.commit();
-		}
-
-		private String getLocalPhoneNumber() {
-			TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(
-					Context.TELEPHONY_SERVICE);
-			return PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(
-					getString(R.string.preference_key_my_profile_phone_number), tMgr.getLine1Number());
 		}
 
 	}

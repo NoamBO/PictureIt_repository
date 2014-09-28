@@ -15,8 +15,22 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table "+DataProvider.TABLE_HISTORY+" (_id integer primary key autoincrement, for text, date text, treatments text, whare text, remarks text);");
-		db.execSQL("create table "+DataProvider.TABLE_TREATMENTS+" (_id integer primary key autoincrement, notificationid text, "+DataProvider.COL_BEAUTICIAN_ID+" text, "+DataProvider.COL_NAME+" text, address text, raters integer, rate integer, at text, location text, remarks text, price text, pic text);");
+		// db.execSQL("create table " + DataProvider.TABLE_MY_PROFILE +
+		// " (_id integer primary key autoincrement, "
+		// + DataProvider.COL_MY_NAME + " text" + DataProvider.COL_MY_LAST_NAME
+		// + " text"
+		// + DataProvider.COL_MY_EMAIL + " text" + DataProvider.COL_MY_ADDRESS +
+		// " text);");
+		db.execSQL("create table "
+				+ DataProvider.TABLE_HISTORY
+				+ " (_id integer primary key autoincrement, for text, date text, treatments text, whare text, remarks text);");
+		db.execSQL("create table "
+				+ DataProvider.TABLE_TREATMENTS
+				+ " (_id integer primary key autoincrement, notificationid text, "
+				+ DataProvider.COL_BEAUTICIAN_ID
+				+ " text, "
+				+ DataProvider.COL_NAME
+				+ " text, address text, raters integer, rate integer, at text, location text, remarks text, price text, pic text);");
 		// db.execSQL("create table profile (_id integer primary key autoincrement, name text, email text unique, count integer default 0, at datetime default current_timestamp);");
 	}
 
