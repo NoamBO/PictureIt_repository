@@ -2,6 +2,8 @@ package com.pictureit.noambaroz.beautyapp;
 
 import java.io.File;
 
+import utilities.Log;
+import utilities.server.HttpBase.HttpCallback;
 import utilities.view.PreferenceImageView;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +19,7 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 
 import com.pictureit.noambaroz.beautyapp.cropimage.CropMenager;
+import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class PreferenceActivityMyProfile extends ActivityWithFragment {
 
@@ -108,9 +111,37 @@ public class PreferenceActivityMyProfile extends ActivityWithFragment {
 			}
 		}
 
+		private boolean isNewAddressSet = false;
+
 		@Override
-		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-			updatePrefSummary(findPreference(key));
+		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+			if (sharedPreferences.getString(key, "").equalsIgnoreCase(""))
+				return;
+
+			if (isNewAddressSet) {
+				isNewAddressSet = false;
+				return;
+			}
+
+			if (key.equalsIgnoreCase(getString(R.string.preference_key_my_profile_address))) {
+				Log.i("pref changed");
+				new PostVerifyAddress(getActivity(), new HttpCallback() {
+
+					@Override
+					public void onAnswerReturn(Object answer) {
+						if (answer != null) {
+							isNewAddressSet = true;
+							sharedPreferences.edit()
+									.putString(getString(R.string.preference_key_my_profile_address), (String) answer)
+									.commit();
+							EditTextPreference p = (EditTextPreference) findPreference(key);
+							p.setText((String) answer);
+							updatePrefSummary(p);
+						}
+					}
+				}, sharedPreferences.getString(key, "")).execute();
+			} else
+				updatePrefSummary(findPreference(key));
 		}
 
 		private void initSummary(Preference p) {
