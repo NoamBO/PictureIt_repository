@@ -174,7 +174,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		} else if (id == R.id.action_search_providers) {
 			return launchActivity(SearchProviderActivity.class);
 		} else if (id == R.id.action_my_profile) {
-			return launchActivity(PreferenceActivityMyProfile.class);
+			return launchActivity(ActivityMyProfile.class);
 		}
 		return super.onOptionsItemSelected(item);
 	}

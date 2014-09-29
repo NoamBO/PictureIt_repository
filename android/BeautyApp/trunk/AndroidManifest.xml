@@ -73,7 +73,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beautyapp.PreferenceActivityMyProfile"
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityMyProfile"
             android:label="@string/search_provider_title"
             android:screenOrientation="portrait" >
         </activity>
