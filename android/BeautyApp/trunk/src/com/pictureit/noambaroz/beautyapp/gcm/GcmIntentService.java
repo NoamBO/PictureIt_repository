@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.pictureit.noambaroz.beautyapp.ActivityTreatments;
+import com.pictureit.noambaroz.beautyapp.ActivityMessages;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 
@@ -74,7 +74,7 @@ public class GcmIntentService extends IntentService {
 	private void sendNotification(String msg, Bundle data) {
 		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent notificationIntent = new Intent(this, ActivityTreatments.class);
+		Intent notificationIntent = new Intent(this, ActivityMessages.class);
 		// notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 		// Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		notificationIntent.putExtras(data);

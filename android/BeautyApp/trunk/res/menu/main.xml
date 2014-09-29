@@ -1,18 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.pictureit.noambaroz.beautyapp.MainActivity" >
+
     <item
         android:id="@+id/action_pending_orders"
         android:actionLayout="@layout/action_layout_order_notification"
         android:icon="@drawable/ic_action_settings"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="@string/action_pending_orders"/>
+    <item
+        android:id="@+id/action_future_treatments"
+        android:icon="@drawable/ic_action_call"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_future_treatments"/>
     <item
         android:id="@+id/action_search_providers"
         android:icon="@drawable/ic_action_paste"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="@string/action_search_providers"/>
-     <item
+    <item
         android:id="@+id/action_my_profile"
         android:icon="@drawable/ic_action_call"
         android:showAsAction="never"

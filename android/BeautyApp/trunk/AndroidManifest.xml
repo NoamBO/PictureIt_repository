@@ -64,6 +64,11 @@
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beautyapp.ServiceOrder"
+            android:label="@string/title_future_treatments"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityTreatments"
             android:label="@string/title_service_order"
             android:screenOrientation="portrait" >
         </activity>
@@ -93,7 +98,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beautyapp.ActivityTreatments"
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityMessages"
             android:label="@string/title_order_notification"
             android:screenOrientation="portrait" >
         </activity>

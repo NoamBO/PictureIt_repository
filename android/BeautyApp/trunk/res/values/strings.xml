@@ -18,6 +18,7 @@
     
     <string name="app_name">Beauty App</string>
     <string name="title_settings">Settings</string>
+    <string name="title_future_treatments">Treatments</string>
     <string name="title_service_order">Ask For Service</string>
     <string name="title_terms_of_service">Terms of Service</string>
     <string name="title_order_notification">Orders available</string>
@@ -34,14 +35,14 @@
     <string name="settings_preference_title_email">אי מייל</string>
     <string name="settings_preference_title_address">כתובת</string>
     
-    <string name="action_settings">Settings</string>
+
     <string name="action_pending_orders">Pending Orders</string>
     <string name="action_my_profile">My Profile</string>
     <string name="action_explanation">Explanation</string>
     <string name="action_terms_of_service">Terms of service</string>
-    <string name="action_search_radius">Search radius</string>
     <string name="action_ask_for_service">Service Order</string>
     <string name="action_search_providers">Locating a beautician</string>
+    <string name="action_future_treatments">Future treatments</string>
     
     <!-- Register screen -->
     <string name="telephone_number">מספר טלפון</string>
