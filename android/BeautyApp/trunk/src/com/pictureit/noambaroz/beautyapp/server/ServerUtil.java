@@ -15,6 +15,8 @@ public class ServerUtil {
 	public static final String URL_REQUEST_REGISTER = URL_BASE + "register";
 	public static final String URL_REQUEST_VERIFICATION_REGISTER_CODE = URL_BASE + "verificationRegisterCode";
 	public static final String URL_REQUEST_RE_SEND_REGISTER_CODE = URL_BASE + "reSendCode";
+	public static final String URL_REQUEST_UPDATE_USER_PROFILE_DATA = URL_BASE + "updateuserdetails";
+	public static final String URL_REQUEST_UPDATE_USER_PROFILE_PICTURE = URL_BASE + "uploadimage";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";
@@ -56,5 +58,6 @@ public class ServerUtil {
 	public static final String ADDRESS = "address";
 	public static final String PHONE_NUMBER = "phone_number";
 	public static final String CODE = "code";
+	public static final String PROFILE_IMAGE = "image";
 
 }

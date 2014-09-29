@@ -21,6 +21,8 @@
     <string name="title_service_order">Ask For Service</string>
     <string name="title_terms_of_service">Terms of Service</string>
     <string name="title_order_notification">Orders available</string>
+    <string name="title_my_profile">My Profile</string>
+    <string name="title_edit_my_profile">Edit Your Profile</string>
     
     <string name="settings_preference_category_title_distance">Distance</string>
     <string name="settings_preference_title_radius">Radius</string>

@@ -74,7 +74,12 @@
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beautyapp.ActivityMyProfile"
-            android:label="@string/search_provider_title"
+            android:label="@string/title_my_profile"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityMyProfileEdit"
+            android:label="@string/title_edit_my_profile"
             android:screenOrientation="portrait" >
         </activity>
         <activity
