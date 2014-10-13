@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -164,9 +165,11 @@ public class ActivityRegistrationPersonalData extends Activity {
 						@Override
 						public void onAnswerReturn(Object uid) {
 							if (uid == null || ((String) uid).equalsIgnoreCase("")) {
-								Toast.makeText(getApplicationContext(), R.string.dialog_messege_server_error,
-										Toast.LENGTH_SHORT).show();
-								finish();
+								Toast t = Toast.makeText(getApplicationContext(), R.string.dialog_messege_server_error,
+										Toast.LENGTH_LONG);
+								t.setGravity(Gravity.CENTER, 0, 0);
+								t.show();
+								return;
 							}
 							storeUidOnPreference(uid);
 							DataUtil.storePhoneNumberOnPreference(getActivity(), phoneNumber);

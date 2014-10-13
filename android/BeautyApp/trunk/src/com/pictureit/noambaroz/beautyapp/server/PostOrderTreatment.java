@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import utilities.server.BaseHttpPost;
 import android.content.Context;
+import android.location.Location;
 
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
@@ -20,17 +21,34 @@ import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 
 public class PostOrderTreatment extends BaseHttpPost {
 
-	public PostOrderTreatment(Context ctx, HttpCallback callback) {
+	String for_who;
+	String time;
+	String comments;
+	String location;
+	ArrayList<TreatmentType> treatments;
+
+	public PostOrderTreatment(Context ctx, HttpCallback callback, String for_who, String time, String comments,
+			String location, ArrayList<TreatmentType> treatments) {
 		super(ctx);
 		this.callback = callback;
+		this.for_who = for_who;
+		this.time = time;
+		this.comments = comments;
+		this.location = location;
+		this.treatments = treatments;
 	}
 
-	public void start(String for_who, String time, String comments, String location, ArrayList<TreatmentType> treatments)
-			throws Exception {
+	public void byLocation(Location location) throws Exception {
+		mMainJson = new JSONObject();
+		mMainJson.put(ServerUtil.LATITUDE, location.getLatitude());
+		mMainJson.put(ServerUtil.LONGITUDE, location.getLongitude());
+		start();
+	}
 
-		JSONObject tempJson = new JSONObject();
-		tempJson.put(ServerUtil.UID, getUid());
-		tempJson.put(ServerUtil.FOR, for_who);
+	private void start() throws Exception {
+
+		mMainJson.put(ServerUtil.UID, getUid());
+		mMainJson.put(ServerUtil.FOR, for_who);
 		Calendar calendar = Calendar.getInstance();
 
 		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
@@ -44,9 +62,9 @@ public class PostOrderTreatment extends BaseHttpPost {
 		calendar.setTime(yourDate);
 		long timeInMilis = calendar.getTimeInMillis();
 
-		tempJson.put(ServerUtil.DATE, timeInMilis);
-		tempJson.put(ServerUtil.LOCATION, location);
-		tempJson.put(ServerUtil.COMMENTS, comments == null ? "" : comments);
+		mMainJson.put(ServerUtil.DATE, timeInMilis);
+		mMainJson.put(ServerUtil.LOCATION, location);
+		mMainJson.put(ServerUtil.COMMENTS, comments == null ? "" : comments);
 
 		JSONArray array = new JSONArray();
 		for (TreatmentType treatment : treatments) {
@@ -54,8 +72,7 @@ public class PostOrderTreatment extends BaseHttpPost {
 				array.put(new JSONObject().put(ServerUtil.TREATMENT_ID, treatment.id).put(ServerUtil.AMOUNT,
 						treatment.count));
 		}
-		tempJson.put(ServerUtil.TREATMENTS, array);
-		mMainJson = tempJson;
+		mMainJson.put(ServerUtil.TREATMENTS, array);
 		prepare(ServerUtil.URL_REQUEST_ORDER_TREATMENT);
 		this.execute();
 	}

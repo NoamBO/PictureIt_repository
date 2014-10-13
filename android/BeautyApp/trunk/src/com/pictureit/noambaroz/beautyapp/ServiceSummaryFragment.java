@@ -1,8 +1,11 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseFragment;
+import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
+import android.app.ProgressDialog;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
+import com.pictureit.noambaroz.beautyapp.location.MyLocation;
+import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.PostOrderTreatment;
 
 public class ServiceSummaryFragment extends BaseFragment {
@@ -69,24 +74,42 @@ public class ServiceSummaryFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View v) {
-				PostOrderTreatment httpPost = new PostOrderTreatment(getActivity(), new HttpCallback() {
+				final ProgressDialog pd = new ProgressDialog(getActivity());
+				pd.setCanceledOnTouchOutside(false);
+				pd.show();
+
+				LocationResult lr = new LocationResult() {
 
 					@Override
-					public void onAnswerReturn(Object answer) {
-						Log.i("finish");
-						if (answer != null && !((String) answer).equalsIgnoreCase("")) {
-							ServiceOrderManager.setPending(getActivity(), true);
-							getActivity().finish();
+					public void gotLocation(Location location) {
+						pd.cancel();
+						if (location == null) {
+							Dialogs.generalDialog(getActivity(), getString(R.string.dialog_messege_no_location),
+									getString(R.string.dialog_title_error));
+							return;
+						}
+
+						PostOrderTreatment httpPost = new PostOrderTreatment(getActivity(), new HttpCallback() {
+
+							@Override
+							public void onAnswerReturn(Object answer) {
+								Log.i("finish");
+								if (answer != null && !((String) answer).equalsIgnoreCase("")) {
+									ServiceOrderManager.setPending(getActivity(), true);
+									getActivity().finish();
+								}
+							}
+						}, mTreatment.forWho, mTreatment.when, mTreatment.remarks, mTreatment.whare,
+								mTreatment.tretments);
+						try {
+							httpPost.byLocation(location);
+						} catch (Exception e) {
+							Log.i("failed while building the request to the server");
+							e.printStackTrace();
 						}
 					}
-				});
-				try {
-					httpPost.start(mTreatment.forWho, mTreatment.when, mTreatment.remarks, mTreatment.whare,
-							mTreatment.tretments);
-				} catch (Exception e) {
-					Log.i("failed while building the request to the server");
-					e.printStackTrace();
-				}
+				};
+				new MyLocation().getLocation(getActivity(), lr);
 			}
 		});
 	}

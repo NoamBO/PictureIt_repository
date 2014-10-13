@@ -59,5 +59,7 @@ public class ServerUtil {
 	public static final String PHONE_NUMBER = "phone_number";
 	public static final String CODE = "code";
 	public static final String PROFILE_IMAGE = "image";
+	public static final String SENDER = "sender";
+	public static final String SENDER_TYPE_CUSTOMER = "customer";
 
 }

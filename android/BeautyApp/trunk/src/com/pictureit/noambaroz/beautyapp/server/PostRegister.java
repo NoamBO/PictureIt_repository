@@ -3,12 +3,9 @@ package com.pictureit.noambaroz.beautyapp.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import utilities.Dialogs;
 import utilities.server.BaseHttpPost;
-import android.app.Activity;
 import android.content.Context;
 
-import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 
 public class PostRegister extends BaseHttpPost {
@@ -42,20 +39,13 @@ public class PostRegister extends BaseHttpPost {
 	}
 
 	@Override
-	protected void onPostExecute(Object result) {
-		if (result == null)
-			Dialogs.makeToastThatCloseActivity((Activity) ctx, R.string.dialog_messege_server_error);
-		super.onPostExecute(result);
-	}
-
-	@Override
 	protected void prepare(String request) {
 		setUrl(request);
 		JSONObject jsonObject = new JSONObject();
 		try {
 			jsonObject.put(ServerUtil.FIRST_NANE, firstName).put(ServerUtil.LAST_NAME, lastName)
 					.put(ServerUtil.E_MAIL, email).put(ServerUtil.ADDRESS, address)
-					.put(ServerUtil.PHONE_NUMBER, phoneNum);
+					.put(ServerUtil.PHONE_NUMBER, phoneNum).put(ServerUtil.SENDER, ServerUtil.SENDER_TYPE_CUSTOMER);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
