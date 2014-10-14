@@ -1,8 +1,5 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import utilities.server.BaseHttpGet;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,19 +18,7 @@ public class GetOrderNotification extends BaseHttpGet {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		// TODO remove block
-		{
-			JSONObject j;
-			try {
-				j = new JSONObject(result);
-				result = j.getJSONObject("d").toString();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-		String orderId = JsonToObject.jsonGetString(result, "order_id");
+		String orderId = JsonToObject.jsonGetMessageId(result);
 		if (TextUtils.isEmpty(orderId))
 			return null;
 		ContentValues values = JsonToObject.jsonToOrderNotificationContentValues(result);

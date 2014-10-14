@@ -26,11 +26,11 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ " (_id integer primary key autoincrement, for text, date text, treatments text, whare text, remarks text);");
 		db.execSQL("create table " + DataProvider.TABLE_MESSAGES
 				+ " (_id integer primary key autoincrement, notificationid text, " + DataProvider.COL_BEAUTICIAN_ID
-				+ " text, " + DataProvider.COL_NAME + " text, address text, " + DataProvider.COL_RATERS + " integer, "
-				+ DataProvider.COL_RATE + " integer, " + DataProvider.COL_AT + " text, " + DataProvider.COL_LOCATION
-				+ " text, " + DataProvider.COL_REMARKS + " text, " + DataProvider.COL_PRICE + " text, "
-				+ DataProvider.COL_PIC + " text, " + DataProvider.COL_PHONE + " text, " + DataProvider.COL_TREATMENTS
-				+ " text);");
+				+ " text, " + DataProvider.COL_NAME + " text, " + DataProvider.COL_ADDRESS + " text, "
+				+ DataProvider.COL_RATERS + " integer, " + DataProvider.COL_RATE + " integer, " + DataProvider.COL_AT
+				+ " text, " + DataProvider.COL_LOCATION + " text, " + DataProvider.COL_REMARKS + " text, "
+				+ DataProvider.COL_PRICE + " text, " + DataProvider.COL_PIC + " text, " + DataProvider.COL_PHONE
+				+ " text, " + DataProvider.COL_TREATMENTS + " text);");
 		db.execSQL("create table "
 				+ DataProvider.TABLE_TREATMENTS
 				+ " (_id integer primary key autoincrement, notificationid text, "

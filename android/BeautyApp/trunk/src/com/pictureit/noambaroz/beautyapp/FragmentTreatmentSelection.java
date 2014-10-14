@@ -97,13 +97,13 @@ public class FragmentTreatmentSelection extends Fragment {
 			});
 			holder.tvName.setText(item.getName());
 
-			holder.picker.setValue(item.getCount());
-			holder.checkBox.setChecked(item.getCount() != 0 ? true : false);
+			holder.picker.setValue(item.getAmount());
+			holder.checkBox.setChecked(item.getAmount() != 0 ? true : false);
 			holder.picker.addOnValueChangeListener(new onValueChangeListener() {
 
 				@Override
 				public void onValueChange(int value) {
-					item.count = value;
+					item.setAmount(value);
 					notifyDataSetChanged();
 				}
 			});

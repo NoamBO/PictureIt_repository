@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		CursorLoader loader = new CursorLoader(getApplicationContext(), DataProvider.CONTENT_URI_TREATMENTS,
+		CursorLoader loader = new CursorLoader(getApplicationContext(), DataProvider.CONTENT_URI_MESSAGES,
 				new String[] { DataProvider.COL_ID }, null, null, DataProvider.COL_ID + " DESC");
 		return loader;
 	}

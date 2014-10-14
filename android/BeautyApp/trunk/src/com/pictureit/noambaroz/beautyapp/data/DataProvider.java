@@ -54,7 +54,7 @@ public class DataProvider extends ContentProvider {
 	public static final Uri CONTENT_URI_TREATMENTS = Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/"
 			+ TABLE_TREATMENTS);
 	public static final Uri CONTENT_URI_MESSAGES = Uri.parse("content://com.pictureit.noambaroz.beautyapp.provider/"
-			+ TABLE_TREATMENTS);
+			+ TABLE_MESSAGES);
 
 	// private static final int MY_PROFILE_ALLROWS = 5;
 	// private static final int MY_PROFILE_SINGLE_ROW = 6;

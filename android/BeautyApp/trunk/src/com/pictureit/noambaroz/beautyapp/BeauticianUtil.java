@@ -52,7 +52,7 @@ public class BeauticianUtil {
 		ArrayList<TreatmentType> arrayList = TreatmentSummary.TreatmentList.genarate(context, null);
 		for (int i = 0; i < treatmentsId.length; i++) {
 			for (TreatmentType type : arrayList) {
-				if (type.id.equals(treatmentsId[i])) {
+				if (type.getTreatments_id().equals(treatmentsId[i])) {
 					if (half == i)
 						if (!__Added) {
 							__Added = true;

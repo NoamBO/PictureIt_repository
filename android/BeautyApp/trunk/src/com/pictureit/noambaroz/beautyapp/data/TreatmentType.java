@@ -2,27 +2,19 @@ package com.pictureit.noambaroz.beautyapp.data;
 
 public class TreatmentType {
 
-	public String id;
+	private String treatments_id;
 	public String name;
 	public String description;
-	public int count;
+	private int amount;
 
 	public TreatmentType() {
 	}
 
-	public TreatmentType(String id, String name, String description, int count) {
-		this.id = id;
-		this.count = count;
+	public TreatmentType(String treatments_id, String name, String description, int amount) {
+		this.setTreatments_id(treatments_id);
+		this.setAmount(amount);
 		this.name = name;
 		this.description = description;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -41,11 +33,20 @@ public class TreatmentType {
 		this.description = description;
 	}
 
-	public int getCount() {
-		return count;
+	public int getAmount() {
+		return amount;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
+
+	public String getTreatments_id() {
+		return treatments_id;
+	}
+
+	public void setTreatments_id(String treatments_id) {
+		this.treatments_id = treatments_id;
+	}
+
 }

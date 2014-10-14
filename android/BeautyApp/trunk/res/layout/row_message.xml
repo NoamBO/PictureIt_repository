@@ -36,7 +36,7 @@
                 android:layout_below="@+id/tv_row_message_beautician_name"
                 android:layout_toLeftOf="@+id/iv_row_message_beautician_pic" />
 
-            <TextView
+            <TextView android:text="kjkj"
                 android:id="@+id/tv_row_message_received_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

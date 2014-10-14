@@ -121,22 +121,30 @@ public class JsonToObject {
 		return result;
 	}
 
+	public static String jsonGetMessageId(String json) {
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		String id = JsonToObject.jsonGetString(finalString, "order_id");
+		return id;
+	}
+
 	public static ContentValues jsonToOrderNotificationContentValues(String json) {
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
 		ContentValues values = new ContentValues(12);
-		String beauticianId = JsonToObject.jsonGetString(json, "beautician_id");
-		String name = JsonToObject.jsonGetString(json, "name");
-		String picUrl = JsonToObject.jsonGetString(json, "pic");
-		String address = JsonToObject.jsonGetString(json, "address");
-		int raters = JsonToObject.jsonGetInt(json, "raters");
-		int rate = JsonToObject.jsonGetInt(json, "rate");
-		String time = JsonToObject.jsonGetString(json, "time");
-		String location = JsonToObject.jsonGetString(json, "location");
-		String price = JsonToObject.jsonGetString(json, "price");
-		String nots = JsonToObject.jsonGetString(json, "nots");
-		String phone = jsonGetString(json, "phone");
+		String beauticianId = JsonToObject.jsonGetString(finalString, "beautician_id");
+		String name = JsonToObject.jsonGetString(finalString, "name");
+		String picUrl = JsonToObject.jsonGetString(finalString, "pic");
+		String address = JsonToObject.jsonGetString(finalString, "address");
+		int raters = JsonToObject.jsonGetInt(finalString, "raters");
+		int rate = JsonToObject.jsonGetInt(finalString, "rate");
+		String time = JsonToObject.jsonGetString(finalString, "time");
+		String location = JsonToObject.jsonGetString(finalString, "location");
+		String price = JsonToObject.jsonGetString(finalString, "price");
+		String nots = JsonToObject.jsonGetString(finalString, "nots");
+		String phone = jsonGetString(finalString, "phone");
 		Type arrayType = new TypeToken<ArrayList<TreatmentType>>() {
 		}.getType();
-		ArrayList<TreatmentType> treatmentsArray = new Gson().fromJson(json, arrayType);
+		ArrayList<TreatmentType> treatmentsArray = new Gson().fromJson(jsonGetArrayAsString(finalString, "treatmets"),
+				arrayType);
 		String convertedTreatments = DataUtil.convertArrayToString(treatmentsArray);
 
 		if (beauticianId != null && !beauticianId.equalsIgnoreCase("")) {
@@ -167,13 +175,24 @@ public class JsonToObject {
 		if (nots != null && !nots.equalsIgnoreCase("")) {
 			values.put(DataProvider.COL_REMARKS, nots);
 		}
-		if (price != null && !price.equalsIgnoreCase("")) {
+		if (phone != null && !phone.equalsIgnoreCase("")) {
 			values.put(DataProvider.COL_PHONE, phone);
 		}
 		if (!TextUtils.isEmpty(convertedTreatments)) {
 			values.put(DataProvider.COL_TREATMENTS, convertedTreatments);
 		}
 		return values;
+	}
+
+	public static String jsonGetArrayAsString(String json, String key) {
+		String value = null;
+		try {
+			JSONObject o = new JSONObject(json);
+			value = o.getJSONArray(key).toString();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return value;
 	}
 
 	public static String jsonGetString(String json, String key) {

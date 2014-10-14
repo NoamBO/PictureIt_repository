@@ -12,8 +12,12 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -42,7 +46,7 @@ public class ActivityMessages extends ActivityWithFragment {
 		FRAGMENT_TAG = "notification_fragment";
 	}
 
-	private class FragmentMessages extends ListFragment implements LoaderCallbacks<Cursor> {
+	private class FragmentMessages extends ListFragment implements LoaderCallbacks<Cursor>, OnItemClickListener {
 
 		int mRowViewInitialHeight;
 		View mRowViewToRemove;
@@ -55,9 +59,9 @@ public class ActivityMessages extends ActivityWithFragment {
 			getOrderNotificationThreadPoll = new HashMap<String, GetOrderNotification>();
 
 			String[] from = { DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_AT,
-					DataProvider.COL_RATERS, DataProvider.COL_RATE, DataProvider.COL_PIC, DataProvider.COL_LOCATION,
-					DataProvider.COL_PRICE };
-			int[] to = { R.id.tv_row_message_beautician_name, R.id.tv_row_message_address, R.id.tv_row_treatment_date };
+					DataProvider.COL_PIC };
+			int[] to = { R.id.tv_row_message_beautician_name, R.id.tv_row_message_address,
+					R.id.tv_row_message_received_date };
 
 			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_message, null, from, to, 0);
 			setListAdapter(adapter);
@@ -77,7 +81,7 @@ public class ActivityMessages extends ActivityWithFragment {
 		}
 
 		private void initListview() {
-			getListView().setOnItemClickListener(null);
+			getListView().setOnItemClickListener(this);
 			getListView().setPadding(15, 0, 15, 0);
 			getListView().setDivider(new ColorDrawable(getResources().getColor(R.color.transparent)));
 		}
@@ -99,7 +103,7 @@ public class ActivityMessages extends ActivityWithFragment {
 
 		@Override
 		public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-			CursorLoader loader = new CursorLoader(getActivity(), DataProvider.CONTENT_URI_TREATMENTS, new String[] {
+			CursorLoader loader = new CursorLoader(getActivity(), DataProvider.CONTENT_URI_MESSAGES, new String[] {
 					DataProvider.COL_ID, DataProvider.COL_NOTIFICATION_ID, DataProvider.COL_BEAUTICIAN_ID,
 					DataProvider.COL_PIC, DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_RATERS,
 					DataProvider.COL_RATE, DataProvider.COL_AT, DataProvider.COL_LOCATION, DataProvider.COL_REMARKS,
@@ -136,7 +140,8 @@ public class ActivityMessages extends ActivityWithFragment {
 
 			@Override
 			public void setViewText(TextView v, String text) {
-				if (v.getId() == R.id.tv_row_message_received_date && text != null && text.length() > 1)
+				if (v.getId() == R.id.tv_row_message_received_date && !TextUtils.isEmpty(text)
+						&& !text.equalsIgnoreCase("null"))
 					text = new Formater().getDate(text);
 				super.setViewText(v, text);
 			}
@@ -157,6 +162,7 @@ public class ActivityMessages extends ActivityWithFragment {
 								findView(view, R.id.pb_row_order_notification_spinner).setVisibility(View.GONE);
 								findView(view, R.id.vg_row_order_notification_data_container).setVisibility(
 										View.VISIBLE);
+								notifyDataSetChanged();
 							}
 						}
 					});
@@ -187,6 +193,16 @@ public class ActivityMessages extends ActivityWithFragment {
 				// }
 				// });
 			}
+		}
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Cursor c = ((MySimpleCursorAdapter) parent.getAdapter()).getCursor();
+			c.moveToPosition(position);
+			String messageId = c.getString(c.getColumnIndex(DataProvider.COL_NOTIFICATION_ID));
+			getActivity().getContentResolver().delete(
+					Uri.withAppendedPath(DataProvider.CONTENT_URI_MESSAGES, c.getString(c.getColumnIndex("_id"))),
+					null, null);
 		}
 	}
 }

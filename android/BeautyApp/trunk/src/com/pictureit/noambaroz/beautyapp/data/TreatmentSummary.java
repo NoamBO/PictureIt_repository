@@ -36,14 +36,14 @@ public class TreatmentSummary {
 					if (needToCompareWithBeauticianTretmantsList) {
 						if (temp.contains(array[0])) {
 							TreatmentType tt = new TreatmentType();
-							tt.setId(array[0]);
+							tt.setTreatments_id(array[0]);
 							tt.setName(array[1]);
 							tt.setDescription(array[2]);
 							treatmentsArray.add(tt);
 						}
 					} else {
 						TreatmentType tt = new TreatmentType();
-						tt.setId(array[0]);
+						tt.setTreatments_id(array[0]);
 						tt.setName(array[1]);
 						tt.setDescription(array[2]);
 						treatmentsArray.add(tt);

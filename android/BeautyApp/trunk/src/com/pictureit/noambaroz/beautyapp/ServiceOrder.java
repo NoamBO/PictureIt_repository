@@ -181,7 +181,7 @@ public class ServiceOrder extends ActivityWithFragment {
 			if (mManager.getTreatment().tretments != null) {
 				boolean temp = false;
 				for (TreatmentType t : mManager.getTreatment().tretments) {
-					if (Integer.valueOf(t.getCount()) > 0)
+					if (Integer.valueOf(t.getAmount()) > 0)
 						temp = true;
 				}
 				if (!temp) {

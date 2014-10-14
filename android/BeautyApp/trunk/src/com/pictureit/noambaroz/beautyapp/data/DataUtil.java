@@ -33,10 +33,10 @@ public class DataUtil {
 			return "";
 		String str = "";
 		for (int i = 0; i < arrayList.size(); i++) {
-			if (arrayList.get(i).getCount() < 1)
+			if (arrayList.get(i).getAmount() < 1)
 				continue;
-			str = str + String.valueOf(arrayList.get(i).id) + idSeparator + arrayList.get(i).getCount()
-					+ countSeparator + arrayList.get(i).getName();
+			str = str + String.valueOf(arrayList.get(i).getTreatments_id()) + idSeparator
+					+ arrayList.get(i).getAmount() + countSeparator + arrayList.get(i).getName();
 			// Do not append comma at the end of last element
 			if (i < arrayList.size() - 1) {
 				str = str + treatmentSeparator;
@@ -52,8 +52,8 @@ public class DataUtil {
 		for (String s : arr) {
 			TreatmentType treatment = new TreatmentType();
 			String[] t = s.split(idSeparator + "|" + countSeparator);
-			treatment.setId(t[0]);
-			treatment.setCount(Integer.valueOf(t[1]));
+			treatment.setTreatments_id(t[0]);
+			treatment.setAmount(Integer.valueOf(t[1]));
 			treatment.setName(t[2]);
 			arrayList.add(treatment);
 		}

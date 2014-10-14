@@ -119,7 +119,7 @@ public class ServiceSummaryFragment extends BaseFragment {
 		StringBuilder sb2 = new StringBuilder();
 		int count = 0;
 		for (TreatmentType t : mTreatment.tretments) {
-			if (Integer.valueOf(t.getCount()) > 0) {
+			if (Integer.valueOf(t.getAmount()) > 0) {
 				if (count % 2 == 0)
 					sb1.append(t.getName()).append("\n");
 				else
