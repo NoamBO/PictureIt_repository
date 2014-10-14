@@ -47,11 +47,7 @@ public class GcmUtil {
 
 	public void registerToGcm() {
 		gcm = GoogleCloudMessaging.getInstance(context);
-		String regid = getRegistrationId();
-
-		if (regid.isEmpty()) {
-			registerInBackground();
-		}
+		registerInBackground();
 	}
 
 	/**

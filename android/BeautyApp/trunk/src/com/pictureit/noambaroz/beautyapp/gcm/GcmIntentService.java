@@ -48,24 +48,14 @@ public class GcmIntentService extends IntentService {
 				// extras.toString(), extras);
 				// If it's a regular GCM message, do some work.
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+				onMessageNotification(extras);
 				// Post notification of received message.
-				DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), "5555");
 				sendNotification("Received: " + extras.toString(), extras);
 				Log.i("Received: " + extras.toString());
-			}
-			// TODO Remove:
-			else {
-				testPush(extras.toString(), extras);
 			}
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
-	}
-
-	private void testPush(String s, Bundle data) {
-		sendNotification("Received: " + s, data);
-		String id = data.getString("extras_from_push_notification", "ss");
-		DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), id);
 	}
 
 	// Put the message into a notification and post it.
@@ -89,5 +79,11 @@ public class GcmIntentService extends IntentService {
 
 		mBuilder.setContentIntent(contentIntent);
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+	}
+
+	private void onMessageNotification(Bundle json) {
+		String notificationId = json.getString("alert");
+		if (notificationId != null)
+			DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), notificationId);
 	}
 }

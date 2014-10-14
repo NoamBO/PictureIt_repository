@@ -57,10 +57,9 @@ public class ActivityMessages extends ActivityWithFragment {
 			String[] from = { DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_AT,
 					DataProvider.COL_RATERS, DataProvider.COL_RATE, DataProvider.COL_PIC, DataProvider.COL_LOCATION,
 					DataProvider.COL_PRICE };
-			int[] to = { R.id.tv_row_treatment_beautician_name, R.id.tv_row_treatment_address,
-					R.id.tv_row_treatment_date };
+			int[] to = { R.id.tv_row_message_beautician_name, R.id.tv_row_message_address, R.id.tv_row_treatment_date };
 
-			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_treatment, null, from, to, 0);
+			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_message, null, from, to, 0);
 			setListAdapter(adapter);
 		}
 
@@ -70,11 +69,10 @@ public class ActivityMessages extends ActivityWithFragment {
 			initListview();
 		}
 
-		protected void getOrderInBackgroundByNotificationId(int position, String row_id, HttpCallback callback) {
+		protected void getOrderInBackgroundByNotificationId(String row_id, HttpCallback callback) {
 			if (!getOrderNotificationThreadPoll.containsKey(row_id)) {
-				getOrderNotificationThreadPoll.put(String.valueOf(position), new GetOrderNotification(getActivity(),
-						row_id, callback));
-				// TODO getOrderNotificationThreadPoll.get(row_id).execute();
+				getOrderNotificationThreadPoll.put(row_id, new GetOrderNotification(getActivity(), row_id, callback));
+				getOrderNotificationThreadPoll.get(row_id).execute();
 			}
 		}
 
@@ -138,7 +136,7 @@ public class ActivityMessages extends ActivityWithFragment {
 
 			@Override
 			public void setViewText(TextView v, String text) {
-				if (v.getId() == R.id.tv_row_treatment_date && text != null && text.length() > 1)
+				if (v.getId() == R.id.tv_row_message_received_date && text != null && text.length() > 1)
 					text = new Formater().getDate(text);
 				super.setViewText(v, text);
 			}
@@ -150,7 +148,7 @@ public class ActivityMessages extends ActivityWithFragment {
 
 				String rowId = getCursor().getString(getCursor().getColumnIndex(DataProvider.COL_NOTIFICATION_ID));
 				if (getCursor().getString(getCursor().getColumnIndex(DataProvider.COL_NAME)) == null && rowId != null) {
-					getOrderInBackgroundByNotificationId(cursor.getPosition(), rowId, new HttpCallback() {
+					getOrderInBackgroundByNotificationId(rowId, new HttpCallback() {
 
 						@Override
 						public void onAnswerReturn(Object answer) {

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import utilities.Log;
 import android.content.ContentValues;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -121,16 +122,23 @@ public class JsonToObject {
 	}
 
 	public static ContentValues jsonToOrderNotificationContentValues(String json) {
-		ContentValues values = new ContentValues(9);
+		ContentValues values = new ContentValues(12);
 		String beauticianId = JsonToObject.jsonGetString(json, "beautician_id");
 		String name = JsonToObject.jsonGetString(json, "name");
 		String picUrl = JsonToObject.jsonGetString(json, "pic");
 		String address = JsonToObject.jsonGetString(json, "address");
 		int raters = JsonToObject.jsonGetInt(json, "raters");
 		int rate = JsonToObject.jsonGetInt(json, "rate");
-		String at = JsonToObject.jsonGetString(json, "at");
+		String time = JsonToObject.jsonGetString(json, "time");
 		String location = JsonToObject.jsonGetString(json, "location");
 		String price = JsonToObject.jsonGetString(json, "price");
+		String nots = JsonToObject.jsonGetString(json, "nots");
+		String phone = jsonGetString(json, "phone");
+		Type arrayType = new TypeToken<ArrayList<TreatmentType>>() {
+		}.getType();
+		ArrayList<TreatmentType> treatmentsArray = new Gson().fromJson(json, arrayType);
+		String convertedTreatments = DataUtil.convertArrayToString(treatmentsArray);
+
 		if (beauticianId != null && !beauticianId.equalsIgnoreCase("")) {
 			values.put(DataProvider.COL_BEAUTICIAN_ID, beauticianId);
 		}
@@ -147,14 +155,23 @@ public class JsonToObject {
 		values.put(DataProvider.COL_RATERS, raters);
 		values.put(DataProvider.COL_RATE, rate);
 
-		if (at != null && !at.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_AT, at);
+		if (time != null && !time.equalsIgnoreCase("")) {
+			values.put(DataProvider.COL_AT, time);
 		}
 		if (location != null && !location.equalsIgnoreCase("")) {
 			values.put(DataProvider.COL_LOCATION, location);
 		}
 		if (price != null && !price.equalsIgnoreCase("")) {
 			values.put(DataProvider.COL_PRICE, price);
+		}
+		if (nots != null && !nots.equalsIgnoreCase("")) {
+			values.put(DataProvider.COL_REMARKS, nots);
+		}
+		if (price != null && !price.equalsIgnoreCase("")) {
+			values.put(DataProvider.COL_PHONE, phone);
+		}
+		if (!TextUtils.isEmpty(convertedTreatments)) {
+			values.put(DataProvider.COL_TREATMENTS, convertedTreatments);
 		}
 		return values;
 	}
@@ -174,7 +191,8 @@ public class JsonToObject {
 		int value = 0;
 		try {
 			JSONObject o = new JSONObject(json);
-			value = o.getInt(key);
+			if (o != null)
+				value = o.getInt(key);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

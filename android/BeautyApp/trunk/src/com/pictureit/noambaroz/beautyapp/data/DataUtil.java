@@ -29,6 +29,8 @@ public class DataUtil {
 	private static String countSeparator = "-_,_-";
 
 	public static String convertArrayToString(ArrayList<TreatmentType> arrayList) {
+		if (arrayList == null)
+			return "";
 		String str = "";
 		for (int i = 0; i < arrayList.size(); i++) {
 			if (arrayList.get(i).getCount() < 1)
@@ -61,11 +63,11 @@ public class DataUtil {
 	public static void pushOrderNotificationIdToTable(Context ctx, String notification_id) {
 		ContentValues values = new ContentValues(1);
 		values.put(DataProvider.COL_NOTIFICATION_ID, notification_id);
-		ctx.getContentResolver().insert(DataProvider.CONTENT_URI_TREATMENTS, values);
+		ctx.getContentResolver().insert(DataProvider.CONTENT_URI_MESSAGES, values);
 	}
 
 	public static void pushOrderNotificationToTable(Context ctx, ContentValues values, String orderIdInRow) {
-		ctx.getContentResolver().update(DataProvider.CONTENT_URI_TREATMENTS, values,
+		ctx.getContentResolver().update(DataProvider.CONTENT_URI_MESSAGES, values,
 				DataProvider.COL_NOTIFICATION_ID + " =" + orderIdInRow, null);
 	}
 
