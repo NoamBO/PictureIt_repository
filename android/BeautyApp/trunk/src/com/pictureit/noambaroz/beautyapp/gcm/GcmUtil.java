@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
@@ -47,7 +48,9 @@ public class GcmUtil {
 
 	public void registerToGcm() {
 		gcm = GoogleCloudMessaging.getInstance(context);
-		registerInBackground();
+		String registrationId = getRegistrationId();
+		if (TextUtils.isEmpty(registrationId))
+			registerInBackground();
 	}
 
 	/**
