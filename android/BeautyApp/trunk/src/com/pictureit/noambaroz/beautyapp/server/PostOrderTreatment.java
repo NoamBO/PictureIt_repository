@@ -47,7 +47,7 @@ public class PostOrderTreatment extends BaseHttpPost {
 
 	private void start() throws Exception {
 
-		mMainJson.put(ServerUtil.UID, getUid());
+		mMainJson.put(ServerUtil.CUSTOMER_UID, getUid());
 		mMainJson.put(ServerUtil.FOR, for_who);
 		Calendar calendar = Calendar.getInstance();
 

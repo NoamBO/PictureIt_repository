@@ -15,10 +15,12 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -39,6 +41,9 @@ import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.location.MyLocation;
+import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
+import com.pictureit.noambaroz.beautyapp.server.PostOrderTreatment;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class ServiceOrderManager {
@@ -73,8 +78,7 @@ public class ServiceOrderManager {
 		});
 		f.setTreatments(mTreatment.tretments);
 		f.putTreatments(treatments);
-		activity.getFragmentManager().beginTransaction().replace(R.id.fragment_container, f).addToBackStack(null)
-				.commit();
+		activity.getFragmentManager().beginTransaction().replace(android.R.id.content, f).addToBackStack(null).commit();
 	}
 
 	public void showFORDialog(final OnFieldChangeListener onFieldChangeListener) {
@@ -328,6 +332,49 @@ public class ServiceOrderManager {
 
 	public void setTreatment(TreatmentSummary treatment) {
 		mTreatment = treatment;
+	}
+
+	public void placeOrder(boolean isByLocation) {
+
+		if (isByLocation)
+			placeOrderByLocation();
+	}
+
+	private void placeOrderByLocation() {
+		final ProgressDialog pd = new ProgressDialog(activity);
+		pd.setCanceledOnTouchOutside(false);
+		pd.show();
+		LocationResult lr = new LocationResult() {
+
+			@Override
+			public void gotLocation(Location location) {
+				pd.cancel();
+				if (location == null) {
+					Dialogs.generalDialog(activity, activity.getString(R.string.dialog_messege_no_location),
+							activity.getString(R.string.dialog_title_error));
+					return;
+				}
+
+				PostOrderTreatment httpPost = new PostOrderTreatment(activity, new HttpCallback() {
+
+					@Override
+					public void onAnswerReturn(Object answer) {
+						Log.i("finish");
+						if (answer != null && !((String) answer).equalsIgnoreCase("")) {
+							ServiceOrderManager.setPending(activity, true);
+							activity.finish();
+						}
+					}
+				}, mTreatment.forWho, mTreatment.when, mTreatment.remarks, mTreatment.whare, mTreatment.tretments);
+				try {
+					httpPost.byLocation(location);
+				} catch (Exception e) {
+					Log.i("failed while building the request to the server");
+					e.printStackTrace();
+				}
+			}
+		};
+		new MyLocation().getLocation(activity, lr);
 	}
 
 	public static void setPending(Context context, boolean isPending) {

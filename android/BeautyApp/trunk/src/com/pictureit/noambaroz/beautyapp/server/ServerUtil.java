@@ -30,6 +30,8 @@ public class ServerUtil {
 	public static final String LOCATION = "location";
 
 	// POST Order Treatment
+	public static final String CUSTOMER_UID = "customeruid";
+	public static final String BEAUTICIAN_UID = "beauticianuid";
 	public static final String TREATMENTS = "treatments";
 	public static final String COMMENTS = "comments";
 	public static final String FOR = "forwho";
