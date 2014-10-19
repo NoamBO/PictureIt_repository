@@ -45,7 +45,7 @@ public class ServerUtil {
 
 	// POST Search Beautician
 	public static final String NAME = "name";
-	public static final String TYPE = "type";
+	public static final String TYPE = "classification";
 	public static final String TREATMENT = "treatment";
 
 	// POST Get Beautician Array By IDs

@@ -12,16 +12,17 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.server.GetOrderNotification;
@@ -61,7 +62,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			String[] from = { DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_AT,
 					DataProvider.COL_PIC };
 			int[] to = { R.id.tv_row_message_beautician_name, R.id.tv_row_message_address,
-					R.id.tv_row_message_received_date };
+					R.id.tv_row_message_received_date, R.id.iv_row_message_beautician_pic };
 
 			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_message, null, from, to, 0);
 			setListAdapter(adapter);
@@ -147,6 +148,14 @@ public class ActivityMessages extends ActivityWithFragment {
 			}
 
 			@Override
+			public void setViewImage(ImageView v, String value) {
+				super.setViewImage(v, value);
+				if (v.getId() == R.id.iv_row_message_beautician_pic) {
+					imageLoader.displayImage(value, v, options);
+				}
+			}
+
+			@Override
 			public void bindView(final View view, final Context context, final Cursor cursor) {
 				Log.i("");
 				super.bindView(view, context, cursor);
@@ -200,9 +209,16 @@ public class ActivityMessages extends ActivityWithFragment {
 			Cursor c = ((MySimpleCursorAdapter) parent.getAdapter()).getCursor();
 			c.moveToPosition(position);
 			String messageId = c.getString(c.getColumnIndex(DataProvider.COL_NOTIFICATION_ID));
-			getActivity().getContentResolver().delete(
-					Uri.withAppendedPath(DataProvider.CONTENT_URI_MESSAGES, c.getString(c.getColumnIndex("_id"))),
-					null, null);
+			if (!TextUtils.isEmpty(messageId)) {
+				Intent intent = new Intent(getActivity(), ActivityMessagesInner.class);
+				intent.putExtra(Constant.EXTRA_MESSAGE_ID, messageId);
+				startActivity(intent);
+				overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+			}
+			// getActivity().getContentResolver().delete(
+			// Uri.withAppendedPath(DataProvider.CONTENT_URI_MESSAGES,
+			// c.getString(c.getColumnIndex("_id"))),
+			// null, null);
 		}
 	}
 }

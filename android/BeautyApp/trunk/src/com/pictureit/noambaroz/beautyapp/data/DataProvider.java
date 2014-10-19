@@ -34,7 +34,6 @@ public class DataProvider extends ContentProvider {
 	public static final String COL_AT = "at";
 	public static final String COL_LOCATION = "location";
 	public static final String COL_PRICE = "price";
-	public static final String COL_NOTES = "notes";
 	public static final String COL_PHONE = "phone";
 
 	public static final String TABLE_HISTORY = "history";

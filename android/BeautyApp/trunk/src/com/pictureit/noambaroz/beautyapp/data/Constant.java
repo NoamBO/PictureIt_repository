@@ -4,6 +4,8 @@ public class Constant {
 
 	public static final String EXTRA_NOTIFICATION_BUNDLE = "extras_from_push_notification";
 
+	public static final String EXTRA_MESSAGE_ID = "extra_message_id";
+
 	public static final String EXTRA_BEAUTICIAN_ID = "extra_beautician_id";
 
 	public static final String EXTRA_BEAUTICIAN_NAME = "extra_beautician_name";

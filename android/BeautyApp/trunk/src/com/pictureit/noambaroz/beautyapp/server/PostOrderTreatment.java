@@ -45,6 +45,12 @@ public class PostOrderTreatment extends BaseHttpPost {
 		start();
 	}
 
+	public void forSpecificBeautician(String beauticianId) throws Exception {
+		mMainJson = new JSONObject();
+		mMainJson.put(ServerUtil.BEAUTICIAN_UID, beauticianId);
+		start();
+	}
+
 	private void start() throws Exception {
 
 		mMainJson.put(ServerUtil.CUSTOMER_UID, getUid());

@@ -145,8 +145,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 					Intent intent = new Intent(getActivity(), ServiceOrder.class);
 					intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mBeautician.getId());
 					intent.putExtra(Constant.EXTRA_BEAUTICIAN_NAME, mBeautician.getName());
-					// intent.putExtra(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY,
-					// mBeautician.getTreatments());
+					intent.putExtra(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY, mBeautician.getTreatments());
 					startActivity(intent);
 					overridePendingTransition(anim.activity_enter_slidein_anim, anim.activity_exit_shrink_anim);
 				}
