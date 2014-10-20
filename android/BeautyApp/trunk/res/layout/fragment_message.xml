@@ -177,4 +177,24 @@
             android:text="@string/reject" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_message_inner_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_action_call" />
+
+        <TextView
+            android:id="@+id/tv_message_inner_name_to_call_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -15,8 +15,6 @@
     <string name="please_write_valid_email_string">הכנס כתובת תקינה</string>
     <string name="select_address">בחר כתובת</string>
     <string name="edit">ערוך</string>
-    <string name="confirm">אשר</string>
-    <string name="reject">דחה</string>
     
     <string name="app_name">Beauty App</string>
     <string name="title_settings">Settings</string>
@@ -82,7 +80,13 @@
     <!-- Beautician page -->
     <string name="beautician_page_title">Beautician</string>
     <string name="beautician_page_raters">raters</string>
-
+    
+    <!-- Message Screen -->
+    <string name="confirm">אשר</string>
+    <string name="reject">דחה</string>
+	<string name="call_to">התקשר ל</string>
+	<string name="price">מחיר:</string>
+    
    	<!-- Search Provider -->
    	<string name="search_provider_title">Search Beautician</string>
     <string name="search_provider_search_by">Search by:</string>

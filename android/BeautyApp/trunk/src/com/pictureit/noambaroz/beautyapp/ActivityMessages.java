@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.Formater;
@@ -45,6 +44,11 @@ public class ActivityMessages extends ActivityWithFragment {
 	@Override
 	protected void setFragmentTag() {
 		FRAGMENT_TAG = "notification_fragment";
+	}
+
+	@Override
+	public void onBackPressed() {
+		backPressed();
 	}
 
 	private class FragmentMessages extends ListFragment implements LoaderCallbacks<Cursor>, OnItemClickListener {
@@ -131,10 +135,6 @@ public class ActivityMessages extends ActivityWithFragment {
 
 		private class MySimpleCursorAdapter extends SimpleCursorAdapter {
 
-			private DisplayImageOptions options = ImageLoaderUtil.getDisplayImageOptions();
-			private com.nostra13.universalimageloader.core.ImageLoader imageLoader = com.nostra13.universalimageloader.core.ImageLoader
-					.getInstance();
-
 			public MySimpleCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
 				super(context, layout, c, from, to, flags);
 			}
@@ -151,7 +151,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			public void setViewImage(ImageView v, String value) {
 				super.setViewImage(v, value);
 				if (v.getId() == R.id.iv_row_message_beautician_pic) {
-					imageLoader.displayImage(value, v, options);
+					ImageLoaderUtil.display(value, v);
 				}
 			}
 

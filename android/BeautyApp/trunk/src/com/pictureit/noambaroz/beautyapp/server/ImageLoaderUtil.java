@@ -8,7 +8,7 @@ import com.pictureit.noambaroz.beautyapp.R;
 
 public class ImageLoaderUtil {
 
-	public static DisplayImageOptions getDisplayImageOptions() {
+	private static DisplayImageOptions getDisplayImageOptions() {
 		return new DisplayImageOptions.Builder().resetViewBeforeLoading(false).cacheInMemory(true).cacheOnDisc(true)
 				.considerExifParams(false).displayer(new RoundedBitmapDisplayer(30))
 				.showImageForEmptyUri(R.drawable.avatar).showImageOnFail(R.drawable.avatar)

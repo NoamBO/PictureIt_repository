@@ -13,8 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.pictureit.noambaroz.beautyapp.BeauticianUtil;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
@@ -40,10 +38,6 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 	// private ArrayList<Beautician> suggestions;
 	private Context ctx;
 
-	protected DisplayImageOptions options = ImageLoaderUtil.getDisplayImageOptions();
-
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
-
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
@@ -66,7 +60,7 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		imageLoader.displayImage(getItem(position).getPhoto(), holder.pic, options);
+		ImageLoaderUtil.display(getItem(position).getPhoto(), holder.pic);
 		holder.name.setText(getItem(position).getName());
 		if (getItem(position).getAddress() != null)
 			holder.address.setText(BeauticianUtil.formatAddress(ctx, getItem(position).getAddress()));

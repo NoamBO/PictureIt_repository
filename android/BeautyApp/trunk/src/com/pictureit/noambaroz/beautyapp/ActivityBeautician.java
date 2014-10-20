@@ -20,6 +20,7 @@ import com.pictureit.noambaroz.beautyapp.R.anim;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.server.GetBeauticianById;
+import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
 public class ActivityBeautician extends ActivityWithFragment {
 
@@ -116,7 +117,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 		}
 
 		protected void initPage() {
-			imageLoader.displayImage(mBeautician.getPhoto(), ivPic, options);
+			ImageLoaderUtil.display(mBeautician.getPhoto(), ivPic);
 			tvName.setText(mBeautician.getName());
 			tvAddress.setText(BeauticianUtil.formatAddress(getActivity(), mBeautician.getAddress()));
 			int raters = mBeautician.getRating() == null ? 0 : mBeautician.getRating().getRaters();
