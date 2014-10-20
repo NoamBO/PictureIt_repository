@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.data.Treatments;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatmentsSelectedListener;
 
 public class FragmentTreatmentSelection extends Fragment {
@@ -38,7 +38,7 @@ public class FragmentTreatmentSelection extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (treatmentsArrayList == null)
-			treatmentsArrayList = TreatmentSummary.TreatmentList.genarate(getActivity(), treatmentStringArray);
+			treatmentsArrayList = Treatments.TreatmentList.genarate(getActivity(), treatmentStringArray);
 	}
 
 	@Override
