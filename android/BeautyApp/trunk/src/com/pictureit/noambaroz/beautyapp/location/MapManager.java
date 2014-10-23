@@ -23,6 +23,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -38,7 +39,7 @@ import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
 public class MapManager implements OnCameraChangeListener, OnMarkerClickListener, ConnectionCallbacks,
-		OnConnectionFailedListener, OnInfoWindowClickListener, LocationListener {
+		OnConnectionFailedListener, OnInfoWindowClickListener, LocationListener, OnMyLocationButtonClickListener {
 
 	public interface MapMoovingListener {
 		public void onZoomChange(CameraPosition position);
@@ -118,8 +119,10 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		mMap.setOnInfoWindowClickListener(this);
 		mMap.setOnCameraChangeListener(this);
 		mMap.setMyLocationEnabled(true);
+		mMap.getUiSettings().setRotateGesturesEnabled(false);
 		mMap.getUiSettings().setTiltGesturesEnabled(false);
 		mMap.getUiSettings().setZoomControlsEnabled(false);
+		mMap.setOnMyLocationButtonClickListener(this);
 	}
 
 	public void setUpLocationClientIfNeeded() {
@@ -350,6 +353,17 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 
 	public GoogleMap getMap() {
 		return mMap;
+	}
+
+	@Override
+	public boolean onMyLocationButtonClick() {
+		Location l = mMap.getMyLocation();
+		if (l == null)
+			return false;
+		LatLng latLng = new LatLng(l.getLatitude(), l.getLongitude());
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, INITIAL_ZOOM);
+		mMap.animateCamera(cameraUpdate);
+		return true;
 	}
 
 	// private Handler mHandler = new Handler() {
