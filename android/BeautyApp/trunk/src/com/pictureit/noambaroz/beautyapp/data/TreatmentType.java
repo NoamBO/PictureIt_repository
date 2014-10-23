@@ -1,6 +1,9 @@
 package com.pictureit.noambaroz.beautyapp.data;
 
-public class TreatmentType {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class TreatmentType implements Parcelable {
 
 	private String treatments_id;
 	public String name;
@@ -15,6 +18,13 @@ public class TreatmentType {
 		this.setAmount(amount);
 		this.name = name;
 		this.description = description;
+	}
+
+	private TreatmentType(Parcel in) {
+		treatments_id = in.readString();
+		name = in.readString();
+		description = in.readString();
+		amount = in.readInt();
 	}
 
 	public String getName() {
@@ -48,5 +58,28 @@ public class TreatmentType {
 	public void setTreatments_id(String treatments_id) {
 		this.treatments_id = treatments_id;
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeString(treatments_id);
+		out.writeString(name);
+		out.writeString(description);
+		out.writeInt(amount);
+	}
+
+	public static final Parcelable.Creator<TreatmentType> CREATOR = new Parcelable.Creator<TreatmentType>() {
+		public TreatmentType createFromParcel(Parcel in) {
+			return new TreatmentType(in);
+		}
+
+		public TreatmentType[] newArray(int size) {
+			return new TreatmentType[size];
+		}
+	};
 
 }

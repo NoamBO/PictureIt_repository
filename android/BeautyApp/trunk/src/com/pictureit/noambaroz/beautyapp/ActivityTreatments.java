@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class ActivityTreatments extends ActivityWithFragment {
 
@@ -51,9 +54,22 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 	private class FragmentTreatments extends Fragment {
 
+		private ListView mListView;
+		private ProgressBar mProgressBar;
+		private TextView mTextView;
+
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			// TODO HTTP request: get all upcoming events
+			super.onCreate(savedInstanceState);
+		}
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_treatments, container, false);
+			mListView = findView(v, R.id.lv_upcoming_treatments);
+			mProgressBar = findView(v, R.id.pb_upcoming_treatments_loading_indicator);
+			mTextView = findView(v, R.id.tv_upcoming_treatments_empty_list_indicator);
 			return v;
 		}
 
