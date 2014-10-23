@@ -1,54 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/card_shape" >
 
-        <RelativeLayout
-            android:id="@+id/vg_row_order_notification_data_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible" >
+        <TextView
+            android:id="@+id/tv_row_upcoming_treatment_beautician_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
 
-            <TextView
-                android:id="@+id/tv_row_treatment_beautician_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
+        <TextView
+            android:id="@+id/tv_row_upcoming_treatment_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_row_upcoming_treatment_beautician_name" />
 
-            <TextView
-                android:id="@+id/tv_row_treatment_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/tv_row_treatment_beautician_name" />
+        <TextView
+            android:id="@+id/tv_row_upcoming_treatment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/tv_row_treatment_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tv_row_treatment_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
-    </FrameLayout>
-
-    <ProgressBar
-        android:id="@+id/pb_row_order_notification_spinner"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        <TextView
+            android:id="@+id/tv_row_upcoming_treatment_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -86,6 +86,9 @@
     <string name="reject">דחה</string>
 	<string name="call_to">התקשר ל</string>
 	<string name="price">מחיר:</string>
+	
+	<!-- Upcoming Treatments Screens -->
+	<string name="no_treatments">אין טיפולים עתידיים</string>
     
    	<!-- Search Provider -->
    	<string name="search_provider_title">Search Beautician</string>
