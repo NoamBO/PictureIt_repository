@@ -175,6 +175,7 @@ public class UpcomingTreatment implements Parcelable {
 		price = in.readString();
 		phone = in.readString();
 
+		treatmentsArray = new ArrayList<TreatmentType>();
 		in.readTypedList(treatmentsArray, TreatmentType.CREATOR);
 	}
 

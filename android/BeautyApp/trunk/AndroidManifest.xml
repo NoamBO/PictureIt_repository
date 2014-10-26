@@ -77,6 +77,11 @@
             android:label="@string/title_service_order"
             android:screenOrientation="portrait" >
         </activity>
+                 <activity
+            android:name="com.pictureit.noambaroz.beautyapp.ActivitySingleTreatment"
+            android:label=""
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.pictureit.noambaroz.beautyapp.SearchProviderActivity"
             android:label="@string/search_provider_title"

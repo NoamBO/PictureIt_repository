@@ -153,17 +153,17 @@
     </string-array>
     <string-array name="treatment_2">
         <item name="id">2</item>
-        <item name="title">treatment 2</item>
+        <item name="title">טיפול 2</item>
         <item name="description">treatment 2</item>
     </string-array>
     <string-array name="treatment_3">
         <item name="id">3</item>
-        <item name="title">treatment 3</item>
+        <item name="title">טיפול 3</item>
         <item name="description">treatment 3</item>
     </string-array>
     <string-array name="treatment_4">
         <item name="id">4</item>
-        <item name="title">treatment 4</item>
+        <item name="title">טיפול 4</item>
         <item name="description">treatment 4</item>
     </string-array>
     <string-array name="treatment_5">

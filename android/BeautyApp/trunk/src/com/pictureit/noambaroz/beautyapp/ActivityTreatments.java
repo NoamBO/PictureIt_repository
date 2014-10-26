@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.Treatments;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.GetUpcomingTreatments;
@@ -112,8 +113,10 @@ public class ActivityTreatments extends ActivityWithFragment {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					UpcomingTreatment t = (UpcomingTreatment) parent.getAdapter().getItem(position);
-					Intent intent = new Intent();
-					intent.putExtra("y", t);
+					Intent intent = new Intent(getActivity(), ActivitySingleTreatment.class);
+					intent.putExtra(Constant.EXTRA_UPCOMING_TREATMENT, t);
+					startActivity(intent);
+					overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 				}
 			});
 		}
