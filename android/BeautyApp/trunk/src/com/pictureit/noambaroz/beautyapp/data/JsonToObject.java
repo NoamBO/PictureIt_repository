@@ -53,6 +53,9 @@ public class JsonToObject {
 	}
 
 	public static boolean isResponseOk(String json) {
+		if (json == null)
+			return false;
+
 		boolean isOk = false;
 		try {
 			JSONObject j = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
@@ -182,6 +185,16 @@ public class JsonToObject {
 			values.put(DataProvider.COL_TREATMENTS, convertedTreatments);
 		}
 		return values;
+	}
+
+	public static ArrayList<UpcomingTreatment> jsonToUpcomingTreatments(String json) {
+		String finalString = getJson(json, JsonType.TYPE_ARRAY);
+
+		Type arrayType = new TypeToken<List<UpcomingTreatment>>() {
+		}.getType();
+		ArrayList<UpcomingTreatment> array = new Gson().fromJson(finalString, arrayType);
+
+		return array;
 	}
 
 	public static String jsonGetArrayAsString(String json, String key) {

@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.HashMap;
 
 import utilities.Log;
+import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
-import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.server.GetOrderNotification;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
@@ -143,7 +143,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			public void setViewText(TextView v, String text) {
 				if (v.getId() == R.id.tv_row_message_received_date && !TextUtils.isEmpty(text)
 						&& !text.equalsIgnoreCase("null"))
-					text = new Formater().getDate(text);
+					text = TimeUtils.timestampToDate(text);
 				super.setViewText(v, text);
 			}
 

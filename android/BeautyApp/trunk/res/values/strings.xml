@@ -89,6 +89,8 @@
 	
 	<!-- Upcoming Treatments Screens -->
 	<string name="no_treatments">אין טיפולים עתידיים</string>
+	<string name="and_more">ועוד</string>
+	<string name="additional">נוספים</string>
     
    	<!-- Search Provider -->
    	<string name="search_provider_title">Search Beautician</string>
@@ -146,7 +148,7 @@
     <!-- Service Order Treatments List -->
     <string-array name="treatment_1">
         <item name="id">1</item>
-        <item name="title">treatment 1</item>
+        <item name="title">טיפול 1</item>
         <item name="description">treatment 1</item>
     </string-array>
     <string-array name="treatment_2">

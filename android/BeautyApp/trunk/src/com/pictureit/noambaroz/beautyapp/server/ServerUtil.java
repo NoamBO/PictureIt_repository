@@ -18,6 +18,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_RE_SEND_REGISTER_CODE = URL_BASE + "reSendCode";
 	public static final String URL_REQUEST_UPDATE_USER_PROFILE_DATA = URL_BASE + "updateuserdetails";
 	public static final String URL_REQUEST_UPDATE_USER_PROFILE_PICTURE = URL_BASE + "uploadimage";
+	public static final String URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS = URL_BASE + "upcomingtreatments";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";

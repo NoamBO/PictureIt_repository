@@ -17,7 +17,7 @@ public class UpcomingTreatment implements Parcelable {
 	private String treatment_location;
 	private String treatment_name;
 	private String beautician_nots;
-	private String treatment_price;
+	private String price;
 	private String phone;
 	private String unFormattedTreatments;
 	private ArrayList<TreatmentType> treatmentsArray;
@@ -102,12 +102,12 @@ public class UpcomingTreatment implements Parcelable {
 		this.beautician_nots = beautician_nots;
 	}
 
-	public String getTreatment_price() {
-		return treatment_price;
+	public String getPrice() {
+		return price;
 	}
 
-	public void setTreatment_price(String treatment_price) {
-		this.treatment_price = treatment_price;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getPhone() {
@@ -153,7 +153,7 @@ public class UpcomingTreatment implements Parcelable {
 		out.writeString(treatment_location);
 		out.writeString(treatment_name);
 		out.writeString(beautician_nots);
-		out.writeString(treatment_price);
+		out.writeString(price);
 		out.writeString(phone);
 
 		out.writeTypedList(treatmentsArray);
@@ -172,7 +172,7 @@ public class UpcomingTreatment implements Parcelable {
 		treatment_location = in.readString();
 		treatment_name = in.readString();
 		beautician_nots = in.readString();
-		treatment_price = in.readString();
+		price = in.readString();
 		phone = in.readString();
 
 		in.readTypedList(treatmentsArray, TreatmentType.CREATOR);

@@ -1,16 +1,12 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utilities.TimeUtils;
 import utilities.server.BaseHttpPost;
 import android.content.Context;
 import android.location.Location;
@@ -55,18 +51,8 @@ public class PostOrderTreatment extends BaseHttpPost {
 
 		mMainJson.put(ServerUtil.CUSTOMER_UID, getUid());
 		mMainJson.put(ServerUtil.FOR, for_who);
-		Calendar calendar = Calendar.getInstance();
 
-		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-		Date yourDate = null;
-		try {
-			yourDate = parser.parse(time);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		calendar.setTime(yourDate);
-		long timeInMilis = calendar.getTimeInMillis();
+		long timeInMilis = TimeUtils.dateToTimestamp(time);
 
 		mMainJson.put(ServerUtil.DATE, timeInMilis);
 		mMainJson.put(ServerUtil.LOCATION, location);
