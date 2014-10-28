@@ -38,18 +38,21 @@ public class PostOrderTreatment extends BaseHttpPost {
 		mMainJson = new JSONObject();
 		mMainJson.put(ServerUtil.LATITUDE, location.getLatitude());
 		mMainJson.put(ServerUtil.LONGITUDE, location.getLongitude());
+		mMainJson.put(ServerUtil.UID, getUid());
+		prepare(ServerUtil.URL_REQUEST_ORDER_TREATMENT_BY_LOCATION);
 		start();
 	}
 
 	public void forSpecificBeautician(String beauticianId) throws Exception {
 		mMainJson = new JSONObject();
 		mMainJson.put(ServerUtil.BEAUTICIAN_UID, beauticianId);
+		mMainJson.put(ServerUtil.CUSTOMER_UID, getUid());
+		prepare(ServerUtil.URL_REQUEST_ORDER_TREATMENT);
 		start();
 	}
 
 	private void start() throws Exception {
 
-		mMainJson.put(ServerUtil.CUSTOMER_UID, getUid());
 		mMainJson.put(ServerUtil.FOR, for_who);
 
 		long timeInMilis = TimeUtils.dateToTimestamp(time);
@@ -65,7 +68,6 @@ public class PostOrderTreatment extends BaseHttpPost {
 						ServerUtil.AMOUNT, treatment.getAmount()));
 		}
 		mMainJson.put(ServerUtil.TREATMENTS, array);
-		prepare(ServerUtil.URL_REQUEST_ORDER_TREATMENT);
 		this.execute();
 	}
 

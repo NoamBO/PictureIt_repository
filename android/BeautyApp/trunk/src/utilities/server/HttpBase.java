@@ -61,10 +61,14 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 		}
 
 		if (showProgressDialog) {
-			mProgressDialog = new MyProgressDialog();
-			mProgressDialog.show(((Activity) ctx).getFragmentManager(), "progressDialog");
+			showProgressDialog();
 		}
 		super.onPreExecute();
+	}
+
+	protected void showProgressDialog() {
+		mProgressDialog = new MyProgressDialog();
+		mProgressDialog.show(((Activity) ctx).getFragmentManager(), "progressDialog");
 	}
 
 	@Override

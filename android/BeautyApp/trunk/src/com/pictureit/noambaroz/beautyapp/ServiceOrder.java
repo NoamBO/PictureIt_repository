@@ -63,6 +63,8 @@ public class ServiceOrder extends ActivityWithFragment {
 		private TextView tvFor, tvWhen, tvTreatmentSelection, tvLocation, tvRemarks, tvOrder;
 		private ServiceOrderManager mManager;
 
+		private String sFor, sDate, sLocation, sRemarks;
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -85,6 +87,18 @@ public class ServiceOrder extends ActivityWithFragment {
 		public void onResume() {
 			super.onResume();
 			initListeners();
+			setTextViewsTextIfNeeded();
+		}
+
+		private void setTextViewsTextIfNeeded() {
+			if (sFor != null && !sFor.equalsIgnoreCase(""))
+				tvFor.setText(sFor);
+			if (sDate != null && !sDate.equalsIgnoreCase(""))
+				tvWhen.setText(sDate);
+			if (sLocation != null && !sLocation.equalsIgnoreCase(""))
+				tvLocation.setText(sLocation);
+			if (sRemarks != null && !sRemarks.equalsIgnoreCase(""))
+				tvRemarks.setText(sRemarks);
 		}
 
 		private void initListeners() {
@@ -104,6 +118,7 @@ public class ServiceOrder extends ActivityWithFragment {
 					@Override
 					public void onFieldChange(String result) {
 						tvFor.setText(result);
+						sFor = result;
 					}
 				});
 				break;
@@ -112,6 +127,7 @@ public class ServiceOrder extends ActivityWithFragment {
 					@Override
 					public void onFieldChange(String result) {
 						tvWhen.setText(result);
+						sDate = result;
 					}
 				});
 				break;
@@ -124,6 +140,7 @@ public class ServiceOrder extends ActivityWithFragment {
 					@Override
 					public void onFieldChange(String result) {
 						tvLocation.setText(result);
+						sLocation = result;
 					}
 				});
 				break;
@@ -133,6 +150,7 @@ public class ServiceOrder extends ActivityWithFragment {
 					@Override
 					public void onFieldChange(String result) {
 						tvRemarks.setText(result);
+						sRemarks = result;
 					}
 				});
 				break;
@@ -162,23 +180,25 @@ public class ServiceOrder extends ActivityWithFragment {
 
 		public boolean isOrderOk() {
 			boolean isOk = true;
+			int colorFilled = getResources().getColor(R.color.text_color_filled);
+			int colorUnfilled = getResources().getColor(R.color.text_color_un_filled);
 			if (mManager.getTreatment().forWho == null || mManager.getTreatment().forWho.equalsIgnoreCase("")) {
 				isOk = false;
-				tvFor.setTextColor(getResources().getColor(R.color.text_color_un_filled));
+				tvFor.setTextColor(colorUnfilled);
 			} else {
-				tvFor.setTextColor(getResources().getColor(R.color.text_color_filled));
+				tvFor.setTextColor(colorFilled);
 			}
 			if (mManager.getTreatment().whare == null || mManager.getTreatment().whare.equalsIgnoreCase("")) {
 				isOk = false;
-				tvLocation.setTextColor(getResources().getColor(R.color.text_color_un_filled));
+				tvLocation.setTextColor(colorUnfilled);
 			} else {
-				tvLocation.setTextColor(getResources().getColor(R.color.text_color_filled));
+				tvLocation.setTextColor(colorFilled);
 			}
 			if (mManager.getTreatment().when == null || mManager.getTreatment().when.equalsIgnoreCase("")) {
 				isOk = false;
-				tvWhen.setTextColor(getResources().getColor(R.color.text_color_un_filled));
+				tvWhen.setTextColor(colorUnfilled);
 			} else {
-				tvWhen.setTextColor(getResources().getColor(R.color.text_color_filled));
+				tvWhen.setTextColor(colorFilled);
 			}
 			if (mManager.getTreatment().tretments != null) {
 				boolean temp = false;
@@ -188,13 +208,13 @@ public class ServiceOrder extends ActivityWithFragment {
 				}
 				if (!temp) {
 					isOk = false;
-					tvTreatmentSelection.setTextColor(getResources().getColor(R.color.text_color_un_filled));
+					tvTreatmentSelection.setTextColor(colorUnfilled);
 				} else {
-					tvTreatmentSelection.setTextColor(getResources().getColor(R.color.text_color_filled));
+					tvTreatmentSelection.setTextColor(colorFilled);
 				}
 			} else {
 				isOk = false;
-				tvTreatmentSelection.setTextColor(getResources().getColor(R.color.text_color_un_filled));
+				tvTreatmentSelection.setTextColor(colorUnfilled);
 			}
 			return isOk;
 		}
