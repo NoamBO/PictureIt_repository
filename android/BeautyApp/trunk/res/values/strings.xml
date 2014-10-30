@@ -44,6 +44,12 @@
     <string name="action_search_providers">Locating a beautician</string>
     <string name="action_future_treatments">Future treatments</string>
     
+    <!-- Pending Order Dialog -->
+    <string name="pending_order_dialog_message">בקשה נשלחה</string>
+    <string name="pending_order_dialog_button_wait">ממתין</string>
+    <string name="pending_order_dialog_button_abort">בטל</string>
+    <string name="pending_order_toast">לא ניתן לבצע פעולה זו הזמן המתנה לתשובה מבקשת טיפול!</string>
+    
     <!-- Register screen -->
     <string name="telephone_number">מספר טלפון</string>
     <string name="first_name">שם פרטי</string>

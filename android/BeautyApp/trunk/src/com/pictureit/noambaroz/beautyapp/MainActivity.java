@@ -8,6 +8,7 @@ import utilities.BaseActivity;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -43,6 +44,7 @@ import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 import com.pictureit.noambaroz.beautyapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beautyapp.helper.MainProviderListAdapter;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 import com.pictureit.noambaroz.beautyapp.location.MapManager;
 import com.pictureit.noambaroz.beautyapp.server.GetBeauticianArrayByIds;
 
@@ -53,6 +55,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	private MainProviderListAdapter mAdapter;
 	private static final int REQUEST_UPDATE_GOOGLE_PLAY_APK = 12;
 	private GetBeauticianArrayByIds getBeauticianArrayByIds;
+	private Dialog mPendingDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +86,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				BeauticianUtil.openBeauticianInNewActivity(MainActivity.this, mAdapter.getItem(position));
+				if (isUserWaitingForTreatmentOrderResponse())
+					Toast.makeText(getApplicationContext(), R.string.pending_order_toast, Toast.LENGTH_LONG).show();
+				else
+					BeauticianUtil.openBeauticianInNewActivity(MainActivity.this, mAdapter.getItem(position));
 			}
 		});
 	}
@@ -168,17 +174,27 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		if (id == R.id.action_explanation) {
 
 		} else if (id == R.id.action_future_treatments) {
-			return launchActivity(ActivityTreatments.class);
+			launchActivityIfPossible(ActivityTreatments.class);
 		} else if (id == R.id.action_pending_orders) {
-			return launchActivity(ActivityMessages.class);
+			launchActivityIfPossible(ActivityMessages.class);
 		} else if (id == R.id.action_terms_of_service) {
-			return launchActivity(ActivityTermsOfService.class);
+			launchActivityIfPossible(ActivityTermsOfService.class);
 		} else if (id == R.id.action_search_providers) {
-			return launchActivity(SearchProviderActivity.class);
+			launchActivityIfPossible(SearchProviderActivity.class);
 		} else if (id == R.id.action_my_profile) {
-			return launchActivity(ActivityMyProfile.class);
+			launchActivityIfPossible(ActivityMyProfile.class);
 		}
-		return super.onOptionsItemSelected(item);
+
+		return true;
+	}
+
+	private <T> void launchActivityIfPossible(Class<T> T) {
+		if (!isUserWaitingForTreatmentOrderResponse())
+			launchActivity(T);
+		else if (isUserWaitingForTreatmentOrderResponse() && T == ActivityMessages.class)
+			launchActivity(T);
+		else
+			Toast.makeText(getApplicationContext(), R.string.pending_order_toast, Toast.LENGTH_LONG).show();
 	}
 
 	private <T> boolean launchActivity(Class<T> T) {
@@ -259,6 +275,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		return true;
 	}
 
+	private boolean isUserWaitingForTreatmentOrderResponse() {
+		return ServiceOrderManager.isPending(getApplicationContext());
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_UPDATE_GOOGLE_PLAY_APK) {
@@ -275,6 +295,30 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	protected void onResume() {
 		super.onResume();
 		resume();
+		onPendingDialog(isUserWaitingForTreatmentOrderResponse());
+	}
+
+	private void onPendingDialog(boolean isPending) {
+		if (mPendingDialog == null) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+			builder.setMessage(R.string.pending_order_dialog_message);
+			builder.setPositiveButton(R.string.pending_order_dialog_button_wait, null);
+			builder.setNegativeButton(R.string.pending_order_dialog_button_abort,
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							if (ServiceOrderManager.cancelRequest(getApplicationContext()))
+								onPendingDialog(false);
+						}
+					});
+			builder.setCancelable(false);
+			mPendingDialog = builder.create();
+		}
+		if (isPending && !mPendingDialog.isShowing())
+			mPendingDialog.show();
+		else if (!isPending && mPendingDialog.isShowing())
+			mPendingDialog.dismiss();
 	}
 
 	private void resume() {

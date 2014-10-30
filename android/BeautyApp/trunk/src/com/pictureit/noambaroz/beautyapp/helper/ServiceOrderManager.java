@@ -387,6 +387,12 @@ public class ServiceOrderManager {
 				Constant.PREFS_KEY_IS_APP_WAITING, false);
 	}
 
+	public static boolean cancelRequest(Context ctx) {
+		savePendingTreatmentId(ctx, "-1");
+		setPending(ctx, false);
+		return true;
+	}
+
 	public static void savePendingTreatmentId(Context ctx, String treatmentId) {
 		PreferenceManager.getDefaultSharedPreferences(ctx).edit()
 				.putString(Application.PENDING_TREATMENT_ID, treatmentId).commit();
