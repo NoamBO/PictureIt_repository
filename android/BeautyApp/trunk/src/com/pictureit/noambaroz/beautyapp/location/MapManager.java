@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -35,6 +36,7 @@ import com.pictureit.noambaroz.beautyapp.ActivityBeautician;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.MarkerData;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
@@ -208,6 +210,10 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
+		if (ServiceOrderManager.isPending(mActivity)) {
+			Toast.makeText(mActivity, R.string.pending_order_toast, Toast.LENGTH_LONG).show();
+			return;
+		}
 		if (mVisibleMarkers.containsKey(marker)) {
 			Intent intent = new Intent(mActivity, ActivityBeautician.class);
 			intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mVisibleMarkers.get(marker));

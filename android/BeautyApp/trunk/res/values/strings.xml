@@ -10,26 +10,26 @@
 	<string name="preference_key_my_profile_phone_number">PREF_PROFILE_PHONE_NUMBER</string>
 
     <string name="question_mark">"?"</string>
-    <string name="press_again_to_exit">Press again to exit</string>
-    <string name="loading">Loading..</string>
+    <string name="press_again_to_exit">לחץ פעם נוספת ליציאה</string>
+    <string name="loading">טוען..</string>
     <string name="please_write_valid_email_string">הכנס כתובת תקינה</string>
     <string name="select_address">בחר כתובת</string>
     <string name="edit">ערוך</string>
     
     <string name="app_name">Beauty App</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_future_treatments">Treatments</string>
-    <string name="title_service_order">Ask For Service</string>
-    <string name="title_terms_of_service">Terms of Service</string>
-    <string name="title_order_notification">Orders available</string>
-    <string name="title_my_profile">My Profile</string>
-    <string name="title_edit_my_profile">Edit Your Profile</string>
+    <string name="title_settings">הגדרות</string>
+    <string name="title_future_treatments">טיפולים עתידיים</string>
+    <string name="title_service_order">הזמנת טיפול</string>
+    <string name="title_terms_of_service">תנאי שימוש</string>
+    <string name="title_order_notification">הודעות</string>
+    <string name="title_my_profile">פרופיל אישי</string>
+    <string name="title_edit_my_profile">עריכת פרופיל</string>
     
     <string name="settings_preference_category_title_distance">Distance</string>
     <string name="settings_preference_title_radius">Radius</string>
     <string name="settings_preference_summary_radius">Change search radius</string>
     
-    <string name="settings_preference_category_title_personal_details">Personal Details</string>
+    <string name="settings_preference_category_title_personal_details">פרטים אישיים</string>
     <string name="settings_preference_title_first_name">שם פרטי</string>
     <string name="settings_preference_title_last_name">שם משפחה</string>
     <string name="settings_preference_title_email">אי מייל</string>
@@ -73,19 +73,19 @@
     <string name="code_resended">הצליח! תקבל הודעה ברגעים הקרובים</string>
     
     <!-- General Dialog Messages -->
-    <string name="dialog_error_message_all_feilds_are_empty">You must fill at least one of the feilds</string>
-    <string name="dialog_error_message_must_fill_all_feilde">You must fill all of the feilds</string>
-    <string name="dialog_title_error">Error</string>
-    <string name="dialog_messege_server_error">There was a server error. We working on it to solve the problem</string>
-    <string name="dialog_messege_no_location">"No location found. can't proceed"</string>
+    <string name="dialog_error_message_all_feilds_are_empty">לפחות אחד השדות חייב להיות מלא</string>
+    <string name="dialog_error_message_must_fill_all_feilde">על כל השדות להיות מלאים</string>
+    <string name="dialog_title_error">תקלה</string>
+    <string name="dialog_messege_server_error">יש לנו בעית התקשרות.. אנו עובדים על פתרון</string>
+    <string name="dialog_messege_no_location">לא ניתן להמשיך. מיקומך המדוייק לא אותר</string>
     
     <!-- Dialog presented on main screen when no visible marker on screen if onpening the SLIDER -->
-    <string name="main_screen_slider_empty_dialog_title">No Results</string>
-    <string name="main_screen_slider_empty_dialog_messege_no_pins_on_screen">There is no visible beautician..</string>
+    <string name="main_screen_slider_empty_dialog_title">אין תוצאות</string>
+    <string name="main_screen_slider_empty_dialog_messege_no_pins_on_screen">לא נמצאו קוסמטיקאיות בסביבה הקרובה</string>
     
     <!-- Beautician page -->
-    <string name="beautician_page_title">Beautician</string>
-    <string name="beautician_page_raters">raters</string>
+    <string name="beautician_page_title">קוסמטיקאית</string>
+    <string name="beautician_page_raters">מדרגים</string>
     
     <!-- Message Screen -->
     <string name="confirm">אשר</string>
@@ -99,33 +99,33 @@
 	<string name="additional">נוספים</string>
     
    	<!-- Search Provider -->
-   	<string name="search_provider_title">Search Beautician</string>
-    <string name="search_provider_search_by">Search by:</string>
-    <string name="search_provider_search_by_name">Name</string>
-    <string name="search_provider_search_by_location">Location</string>
-    <string name="search_provider_search_by_type">Classified</string>
-    <string name="search_provider_search_by_services_type">Service Type</string>
-    <string name="search_provider_search">Search</string>
+   	<string name="search_provider_title">חיפוש קוסמטיקאיות</string>
+    <string name="search_provider_search_by">חפש לפי:</string>
+    <string name="search_provider_search_by_name">שם</string>
+    <string name="search_provider_search_by_location">עיר</string>
+    <string name="search_provider_search_by_type">סיווג</string>
+    <string name="search_provider_search_by_services_type">סוג שירות</string>
+    <string name="search_provider_search">חפש</string>
     
     <!-- Search Provider Error Dialog -->
-    <string name="search_provider_error_dialog_title">Error</string>
-    <string name="search_provider_error_dialog_no_results">No results</string>
+    <string name="search_provider_error_dialog_title">תקלה</string>
+    <string name="search_provider_error_dialog_no_results">אין תוצאות שתאמו לחיפושך</string>
     
     <!-- Service Order -->
-    <string name="service_for">For</string>
-    <string name="service_when">When</string>
-    <string name="service_select_treatment">Select Treatment</string>
-    <string name="service_location">Location</string>
-    <string name="service_remarks">Remarks</string>
-    <string name="service_order_one">Order</string>
+    <string name="service_for">עבור</string>
+    <string name="service_when">תאריך ושעה</string>
+    <string name="service_select_treatment">בחר טיפול</string>
+    <string name="service_location">מיקום לטיפול</string>
+    <string name="service_remarks">הערות נוספות</string>
+    <string name="service_order_one">הזמן</string>
    
     <!-- general dialogs text -->
-    <string name="dialog_ok_text">OK</string>
-    <string name="dialog_cancel_text">@android:string/cancel</string>
+    <string name="dialog_ok_text">סבבה</string>
+    <string name="dialog_cancel_text">ביטול</string>
     <string name="else_">אחר</string>
     
     <!-- Service Order dialog For Who text -->
-    <string name="dialog_title_for">For</string>
+    <string name="dialog_title_for">עבור</string>
     <string name="for_me">עבורי</string>
     <string name="for_group">קבוצה</string>
     <string-array name="for_who_array">
@@ -135,20 +135,20 @@
     </string-array>
     
     <!-- Service Order Dialog Location text -->
-	<string name="dialog_title_location">Location</string>
-	<string name="at_my_home">At home</string>
-	<string name="at_the_beautician">At the beautician</string>
+	<string name="dialog_title_location">כתובת</string>
+	<string name="at_my_home">בביתי</string>
+	<string name="at_the_beautician">אצל הקוסמטיקאית</string>
 	    <string-array name="dialog_location_array">
         <item>@string/at_my_home</item>
         <item>@string/at_the_beautician</item>
         <item>@string/else_</item>
     </string-array>
     
-    <string name="dialog_title_remarks">Remarks</string>
+    <string name="dialog_title_remarks">היערות</string>
     
     <!-- Service Order dialog Select Treatment text -->
-    <string name="dialog_title_select_treatment">Select Treatment</string>
-    <string name="dialog_subtitle_select_treatment">Choose treatment type - you can select more than one</string>
+    <string name="dialog_title_select_treatment">בחר טיפול</string>
+    <string name="dialog_subtitle_select_treatment">בחר סוג טיפול - ניתן לבחור יותר מאחד</string>
    
     
     <!-- Service Order Treatments List -->
@@ -281,13 +281,13 @@
         <item>@array/treatment_21</item>
     </array>
     
-    <string name="wanted_treatment">Wanted treatment:</string>
-    <string name="order_service">Order service</string>
+    <string name="wanted_treatment">טיפול רצוי:</string>
+    <string name="order_service">הזמנת שירות</string>
     
     <string name="terms_of_service_text">the terms of service will be written here</string>
     
-    <string name="error_no_address">No address found</string>
-    <string name="error_no_degrees">No degrees found</string>
+    <string name="error_no_address">לא אותרה כתובת</string>
+    <string name="error_no_degrees">לא אותרו תארים</string>
 
     <array name="israel_cities">
             <item>אבטליון</item>
