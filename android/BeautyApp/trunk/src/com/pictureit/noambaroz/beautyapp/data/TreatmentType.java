@@ -8,6 +8,7 @@ public class TreatmentType implements Parcelable {
 	private String treatments_id;
 	public String name;
 	public String description;
+	private String price;
 	private int amount;
 
 	public TreatmentType() {
@@ -33,6 +34,14 @@ public class TreatmentType implements Parcelable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getDescription() {

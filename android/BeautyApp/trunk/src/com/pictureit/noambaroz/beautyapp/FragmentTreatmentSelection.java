@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import utilities.view.MyNumberPicker;
 import utilities.view.MyNumberPicker.onValueChangeListener;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,10 +15,9 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatmentsSelectedListener;
 
 public class FragmentTreatmentSelection extends Fragment {
@@ -92,7 +92,7 @@ public class FragmentTreatmentSelection extends Fragment {
 
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(getActivity(), item.getDescription(), Toast.LENGTH_SHORT).show();
+					showDescription(item);
 				}
 			});
 			holder.tvName.setText(item.getName());
@@ -109,6 +109,19 @@ public class FragmentTreatmentSelection extends Fragment {
 			});
 
 			return convertView;
+		}
+
+		protected void showDescription(TreatmentType treatmentType) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle(treatmentType.getName());
+			builder.setIcon(android.R.drawable.ic_dialog_info);
+			StringBuilder sb = new StringBuilder();
+			sb.append(treatmentType.getDescription());
+			sb.append("\n");
+			sb.append("מחיר: ");
+			sb.append(treatmentType.getPrice());
+			builder.setMessage(sb.toString());
+			builder.create().show();
 		}
 
 		@Override

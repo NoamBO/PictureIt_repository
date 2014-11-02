@@ -101,6 +101,7 @@ public class StringArrays {
 							tt.setTreatments_id(array[0]);
 							tt.setName(array[1]);
 							tt.setDescription(array[2]);
+							tt.setPrice(array[3]);
 							treatmentsArray.add(tt);
 						}
 					} else {
@@ -108,6 +109,7 @@ public class StringArrays {
 						tt.setTreatments_id(array[0]);
 						tt.setName(array[1]);
 						tt.setDescription(array[2]);
+						tt.setPrice(array[3]);
 						treatmentsArray.add(tt);
 					}
 				} else {
