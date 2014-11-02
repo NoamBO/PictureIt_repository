@@ -45,6 +45,7 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 import com.pictureit.noambaroz.beautyapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beautyapp.helper.MainProviderListAdapter;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnOrderStatusChangeListener;
 import com.pictureit.noambaroz.beautyapp.location.MapManager;
 import com.pictureit.noambaroz.beautyapp.server.GetBeauticianArrayByIds;
 
@@ -308,8 +309,12 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							if (ServiceOrderManager.cancelRequest(getApplicationContext()))
-								onPendingDialog(false);
+							ServiceOrderManager.cancelRequest(MainActivity.this, new OnOrderStatusChangeListener() {
+								@Override
+								public void onStatusChange(boolean isPending) {
+									onPendingDialog(isPending);
+								}
+							});
 						}
 					});
 			builder.setCancelable(false);

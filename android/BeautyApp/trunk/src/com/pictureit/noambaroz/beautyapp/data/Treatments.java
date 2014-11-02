@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -14,9 +15,14 @@ public class Treatments {
 
 	private static Treatments INSTANCE;
 	private HashMap<String, TreatmentType> mHash;
+	private ArrayList<TreatmentType> mArrayList;
+
+	public static List<TreatmentType> getAll(Context context) {
+		return getInstance(context).getArrayList();
+	}
 
 	public static TreatmentType getTreatmentType(Context context, String treatmentId) {
-		return getInstance(context).getAll().get(treatmentId);
+		return getInstance(context).getMap().get(treatmentId);
 	}
 
 	private static Treatments getInstance(Context context) {
@@ -28,15 +34,19 @@ public class Treatments {
 		return INSTANCE;
 	}
 
+	private ArrayList<TreatmentType> getArrayList() {
+		return mArrayList;
+	}
+
 	private void setHash(Context ctx) {
 		mHash = new HashMap<String, TreatmentType>();
-		ArrayList<TreatmentType> arr = TreatmentList.genarate(ctx, null);
-		for (int i = 0; i < arr.size(); i++) {
-			mHash.put(arr.get(i).getTreatments_id(), arr.get(i));
+		mArrayList = TreatmentList.genarate(ctx, null);
+		for (int i = 0; i < mArrayList.size(); i++) {
+			mHash.put(mArrayList.get(i).getTreatments_id(), mArrayList.get(i));
 		}
 	}
 
-	private HashMap<String, TreatmentType> getAll() {
+	private HashMap<String, TreatmentType> getMap() {
 		return mHash;
 	}
 

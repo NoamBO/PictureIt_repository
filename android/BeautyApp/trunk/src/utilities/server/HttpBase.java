@@ -168,7 +168,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			ProgressDialog p = new ProgressDialog(ctx);
-			p.setMessage("please wait...");
+			p.setMessage(ctx.getString(R.string.dialog_messege_please_wait));
 			p.setCancelable(false);
 			p.setCanceledOnTouchOutside(false);
 			return p;

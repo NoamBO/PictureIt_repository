@@ -20,6 +20,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.Application;
 import com.pictureit.noambaroz.beautyapp.FragmentTreatmentSelection;
+import com.pictureit.noambaroz.beautyapp.MainActivity;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
@@ -43,6 +45,7 @@ import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
+import com.pictureit.noambaroz.beautyapp.server.PostCancelOrder;
 import com.pictureit.noambaroz.beautyapp.server.PostOrderTreatment;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
@@ -65,6 +68,10 @@ public class ServiceOrderManager {
 
 	public interface OnTreatmentsSelectedListener {
 		public void onTreatmentSelected(ArrayList<TreatmentType> treatmentTypes);
+	}
+
+	public interface OnOrderStatusChangeListener {
+		public void onStatusChange(boolean isPending);
 	}
 
 	public void showTreatmentSelectionDialog(String[] treatments) {
@@ -362,7 +369,10 @@ public class ServiceOrderManager {
 						Log.i("finish");
 						if (answer != null && !((String) answer).equalsIgnoreCase("")) {
 							ServiceOrderManager.setPending(activity, true);
-							activity.finish();
+							Intent i = new Intent(activity, MainActivity.class);
+							i.putExtra("exit", true);
+							i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							activity.startActivity(i);
 						}
 					}
 				}, mTreatment.forWho, mTreatment.when, mTreatment.remarks, mTreatment.whare, mTreatment.tretments);
@@ -387,10 +397,19 @@ public class ServiceOrderManager {
 				Constant.PREFS_KEY_IS_APP_WAITING, false);
 	}
 
-	public static boolean cancelRequest(Context ctx) {
-		savePendingTreatmentId(ctx, "-1");
-		setPending(ctx, false);
-		return true;
+	public static void cancelRequest(final Context ctx, final OnOrderStatusChangeListener callback) {
+		PostCancelOrder cancelInBackground = new PostCancelOrder(ctx, new HttpCallback() {
+
+			@Override
+			public void onAnswerReturn(Object answer) {
+				if (answer == null)
+					return;
+				savePendingTreatmentId(ctx, "-1");
+				setPending(ctx, false);
+				callback.onStatusChange(false);
+			}
+		});
+		cancelInBackground.execute();
 	}
 
 	public static void savePendingTreatmentId(Context ctx, String treatmentId) {

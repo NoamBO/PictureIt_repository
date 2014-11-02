@@ -46,7 +46,7 @@
     
     <!-- Pending Order Dialog -->
     <string name="pending_order_dialog_message">בקשה נשלחה</string>
-    <string name="pending_order_dialog_button_wait">ממתין</string>
+    <string name="pending_order_dialog_button_wait">המתן</string>
     <string name="pending_order_dialog_button_abort">בטל</string>
     <string name="pending_order_toast">לא ניתן לבצע פעולה זו הזמן המתנה לתשובה מבקשת טיפול!</string>
     
@@ -78,6 +78,7 @@
     <string name="dialog_title_error">תקלה</string>
     <string name="dialog_messege_server_error">יש לנו בעית התקשרות.. אנו עובדים על פתרון</string>
     <string name="dialog_messege_no_location">לא ניתן להמשיך. מיקומך המדוייק לא אותר</string>
+    <string name="dialog_messege_please_wait">אנא המתן..</string>
     
     <!-- Dialog presented on main screen when no visible marker on screen if onpening the SLIDER -->
     <string name="main_screen_slider_empty_dialog_title">אין תוצאות</string>
