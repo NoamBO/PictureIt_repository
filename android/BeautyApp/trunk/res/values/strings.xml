@@ -155,108 +155,249 @@
     <!-- Service Order Treatments List -->
     <string-array name="treatment_1">
         <item name="id">1</item>
-        <item name="title">טיפול 1</item>
-        <item name="description">treatment 1</item>
+        <item name="title">פדיקור</item>
+        <item name="description">טיפול בכפות הרגליים. הטיפול בדרך כלל כולל השריית הרגליים
+במים, הסרת עור יבש מכף הרגל, גזירת ציפורניים והעור מסביב 
+לציפורניים, עיסוי פילינג לכפות הרגליים, עיסוי כפות הרגליים 
+בקרם רגליים מזין ומריחת לק לפי בקשת לקוחה. הטיפול כולל 
+גם טיפול בבעיות כף הרגל השונות כגון טיפול ביבלות, ציפורן 
+חודרנית, פטרת, יבלות, עור סדוק וכיו"ב. אוכלוסיות מסויימות 
+זקוקות לטיפול באופן תכוף יותר כגון סכרתיים.</item>
+        <item name="price">80&#8211;180</item>
     </string-array>
     <string-array name="treatment_2">
         <item name="id">2</item>
-        <item name="title">טיפול 2</item>
-        <item name="description">treatment 2</item>
+        <item name="title">מניקור</item>
+        <item name="description">טיפול אסטטי לציפורניים בידיים. לרוב כולל הטיפול גם פילינג
+ועיסוי לכף היד. כולל מריחת לק לפי בקשת הלקוחה.</item>
+        <item name="price">45&#8211;100</item>
     </string-array>
     <string-array name="treatment_3">
         <item name="id">3</item>
-        <item name="title">טיפול 3</item>
-        <item name="description">treatment 3</item>
+        <item name="title">בניית ציפורניים</item>
+        <item name="description">"מספר שיטות: אקריל (בניית ציפורן באמצעות אבקת ונוזל אקריל בעזרת מכחול), טבילה (לאחר סידור הציפורן ומריחת שכבת דבק נטבלת הציפורן באבקת משי אקריל), ג'ל (מריחת ג'ל על הציפורן בעזרת מכחול וייבוש במנורת אולטרא ויולט). אחת ל-3 שבועות יש לתחזק את הבנייה באמצעות מילוי אצל בונת הציפורניים"</item>
+        <item name="price">180&#8211;230</item>
     </string-array>
     <string-array name="treatment_4">
         <item name="id">4</item>
-        <item name="title">טיפול 4</item>
-        <item name="description">treatment 4</item>
+        <item name="title">מילוי בנייה</item>
+        <item name="description">תהליך תחזוקת בניית הציפורניים. יש לבצע מילוי הציפורניים
+אחת ל-2&#8211;3 שבועות אצל בונות הציפורניים.</item>
+        <item name="price">&#8211;</item>
     </string-array>
     <string-array name="treatment_5">
         <item name="id">5</item>
-        <item name="title">treatment 5</item>
-        <item name="description">treatment 5</item>
+        <item name="title">"לק ג'ל"</item>
+        <item name="description">"מריחת לק עשוי מג'ל אשר מחזיק מעמד כ&#8211;3 שבועות."</item>
+        <item name="price">90&#8211;170</item>
     </string-array>
     <string-array name="treatment_6">
         <item name="id">6</item>
-        <item name="title">treatment 6</item>
-        <item name="description">treatment 6</item>
+        <item name="title">טיפול יופי</item>
+        <item name="description">טיפול פנים קצר. אינו כולל ניקוי עמוק של הפנים. משך הטיפול
+כחצי שעה.</item>
+        <item name="price">120&#8211;220</item>
     </string-array>
-        <string-array name="treatment_7">
+    <string-array name="treatment_7">
         <item name="id">7</item>
-        <item name="title">treatment 7</item>
-        <item name="description">treatment 7</item>
+        <item name="title">טיפול פנים</item>
+        <item name="description">טיפול פנים סטנדרטי כולל ניקוי עדין של הפנים באמצעות
+התכשירים המתאימים, ריכוך עור הפנים, ניקוי עור הפנים 
+בפילינג, עיסוי קל של הפנים ולבסוף מסיכה להזנת העור. משך 
+טיפול פנים סטנדרטי שעה&#8211;שעה וחצי.</item>
+        <item name="price">200&#8211;400</item>
     </string-array>
-        <string-array name="treatment_8">
+    <string-array name="treatment_8">
         <item name="id">8</item>
-        <item name="title">treatment 8</item>
-        <item name="description">treatment 8</item>
+        <item name="title">שעוות רגל שלמה</item>
+        <item name="description"></item>
+        <item name="price">70&#8211;150</item>
     </string-array>
-        <string-array name="treatment_9">
+    <string-array name="treatment_9">
         <item name="id">9</item>
-        <item name="title">treatment 9</item>
-        <item name="description">treatment 9</item>
+        <item name="title">שעוות חצי רגל</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;90</item>
     </string-array>
-        <string-array name="treatment_10">
+    <string-array name="treatment_10">
         <item name="id">10</item>
-        <item name="title">treatment 10</item>
-        <item name="description">treatment 10</item>
+        <item name="title">שעוות ידיים</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;100</item>
     </string-array>
-        <string-array name="treatment_11">
+    <string-array name="treatment_11">
         <item name="id">11</item>
-        <item name="title">treatment 11</item>
-        <item name="description">treatment 11</item>
+        <item name="title">שעוות חצי יד</item>
+        <item name="description"></item>
+        <item name="price">30&#8211;70</item>
     </string-array>
-        <string-array name="treatment_12">
+    <string-array name="treatment_12">
         <item name="id">12</item>
-        <item name="title">treatment 12</item>
-        <item name="description">treatment 12</item>
+        <item name="title">שעוות בית שחי</item>
+        <item name="description"></item>
+        <item name="price">30&#8211;60</item>
     </string-array>
-        <string-array name="treatment_13">
+    <string-array name="treatment_13">
         <item name="id">13</item>
-        <item name="title">treatment 13</item>
-        <item name="description">treatment 13</item>
+        <item name="title">שעוות קו ביקיני</item>
+        <item name="description"></item>
+        <item name="price">30&#8211;50</item>
     </string-array>
-            <string-array name="treatment_14">
+    <string-array name="treatment_14">
         <item name="id">14</item>
-        <item name="title">treatment 14</item>
-        <item name="description">treatment 14</item>
+        <item name="title">שעוות מפשעה (׳׳ברזילאי׳׳)</item>
+        <item name="description">מתבצע בדרך כלל באמצעות שעווה מיוחדת עדינה</item>
+        <item name="price">60&#8211;130</item>
     </string-array>
-            <string-array name="treatment_15">
+    <string-array name="treatment_15">
         <item name="id">15</item>
-        <item name="title">treatment 15</item>
-        <item name="description">treatment 16</item>
+        <item name="title">שעוות בטן (נשים)</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;80</item>
     </string-array>
-            <string-array name="treatment_16">
+    <string-array name="treatment_16">
         <item name="id">16</item>
-        <item name="title">treatment 16</item>
-        <item name="description">treatment 16</item>
+        <item name="title">שעוות גב (נשים)</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;80</item>
     </string-array>
-            <string-array name="treatment_17">
+    <string-array name="treatment_17">
         <item name="id">17</item>
-        <item name="title">treatment 17</item>
-        <item name="description">treatment 17</item>
+        <item name="title">שעוות בטן (גברים)</item>
+        <item name="description"></item>
+        <item name="price">80&#8211;120</item>
     </string-array>
-            <string-array name="treatment_18">
+    <string-array name="treatment_18">
         <item name="id">18</item>
-        <item name="title">treatment 18</item>
-        <item name="description">treatment 18</item>
+        <item name="title">שעוות גב (גברים)</item>
+        <item name="description"></item>
+        <item name="price">80&#8211;120</item>
     </string-array>
-            <string-array name="treatment_19">
+    <string-array name="treatment_19">
         <item name="id">19</item>
-        <item name="title">treatment 19</item>
-        <item name="description">treatment 19</item>
-    </string-array>
-            <string-array name="treatment_20">
+        <item name="title">עיצוב גבות</item>
+        <item name="description">מתבצע בדרך כלל באמצעות שעווה מיוחדת עדינה או בעזרת חוט</item>
+        <item name="price">40&#8211;90</item>
+   </string-array>
+   <string-array name="treatment_20">
         <item name="id">20</item>
-        <item name="title">treatment 20</item>
-        <item name="description">treatment 20</item>
+        <item name="title">ניקוי שפם</item>
+        <item name="description">מתבצע בדרך כלל באמצעות שעווה מיוחדת עדינה או בעזרת חוט</item>
+        <item name="price">15&#8211;40</item>
     </string-array>
     <string-array name="treatment_21">
         <item name="id">21</item>
-        <item name="title">treatment 21</item>
-        <item name="description">treatment 21</item>
+        <item name="title">איפור קבוע</item>
+        <item name="description">הדגשת קווי פנים באמצעות החדרת פיגמנט לעור. האזורים השכיחים לביצוע הטיפול הם: גבות, עפעפיים ושפתיים. הטיפול אורך בדרך כלל 2 פגישות. האיפור הקבוע מחזיק מספר שנים לפני שיש לחדשו שוב.</item>
+        <item name="price">1000&#8211;2000</item>
+    </string-array>
+    <string-array name="treatment_22">
+        <item name="id">22</item>
+        <item name="title">מיני פדיקור</item>
+        <item name="description">סידור ציפורניי הרגלים, כולל לק</item>
+        <item name="price">50&#8211;140</item>
+    </string-array>
+    <string-array name="treatment_23">
+        <item name="id">23</item>
+        <item name="title">מיני מניקור</item>
+        <item name="description">סידור ציפורניי הידיים, כולל לק</item>
+        <item name="price">40&#8211;60</item>
+    </string-array>
+    <string-array name="treatment_24">
+        <item name="id">24</item>
+        <item name="title">"מריחת לק פרנץ'"</item>
+        <item name="description"></item>
+        <item name="price">20&#8211;40</item>
+    </string-array>
+    <string-array name="treatment_25">
+        <item name="id">25</item>
+        <item name="title">מריחת לק</item>
+        <item name="description"></item>
+        <item name="price">20&#8211;35</item>
+    </string-array>
+    <string-array name="treatment_26">
+        <item name="id">26</item>
+        <item name="title">קישוטי ציפורניים </item>
+        <item name="description">שילוב אבנים, ציורים, מדבקות ודוגמאות באמצעות חותמת על גבי הציפורניים המלכותיות או האמיתיות.</item>
+        <item name="price">מחיר לאצבע אחת: 5&#8211;10 שקלים</item>
+    </string-array>
+    <string-array name="treatment_27">
+        <item name="id">27</item>
+        <item name="title">איפור לארוע</item>
+        <item name="description"></item>
+        <item name="price">250&#8211;450</item>
+    </string-array>
+    <string-array name="treatment_28">
+        <item name="id">28</item>
+        <item name="title">הדבקת ציפורניים</item>
+        <item name="description">הדבקה של ציפורניים מלאכותיות. מחזיק מעמד בין שבוע לחודש. </item>
+        <item name="price">80&#8211;160</item>
+    </string-array>
+    <string-array name="treatment_29">
+        <item name="id">29</item>
+        <item name="title">בוטוקס</item>
+        <item name="description">שיטה להעלמת וטשטוש קמטים בעיקר בפנים. האזורים הנפוצים להזרקת בוטוקס הם: שריר ההבעה בין הגבות, הקמטים במצח (׳׳קמטי המחשבה׳׳) ובקמטים שבצידי העיניים. האפקט הטיפולי נמשך כ&#8211;3&#8211;6 חודשים.</item>
+        <item name="price">1000&#8211;2500</item>
+    </string-array>
+	<string-array name="treatment_30">
+        <item name="id">30</item>
+        <item name="title">מילוי קמטים</item>
+        <item name="description">שיטה להעלמת קמטים בפנים. מילוי קמטים באמצעות חומצה היאלורונית מתבצעת באזור הפה (לרבות לשם עיבוי שפתיים) והאף, אך גם באזורים נוספים.  האפקט הטיפולי נמשך 3&#8211;6 חודשים.</item>
+        <item name="price">1500&#8211;2500</item>
+    </string-array>
+    <string-array name="treatment_31">
+        <item name="id">31</item>
+        <item name="title">צביעת גבות</item>
+        <item name="description">פעולה שמבצעות בדרך כלל בעלות גבות בהירות. הצביעה מחזיקה מעמד כשבועיים ואפשרית במספר גוונים.</item>
+        <item name="price">25&#8211;50</item>
+    </string-array>
+    <string-array name="treatment_32">
+        <item name="id">32</item>
+        <item name="title">צביעת ריסים</item>
+        <item name="description">פעולה שמבצעות בדרך כלל בעלות ריסים בהירים. הצביעה מחזיקה מעמד עד חודש.</item>
+        <item name="price">30&#8211;70</item>
+    </string-array>
+    <string-array name="treatment_33">
+        <item name="id">33</item>
+        <item name="title">הלחמת ריסים</item>
+        <item name="description">הדבקת ריסים על הריסים הטבעיים. יש להגיע למילוי ריסים כל כ-3 שבועות.</item>
+        <item name="price">350&#8211;460</item>
+    </string-array>
+    <string-array name="treatment_34">
+        <item name="id">34</item>
+        <item name="title">מילוי ריסים</item>
+        <item name="description">טיפול תחזוקתי של הלחמת ריסים. יש להגיע למילוי ריסים כל כ-3 שבועות.</item>
+        <item name="price">150&#8211;200</item>
+    </string-array>
+    <string-array name="treatment_35">
+        <item name="id">35</item>
+        <item name="title">הסרת בניית ציפורניים</item>
+        <item name="description">תהליך המסת הציפורניים המלאכותיות שנבנו על ידי בונת הציפורניים</item>
+        <item name="price">40&#8211;80</item>
+    </string-array>
+    <string-array name="treatment_36">
+        <item name="id">36</item>
+        <item name="title">אפילציה</item>
+        <item name="description">הסרת שיער הגוף או הפנים לצמיתות באמצעות מחט חשמלית</item>
+        <item name="price">70&#8211;120 שקלים ל&#8211;15 דקות טיפול</item>
+    </string-array>
+    <string-array name="treatment_37">
+        <item name="id">37</item>
+        <item name="title">הסרת שיער בלייזר</item>
+        <item name="description">הסרת שיער הגוף או הפנים לצמיתות באמצעות לייזר</item>
+        <item name="price">700 (לאיזור קטן) &#8211; 15000 (לכל הגוף)</item>
+    </string-array>
+    <string-array name="treatment_38">
+        <item name="id">38</item>
+        <item name="title">הסרת שיער באמצעות אינפרא אדום (׳׳קרן אור׳׳ או "IPL")</item>
+        <item name="description">הסרת שיער הגוף או הפנים לצמיתות באמצעות קרני אינפרא אדום</item>
+        <item name="price"> 500&#8211;2500 (תלוי באזור בגוף)</item>
+    </string-array>
+    <string-array name="treatment_39">
+        <item name="id">39</item>
+        <item name="title">תיקון ציפורן שבורה (בבניית ציפורניים)</item>
+        <item name="description"></item>
+        <item name="price">10&#8211;30</item>
     </string-array>
     <array name="treatments_list">
         <item>@array/treatment_1</item>
@@ -280,6 +421,24 @@
         <item>@array/treatment_19</item>
         <item>@array/treatment_20</item>
         <item>@array/treatment_21</item>
+        <item>@array/treatment_22</item>
+        <item>@array/treatment_23</item>
+        <item>@array/treatment_24</item>
+        <item>@array/treatment_25</item>
+        <item>@array/treatment_26</item>
+        <item>@array/treatment_27</item>
+        <item>@array/treatment_28</item>
+        <item>@array/treatment_29</item>
+        <item>@array/treatment_30</item>
+        <item>@array/treatment_31</item>
+        <item>@array/treatment_32</item>
+        <item>@array/treatment_33</item>
+        <item>@array/treatment_34</item>
+        <item>@array/treatment_35</item>
+        <item>@array/treatment_36</item>
+        <item>@array/treatment_37</item>
+        <item>@array/treatment_38</item>
+        <item>@array/treatment_39</item>
     </array>
     
     <string-array name="classification_1">
