@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
-import com.pictureit.noambaroz.beautyapp.data.Treatments;
+import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
@@ -119,7 +119,7 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			int count = 0;
 			for (TreatmentType t : mUpcomingTreatment.getTreatmentsArray()) {
 				if (Integer.valueOf(t.getAmount()) > 0) {
-					String treatmentName = Treatments.getTreatmentType(getActivity(), t.getTreatments_id()).getName();
+					String treatmentName = StringArrays.getTreatmentType(getActivity(), t.getTreatments_id()).getName();
 					if (count % 2 == 0)
 						sb1.append(treatmentName).append("\n");
 					else

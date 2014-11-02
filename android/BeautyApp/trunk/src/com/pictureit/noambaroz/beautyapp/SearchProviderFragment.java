@@ -22,9 +22,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
+import com.pictureit.noambaroz.beautyapp.data.ClassificationType;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
+import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
-import com.pictureit.noambaroz.beautyapp.data.Treatments;
 import com.pictureit.noambaroz.beautyapp.server.PostSearchBeautician;
 
 public class SearchProviderFragment extends BaseFragment {
@@ -40,16 +41,40 @@ public class SearchProviderFragment extends BaseFragment {
 	String mServiceType, mClassification = "";
 
 	private Dialog serviceTypeDialog;
+	private Dialog classificationTypeDialog;
 	private ServiceTypeListAdapter serviceTypeListAdapter;
+	private ClassificationListAdapter classificationListAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		serviceTypeDialog = getServiceTypeDialog();
+		classificationTypeDialog = getClassificationTypeDialog();
+	}
+
+	private Dialog getClassificationTypeDialog() {
+		List<ClassificationType> list = StringArrays.getAllClassificationType(getActivity());
+		classificationListAdapter = new ClassificationListAdapter(getActivity(), android.R.layout.simple_list_item_2,
+				list);
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle(R.string.search_provider_search_by_type);
+		builder.setSingleChoiceItems(classificationListAdapter, 0, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ClassificationType t = classificationListAdapter.getItem(which);
+				classificationListAdapter.setSelected(t.getId());
+				classificationListAdapter.notifyDataSetChanged();
+				mClassification = t.getTitle();
+				bType.setText(mClassification);
+				dialog.dismiss();
+			}
+		});
+		return builder.create();
 	}
 
 	private Dialog getServiceTypeDialog() {
-		List<TreatmentType> list = Treatments.getAll(getActivity());
+		List<TreatmentType> list = StringArrays.getAllTreatmentsType(getActivity());
 		serviceTypeListAdapter = new ServiceTypeListAdapter(getActivity(), android.R.layout.simple_list_item_2, list);
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(R.string.service_select_treatment);
@@ -103,6 +128,13 @@ public class SearchProviderFragment extends BaseFragment {
 				serviceTypeDialog.show();
 			}
 		});
+		bType.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				classificationTypeDialog.show();
+			}
+		});
 	}
 
 	private void search() {
@@ -125,7 +157,7 @@ public class SearchProviderFragment extends BaseFragment {
 				}
 				onSearchFailed(SEARCH_STATUS_NO_RESULTS);
 			}
-		}, etName.getText().toString(), etLocation.getText().toString(), mClassification,
+		}, etName.getText().toString(), etLocation.getText().toString(), classificationListAdapter.getSelected(),
 				serviceTypeListAdapter.getSelected());
 		post.execute();
 	}
@@ -189,8 +221,8 @@ public class SearchProviderFragment extends BaseFragment {
 
 	}
 
-	private class ClassificationListAdapter extends ArrayAdapter<TreatmentType> {
-		public ClassificationListAdapter(Context context, int resource, List<TreatmentType> objects) {
+	private class ClassificationListAdapter extends ArrayAdapter<ClassificationType> {
+		public ClassificationListAdapter(Context context, int resource, List<ClassificationType> objects) {
 			super(context, resource, objects);
 		}
 
@@ -218,8 +250,8 @@ public class SearchProviderFragment extends BaseFragment {
 			} else {
 				holder = (ServiceTypeListAdapterHolder) convertView.getTag();
 			}
-			holder.radio.setChecked(getItem(position).getTreatments_id().equalsIgnoreCase(selected) ? true : false);
-			holder.textView.setText(getItem(position).getName());
+			holder.radio.setChecked(getItem(position).getId().equalsIgnoreCase(selected) ? true : false);
+			holder.textView.setText(getItem(position).getTitle());
 			return convertView;
 		}
 

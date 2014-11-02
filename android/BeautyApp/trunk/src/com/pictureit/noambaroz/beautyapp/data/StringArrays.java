@@ -11,43 +11,72 @@ import android.content.res.TypedArray;
 
 import com.pictureit.noambaroz.beautyapp.R;
 
-public class Treatments {
+public class StringArrays {
 
-	private static Treatments INSTANCE;
+	private static StringArrays INSTANCE;
 	private HashMap<String, TreatmentType> mHash;
-	private ArrayList<TreatmentType> mArrayList;
+	private ArrayList<TreatmentType> mTreatmentsTypeArrayList;
+	private ArrayList<ClassificationType> mClassificationArrayList;
 
-	public static List<TreatmentType> getAll(Context context) {
-		return getInstance(context).getArrayList();
+	public static List<TreatmentType> getAllTreatmentsType(Context context) {
+		return getInstance(context).getTreatmentsArrayList();
+	}
+
+	public static List<ClassificationType> getAllClassificationType(Context context) {
+		return getInstance(context).getClassificationsArrayList();
 	}
 
 	public static TreatmentType getTreatmentType(Context context, String treatmentId) {
 		return getInstance(context).getMap().get(treatmentId);
 	}
 
-	private static Treatments getInstance(Context context) {
+	private static StringArrays getInstance(Context context) {
 		if (INSTANCE == null) {
-			INSTANCE = new Treatments();
+			INSTANCE = new StringArrays();
 			INSTANCE.setHash(context);
+			INSTANCE.setClassificationArray(context);
 		}
 
 		return INSTANCE;
 	}
 
-	private ArrayList<TreatmentType> getArrayList() {
-		return mArrayList;
+	private ArrayList<TreatmentType> getTreatmentsArrayList() {
+		return mTreatmentsTypeArrayList;
+	}
+
+	private ArrayList<ClassificationType> getClassificationsArrayList() {
+		return mClassificationArrayList;
 	}
 
 	private void setHash(Context ctx) {
 		mHash = new HashMap<String, TreatmentType>();
-		mArrayList = TreatmentList.genarate(ctx, null);
-		for (int i = 0; i < mArrayList.size(); i++) {
-			mHash.put(mArrayList.get(i).getTreatments_id(), mArrayList.get(i));
+		mTreatmentsTypeArrayList = TreatmentList.genarate(ctx, null);
+		for (int i = 0; i < mTreatmentsTypeArrayList.size(); i++) {
+			mHash.put(mTreatmentsTypeArrayList.get(i).getTreatments_id(), mTreatmentsTypeArrayList.get(i));
 		}
 	}
 
 	private HashMap<String, TreatmentType> getMap() {
 		return mHash;
+	}
+
+	private void setClassificationArray(Context context) {
+		mClassificationArrayList = new ArrayList<ClassificationType>();
+		Resources res = context.getResources();
+		TypedArray tar = res.obtainTypedArray(R.array.classification_list);
+		for (int i = 0; i < tar.length(); ++i) {
+			int id = tar.getResourceId(i, -1);
+			if (id > -1) {
+				String[] array = res.getStringArray(id);
+				ClassificationType ct = new ClassificationType();
+				ct.setTitle(array[1]);
+				ct.setId(array[0]);
+				mClassificationArrayList.add(ct);
+			} else {
+				// something wrong with the XML
+			}
+		}
+		tar.recycle(); // Important
 	}
 
 	public static class TreatmentList {

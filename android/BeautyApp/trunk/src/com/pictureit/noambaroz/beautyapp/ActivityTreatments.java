@@ -23,7 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
-import com.pictureit.noambaroz.beautyapp.data.Treatments;
+import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.GetUpcomingTreatments;
 
@@ -157,7 +157,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 		private String getTreatmentName(UpcomingTreatment t) {
 			StringBuilder sb = new StringBuilder();
-			sb.append(Treatments.getTreatmentType(getContext(), t.getTreatmentsArray().get(0).getTreatments_id())
+			sb.append(StringArrays.getTreatmentType(getContext(), t.getTreatmentsArray().get(0).getTreatments_id())
 					.getName());
 			if (t.getTreatmentsArray().size() > 1) {
 				sb.append(" ");

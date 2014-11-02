@@ -253,7 +253,7 @@
         <item name="title">treatment 20</item>
         <item name="description">treatment 20</item>
     </string-array>
-            <string-array name="treatment_21">
+    <string-array name="treatment_21">
         <item name="id">21</item>
         <item name="title">treatment 21</item>
         <item name="description">treatment 21</item>
@@ -280,6 +280,34 @@
         <item>@array/treatment_19</item>
         <item>@array/treatment_20</item>
         <item>@array/treatment_21</item>
+    </array>
+    
+    <string-array name="classification_1">
+        <item name="id">c1</item>
+        <item name="title">classification 1</item>
+    </string-array>
+        <string-array name="classification_2">
+        <item name="id">c2</item>
+        <item name="title">classification 2</item>
+    </string-array>
+        <string-array name="classification_3">
+        <item name="id">c3</item>
+        <item name="title">classification 3</item>
+    </string-array>
+        <string-array name="classification_4">
+        <item name="id">c4</item>
+        <item name="title">classification 4</item>
+    </string-array>
+    <string-array name="classification_5">
+        <item name="id">c5</item>
+        <item name="title">classification 5</item>
+    </string-array>
+    <array name="classification_list">
+        <item>@array/classification_1</item>
+        <item>@array/classification_2</item>
+        <item>@array/classification_3</item>
+        <item>@array/classification_4</item>
+        <item>@array/classification_5</item>
     </array>
     
     <string name="wanted_treatment">טיפול רצוי:</string>
