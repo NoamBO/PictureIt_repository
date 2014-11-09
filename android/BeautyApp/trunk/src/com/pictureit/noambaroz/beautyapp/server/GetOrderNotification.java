@@ -1,6 +1,9 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
-import utilities.server.BaseHttpGet;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import utilities.server.BaseHttpPost;
 import android.content.ContentValues;
 import android.content.Context;
 import android.text.TextUtils;
@@ -8,7 +11,7 @@ import android.text.TextUtils;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 
-public class GetOrderNotification extends BaseHttpGet {
+public class GetOrderNotification extends BaseHttpPost {
 
 	public GetOrderNotification(Context ctx, String orderId, HttpCallback callback) {
 		super(ctx);
@@ -28,18 +31,12 @@ public class GetOrderNotification extends BaseHttpGet {
 
 	@Override
 	protected void prepare(String request) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(ServerUtil.URL_REQUEST_GET_ORDER_MESSAGE_NOTIFICATION);
-		sb.append("?order_id=");
-		sb.append(request);
-		setUrl(sb.toString());
+		setUrl(ServerUtil.URL_REQUEST_GET_ORDER_MESSAGE_NOTIFICATION);
+		mMainJson = new JSONObject();
+		try {
+			mMainJson.put(ServerUtil.ORDER_ID, request);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
-
-	// String json = "{" + "\"order_id\":\"67\"," + "\"beautician_id\":\"4\"," +
-	// "\"name\":\"אלונה\","
-	// +
-	// "\"pic\":\"http://saints.blogs.com/saint_of_the_month_club/images/olga.jpg\","
-	// + "\"address\":\"מנחם בגין 55, תל אביב\"," + "\"raters\":24," +
-	// "\"rate\":2.5," + "\"at\":1410434070189,"
-	// + "\"location\":\"at the beautician\"," + "\"price\":\"56 nis\"" + "}";
 }

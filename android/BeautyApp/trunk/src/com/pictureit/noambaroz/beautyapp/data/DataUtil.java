@@ -12,16 +12,6 @@ import com.pictureit.noambaroz.beautyapp.R;
 
 public class DataUtil {
 
-	public static void saveHistoryRow(TreatmentSummary treatment, Context context) {
-		ContentValues values = new ContentValues(2);
-		values.put(DataProvider.COL_DATE, treatment.when);
-		values.put(DataProvider.COL_FOR, treatment.forWho);
-		values.put(DataProvider.COL_REMARKS, treatment.remarks);
-		values.put(DataProvider.COL_TREATMENTS, convertArrayToString(treatment.tretments));
-		values.put(DataProvider.COL_WHARE, treatment.whare);
-		context.getContentResolver().insert(DataProvider.CONTENT_URI_HISTORY, values);
-	}
-
 	private static String treatmentSeparator = "__,__";
 
 	private static String idSeparator = "--,--";
