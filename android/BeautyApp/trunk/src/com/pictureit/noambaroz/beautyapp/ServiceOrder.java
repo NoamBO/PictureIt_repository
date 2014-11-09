@@ -170,7 +170,7 @@ public class ServiceOrder extends ActivityWithFragment {
 						.setPositiveButton(R.string.dialog_ok_text, null).create().show();
 				return;
 			}
-			mManager.placeOrder(true);
+			mManager.placeOrder(beauticianId);
 			// ServiceSummaryFragment f = new ServiceSummaryFragment();
 			// f.setTreatment(mManager.getTreatment());
 			// getActivity().getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER,

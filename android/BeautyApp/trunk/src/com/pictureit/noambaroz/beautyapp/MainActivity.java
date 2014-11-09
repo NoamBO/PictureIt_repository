@@ -178,6 +178,8 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 			launchActivityIfPossible(ActivityTreatments.class);
 		} else if (id == R.id.action_pending_orders) {
 			launchActivityIfPossible(ActivityMessages.class);
+		} else if (id == R.id.action_history) {
+			launchActivityIfPossible(ActivityHistory.class);
 		} else if (id == R.id.action_terms_of_service) {
 			launchActivityIfPossible(ActivityTermsOfService.class);
 		} else if (id == R.id.action_search_providers) {

@@ -56,6 +56,20 @@ public class ServiceOrderManager {
 	private TreatmentSummary mTreatment;
 	private Dialog dLocation, dFor, dGroup;
 	private DatePickerFragment dDate;
+	private HttpCallback placeOrderHttpCallback = new HttpCallback() {
+
+		@Override
+		public void onAnswerReturn(Object answer) {
+			Log.i("finish");
+			if (answer != null && !((String) answer).equalsIgnoreCase("")) {
+				ServiceOrderManager.setPending(activity, true);
+				Intent i = new Intent(activity, MainActivity.class);
+				i.putExtra("exit", true);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				activity.startActivity(i);
+			}
+		}
+	};
 
 	public ServiceOrderManager(Activity activity) {
 		this.activity = activity;
@@ -341,13 +355,25 @@ public class ServiceOrderManager {
 		mTreatment = treatment;
 	}
 
-	public void placeOrder(boolean isByLocation) {
-
-		if (isByLocation)
-			placeOrderByLocation();
+	public void placeOrder(String beauticianId) {
+		PostOrderTreatment httpPost = new PostOrderTreatment(activity, placeOrderHttpCallback, mTreatment.forWho,
+				mTreatment.when, mTreatment.remarks, mTreatment.whare, mTreatment.tretments);
+		if (beauticianId == null)
+			placeOrderByLocation(httpPost);
+		else
+			placeOrderByBeauticianId(httpPost, beauticianId);
 	}
 
-	private void placeOrderByLocation() {
+	private void placeOrderByBeauticianId(PostOrderTreatment httpPost, String beauticianId) {
+		try {
+			httpPost.forSpecificBeautician(beauticianId);
+		} catch (Exception e) {
+			Log.i("failed while building the request to the server");
+			e.printStackTrace();
+		}
+	}
+
+	private void placeOrderByLocation(final PostOrderTreatment httpPost) {
 		final ProgressDialog pd = new ProgressDialog(activity);
 		pd.setCanceledOnTouchOutside(false);
 		pd.show();
@@ -361,21 +387,6 @@ public class ServiceOrderManager {
 							activity.getString(R.string.dialog_title_error));
 					return;
 				}
-
-				PostOrderTreatment httpPost = new PostOrderTreatment(activity, new HttpCallback() {
-
-					@Override
-					public void onAnswerReturn(Object answer) {
-						Log.i("finish");
-						if (answer != null && !((String) answer).equalsIgnoreCase("")) {
-							ServiceOrderManager.setPending(activity, true);
-							Intent i = new Intent(activity, MainActivity.class);
-							i.putExtra("exit", true);
-							i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-							activity.startActivity(i);
-						}
-					}
-				}, mTreatment.forWho, mTreatment.when, mTreatment.remarks, mTreatment.whare, mTreatment.tretments);
 				try {
 					httpPost.byLocation(location);
 				} catch (Exception e) {

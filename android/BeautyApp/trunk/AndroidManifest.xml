@@ -98,6 +98,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.pictureit.noambaroz.beautyapp.ActivityHistory"
+            android:label="@string/title_history"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.pictureit.noambaroz.beautyapp.ActivityBeautician"
             android:label="@string/beautician_page_title"
             android:screenOrientation="portrait" >
