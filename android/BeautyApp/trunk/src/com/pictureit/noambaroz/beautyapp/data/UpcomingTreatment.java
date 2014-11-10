@@ -7,7 +7,7 @@ import android.os.Parcelable;
 
 public class UpcomingTreatment implements Parcelable {
 
-	private String pic;
+	private String image_url;
 	private String beautician_id;
 	private String beautician_name;
 	private String beautician_address;
@@ -15,19 +15,18 @@ public class UpcomingTreatment implements Parcelable {
 	private double beautician_rate;
 	private String treatment_date;
 	private String treatment_location;
-	private String treatment_name;
+	private String treatment_price;
 	private String beautician_nots;
-	private String price;
-	private String phone;
+	private String beautician_phone;
 	private String unFormattedTreatments;
 	private ArrayList<TreatmentType> treatmentsArray;
 
 	public String getPic() {
-		return pic;
+		return image_url;
 	}
 
-	public void setPic(String pic) {
-		this.pic = pic;
+	public void setPic(String image_url) {
+		this.image_url = image_url;
 	}
 
 	public String getBeautician_id() {
@@ -86,14 +85,6 @@ public class UpcomingTreatment implements Parcelable {
 		this.treatment_location = treatment_location;
 	}
 
-	public String getTreatment_name() {
-		return treatment_name;
-	}
-
-	public void setTreatment_name(String treatment_name) {
-		this.treatment_name = treatment_name;
-	}
-
 	public String getBeautician_nots() {
 		return beautician_nots;
 	}
@@ -103,19 +94,19 @@ public class UpcomingTreatment implements Parcelable {
 	}
 
 	public String getPrice() {
-		return price;
+		return treatment_price;
 	}
 
 	public void setPrice(String price) {
-		this.price = price;
+		this.treatment_price = price;
 	}
 
 	public String getPhone() {
-		return phone;
+		return beautician_phone;
 	}
 
 	public void setPhone(String phone) {
-		this.phone = phone;
+		this.beautician_phone = phone;
 	}
 
 	public String getUnFormattedTreatments() {
@@ -141,7 +132,7 @@ public class UpcomingTreatment implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeString(pic);
+		out.writeString(image_url);
 		out.writeString(beautician_id);
 		out.writeString(beautician_name);
 		out.writeString(beautician_address);
@@ -151,16 +142,15 @@ public class UpcomingTreatment implements Parcelable {
 
 		out.writeString(treatment_date);
 		out.writeString(treatment_location);
-		out.writeString(treatment_name);
 		out.writeString(beautician_nots);
-		out.writeString(price);
-		out.writeString(phone);
+		out.writeString(treatment_price);
+		out.writeString(beautician_phone);
 
 		out.writeTypedList(treatmentsArray);
 	}
 
 	private UpcomingTreatment(Parcel in) {
-		pic = in.readString();
+		image_url = in.readString();
 		beautician_id = in.readString();
 		beautician_name = in.readString();
 		beautician_address = in.readString();
@@ -170,10 +160,9 @@ public class UpcomingTreatment implements Parcelable {
 
 		treatment_date = in.readString();
 		treatment_location = in.readString();
-		treatment_name = in.readString();
 		beautician_nots = in.readString();
-		price = in.readString();
-		phone = in.readString();
+		treatment_price = in.readString();
+		beautician_phone = in.readString();
 
 		treatmentsArray = new ArrayList<TreatmentType>();
 		in.readTypedList(treatmentsArray, TreatmentType.CREATOR);

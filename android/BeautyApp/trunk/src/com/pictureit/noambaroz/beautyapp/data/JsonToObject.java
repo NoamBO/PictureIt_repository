@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
 import com.pictureit.noambaroz.beautyapp.server.ServerUtil;
@@ -132,55 +133,37 @@ public class JsonToObject {
 
 	public static ContentValues jsonToOrderNotificationContentValues(String json) {
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		Gson gson = new GsonBuilder().serializeNulls().create();
+		UpcomingTreatment item = gson.fromJson(finalString, UpcomingTreatment.class);
 		ContentValues values = new ContentValues(12);
-		String beauticianId = JsonToObject.jsonGetString(finalString, "beautician_id");
-		String name = JsonToObject.jsonGetString(finalString, "name");
-		String picUrl = JsonToObject.jsonGetString(finalString, "pic");
-		String address = JsonToObject.jsonGetString(finalString, "address");
-		int raters = JsonToObject.jsonGetInt(finalString, "raters");
-		int rate = JsonToObject.jsonGetInt(finalString, "rate");
-		String time = JsonToObject.jsonGetString(finalString, "time");
-		String location = JsonToObject.jsonGetString(finalString, "location");
-		String price = JsonToObject.jsonGetString(finalString, "price");
-		String nots = JsonToObject.jsonGetString(finalString, "nots");
-		String phone = jsonGetString(finalString, "phone");
+		String beauticianId = item.getBeautician_id();
+		String name = item.getBeautician_name();
+		String picUrl = item.getPic();
+		String address = item.getBeautician_address();
+		int raters = item.getBeautician_raters();
+		double rate = item.getBeautician_rate();
+		String time = item.getTreatment_date();
+		String location = item.getTreatment_location();
+		String price = item.getPrice();
+		String nots = item.getBeautician_nots();
+		String phone = item.getPhone();
 		Type arrayType = new TypeToken<ArrayList<TreatmentType>>() {
 		}.getType();
-		ArrayList<TreatmentType> treatmentsArray = new Gson().fromJson(jsonGetArrayAsString(finalString, "treatmets"),
+		ArrayList<TreatmentType> treatmentsArray = new Gson().fromJson(jsonGetArrayAsString(finalString, "treatments"),
 				arrayType);
+
 		String convertedTreatments = DataUtil.convertArrayToString(treatmentsArray);
-
-		if (beauticianId != null && !beauticianId.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_BEAUTICIAN_ID, beauticianId);
-		}
-		if (name != null && !name.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_NAME, name);
-		}
-		if (picUrl != null && !picUrl.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_PIC, picUrl);
-		}
-		if (address != null && !address.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_ADDRESS, address);
-		}
-
+		values.put(DataProvider.COL_BEAUTICIAN_ID, beauticianId);
+		values.put(DataProvider.COL_NAME, name);
+		values.put(DataProvider.COL_PIC, picUrl);
+		values.put(DataProvider.COL_ADDRESS, address);
 		values.put(DataProvider.COL_RATERS, raters);
 		values.put(DataProvider.COL_RATE, rate);
-
-		if (time != null && !time.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_AT, time);
-		}
-		if (location != null && !location.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_LOCATION, location);
-		}
-		if (price != null && !price.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_PRICE, price);
-		}
-		if (nots != null && !nots.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_REMARKS, nots);
-		}
-		if (phone != null && !phone.equalsIgnoreCase("")) {
-			values.put(DataProvider.COL_PHONE, phone);
-		}
+		values.put(DataProvider.COL_AT, time);
+		values.put(DataProvider.COL_LOCATION, location);
+		values.put(DataProvider.COL_PRICE, price);
+		values.put(DataProvider.COL_REMARKS, nots);
+		values.put(DataProvider.COL_PHONE, phone);
 		if (!TextUtils.isEmpty(convertedTreatments)) {
 			values.put(DataProvider.COL_TREATMENTS, convertedTreatments);
 		}

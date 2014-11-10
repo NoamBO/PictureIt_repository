@@ -10,7 +10,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_GET_MARKERS = URL_BASE + "PostLatitudeLongitude";
 	public static final String URL_REQUEST_ORDER_TREATMENT = URL_BASE + "postordertreatment";
 	public static final String URL_REQUEST_ORDER_TREATMENT_BY_LOCATION = URL_BASE + "postordertreatmentbylocation";
-	public static final String URL_REQUEST_GET_ORDER_MESSAGE_NOTIFICATION = URL_BASE + "getordernotification";
+	public static final String URL_REQUEST_GET_ORDER_MESSAGE_NOTIFICATION = URL_BASE + "postordernotification";
 	public static final String URL_REQUEST_VERIFY_USER = URL_BASE + "verifyuser";
 	public static final String URL_REQUEST_VERIFY_ADDRESS = URL_BASE + "getvalidaddress";
 	public static final String URL_REQUEST_SEND_GCM_REG_ID = URL_BASE + "updatepushregid";
