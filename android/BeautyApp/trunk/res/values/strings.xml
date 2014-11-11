@@ -444,24 +444,24 @@
     </array>
     
     <string-array name="classification_1">
-        <item name="id">c1</item>
-        <item name="title">classification 1</item>
+        <item name="id">1</item>
+        <item name="title">קוסמטיקאית</item>
     </string-array>
         <string-array name="classification_2">
-        <item name="id">c2</item>
-        <item name="title">classification 2</item>
+        <item name="id">2</item>
+        <item name="title">פדיקוריסטית</item>
     </string-array>
         <string-array name="classification_3">
-        <item name="id">c3</item>
-        <item name="title">classification 3</item>
+        <item name="id">3</item>
+        <item name="title">מניקוריסטית</item>
     </string-array>
         <string-array name="classification_4">
-        <item name="id">c4</item>
-        <item name="title">classification 4</item>
+        <item name="id">4</item>
+        <item name="title">בונה ציפורניים</item>
     </string-array>
     <string-array name="classification_5">
-        <item name="id">c5</item>
-        <item name="title">classification 5</item>
+        <item name="id">5</item>
+        <item name="title">מטפלת</item>
     </string-array>
     <array name="classification_list">
         <item>@array/classification_1</item>

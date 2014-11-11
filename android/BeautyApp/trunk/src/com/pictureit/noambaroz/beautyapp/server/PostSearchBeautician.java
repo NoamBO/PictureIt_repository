@@ -23,8 +23,8 @@ public class PostSearchBeautician extends BaseHttpPost {
 		try {
 			temp.put(ServerUtil.NAME, name);
 			temp.put(ServerUtil.LOCATION, location);
-			temp.put(ServerUtil.TYPE, type);
-			temp.put(ServerUtil.TREATMENT, treatment);
+			temp.put(ServerUtil.TYPE, (type == null ? "" : type));
+			temp.put(ServerUtil.TREATMENT, (treatment == null ? "" : treatment));
 			mMainJson = temp;
 		} catch (JSONException e) {
 			e.printStackTrace();

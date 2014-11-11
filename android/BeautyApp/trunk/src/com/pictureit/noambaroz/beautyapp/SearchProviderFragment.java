@@ -38,8 +38,8 @@ public class SearchProviderFragment extends BaseFragment {
 	AutoCompleteTextView etLocation;
 	TextView tvSearch;
 
-	String mServiceType, mClassification = "";
-
+	String mClassification, mServiceType;
+	String stringName, stringLocation, stringServiceType, stringClassification;
 	private Dialog serviceTypeDialog;
 	private Dialog classificationTypeDialog;
 	private ServiceTypeListAdapter serviceTypeListAdapter;
@@ -48,6 +48,10 @@ public class SearchProviderFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		stringName = "";
+		stringLocation = "";
+		stringServiceType = "";
+		stringClassification = "";
 		serviceTypeDialog = getServiceTypeDialog();
 		classificationTypeDialog = getClassificationTypeDialog();
 	}
@@ -62,6 +66,14 @@ public class SearchProviderFragment extends BaseFragment {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				if (isLastOnList(classificationListAdapter, which)) {
+					stringClassification = "";
+					mClassification = null;
+					bType.setText(getString(R.string.search_provider_search_by_type));
+					classificationListAdapter.setSelected(null);
+					dialog.dismiss();
+					return;
+				}
 				ClassificationType t = classificationListAdapter.getItem(which);
 				classificationListAdapter.setSelected(t.getId());
 				classificationListAdapter.notifyDataSetChanged();
@@ -82,6 +94,13 @@ public class SearchProviderFragment extends BaseFragment {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				if (isLastOnList(serviceTypeListAdapter, which)) {
+					mServiceType = null;
+					bServiceType.setText(getString(R.string.search_provider_search_by_type));
+					serviceTypeListAdapter.setSelected(null);
+					dialog.dismiss();
+					return;
+				}
 				TreatmentType t = serviceTypeListAdapter.getItem(which);
 				serviceTypeListAdapter.setSelected(t.getTreatments_id());
 				serviceTypeListAdapter.notifyDataSetChanged();
@@ -91,6 +110,13 @@ public class SearchProviderFragment extends BaseFragment {
 			}
 		});
 		return builder.create();
+	}
+
+	private boolean isLastOnList(ArrayAdapter<?> adapter, int which) {
+		if (adapter.getCount() - 1 == which)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
@@ -135,15 +161,28 @@ public class SearchProviderFragment extends BaseFragment {
 				classificationTypeDialog.show();
 			}
 		});
+		setLocalText();
+	}
+
+	private void setLocalText() {
+		etName.setText(stringName);
+		etLocation.setText(stringLocation);
+		if (!stringClassification.equalsIgnoreCase(""))
+			bType.setText(stringClassification);
+		if (!stringServiceType.equalsIgnoreCase(""))
+			bServiceType.setText(stringServiceType);
 	}
 
 	private void search() {
 		if (!(!etName.getText().toString().equalsIgnoreCase("")
-				|| !etLocation.getText().toString().equalsIgnoreCase("") || !mClassification.equalsIgnoreCase("") || !mServiceType
-					.equalsIgnoreCase(""))) {
+				|| !etLocation.getText().toString().equalsIgnoreCase("") || mClassification != null || mServiceType != null)) {
 			onSearchFailed(SEARCH_STATUS_ALL_FIELDS_EMPTY);
 			return;
 		}
+		stringName = etName.getText().toString();
+		stringLocation = etLocation.getText().toString();
+		stringServiceType = bServiceType.getText().toString();
+		stringClassification = bType.getText().toString();
 		PostSearchBeautician post = new PostSearchBeautician(getActivity(), new HttpCallback() {
 
 			@Override
@@ -157,8 +196,7 @@ public class SearchProviderFragment extends BaseFragment {
 				}
 				onSearchFailed(SEARCH_STATUS_NO_RESULTS);
 			}
-		}, etName.getText().toString(), etLocation.getText().toString(), classificationListAdapter.getSelected(),
-				serviceTypeListAdapter.getSelected());
+		}, stringName, stringLocation, classificationListAdapter.getSelected(), serviceTypeListAdapter.getSelected());
 		post.execute();
 	}
 
@@ -188,6 +226,10 @@ public class SearchProviderFragment extends BaseFragment {
 	private class ServiceTypeListAdapter extends ArrayAdapter<TreatmentType> {
 		public ServiceTypeListAdapter(Context context, int resource, List<TreatmentType> objects) {
 			super(context, resource, objects);
+			TreatmentType t = new TreatmentType();
+			t.setTreatments_id("-1");
+			t.setName("бим");
+			add(t);
 		}
 
 		public void setSelected(String which) {
@@ -224,6 +266,10 @@ public class SearchProviderFragment extends BaseFragment {
 	private class ClassificationListAdapter extends ArrayAdapter<ClassificationType> {
 		public ClassificationListAdapter(Context context, int resource, List<ClassificationType> objects) {
 			super(context, resource, objects);
+			ClassificationType c = new ClassificationType();
+			c.setId("-1");
+			c.setTitle("бим");
+			add(c);
 		}
 
 		public void setSelected(String which) {

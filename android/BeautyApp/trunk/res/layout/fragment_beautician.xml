@@ -54,22 +54,6 @@
         android:orientation="horizontal"
         android:padding="7dp" >
 
-        <Button
-            android:id="@+id/b_beautician_page_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true" />
-
-        <View
-            android:id="@+id/viewDeviderRatingRow"
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_toRightOf="@id/b_beautician_page_rate"
-            android:background="@android:color/black" />
-
         <utilities.view.AutoResizeTextView
             android:id="@+id/tv_beautician_page_raters"
             android:layout_width="wrap_content"

@@ -54,7 +54,6 @@ public class ActivityBeautician extends ActivityWithFragment {
 		private TextView tvAddress;
 		private TextView tvRaters;
 		private RatingBar rbRating;
-		private Button bRate;
 		private TextView tvAcademicDegrees;
 		private TextView tvDescription;
 		private TextView tvTreatment1;
@@ -89,7 +88,6 @@ public class ActivityBeautician extends ActivityWithFragment {
 			tvAddress = findView(v, R.id.tv_beautician_page_address);
 			tvRaters = findView(v, R.id.tv_beautician_page_raters);
 			rbRating = findView(v, R.id.rb_beautician_page_rating);
-			bRate = findView(v, R.id.b_beautician_page_rate);
 			tvAcademicDegrees = findView(v, R.id.tv_beautician_page_academic_degrees);
 			tvDescription = findView(v, R.id.tv_beautician_page_description);
 			tvTreatment1 = findView(v, R.id.tv_beautician_page_treatments1);

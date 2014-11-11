@@ -3,7 +3,10 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.ArrayList;
 
 import utilities.OutgoingCommunication;
+import utilities.server.HttpBase.HttpCallback;
+import android.app.AlertDialog.Builder;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,8 +23,8 @@ import android.widget.TextView;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
-import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
 public class ActivityMessagesInner extends ActivityWithFragment {
@@ -52,7 +55,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 	class FragmentInnerMessage extends Fragment {
 
-		private boolean isConfirmed;
+		private boolean isFinished;
 
 		private String picUrl;
 		private String beauticianName;
@@ -157,7 +160,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					isConfirmed = true;
+					isFinished = true;
 					if (!TextUtils.isEmpty(phone))
 						llCall.setVisibility(View.VISIBLE);
 				}
@@ -175,15 +178,36 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					isConfirmed = false;
+					// TODO
 				}
 			});
+		}
+
+		private void onReject() {
+			Builder builder = new Builder(getActivity());
+			builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					HttpCallback callback = new HttpCallback() {
+
+						@Override
+						public void onAnswerReturn(Object answer) {
+							isFinished = true;
+							backPressed();
+						}
+					};
+					// TODO
+				}
+			});
+			builder.setNegativeButton("cancel", null);
+			builder.setTitle("title");
+			builder.setMessage("message");
 		}
 
 		@Override
 		public void onDestroy() {
 			super.onDestroy();
-			if (isConfirmed)
+			if (isFinished)
 				getContentResolver().delete(DataProvider.CONTENT_URI_MESSAGES,
 						DataProvider.COL_NOTIFICATION_ID + " = ?", new String[] { messageId });
 		}
