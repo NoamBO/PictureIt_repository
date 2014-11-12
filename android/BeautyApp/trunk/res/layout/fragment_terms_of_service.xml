@@ -7,7 +7,7 @@
     <utilities.view.AutoResizeTextView
         android:id="@+id/tv_terms_of_service"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/terms_of_service_text" />
 
 </LinearLayout>

@@ -209,7 +209,9 @@ public class ActivityMessages extends ActivityWithFragment {
 			Cursor c = ((MySimpleCursorAdapter) parent.getAdapter()).getCursor();
 			c.moveToPosition(position);
 			String messageId = c.getString(c.getColumnIndex(DataProvider.COL_NOTIFICATION_ID));
-			if (!TextUtils.isEmpty(messageId)) {
+			String beauticianName = c.getString(c.getColumnIndex(DataProvider.COL_NAME));
+			boolean everythingOk = !TextUtils.isEmpty(beauticianName) && TextUtils.isEmpty(messageId);
+			if (everythingOk) {
 				Intent intent = new Intent(getActivity(), ActivityMessagesInner.class);
 				intent.putExtra(Constant.EXTRA_MESSAGE_ID, messageId);
 				startActivity(intent);

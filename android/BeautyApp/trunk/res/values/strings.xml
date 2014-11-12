@@ -9,6 +9,8 @@
     <string name="preference_key_my_profile_address">PREF_PROFILE_ADDRESS</string>
 	<string name="preference_key_my_profile_phone_number">PREF_PROFILE_PHONE_NUMBER</string>
 
+	<string name="push_notification_title">מבצע החודש</string>
+	<string name="push_notification_message">"חברת פיקצ'ר איט יוצאת במבצעים חסרי תקדים ללקוחות חדשים!"</string>
     <string name="question_mark">"?"</string>
     <string name="press_again_to_exit">לחץ פעם נוספת ליציאה</string>
     <string name="loading">טוען..</string>
