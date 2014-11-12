@@ -2,9 +2,15 @@ package com.pictureit.noambaroz.beautyapp;
 
 import utilities.BaseActivity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 
 public abstract class ActivityWithFragment extends BaseActivity {
 
@@ -25,8 +31,27 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		initActionBar(getActionBar());
 	}
 
+	public static void addViewToTopOfActionBar(Activity context) {
+		int topViewHeightPix = 6;
+		int abContainerViewID = context.getResources().getIdentifier("action_bar_container", "id", "android");
+		FrameLayout actionBarContainer = (FrameLayout) context.findViewById(abContainerViewID);
+		final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
+				new int[] { android.R.attr.actionBarSize });
+		int actionBarHeight = (int) styledAttributes.getDimension(0, 0);
+		styledAttributes.recycle();
+		actionBarContainer.getLayoutParams().height = actionBarHeight + topViewHeightPix;
+		FrameLayout.LayoutParams params = (android.widget.FrameLayout.LayoutParams) actionBarContainer.getChildAt(0)
+				.getLayoutParams();
+		params.gravity = Gravity.BOTTOM;
+		View customView = new View(context);
+		customView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, topViewHeightPix));
+		customView.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+		actionBarContainer.addView(customView);
+	}
+
 	@Override
 	protected void onResume() {
+		addViewToTopOfActionBar(ActivityWithFragment.this);
 		super.onResume();
 		if (getFragmentManager().findFragmentByTag(FRAGMENT_TAG) == null)
 			getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();

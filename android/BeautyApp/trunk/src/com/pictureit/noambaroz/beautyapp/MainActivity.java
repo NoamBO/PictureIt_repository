@@ -296,6 +296,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	@Override
 	protected void onResume() {
+		ActivityWithFragment.addViewToTopOfActionBar(MainActivity.this);
 		super.onResume();
 		resume();
 		onPendingDialog(isUserWaitingForTreatmentOrderResponse());
