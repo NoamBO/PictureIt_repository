@@ -23,8 +23,6 @@ public class GetUpcomingTreatments extends BaseHttpPost {
 	protected Object continueInBackground(String result) {
 		ArrayList<UpcomingTreatment> array = null;
 		if (result != null) {
-			// TODO delete
-			result = getValidJson();
 			array = JsonToObject.jsonToUpcomingTreatments(result);
 		}
 		return array;
@@ -39,22 +37,6 @@ public class GetUpcomingTreatments extends BaseHttpPost {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-	}
-
-	// TODO delete
-	private String getValidJson() {
-		return "{" + "\"d\": [" + "{" + "\"type\":\"WebServiceBU.Model.ModelClass.HistoryModel.HistoryClass\","
-				+ "\"pic\":\"http://www.gameseek.co.uk/images/products/lego_storage_head_girl.jpg\","
-				+ "\"beautician_id\":\"c4ffdsf354gffg\"," + "\"beautician_name\":\"sara\","
-				+ "\"beautician_address\":\"תל אביב דרך השלום 55\"," + "\"beautician_raters\":6,"
-				+ "\"beautician_rate\":4.0," + "\"price\": \"120 nis\","
-				+ "\"beautician_nots\":\"אבגד גדיכ חחכגי לדחיכלחיד \"," + "\"phone\":\"0547475436\","
-				+ "\"treatmentsArray\": [" + "{" + "\"__type\":\"WebServiceBU.Model.ModelClass.Order.TreatmentOrder\","
-				+ "\"treatments_id\":1," + "\"amount\":1" + "}," + "{"
-				+ "\"__type\":\"WebServiceBU.Model.ModelClass.Order.TreatmentOrder\"," + "\"treatments_id\":2,"
-				+ "\"amount\":2" + "}," + "{" + "\"__type\":\"WebServiceBU.Model.ModelClass.Order.TreatmentOrder\","
-				+ "\"treatments_id\":3," + "\"amount\":3" + "}" + "]," + "\"treatment_location\": \"במלון\","
-				+ "\"treatment_date\":\"1414864800\"," + "\"treatment_name\":\"\"" + "}" + "]" + "}";
 	}
 
 }

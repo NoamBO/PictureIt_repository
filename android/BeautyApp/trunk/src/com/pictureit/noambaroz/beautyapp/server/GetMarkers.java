@@ -51,15 +51,4 @@ public class GetMarkers extends BaseHttpPost {
 		}
 	}
 
-	// private String json =
-	// "[{\"id\":\"123\",\"latitude\":\"32.067740\",\"longitude\":\"34.784276\",\"type\":\"\"},"
-	// +
-	// "{\"id\":\"234\",\"latitude\":\"32.067749\",\"longitude\":\"34.786025\",\"type\":\"\"},"
-	// +
-	// "{\"id\":\"345\",\"latitude\":\"32.068440\",\"longitude\":\"34.787870\",\"type\":\"\"},"
-	// +
-	// "{\"id\":\"456\",\"latitude\":\"32.067640\",\"longitude\":\"34.789351\",\"type\":\"\"},"
-	// +
-	// "{\"id\":\"567\",\"latitude\":\"32.066822\",\"longitude\":\"34.786357\",\"type\":\"\"}]";
-
 }

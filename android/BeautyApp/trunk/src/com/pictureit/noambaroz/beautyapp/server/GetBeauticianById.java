@@ -30,7 +30,4 @@ public class GetBeauticianById extends BaseHttpGet {
 		setUrl(sb.toString());
 	}
 
-	// String json =
-	// "{\"id\":\"3464647767\",\"photo\":\"http://img2.wikia.nocookie.net/__cb20110918202014/marvelmovies/images/d/df/Beast-x-men.jpeg\",\"name\":\"Motti\",\"address\":{\"street\":\"sirkin 12\",\"city\":\"ramat gan\"},\"rating\":{\"rate\":4.5,\"raters\":24},\"degrees\":[\"Degree 1\",\"Degree 2\",\"Degree 3\"],\"description\":\"Description1\",\"treatments\":[\"1\",\"2\",\"3\"]}";
-
 }
