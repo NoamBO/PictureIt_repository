@@ -14,9 +14,9 @@
     <string name="question_mark">"?"</string>
     <string name="press_again_to_exit">לחץ פעם נוספת ליציאה</string>
     <string name="loading">טוען..</string>
-    <string name="please_write_valid_email_string">הכנס כתובת תקינה</string>
     <string name="select_address">בחר כתובת</string>
     <string name="edit">ערוך</string>
+    <string name="character_next">&lt;</string>
     
     <string name="app_name">Beauty App</string>
     <string name="title_settings">הגדרות</string>
@@ -55,6 +55,10 @@
     <string name="pending_order_toast">לא ניתן לבצע פעולה זו הזמן המתנה לתשובה מבקשת טיפול!</string>
     
     <!-- Register screen -->
+    <string name="register"><b>רישום</b></string>
+    <string name="tell_us_who_you_are">ספרו לנו מי אתם</string>
+    <string name="invalid_email">מייל לא תקין</string>
+    
     <string name="telephone_number">מספר טלפון</string>
     <string name="first_name">שם פרטי</string>
     <string name="last_name">שם משפחה</string>
@@ -64,7 +68,7 @@
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
     <string name="phone_number_confirmation"><b>אימות מספר טלפון</b></string>
     <string name="phone_number_confirmation_code"><b>הקלדת קוד רישום</b></string>
-    <string name="phone_number_confirmation_explanation">על מנת להנות מהשירותים של האפליקציה עליכם לאמת את מספר הטלפון שברשותכם על ידי הזנת קוד שישלח אליכם ב סמס</string>
+    <string name="phone_number_confirmation_explanation">הקלד את מספר הטלפון שלך ולחץ המשך.\nהודעה המכילה קוד תישלח למכשירך.\nהקלד את המספר במסך הבא.</string>
     <string name="phone_number_confirmation_code_explanation">הקלידו את הקוד שקיבלתם במסרון</string>
     <string name="one_of_three"><b>1/3</b></string>
     <string name="two_of_three"><b>2/3</b></string>

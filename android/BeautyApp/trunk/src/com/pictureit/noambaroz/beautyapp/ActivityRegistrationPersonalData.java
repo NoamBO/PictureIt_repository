@@ -39,17 +39,19 @@ public class ActivityRegistrationPersonalData extends Activity {
 
 	private class FragmentRegistrationPersonalData extends BaseFragment {
 
-		private Button bProceed;
+		private ViewGroup bProceed;
 		private EditText etFirstName, etLastName, etEmail, etAddress;
+		private ViewGroup invalidMailIndicator;
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_registration, container, false);
-			bProceed = findView(v, R.id.b_registration_page_one_proceed);
+			bProceed = findView(v, R.id.rl_registration_page_one_proceed);
 			etFirstName = findView(v, R.id.et_registration_first_name);
 			etLastName = findView(v, R.id.et_registration_last_name);
 			etEmail = findView(v, R.id.et_registration_email);
 			etAddress = findView(v, R.id.et_registration_address);
+			invalidMailIndicator = findView(v, R.id.fl_first_registration_screen_invalid_email_alert);
 			return v;
 		}
 
@@ -112,9 +114,10 @@ public class ActivityRegistrationPersonalData extends Activity {
 				isOk = false;
 			} else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
 				etEmail.setText("");
-				etEmail.setHint(getResources().getString(R.string.please_write_valid_email_string));
-				etEmail.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
+				invalidMailIndicator.setVisibility(View.VISIBLE);
 				isOk = false;
+			} else {
+				invalidMailIndicator.setVisibility(View.GONE);
 			}
 			if (etAddress.getText().toString().equalsIgnoreCase("")) {
 				etAddress.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
@@ -144,7 +147,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_registration_page_two, container, false);
 			etTelephoneNum = findView(v, R.id.et_registration_telephone_number);
-			bProceed = findView(v, R.id.b_registration_page_two_proceed);
+			bProceed = findView(v, R.id.rl_registration_page_two_proceed);
 			etTelephoneNum.setText(DataUtil.getLocalPhoneNumber(getActivity()));
 			return v;
 		}
