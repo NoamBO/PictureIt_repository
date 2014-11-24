@@ -23,10 +23,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -52,11 +52,12 @@ import com.pictureit.noambaroz.beautyapp.server.GetBeauticianArrayByIds;
 public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
 	boolean isOkToFinishApp;
-	private ImageButton mTouchToOpenSlider;
+	private ViewGroup mTouchToOpenSlider;
 	private MainProviderListAdapter mAdapter;
 	private static final int REQUEST_UPDATE_GOOGLE_PLAY_APK = 12;
 	private GetBeauticianArrayByIds getBeauticianArrayByIds;
 	private Dialog mPendingDialog;
+	private ImageView sliderArrowDown, sliderArrowUp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	private void initActivity() {
 		setContentView(R.layout.activity_main);
-		mTouchToOpenSlider = findView(R.id.ib_main_touch_to_slide_list);
+		mTouchToOpenSlider = findView(R.id.vg_main_touch_to_slide_list);
+		sliderArrowDown = findView(R.id.iv_main_activity_slidedown_arrow);
+		sliderArrowUp = findView(R.id.iv_main_activity_slideup_arrow);
 		getActionBar().setTitle("");
 		MapManager.getInstance(MainActivity.this);
 		initListeners();
@@ -122,6 +125,12 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 				if (!isSliderInvisible) {
 					mAdapter.clear();
 					mAdapter.notifyDataSetChanged();
+					sliderArrowDown.setVisibility(View.INVISIBLE);
+					sliderArrowUp.setVisibility(View.VISIBLE);
+				} else {
+
+					sliderArrowDown.setVisibility(View.VISIBLE);
+					sliderArrowUp.setVisibility(View.INVISIBLE);
 				}
 			}
 		};

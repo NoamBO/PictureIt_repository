@@ -3,7 +3,6 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import utilities.Log;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Fragment;
@@ -93,7 +92,6 @@ public class ActivityTreatments extends ActivityWithFragment {
 		@Override
 		public void onAnswerReturn(Object answer) {
 			ArrayList<UpcomingTreatment> arr = (ArrayList<UpcomingTreatment>) answer;
-			Log.i("found " + arr.size() + " upcoming treatments");
 			mProgressBar.setVisibility(View.GONE);
 			if (arr == null || arr.size() == 0) {
 				mTextView.setVisibility(View.VISIBLE);

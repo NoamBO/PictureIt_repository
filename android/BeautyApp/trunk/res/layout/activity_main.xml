@@ -17,17 +17,63 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/ib_main_touch_to_slide_list"
+        <LinearLayout
+            android:id="@+id/vg_main_touch_to_slide_list"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:background="#ff00ff" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/shadow_top" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/app_most_common_yellow_color" >
+
+                    <ImageView
+                        android:id="@+id/iv_main_activity_slideup_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/arrow_white_up" />
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/app_background" >
+
+                    <ImageView
+                        android:id="@+id/iv_main_activity_slidedown_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/arrow_yellow_down"
+                        android:visibility="invisible" />
+
+                    <utilities.view.MyFontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/beautician_around_you"
+                        android:textColor="@color/app_most_common_yellow_color" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/fl_main_providers_slider_list_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#00ff00"
+            android:background="@color/app_background"
             android:clickable="true"
             android:visibility="gone" >
 
