@@ -51,7 +51,8 @@ public abstract class ActivityWithFragment extends BaseActivity {
 
 	@Override
 	protected void onResume() {
-		addViewToTopOfActionBar(ActivityWithFragment.this);
+		if (initActionBar)
+			addViewToTopOfActionBar(ActivityWithFragment.this);
 		super.onResume();
 		if (getFragmentManager().findFragmentByTag(FRAGMENT_TAG) == null)
 			getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();

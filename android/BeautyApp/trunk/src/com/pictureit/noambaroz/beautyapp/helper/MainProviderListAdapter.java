@@ -2,7 +2,6 @@ package com.pictureit.noambaroz.beautyapp.helper;
 
 import java.util.ArrayList;
 
-import utilities.view.AutoResizeTextView;
 import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.BeauticianUtil;
 import com.pictureit.noambaroz.beautyapp.R;
@@ -60,7 +60,7 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageLoaderUtil.display(getItem(position).getPhoto(), holder.pic);
+		ImageLoaderUtil.display(getItem(position).getPhoto(), holder.pic, R.drawable.row_avatar);
 		holder.name.setText(getItem(position).getName());
 		if (getItem(position).getAddress() != null)
 			holder.address.setText(BeauticianUtil.formatAddress(ctx, getItem(position).getAddress()));
@@ -99,10 +99,10 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 
 	private static class ViewHolder {
 		ImageView pic;
-		AutoResizeTextView name;
-		AutoResizeTextView address;
-		AutoResizeTextView role;
-		AutoResizeTextView raters;
+		TextView name;
+		TextView address;
+		TextView role;
+		TextView raters;
 		RatingBar ratingBar;
 	}
 

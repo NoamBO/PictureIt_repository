@@ -200,10 +200,11 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		MarkerOptions mo = new MarkerOptions();
 
 		LatLng position = new LatLng(markerData.getLatitude(), markerData.getLongitude());
-		mo.position(position);
-		if (markerData.getName() != null && !markerData.getName().equalsIgnoreCase(""))
-			mo.title(markerData.getName());
 		mo.icon(BitmapDescriptorFactory.defaultMarker());
+		mo.position(position);
+		if (markerData.getName() != null && !markerData.getName().equalsIgnoreCase("")) {
+			mo.title(markerData.getName());
+		}
 
 		return mo;
 	}

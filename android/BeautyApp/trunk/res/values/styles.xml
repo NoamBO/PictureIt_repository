@@ -20,10 +20,9 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
+    <style name="MyRatingBar" parent="@android:style/Widget.Holo.Light.RatingBar.Small">
         <item name="android:progressDrawable">@drawable/rating_bar_progress</item>
-        <item name="android:minHeight">22dip</item>
-        <item name="android:maxHeight">22dip</item>
     </style>
+    
 
 </resources>
