@@ -6,4 +6,6 @@
 
     <dimen name="beautician_picture_width">75dp</dimen>
     <dimen name="beautician_picture_height">75dp</dimen>
+    
+    <dimen name="button_height">65dp</dimen>
 </resources>

@@ -46,7 +46,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 
 		private EditText editText;
 		private TextView tvCounter;
-		private Button bProceed;
+		private ViewGroup bProceed;
 		private Button bReSendCode;
 
 		private CountDownTimer mTimer;
@@ -57,7 +57,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 			View v = inflater.inflate(R.layout.fragment_registration_page_3, container, false);
 
 			editText = findView(v, R.id.et_registration_page_three);
-			bProceed = findView(v, R.id.b_registration_page_three_proceed);
+			bProceed = findView(v, R.id.rl_registration_page_three_proceed);
 			bReSendCode = findView(v, R.id.b_registration_page_three_resend);
 			tvCounter = findView(v, R.id.tv_registration_page_three_counter);
 

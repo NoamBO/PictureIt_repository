@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -95,7 +94,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 			DataUtil.updateMyProfile(getActivity(), etFirstName.getText().toString(), etLastName.getText().toString(),
 					etEmail.getText().toString(), etAddress.getText().toString());
 
-			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentRegistrationPhoneField())
+			getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, new FragmentRegistrationPhoneField())
 					.addToBackStack(null).commit();
 		}
 
@@ -109,24 +108,25 @@ public class ActivityRegistrationPersonalData extends Activity {
 				etLastName.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
 				isOk = false;
 			}
-			if (etEmail.getText().toString().equalsIgnoreCase("")) {
-				etEmail.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
-				isOk = false;
-			} else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
-				etEmail.setText("");
-				invalidMailIndicator.setVisibility(View.VISIBLE);
-				isOk = false;
-			} else {
-				invalidMailIndicator.setVisibility(View.GONE);
-			}
 			if (etAddress.getText().toString().equalsIgnoreCase("")) {
 				etAddress.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
+				isOk = false;
+			}
+			if (etEmail.getText().toString().equalsIgnoreCase("")) {
+				etEmail.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
 				isOk = false;
 			}
 			if (!isOk) {
 				new AlertDialog.Builder(getActivity())
 						.setMessage(getResources().getString(R.string.dialog_error_message_must_fill_all_feilde))
 						.setTitle(getResources().getString(R.string.dialog_title_error)).create().show();
+			}
+			if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
+				invalidMailIndicator.setVisibility(View.VISIBLE);
+				isOk = false;
+			} else {
+				invalidMailIndicator.setVisibility(View.GONE);
+
 			}
 			return isOk;
 		}
@@ -136,7 +136,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 
 		private String phoneNumber;
 		private EditText etTelephoneNum;
-		private Button bProceed;
+		private ViewGroup bProceed;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {

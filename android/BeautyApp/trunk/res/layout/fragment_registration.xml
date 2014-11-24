@@ -116,7 +116,7 @@
             <utilities.view.MyFontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:text="@string/invalid_email"
                 android:textColor="@color/app_most_common_yellow_color" />
         </FrameLayout>

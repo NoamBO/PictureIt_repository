@@ -36,6 +36,10 @@ public class JsonToObject {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (NullPointerException e) {
+				// TODO: handle exception
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 
 		} else if (type.equals(JsonType.TYPE_OBJECT)) {
@@ -47,6 +51,10 @@ public class JsonToObject {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (NullPointerException e) {
+				// TODO: handle exception
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 
 		}

@@ -66,8 +66,8 @@
     <string name="address">כתובת</string>
     <string name="proceed">המשך</string>
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
-    <string name="phone_number_confirmation"><b>אימות מספר טלפון</b></string>
-    <string name="phone_number_confirmation_code"><b>הקלדת קוד רישום</b></string>
+    <string name="phone_number_confirmation">אימות מספר טלפון</string>
+    <string name="phone_number_confirmation_code">הקלדת קוד רישום</string>
     <string name="phone_number_confirmation_explanation">הקלד את מספר הטלפון שלך ולחץ המשך.\nהודעה המכילה קוד תישלח למכשירך.\nהקלד את המספר במסך הבא.</string>
     <string name="phone_number_confirmation_code_explanation">הקלידו את הקוד שקיבלתם במסרון</string>
     <string name="one_of_three"><b>1/3</b></string>
