@@ -96,6 +96,14 @@
     <!-- Beautician page -->
     <string name="beautician_page_title">קוסמטיקאית</string>
     <string name="beautician_page_raters">מדרגים</string>
+    <string name="arrival_at_the_customers_home">הגעה לבית הלקוח:</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="beautician_degrees">תארים של הקוסמטיקאית</string>
+    <string name="no_beautician_description">אין תיאור נרחב</string>
+    <string name="diplomas">תעודות</string>
+    <string name="no_diplomas">אין תעודות</string>
+    <string name="treatments">טיפולים</string>
     
     <!-- Message Screen -->
     <string name="confirm">אשר</string>
@@ -479,12 +487,11 @@
     </array>
     
     <string name="wanted_treatment">טיפול רצוי:</string>
-    <string name="order_service">הזמנת שירות</string>
+    <string name="order_service">הזמן שירות</string>
     
     <string name="terms_of_service_text">the terms of service will be written here</string>
     
     <string name="error_no_address">לא אותרה כתובת</string>
-    <string name="error_no_degrees">לא אותרו תארים</string>
 
     <array name="israel_cities">
             <item>אבטליון</item>

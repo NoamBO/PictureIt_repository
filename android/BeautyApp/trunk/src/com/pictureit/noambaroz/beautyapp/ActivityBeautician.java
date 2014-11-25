@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -49,15 +48,16 @@ public class ActivityBeautician extends ActivityWithFragment {
 		private Beautician mBeautician;
 
 		private ImageView ivPic;
-		private Button bOrder;
+		private ViewGroup bOrder;
 		private TextView tvName;
 		private TextView tvAddress;
 		private TextView tvRaters;
 		private RatingBar rbRating;
-		private TextView tvAcademicDegrees;
-		private TextView tvDescription;
-		private TextView tvTreatment1;
-		private TextView tvTreatment2;
+		private TextView tvExtendedDescription;
+		private TextView tvDiplomas;
+		private TextView tvTreatments;
+		private TextView tvClassification;
+		private TextView tvMobility;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -83,15 +83,16 @@ public class ActivityBeautician extends ActivityWithFragment {
 			View v = inflater.inflate(R.layout.fragment_beautician, container, false);
 
 			ivPic = findView(v, R.id.iv_beautician_page_image);
-			bOrder = findView(v, R.id.b_beautician_page_order);
+			bOrder = findView(v, R.id.vg_beautician_page_order);
 			tvName = findView(v, R.id.tv_beautician_page_name);
 			tvAddress = findView(v, R.id.tv_beautician_page_address);
 			tvRaters = findView(v, R.id.tv_beautician_page_raters);
 			rbRating = findView(v, R.id.rb_beautician_page_rating);
-			tvAcademicDegrees = findView(v, R.id.tv_beautician_page_academic_degrees);
-			tvDescription = findView(v, R.id.tv_beautician_page_description);
-			tvTreatment1 = findView(v, R.id.tv_beautician_page_treatments1);
-			tvTreatment2 = findView(v, R.id.tv_beautician_page_treatments2);
+			tvExtendedDescription = findView(v, R.id.tv_beautician_page_description);
+			tvDiplomas = findView(v, R.id.tv_beautician_page_diplomas);
+			tvTreatments = findView(v, R.id.tv_beautician_page_treatments1);
+			tvClassification = findView(v, R.id.tv_beautician_page_classification);
+			tvMobility = findView(v, R.id.tv_beautician_page_mobility);
 
 			if (mBeautician == null) {
 				GetBeauticianById httpGet = new GetBeauticianById(getActivity(), new HttpCallback() {
@@ -118,6 +119,8 @@ public class ActivityBeautician extends ActivityWithFragment {
 			ImageLoaderUtil.display(mBeautician.getPhoto(), ivPic);
 			tvName.setText(mBeautician.getName());
 			tvAddress.setText(BeauticianUtil.formatAddress(getActivity(), mBeautician.getAddress()));
+			tvClassification.setText(BeauticianUtil.getClassificationTypeById(getActivity(),
+					mBeautician.getClassificationId()).getTitle());
 			int raters = mBeautician.getRating() == null ? 0 : mBeautician.getRating().getRaters();
 			tvRaters.setText(BeauticianUtil.formatRaters(raters, getActivity()));
 			float rating = (float) (mBeautician.getRating() == null ? 0 : mBeautician.getRating().getRate());
@@ -127,16 +130,12 @@ public class ActivityBeautician extends ActivityWithFragment {
 					return true;
 				}
 			});
-			tvAcademicDegrees.setText(BeauticianUtil.formatDegrees(getActivity(), mBeautician.getDegrees()));
-			tvDescription.setText(mBeautician.getDescription());
-			String[] treatmentsList = BeauticianUtil.formatTreatmentsWith__(getActivity(), mBeautician.getTreatments())
-					.split("__");
-			tvTreatment1.setText(treatmentsList[0]);
-			if (treatmentsList.length > 1)
-				tvTreatment2.setText(treatmentsList[1]);
-			else
-				tvTreatment2.setVisibility(View.GONE);
-
+			tvExtendedDescription.setText(mBeautician.getDescription().length() == 0 ? getActivity().getString(
+					R.string.no_beautician_description) : mBeautician.getDescription());
+			tvDiplomas.setText(BeauticianUtil.formatDegrees(getActivity(), mBeautician.getDiplomas()));
+			String treatmentsList = BeauticianUtil.formatTreatments(getActivity(), mBeautician.getTreatments());
+			tvTreatments.setText(treatmentsList);
+			writeMobilityOption();
 			bOrder.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -149,6 +148,14 @@ public class ActivityBeautician extends ActivityWithFragment {
 					overridePendingTransition(anim.activity_enter_slidein_anim, anim.activity_exit_shrink_anim);
 				}
 			});
+		}
+
+		private void writeMobilityOption() {
+			StringBuilder mobility = new StringBuilder();
+			mobility.append(getString(R.string.arrival_at_the_customers_home));
+			mobility.append(" ");
+			mobility.append(mBeautician.isMobility() ? getString(R.string.yes) : getString(R.string.no));
+			tvMobility.setText(mobility.toString());
 		}
 	}
 

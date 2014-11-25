@@ -5,6 +5,7 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:windowBackground">@color/app_background</item>
         <item name="android:actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+        <item name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</item>
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -23,6 +24,5 @@
     <style name="MyRatingBar" parent="@android:style/Widget.Holo.Light.RatingBar.Small">
         <item name="android:progressDrawable">@drawable/rating_bar_progress</item>
     </style>
-    
 
 </resources>

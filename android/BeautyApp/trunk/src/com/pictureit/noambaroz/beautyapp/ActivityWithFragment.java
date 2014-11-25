@@ -32,7 +32,7 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	}
 
 	public static void addViewToTopOfActionBar(Activity context) {
-		int topViewHeightPix = 6;
+		int topViewHeightPix = 10;
 		int abContainerViewID = context.getResources().getIdentifier("action_bar_container", "id", "android");
 		FrameLayout actionBarContainer = (FrameLayout) context.findViewById(abContainerViewID);
 		final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
@@ -70,6 +70,7 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	protected void initActionBar(ActionBar actionBar) {
 		if (initActionBar) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setTitle("");
 		}
 	}
 

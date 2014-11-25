@@ -8,21 +8,25 @@ public class Beautician implements Parcelable {
 	private String beautician_id;
 	private String photo;
 	private String name;
+	private String type;
 	private Address address;
 	private Rating rating;
 	private String[] degrees;
-	String description;
-	String[] treatments;
+	private String description;
+	private String[] treatments;
+	private boolean mobility;
 
 	private Beautician(Parcel in) {
 		beautician_id = in.readString();
 		photo = in.readString();
 		name = in.readString();
+		type = in.readString();
 		address = (Address) in.readParcelable(Address.class.getClassLoader());
 		rating = (Rating) in.readParcelable(Rating.class.getClassLoader());
 		degrees = in.createStringArray();
 		description = in.readString();
 		treatments = in.createStringArray();
+		mobility = in.readByte() != 0;
 	}
 
 	public Beautician() {
@@ -38,11 +42,13 @@ public class Beautician implements Parcelable {
 		dest.writeString(beautician_id);
 		dest.writeString(photo);
 		dest.writeString(name);
+		dest.writeString(type);
 		dest.writeParcelable(address, flags);
 		dest.writeParcelable(rating, flags);
 		dest.writeStringArray(degrees);
 		dest.writeString(description);
 		dest.writeStringArray(treatments);
+		dest.writeByte((byte) (mobility ? 1 : 0));
 	}
 
 	public static final Parcelable.Creator<Beautician> CREATOR = new Parcelable.Creator<Beautician>() {
@@ -79,6 +85,10 @@ public class Beautician implements Parcelable {
 		this.name = name;
 	}
 
+	public String getClassificationId() {
+		return type;
+	}
+
 	public Address getAddress() {
 		return address;
 	}
@@ -95,11 +105,11 @@ public class Beautician implements Parcelable {
 		this.rating = rating;
 	}
 
-	public String[] getDegrees() {
+	public String[] getDiplomas() {
 		return degrees;
 	}
 
-	public void setDegrees(String[] degrees) {
+	public void setDiplomas(String[] degrees) {
 		this.degrees = degrees;
 	}
 
@@ -117,6 +127,14 @@ public class Beautician implements Parcelable {
 
 	public void setTreatments(String[] treatments) {
 		this.treatments = treatments;
+	}
+
+	public boolean isMobility() {
+		return mobility;
+	}
+
+	public void setMobility(boolean mobility) {
+		this.mobility = mobility;
 	}
 
 	public static class Rating implements Parcelable {

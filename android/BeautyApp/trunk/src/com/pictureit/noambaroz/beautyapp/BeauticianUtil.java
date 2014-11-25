@@ -8,9 +8,10 @@ import android.content.Intent;
 
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.Beautician.Address;
+import com.pictureit.noambaroz.beautyapp.data.ClassificationType;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
-import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
 public class BeauticianUtil {
 
@@ -33,8 +34,8 @@ public class BeauticianUtil {
 	}
 
 	public static String formatDegrees(Context context, String[] degrees) {
-		if (degrees == null)
-			return context.getResources().getString(R.string.error_no_degrees);
+		if (degrees == null || degrees.length == 0)
+			return context.getResources().getString(R.string.no_diplomas);
 		StringBuilder builder = new StringBuilder();
 		int length = degrees.length;
 		for (int i = 0; i < length; i++) {
@@ -45,19 +46,24 @@ public class BeauticianUtil {
 		return builder.toString();
 	}
 
-	public static String formatTreatmentsWith__(Context context, String[] treatmentsId) {
-		int half = (treatmentsId.length / 2);
-		boolean __Added = false;
+	public static ClassificationType getClassificationTypeById(Context context, String id) {
+		ClassificationType classificationType = null;
+		for (ClassificationType ct : StringArrays.getAllClassificationType(context)) {
+			if (ct.getId().equalsIgnoreCase(id)) {
+				classificationType = ct;
+				break;
+			}
+		}
+		return classificationType == null ? new ClassificationType() : classificationType;
+	}
+
+	public static String formatTreatments(Context context, String[] treatmentsId) {
+
 		StringBuilder sb1 = new StringBuilder();
 		ArrayList<TreatmentType> arrayList = StringArrays.TreatmentList.genarate(context, null);
 		for (int i = 0; i < treatmentsId.length; i++) {
 			for (TreatmentType type : arrayList) {
 				if (type.getTreatments_id().equals(treatmentsId[i])) {
-					if (half == i)
-						if (!__Added) {
-							__Added = true;
-							sb1.append("__");
-						}
 					sb1.append(type.getName()).append("\n");
 					continue;
 				}
