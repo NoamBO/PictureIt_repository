@@ -6,10 +6,13 @@ import java.util.List;
 
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
+import utilities.view.MyFontTextView;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,9 +24,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -40,8 +43,8 @@ import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
-public class MapManager implements OnCameraChangeListener, OnMarkerClickListener, ConnectionCallbacks,
-		OnConnectionFailedListener, OnInfoWindowClickListener, LocationListener, OnMyLocationButtonClickListener {
+public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener,
+		OnInfoWindowClickListener, LocationListener, OnMyLocationButtonClickListener {
 
 	public interface MapMoovingListener {
 		public void onZoomChange(CameraPosition position);
@@ -117,7 +120,6 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 			// TODO show "no location found" dialog and exit app
 		}
 
-		mMap.setOnMarkerClickListener(this);
 		mMap.setOnInfoWindowClickListener(this);
 		mMap.setOnCameraChangeListener(this);
 		mMap.setMyLocationEnabled(true);
@@ -125,6 +127,21 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 		mMap.getUiSettings().setTiltGesturesEnabled(false);
 		mMap.getUiSettings().setZoomControlsEnabled(false);
 		mMap.setOnMyLocationButtonClickListener(this);
+		mMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+
+			@Override
+			public View getInfoWindow(Marker arg0) {
+				return null;
+			}
+
+			@Override
+			public View getInfoContents(Marker arg0) {
+				MyFontTextView textView = new MyFontTextView(mActivity);
+				textView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				textView.setText(arg0.getTitle());
+				return textView;
+			}
+		});
 	}
 
 	public void setUpLocationClientIfNeeded() {
@@ -151,8 +168,8 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 			mMap.clear();
 			mVisibleMarkers.clear();
 			for (MarkerData item : arrayList) {
-
-				mVisibleMarkers.put(mMap.addMarker(getMarkerForItem(item)), item.getBeautician_id());
+				Marker m = mMap.addMarker(getMarkerForItem(item));
+				mVisibleMarkers.put(m, item.getBeautician_id());
 
 				// If the item is within the the bounds of the screen
 				// if (bounds.contains(new
@@ -221,13 +238,6 @@ public class MapManager implements OnCameraChangeListener, OnMarkerClickListener
 			mActivity.startActivity(intent);
 			mActivity.overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}
-	}
-
-	@Override
-	public boolean onMarkerClick(Marker arg0) {
-		if (arg0.isInfoWindowShown())
-			arg0.hideInfoWindow();
-		return false;
 	}
 
 	boolean isFirst = true;

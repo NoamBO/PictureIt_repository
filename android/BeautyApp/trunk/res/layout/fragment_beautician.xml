@@ -91,9 +91,10 @@
                     android:id="@+id/tv_beautician_page_mobility"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:padding="7dp"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="16sp" />
 
                 <View
