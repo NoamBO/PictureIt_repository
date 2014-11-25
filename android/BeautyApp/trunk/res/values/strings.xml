@@ -22,7 +22,7 @@
     <string name="app_name">Beauty App</string>
     <string name="title_settings">הגדרות</string>
     <string name="title_history">היסטוריית טיפולים</string>
-    <string name="title_future_treatments">טיפולים עתידיים</string>
+    <string name="title_future_treatments">טיפולים</string>
     <string name="title_service_order">הזמנת טיפול</string>
     <string name="title_terms_of_service">תנאי שימוש</string>
     <string name="title_order_notification">הודעות</string>
@@ -112,9 +112,14 @@
 	<string name="price">מחיר:</string>
 	
 	<!-- Upcoming Treatments Screens -->
-	<string name="no_treatments">אין טיפולים עתידיים</string>
+	<string name="no_treatments">לא הוזמנו טיפולים</string>
 	<string name="and_more">ועוד</string>
 	<string name="additional">נוספים</string>
+	<string name="when">מתי:</string>
+	<string name="wanted_treatment">טיפול מבוקש:</string>
+	<string name="location">מיקום:</string>
+	<string name="remarks">הערות:</string>
+	<string name="remarks_empty">אין הערות</string>
     
    	<!-- Search Provider -->
    	<string name="search_provider_title">חיפוש קוסמטיקאיות</string>
@@ -486,7 +491,6 @@
         <item>@array/classification_5</item>
     </array>
     
-    <string name="wanted_treatment">טיפול רצוי:</string>
     <string name="order_service">הזמן שירות</string>
     
     <string name="terms_of_service_text">the terms of service will be written here</string>

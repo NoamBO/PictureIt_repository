@@ -35,12 +35,11 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {
-		fragment = new FragmentTreatments();
 	}
 
 	@Override
 	protected void setFragment() {
-		// TODO
+		fragment = new FragmentTreatments();
 	}
 
 	@Override

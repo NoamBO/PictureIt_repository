@@ -19,6 +19,7 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	// protected final int FRAGMENT_CONTAINER = R.id.fragment_container;
 	protected final int FRAGMENT_CONTAINER = android.R.id.content;
 	protected boolean initActionBar = true;
+	protected boolean isTitleVisible = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +69,10 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	}
 
 	protected void initActionBar(ActionBar actionBar) {
-		if (initActionBar) {
+		if (initActionBar)
 			actionBar.setDisplayHomeAsUpEnabled(true);
+		if (!isTitleVisible)
 			actionBar.setTitle("");
-		}
 	}
 
 	@Override

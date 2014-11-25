@@ -1,49 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/app_most_common_yellow_color"
+    android:padding="@dimen/activity_horizontal_margin" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:background="@drawable/card_shape"
+        android:orientation="vertical" >
 
-        <FrameLayout
-            android:id="@+id/fl_fragment_upcoming_treatment_call"
-            style="android:buttonStyle"
-            android:layout_width="0dp"
+        <include
+            android:id="@+id/includ_upcoming_treatments"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_default_holo_light" >
+            layout="@layout/base_upcoming_treatment_view" />
 
-            <ImageView
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/includ_upcoming_treatments"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_messages" />
-        </FrameLayout>
+                android:orientation="horizontal"
+                android:padding="7dp" >
 
-        <FrameLayout
-            android:id="@+id/fl_fragment_upcoming_treatment_delete"
-            style="android:buttonStyle"
-            android:layout_width="0dp"
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_message_inner_treatment_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tvMessageInnerTreatmentDate"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/common_text_size" />
+
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tvMessageInnerTreatmentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="7dp"
+                    android:drawableRight="@drawable/ic_calendar"
+                    android:gravity="center"
+                    android:text="@string/when"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/common_title_text_size" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/devider_color_gray" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:padding="7dp" >
+
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tvMessageWantedTreatmentTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableRight="@drawable/ic_treatment"
+                    android:gravity="center_vertical"
+                    android:text="@string/wanted_treatment"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/common_title_text_size" />
+
+                <LinearLayout
+                    android:id="@+id/llMessageWantedTreatment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvMessageWantedTreatmentTitle"
+                    android:layout_toLeftOf="@+id/tvMessageWantedTreatmentTitle"
+                    android:orientation="horizontal"
+                    android:paddingTop="7dp" >
+
+                    <utilities.view.MyFontTextView
+                        android:id="@+id/tv_message_wanted_treatment1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <utilities.view.MyFontTextView
+                        android:id="@+id/tv_message_wanted_treatment2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/devider_color_gray" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="7dp" >
+
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_message_inner_treatment_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tvMessageInnerTreatmentLocation"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/common_text_size" />
+
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tvMessageInnerTreatmentLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="7dp"
+                    android:drawableRight="@drawable/ic_location"
+                    android:gravity="center"
+                    android:text="@string/location"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/common_title_text_size" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/devider_color_gray" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="7dp" >
+
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_message_inner_remarks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tvMessageInnerRemarks"
+                    android:text="@string/remarks_empty"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/common_text_size" />
+
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tvMessageInnerRemarks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="7dp"
+                    android:drawableRight="@drawable/ic_remaks"
+                    android:gravity="center"
+                    android:text="@string/remarks"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/common_title_text_size" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_default_holo_light" >
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <utilities.view.MyFontTextView
+                android:id="@+id/tv_message_inner_price"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_menu_delete" />
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_alignParentBottom="true"
+                android:background="@color/devider_color_gray"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="ds"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/beauticion_name_text_size" />
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/base_upcoming_treatment_view" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:orientation="horizontal" >
 
-</LinearLayout>
+                <FrameLayout
+                    android:id="@+id/fl_fragment_upcoming_treatment_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_shape" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_menu_delete" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_fragment_upcoming_treatment_call"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_shape" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_call" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

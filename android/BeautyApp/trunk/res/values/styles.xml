@@ -10,6 +10,11 @@
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/app_background</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/app_most_common_yellow_color</item>
     </style>
 
     <style name="MyOverflowButtonStyle" parent="@android:style/Widget.Holo.ActionButton.Overflow">

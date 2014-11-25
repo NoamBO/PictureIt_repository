@@ -4,18 +4,18 @@
 
     <item
         android:id="@+id/action_future_treatments"
-        android:icon="@drawable/ic_treatments"
+        android:icon="@drawable/ic_action_treatments"
         android:showAsAction="always"
         android:title="@string/action_future_treatments"/>
     <item
         android:id="@+id/action_search_providers"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_action_search"
         android:showAsAction="always"
         android:title="@string/action_search_providers"/>
     <item
         android:id="@+id/action_pending_orders"
         android:actionLayout="@layout/action_layout_order_notification"
-        android:icon="@drawable/ic_messages"
+        android:icon="@drawable/ic_action_messages"
         android:showAsAction="always"
         android:title="@string/action_pending_orders"/>
     <item

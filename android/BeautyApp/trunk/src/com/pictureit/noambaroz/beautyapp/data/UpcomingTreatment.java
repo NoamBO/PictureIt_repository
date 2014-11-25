@@ -19,7 +19,7 @@ public class UpcomingTreatment implements Parcelable {
 	private String beautician_nots;
 	private String beautician_phone;
 	private String unFormattedTreatments;
-	private ArrayList<TreatmentType> treatmentsArray;
+	private ArrayList<TreatmentType> treatments;
 
 	public String getPic() {
 		return image_url;
@@ -118,11 +118,11 @@ public class UpcomingTreatment implements Parcelable {
 	}
 
 	public ArrayList<TreatmentType> getTreatmentsArray() {
-		return treatmentsArray;
+		return treatments;
 	}
 
 	public void setTreatmentsArray(ArrayList<TreatmentType> treatmentsArray) {
-		this.treatmentsArray = treatmentsArray;
+		this.treatments = treatmentsArray;
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class UpcomingTreatment implements Parcelable {
 		out.writeString(treatment_price);
 		out.writeString(beautician_phone);
 
-		out.writeTypedList(treatmentsArray);
+		out.writeTypedList(treatments);
 	}
 
 	private UpcomingTreatment(Parcel in) {
@@ -164,8 +164,8 @@ public class UpcomingTreatment implements Parcelable {
 		treatment_price = in.readString();
 		beautician_phone = in.readString();
 
-		treatmentsArray = new ArrayList<TreatmentType>();
-		in.readTypedList(treatmentsArray, TreatmentType.CREATOR);
+		treatments = new ArrayList<TreatmentType>();
+		in.readTypedList(treatments, TreatmentType.CREATOR);
 	}
 
 	public static final Parcelable.Creator<UpcomingTreatment> CREATOR = new Parcelable.Creator<UpcomingTreatment>() {

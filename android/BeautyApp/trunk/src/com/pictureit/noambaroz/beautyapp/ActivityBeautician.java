@@ -30,6 +30,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {
+		isTitleVisible = false;
 	}
 
 	@Override

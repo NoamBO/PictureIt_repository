@@ -5,10 +5,10 @@
 
     <ImageView
         android:id="@+id/myButton"
-        android:layout_width="65dip"
-        android:layout_height="65dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="@drawable/ic_messages" />
+        android:src="@drawable/ic_action_messages" />
 
     <TextView
         android:id="@+id/tv_orders_notification_badge"

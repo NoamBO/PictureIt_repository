@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_most_common_yellow_color"
     android:orientation="vertical"
-    android:padding="7dp" >
+    android:padding="@dimen/activity_horizontal_margin" >
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -42,19 +42,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/beauticion_name_text_size" />
 
                     <utilities.view.MyFontTextView
                         android:id="@+id/tv_beautician_page_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_color_gray" />
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
 
                     <utilities.view.MyFontTextView
                         android:id="@+id/tv_beautician_page_classification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_color_gray" />
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
                 </LinearLayout>
 
                 <FrameLayout
@@ -95,7 +97,7 @@
                     android:gravity="center"
                     android:padding="7dp"
                     android:textColor="@color/text_color_gray"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/common_text_size" />
 
                 <View
                     android:layout_width="1dp"
@@ -113,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/raters_text_size" />
 
                     <RatingBar
                         android:id="@+id/rb_beautician_page_rating"
@@ -143,7 +145,8 @@
                 android:layout_marginBottom="10dp"
                 android:padding="7dp"
                 android:text="@string/no_beautician_description"
-                android:textColor="@color/text_color_gray" />
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
 
             <utilities.view.MyFontTextView
                 android:layout_width="match_parent"
@@ -161,7 +164,8 @@
                 android:layout_marginBottom="10dp"
                 android:padding="7dp"
                 android:text="@string/no_diplomas"
-                android:textColor="@color/text_color_gray" />
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
 
             <utilities.view.MyFontTextView
                 android:layout_width="match_parent"
@@ -177,7 +181,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="7dp"
-                android:textColor="@color/text_color_gray" />
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
         </LinearLayout>
     </ScrollView>
 

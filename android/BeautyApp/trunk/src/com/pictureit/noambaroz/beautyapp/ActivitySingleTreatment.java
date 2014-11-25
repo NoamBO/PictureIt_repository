@@ -15,8 +15,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
-import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
@@ -83,7 +83,7 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 
 			name.setText(mUpcomingTreatment.getBeautician_name());
 			address.setText(mUpcomingTreatment.getBeautician_address());
-			raters.setText("( " + mUpcomingTreatment.getBeautician_raters() + " )");
+			raters.setText(BeauticianUtil.formatRaters(mUpcomingTreatment.getBeautician_raters(), getActivity()));
 			ratingBar.setRating((float) mUpcomingTreatment.getBeautician_rate());
 			date.setText(TimeUtils.timestampToDate(mUpcomingTreatment.getTreatment_date()));
 			location.setText(mUpcomingTreatment.getTreatment_location());
