@@ -44,12 +44,12 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = ((Activity) ctx).getLayoutInflater().inflate(R.layout.row_main_providers_list, parent, false);
-			holder.pic = findView(convertView, R.id.iv_row_providers_list);
-			holder.name = findView(convertView, R.id.tv_row_providers_list_name);
-			holder.address = findView(convertView, R.id.tv_row_providers_list_address);
-			holder.raters = findView(convertView, R.id.tv_row_providers_list_raters);
-			holder.role = findView(convertView, R.id.tv_row_providers_list_role);
-			holder.ratingBar = findView(convertView, R.id.rb_row_providers_list_rating);
+			holder.pic = findView(convertView, R.id.iv_base_beautician_row_pic);
+			holder.name = findView(convertView, R.id.tv_base_beautician_row_name);
+			holder.address = findView(convertView, R.id.tv_base_beautician_row_address);
+			holder.raters = findView(convertView, R.id.tv_base_beautician_row_raters);
+			holder.role = findView(convertView, R.id.tv_base_beautician_row_classification);
+			holder.ratingBar = findView(convertView, R.id.rb_base_beautician_row_rating);
 			holder.ratingBar.setOnTouchListener(new OnTouchListener() {
 				public boolean onTouch(View v, MotionEvent event) {
 					return true;

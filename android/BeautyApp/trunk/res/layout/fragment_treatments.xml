@@ -12,15 +12,28 @@
         android:divider="@null" >
     </ListView>
 
-    <TextView
-        android:id="@+id/tv_upcoming_treatments_empty_list_indicator"
+    <LinearLayout
+        android:id="@+id/vg_upcoming_treatments_empty_list_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:drawableTop="@drawable/no_treatments"
         android:gravity="center_horizontal"
-        android:text="@string/no_treatments"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_treatments" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/black_stroke_rounded_corner"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/no_treatments" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pb_upcoming_treatments_loading_indicator"

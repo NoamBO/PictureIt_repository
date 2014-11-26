@@ -123,11 +123,11 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_message, container, false);
-			ImageView pic = findView(v, R.id.iv_message_beautician_pic);
-			TextView name = findView(v, R.id.tv_message_beautician_name);
-			TextView address = findView(v, R.id.tv_message_address);
-			TextView raters = findView(v, R.id.tv_message_raters);
-			RatingBar ratingBar = findView(v, R.id.rb__message_rating);
+			ImageView pic = findView(v, R.id.iv_base_beautician_row_pic);
+			TextView name = findView(v, R.id.tv_base_beautician_row_name);
+			TextView address = findView(v, R.id.tv_base_beautician_row_address);
+			TextView raters = findView(v, R.id.tv_base_beautician_row_raters);
+			RatingBar ratingBar = findView(v, R.id.rb_base_beautician_row_rating);
 			TextView date = findView(v, R.id.tv_message_inner_treatment_date);
 			TextView location = findView(v, R.id.tv_message_inner_treatment_location);
 			TextView remarks = findView(v, R.id.tv_message_inner_remarks);

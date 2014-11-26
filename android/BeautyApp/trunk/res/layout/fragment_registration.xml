@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/et_registration_address"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/btn_shape" >
+            android:background="@drawable/registration_btn_shape" >
 
             <utilities.view.MyFontTextView
                 android:layout_width="wrap_content"

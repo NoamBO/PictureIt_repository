@@ -21,7 +21,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
-        android:background="@drawable/round_border_shape"
         android:gravity="center"
         android:text="@string/question_mark" />
 
