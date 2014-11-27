@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +52,16 @@ public class ActivityTreatments extends ActivityWithFragment {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_activity_treatments, menu);
+		final MenuItem badgeItem = menu.findItem(R.id.action_ask_for_service);
+		ViewGroup badgeLayout = (ViewGroup) badgeItem.getActionView();
+		ImageView iv = findView(badgeLayout, R.id.action_layout_order_treatment_button);
+		iv.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onOptionsItemSelected(badgeItem);
+			}
+		});
 		return true;
 	}
 

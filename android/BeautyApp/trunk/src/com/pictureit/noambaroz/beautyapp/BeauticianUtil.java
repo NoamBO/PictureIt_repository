@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.Beautician.Address;
@@ -70,5 +72,26 @@ public class BeauticianUtil {
 			}
 		}
 		return sb1.toString();
+	}
+
+	public static void setTreatmentsList(Context context, TextView tv1, TextView tv2,
+			ArrayList<TreatmentType> treatmentsList) {
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		int count = 0;
+		for (TreatmentType t : treatmentsList) {
+			if (Integer.valueOf(t.getAmount()) > 0) {
+				String treatmentName = StringArrays.getTreatmentType(context, t.getTreatments_id()).getName();
+				if (count % 2 == 0)
+					sb1.append(context.getString(R.string.bullet) + treatmentName).append("\n");
+				else
+					sb2.append(context.getString(R.string.bullet) + treatmentName).append("\n");
+				count++;
+			}
+		}
+		if (count < 2)
+			tv2.setVisibility(View.GONE);
+		tv1.setText(sb1.toString());
+		tv2.setText(sb2.toString());
 	}
 }

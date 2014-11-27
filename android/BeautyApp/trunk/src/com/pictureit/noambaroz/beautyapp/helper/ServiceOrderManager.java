@@ -29,7 +29,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -39,8 +38,9 @@ import com.pictureit.noambaroz.beautyapp.FragmentTreatmentSelection;
 import com.pictureit.noambaroz.beautyapp.MainActivity;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
+import com.pictureit.noambaroz.beautyapp.customdialogs.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
-import com.pictureit.noambaroz.beautyapp.data.Formater;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation;
@@ -54,7 +54,7 @@ public class ServiceOrderManager {
 	private boolean isTodaySelected;
 	private Activity activity;
 	private TreatmentSummary mTreatment;
-	private Dialog dLocation, dFor, dGroup;
+	private Dialog dFor, dLocation, dGroup;
 	private DatePickerFragment dDate;
 	private HttpCallback placeOrderHttpCallback = new HttpCallback() {
 
@@ -88,18 +88,19 @@ public class ServiceOrderManager {
 		public void onStatusChange(boolean isPending);
 	}
 
-	public void showTreatmentSelectionDialog(String[] treatments) {
+	public void showTreatmentSelectionDialog(String[] treatments, final OnTreatmentsSelectedListener activityListener) {
 		FragmentTreatmentSelection f = new FragmentTreatmentSelection();
 		f.setListener(new OnTreatmentsSelectedListener() {
 
 			@Override
 			public void onTreatmentSelected(ArrayList<TreatmentType> tt) {
 				mTreatment.tretments = tt;
+				activityListener.onTreatmentSelected(tt);
 			}
 		});
 		f.setTreatments(mTreatment.tretments);
 		f.putTreatments(treatments);
-		activity.getFragmentManager().beginTransaction().replace(android.R.id.content, f).addToBackStack(null).commit();
+		activity.getFragmentManager().beginTransaction().add(android.R.id.content, f).addToBackStack(null).commit();
 	}
 
 	public void showFORDialog(final OnFieldChangeListener onFieldChangeListener) {
@@ -109,7 +110,7 @@ public class ServiceOrderManager {
 		if (mTreatment.forWho != null) {
 			if (mTreatment.forWho.equalsIgnoreCase(stringArray[0]))
 				checkedItem = 0;
-			else if (Formater.isNumeric(mTreatment.forWho))
+			else if (mTreatment.forWho.contains(stringArray[1]))
 				checkedItem = 1;
 			else
 				checkedItem = 2;
@@ -126,24 +127,23 @@ public class ServiceOrderManager {
 		createDialogTypeFor(title, checkedItem, stringArray, l);
 	}
 
-	private void createDialogTypeFor(String title, int checkedItem, final String[] selections,
+	private void createDialogTypeFor(final String title, int checkedItem, final String[] selections,
 			final OnItemSelectedListener l) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setCustomTitle(Dialogs.getDialogTitleTextView(activity, title));
-		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (which == selections.length - 1) {
-					getEditableDialog(l, mTreatment.forWho, dFor).show();
-				} else if (which == selections.length - 2) {
-					createGroupDialog(l, selections[which]);
-				} else
-					l.onItemSelected(selections[which]);
-				dFor.dismiss();
-			}
-		});
-		dFor = builder.create();
+		dFor = new MySingleChoiseDialog(activity, title, selections, checkedItem,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (which == selections.length - 1) {
+							getEditableDialog(l, mTreatment.forWho, dFor, title).show();
+						} else if (which == selections.length - 2) {
+							createGroupDialog(l, selections[which]);
+						} else
+							l.onItemSelected(selections[which]);
+						dFor.dismiss();
+					}
+				});
 		dFor.show();
 	}
 
@@ -202,50 +202,45 @@ public class ServiceOrderManager {
 		createLocationDialog(title, checkedItem, stringArray, l);
 	}
 
-	private void createLocationDialog(String title, int checkedItem, final String[] selections,
+	private void createLocationDialog(final String title, int checkedItem, final String[] selections,
 			final OnItemSelectedListener l) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setCustomTitle(Dialogs.getDialogTitleTextView(activity, title));
-		builder.setSingleChoiceItems(selections, checkedItem, new DialogInterface.OnClickListener() {
+		dLocation = new MySingleChoiseDialog(activity, title, selections, checkedItem,
+				new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (which == selections.length - 1) {
-					AlertDialog.Builder b = new AlertDialog.Builder(activity);
-					final EditText editText = new EditText(activity);
-					LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-					editText.setLayoutParams(lp);
-					if (mTreatment.whare != null)
-						editText.setHint(mTreatment.whare);
-					b.setView(editText);
-					b.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (which == selections.length - 1) {
+							MyCustomDialog dialogEdit = new MyCustomDialog(activity);
+							final EditText editText = dialogEdit.getEditText();
+							dialogEdit.setDialogTitle(title)
+									.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							PostVerifyAddress httpPost = new PostVerifyAddress(activity, new HttpCallback() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											PostVerifyAddress httpPost = new PostVerifyAddress(activity,
+													new HttpCallback() {
 
-								@Override
-								public void onAnswerReturn(Object answer) {
-									Log.i(answer.toString());
-									if (answer != null)
-										l.onItemSelected(answer.toString());
-								}
-							}, editText.getText().toString());
-							httpPost.execute();
-						}
-					}).setNegativeButton(R.string.dialog_cancel_text, new OnClickListener() {
+														@Override
+														public void onAnswerReturn(Object answer) {
+															Log.i(answer.toString());
+															if (answer != null)
+																l.onItemSelected(answer.toString());
+														}
+													}, editText.getText().toString());
+											httpPost.execute();
+										}
+									}).setNegativeButton(R.string.dialog_cancel_text, new OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dLocation.show();
-						}
-					}).create().show();
-				} else
-					l.onItemSelected(selections[which]);
-				dLocation.dismiss();
-			}
-		});
-		dLocation = builder.create();
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											dLocation.show();
+										}
+									}).show();
+						} else
+							l.onItemSelected(selections[which]);
+						dLocation.dismiss();
+					}
+				});
 		dLocation.show();
 	}
 
@@ -305,46 +300,41 @@ public class ServiceOrderManager {
 	}
 
 	public void showRemarksDialog(final OnFieldChangeListener onFieldChangeListener) {
-		AlertDialog.Builder b = new AlertDialog.Builder(activity);
-		final EditText editText = new EditText(activity);
-		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		editText.setLayoutParams(lp);
-		b.setView(editText);
-		b.setCustomTitle(Dialogs.getDialogTitleTextView(activity, activity.getString(R.string.dialog_title_remarks)));
+		MyCustomDialog dialog = new MyCustomDialog(activity);
+		final EditText editText = dialog.getEditText();
+		dialog.setDialogTitle(R.string.dialog_title_remarks);
+
 		if (mTreatment.remarks != null)
 			editText.setText(mTreatment.remarks);
-		b.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
+		dialog.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				mTreatment.remarks = (editText.getText().toString());
 				onFieldChangeListener.onFieldChange(editText.getText().toString());
 			}
-		}).setNegativeButton(R.string.dialog_cancel_text, null).create().show();
-
+		}).setNegativeButton(R.string.dialog_cancel_text, null).show();
 	}
 
-	private Dialog getEditableDialog(final OnItemSelectedListener l, String text, final Dialog d) {
-		AlertDialog.Builder b = new AlertDialog.Builder(activity);
-		final EditText editText = new EditText(activity);
-		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		editText.setLayoutParams(lp);
-		b.setView(editText);
-		if (text != null)
-			editText.setText(text);
-		return b.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				l.onItemSelected(editText.getText().toString());
-			}
-		}).setNegativeButton(R.string.dialog_cancel_text, new OnClickListener() {
+	private Dialog getEditableDialog(final OnItemSelectedListener l, String text, final Dialog d, String title) {
+		MyCustomDialog dialog = new MyCustomDialog(activity);
+		final EditText editText = dialog.getEditText();
+		dialog.setDialogTitle(title).setNegativeButton(R.string.dialog_cancel_text, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				d.show();
 			}
-		}).create();
+		}).setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				l.onItemSelected(editText.getText().toString());
+			}
+		});
+		if (text != null)
+			editText.setText(text);
+		return dialog;
 	}
 
 	public TreatmentSummary getTreatment() {

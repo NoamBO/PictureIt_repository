@@ -135,12 +135,17 @@
     <string name="search_provider_error_dialog_no_results">אין תוצאות שתאמו לחיפושך</string>
     
     <!-- Service Order -->
-    <string name="service_for">עבור</string>
-    <string name="service_when">תאריך ושעה</string>
-    <string name="service_select_treatment">בחר טיפול</string>
-    <string name="service_location">מיקום לטיפול</string>
-    <string name="service_remarks">הערות נוספות</string>
+    <string name="service_for">עבור:</string>
+    <string name="who_the_service_for">עבור מי הטיפול</string>
+    <string name="service_when">מתי:</string>
+    <string name="when_the_service_happen">מתי הטיפול</string>
+    <string name="select_treatment">בחר טיפול</string>
+    <string name="service_select_treatment">טיפול:</string>
+    <string name="service_location">מיקום:</string>
+    <string name="select_location">בחר מיקום</string>
+    <string name="service_remarks">הערות:</string>
     <string name="service_order_one">הזמן</string>
+    <string name="bullet"><b>&#183;</b></string>
    
     <!-- general dialogs text -->
     <string name="dialog_ok_text">סבבה</string>

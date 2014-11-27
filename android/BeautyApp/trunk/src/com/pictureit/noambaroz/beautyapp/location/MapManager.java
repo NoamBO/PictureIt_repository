@@ -12,7 +12,9 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,7 +29,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -44,7 +45,7 @@ import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
 public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener,
-		OnInfoWindowClickListener, LocationListener, OnMyLocationButtonClickListener {
+		OnInfoWindowClickListener, LocationListener {
 
 	public interface MapMoovingListener {
 		public void onZoomChange(CameraPosition position);
@@ -61,6 +62,8 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	private HashMap<Marker, String> mVisibleMarkers;
 	private boolean hideAllMarkers;
 	private LatLng latsPositionBeforeUpdating;
+	private Marker mMyPositionMarker;
+	private MarkerOptions mMyPositionMarkerOptions;
 
 	public GoogleMap getGoogleMap() {
 		return mMap;
@@ -120,13 +123,20 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 			// TODO show "no location found" dialog and exit app
 		}
 
+		ImageButton myLocation = (ImageButton) mActivity.findViewById(R.id.my_location_button);
+		myLocation.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onMyLocationButtonClick();
+			}
+		});
+
+		onMyLocationChange(location);
 		mMap.setOnInfoWindowClickListener(this);
 		mMap.setOnCameraChangeListener(this);
-		mMap.setMyLocationEnabled(true);
 		mMap.getUiSettings().setRotateGesturesEnabled(false);
 		mMap.getUiSettings().setTiltGesturesEnabled(false);
 		mMap.getUiSettings().setZoomControlsEnabled(false);
-		mMap.setOnMyLocationButtonClickListener(this);
 		mMap.setInfoWindowAdapter(new InfoWindowAdapter() {
 
 			@Override
@@ -158,47 +168,12 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 			return;
 
 		if (this.mMap != null) {
-			// This is the current user-viewable region of the map
-
-			// LatLngBounds bounds =
-			// this.mMap.getProjection().getVisibleRegion().latLngBounds;
-
-			// Loop through all the items that are available to be placed on the
-			// map
 			mMap.clear();
+			mMyPositionMarker = mMap.addMarker(mMyPositionMarkerOptions);
 			mVisibleMarkers.clear();
 			for (MarkerData item : arrayList) {
 				Marker m = mMap.addMarker(getMarkerForItem(item));
 				mVisibleMarkers.put(m, item.getBeautician_id());
-
-				// If the item is within the the bounds of the screen
-				// if (bounds.contains(new
-				// LatLng(Double.parseDouble(item.getLatitude()),
-				// Double.parseDouble(item
-				// .getLongitude())))) {
-				// // If the item isn't already being displayed
-				// if (!mVisibleMarkers.containsKey(item.getId())) {
-				// // Add the Marker to the Map and keep track of it with
-				// // the HashMap
-				// // getMarkerForItem just returns a MarkerOptions object
-				// mVisibleMarkers.put(item.getId(),
-				// this.mMap.addMarker(getMarkerForItem(item)));
-				// }
-				// }
-				//
-				// // If the marker is off screen
-				// else {
-				// // If the course was previously on screen
-				// if (mVisibleMarkers.containsKey(item.getId())) {
-				// // 1. Remove the Marker from the GoogleMap
-				// mVisibleMarkers.get(item.getId()).remove();
-				//
-				// // 2. Remove the reference to the Marker from the //
-				// // HashMap
-				// mVisibleMarkers.remove(item.getId());
-				// }
-				// }
-
 			}
 		}
 	}
@@ -206,10 +181,6 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	private void hideAllMarkers() {
 		hideAllMarkers = true;
 		mMap.clear();
-		// Collection<Marker> values = mVisibleMarkers.values();
-		// for (Marker m : values) {
-		// m.remove();
-		// }
 		mVisibleMarkers.clear();
 	}
 
@@ -217,13 +188,33 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 		MarkerOptions mo = new MarkerOptions();
 
 		LatLng position = new LatLng(markerData.getLatitude(), markerData.getLongitude());
-		mo.icon(BitmapDescriptorFactory.defaultMarker());
+		mo.icon(BitmapDescriptorFactory.fromResource(getMarkerIcon(markerData.getClassification())));
 		mo.position(position);
 		if (markerData.getName() != null && !markerData.getName().equalsIgnoreCase("")) {
 			mo.title(markerData.getName());
 		}
 
 		return mo;
+	}
+
+	private int getMarkerIcon(String id) {
+		int classification = Integer.parseInt(id);
+		int resId = R.drawable.location_ic_yellow;
+		switch (classification) {
+		case MarkerData.TYPE_DEFAULT:
+			resId = R.drawable.location_ic_yellow;
+			break;
+		case MarkerData.TYPE_PEDICURE:
+			resId = R.drawable.location_ic_blue;
+			break;
+		case MarkerData.TYPE_MAKEUP:
+			resId = R.drawable.location_ic_green;
+			break;
+		case MarkerData.TYPE_AESTHETIC_MEDICINE:
+			resId = R.drawable.location_ic_red;
+			break;
+		}
+		return resId;
 	}
 
 	@Override
@@ -271,6 +262,7 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	@Override
 	public void onLocationChanged(Location arg0) {
 		setUpMapIfNeeded(arg0);
+		onMyLocationChange(arg0);
 	}
 
 	@Override
@@ -305,40 +297,9 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 		myLocation.getLocation(mActivity, locationResult);
 	}
 
-	// private String getAvailableLocationProvider() {
-	// LocationManager locationManager = (LocationManager)
-	// mActivity.getSystemService(Context.LOCATION_SERVICE);
-	// if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-	// return LocationManager.GPS_PROVIDER;
-	// }
-	// if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-	// {
-	// return LocationManager.NETWORK_PROVIDER;
-	// }
-	// return null;
-	// }
-
-	private int getDistance(LatLng latLng) {
-		if (mLocationClient != null && mLocationClient.isConnected() && mLocationClient.getLastLocation() != null) {
-			Location loc = new Location("dummyprovider");
-
-			loc.setLatitude(latLng.latitude);
-			loc.setLongitude(latLng.longitude);
-			double distance = mLocationClient.getLastLocation().distanceTo(loc);
-
-			return (int) distance;
-		}
-		return -1;
-	}
-
 	public boolean checkIfMarkerOnScreen(LatLng markerPosition, LatLngBounds bounds) {
 		if (!bounds.contains(markerPosition))
 			return false;
-		// int settingsDistance = Settings.getRadius(mActivity);
-		// int distance = getDistance(markerPosition);
-		// if (distance < 0 || distance > settingsDistance)
-		// return false;
-
 		return true;
 	}
 
@@ -372,9 +333,8 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 		return mMap;
 	}
 
-	@Override
 	public boolean onMyLocationButtonClick() {
-		Location l = mMap.getMyLocation();
+		Location l = mLocationClient.getLastLocation();
 		if (l == null)
 			return false;
 		LatLng latLng = new LatLng(l.getLatitude(), l.getLongitude());
@@ -383,58 +343,21 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 		return true;
 	}
 
-	// private Handler mHandler = new Handler() {
-	//
-	// public void handleMessage(android.os.Message msg) {
-	//
-	// };
-	// };
-	//
-	// private class UpdateMarkersVisibility extends AsyncTask<LatLngBounds,
-	// Void, Void> {
-	//
-	// @Override
-	// protected Void doInBackground(LatLngBounds... params) {
-	// if (mMap != null) {
-	// // This is the current user-viewable region of the map
-	// LatLngBounds bounds = params[0];
-	//
-	// // Loop through all the items that are available to be placed on
-	// // the
-	// // map
-	// for (Provider item : StaticData.getInstance().getProviders()) {
-	//
-	// // If the item is within the the bounds of the screen
-	// if (bounds.contains(item.latLng)) {
-	// // If the item isn't already being displayed
-	// if (mVisibleMarkers.get(Integer.parseInt(item._id), null) == null) {
-	// // Add the Marker to the Map and keep track of it
-	// // with
-	// // the HashMap
-	// // getMarkerForItem just returns a MarkerOptions
-	// // object
-	// mVisibleMarkers.put(Integer.parseInt(item._id),
-	// mMap.addMarker(getMarkerForItem(item)));
-	// }
-	// }
-	//
-	// // If the marker is off screen
-	// else {
-	// // If the course was previously on screen
-	// if (mVisibleMarkers.get(Integer.parseInt(item._id), null) != null) {
-	// // 1. Remove the Marker from the GoogleMap
-	// mVisibleMarkers.get(Integer.parseInt(item._id)).remove();
-	//
-	// // 2. Remove the reference to the Marker from the
-	// // HashMap
-	// mVisibleMarkers.delete(Integer.parseInt(item._id));
-	// }
-	// }
-	// }
-	// }
-	// return null;
-	// }
-	//
-	// }
+	public void onMyLocationChange(Location location) {
+
+		if (location == null)
+			return;
+
+		if (mMyPositionMarker != null) {
+			mMyPositionMarker.remove();
+		}
+
+		mMyPositionMarkerOptions = new MarkerOptions().flat(true)
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_ic_me)).anchor(0.5f, 0.5f)
+				.position(new LatLng(location.getLatitude(), location.getLongitude()));
+
+		mMyPositionMarker = mMap.addMarker(mMyPositionMarkerOptions);
+
+	}
 
 }

@@ -15,8 +15,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
-import com.pictureit.noambaroz.beautyapp.data.StringArrays;
-import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
@@ -90,7 +88,8 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			remarks.setText(mUpcomingTreatment.getBeautician_nots());
 			price.setText(getString(R.string.price) + " " + mUpcomingTreatment.getPrice());
 			ImageLoaderUtil.display(mUpcomingTreatment.getPic(), pic);
-			setTreatmentsList(treatments1, treatments2);
+			BeauticianUtil.setTreatmentsList(getActivity(), treatments1, treatments2,
+					mUpcomingTreatment.getTreatmentsArray());
 			return v;
 		}
 
@@ -113,25 +112,6 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			});
 		}
 
-		private void setTreatmentsList(TextView tv1, TextView tv2) {
-			StringBuilder sb1 = new StringBuilder();
-			StringBuilder sb2 = new StringBuilder();
-			int count = 0;
-			for (TreatmentType t : mUpcomingTreatment.getTreatmentsArray()) {
-				if (Integer.valueOf(t.getAmount()) > 0) {
-					String treatmentName = StringArrays.getTreatmentType(getActivity(), t.getTreatments_id()).getName();
-					if (count % 2 == 0)
-						sb1.append(treatmentName).append("\n");
-					else
-						sb2.append(treatmentName).append("\n");
-					count++;
-				}
-			}
-			if (count < 2)
-				tv2.setVisibility(View.GONE);
-			tv1.setText(sb1.toString());
-			tv2.setText(sb2.toString());
-		}
 	}
 
 }

@@ -11,5 +11,6 @@
     <dimen name="common_text_size">16sp</dimen>
     <dimen name="common_title_text_size">18sp</dimen>
     <dimen name="raters_text_size">12sp</dimen>
+    <dimen name="dialog_row_height">60dp</dimen>
 
 </resources>
