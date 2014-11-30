@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp" />
+        android:layout_margin="20dp"
+        android:divider="@color/app_most_common_yellow_color" />
 
     <Button
         android:id="@+id/number_picker_dialog_cancel"

@@ -426,6 +426,7 @@ public class ServiceOrderManager {
 
 		private OnItemSelectedListener mListener;
 		private boolean isPositiveButtonClicked;
+		private boolean toReshow;
 
 		private int mYear, mMonth, mDay;
 
@@ -454,6 +455,75 @@ public class ServiceOrderManager {
 			mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
 			DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, mYear, mMonth, mDay);
+
+			// dpd.setTitle("");
+			//
+			// // Divider changing:
+			// DatePicker dpView = dpd.getDatePicker();
+			// LinearLayout llFirst = (LinearLayout) dpView.getChildAt(0);
+			// LinearLayout llSecond = (LinearLayout) llFirst.getChildAt(0);
+			// for (int i = 0; i < llSecond.getChildCount(); i++) {
+			// NumberPicker picker = (NumberPicker) llSecond.getChildAt(i); //
+			// Numberpickers
+			// // in
+			// // llSecond
+			// // reflection - picker.setDividerDrawable(divider); << didn't
+			// // seem to work.
+			// Field[] pickerFields = NumberPicker.class.getDeclaredFields();
+			// for (Field pf : pickerFields) {
+			// if (pf.getName().equals("mSelectionDivider")) {
+			// pf.setAccessible(true);
+			// try {
+			// pf.set(picker,
+			// getResources().getColor(R.color.app_most_common_yellow_color));
+			// } catch (IllegalArgumentException e) {
+			// e.printStackTrace();
+			// } catch (NotFoundException e) {
+			// e.printStackTrace();
+			// } catch (IllegalAccessException e) {
+			// e.printStackTrace();
+			// }
+			// break;
+			// }
+			// }
+			// }
+			// // New top:
+			// int titleHeight = (int)
+			// getResources().getDimension(R.dimen.dialog_row_height);
+			// // Container:
+			// LinearLayout llTitleBar = new LinearLayout(getActivity());
+			// llTitleBar.setOrientation(LinearLayout.VERTICAL);
+			// llTitleBar.setLayoutParams(new
+			// LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+			// titleHeight));
+			// llTitleBar.setBackgroundColor(getResources().getColor(R.color.app_most_common_yellow_color));
+			//
+			// // TextView Title:
+			// TextView tvTitle = new TextView(getActivity());
+			// tvTitle.setText("Select a date");
+			// tvTitle.setGravity(Gravity.CENTER);
+			// tvTitle.setPadding(10, 10, 10, 10);
+			// tvTitle.setTextSize(24);
+			// tvTitle.setTextColor(Color.BLACK);
+			// tvTitle.setLayoutParams(new
+			// LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+			// titleHeight - 2));
+			// llTitleBar.addView(tvTitle);
+			//
+			// // View line:
+			// View vTitleDivider = new View(getActivity());
+			// vTitleDivider.setLayoutParams(new
+			// LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+			// 2));
+			// vTitleDivider.setBackgroundColor(getResources().getColor(R.color.app_most_common_yellow_color));
+			// llTitleBar.addView(vTitleDivider);
+			//
+			// dpView.addView(llTitleBar);
+			// FrameLayout.LayoutParams lp =
+			// (android.widget.FrameLayout.LayoutParams)
+			// llFirst.getLayoutParams();
+			// lp.setMargins(0, titleHeight, 0, 0);
+
 			return dpd;
 		}
 
@@ -479,7 +549,8 @@ public class ServiceOrderManager {
 			isPositiveButtonClicked = false;
 			if (mYear > year || (mYear == year && mMonth > month) || (mYear == year && mMonth == month && mDay > day)) {
 				Toast.makeText(activity, "invalid date", Toast.LENGTH_SHORT).show();
-				dDate.show(activity.getFragmentManager(), "timePicker");
+				toReshow = true;
+				// dDate.show(activity.getFragmentManager(), "timePicker");
 				return;
 			}
 			if (mYear == year && mMonth == month && mDay == day)
@@ -492,6 +563,13 @@ public class ServiceOrderManager {
 			mListener.onItemSelected(selection);
 		}
 
+		@Override
+		public void onDetach() {
+			super.onDetach();
+			if (toReshow) {
+				toReshow = false;
+				dDate.show(activity.getFragmentManager(), "timePicker");
+			}
+		}
 	}
-
 }
