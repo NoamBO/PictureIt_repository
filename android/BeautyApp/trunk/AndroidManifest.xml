@@ -95,6 +95,7 @@
         <activity
             android:name="com.pictureit.noambaroz.beautyapp.ActivityMyProfileEdit"
             android:label="@string/title_edit_my_profile"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity

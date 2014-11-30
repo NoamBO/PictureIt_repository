@@ -5,6 +5,7 @@ import java.io.File;
 import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
 import utilities.view.MyBitmapHelper;
+import utilities.view.MyFontTextView;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +22,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.cropimage.CropMenager;
 import com.pictureit.noambaroz.beautyapp.server.PostUpdateProfileData;
@@ -34,11 +34,11 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		TextView textView = new TextView(ActivityMyProfileEdit.this);
+		MyFontTextView textView = new MyFontTextView(ActivityMyProfileEdit.this);
 		getMenuInflater().inflate(R.menu.menu_activity_treatments, menu);
 		menu.findItem(R.id.action_ask_for_service).setVisible(false);
 		textView.setText("סיימתי");
-		textView.setTextColor(getResources().getColor(android.R.color.black));
+		textView.setTextColor(getResources().getColor(R.color.app_most_common_yellow_color));
 		textView.setPadding(5, 0, 20, 0);
 		textView.setTypeface(null, Typeface.BOLD_ITALIC);
 		textView.setTextSize(14);
@@ -85,10 +85,13 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 
 		private EditText etFirstName, etLastName, etPhone, etEmail, etAddress;
 		private ImageView ivImage;
+		private ViewGroup invalidMailIndicator;
 		private SharedPreferences mPrefs;
 		private boolean isImageChanged;
 		private CropMenager cropUtil;
 		private String imageBase64String;
+
+		private String tempFirstName, tempLastName, tempAddress, tempEmail;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -107,6 +110,7 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 			etEmail = findView(v, R.id.et_my_profile_edit_email);
 			etAddress = findView(v, R.id.et_my_profile_edit_address);
 			ivImage = findView(v, R.id.iv_my_profile_edit_image);
+			invalidMailIndicator = findView(v, R.id.fl_my_profile_edit_invalid_email_alert);
 			return v;
 		}
 
@@ -119,10 +123,20 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
+					saveTempData();
 					selectImage();
 				}
 
 			});
+		}
+
+		private void saveTempData() {
+
+			tempFirstName = etFirstName.getText().toString();
+			tempLastName = etLastName.getText().toString();
+			tempEmail = etEmail.getText().toString();
+			tempAddress = etAddress.getText().toString();
+
 		}
 
 		private void selectImage() {
@@ -174,21 +188,46 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 			Bitmap b = MyBitmapHelper.decodeBase64(image);
 			if (b != null)
 				ivImage.setImageBitmap(b);
+			else
+				ivImage.setImageDrawable(getResources().getDrawable(ActivityMyProfile.PROFILE_PIC_DRAWABLE_RESOURCE_ID));
 		}
 
 		private void setText() {
-			etFirstName.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_first_name), ""));
-			etLastName.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_last_name), ""));
-			etAddress.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_address), ""));
-			etEmail.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_email), ""));
+
+			if (tempFirstName != null)
+				etFirstName.setText(tempFirstName);
+			else
+				etFirstName.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_first_name), ""));
+			if (tempLastName != null)
+				etLastName.setText(tempLastName);
+			else
+				etLastName.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_last_name), ""));
+			if (tempAddress != null)
+				etAddress.setText(tempAddress);
+			else
+				etAddress.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_address), ""));
+			if (tempEmail != null)
+				etEmail.setText(tempEmail);
+			else
+				etEmail.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_email), ""));
 			etPhone.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_phone_number), ""));
 		}
 
 		public void save() {
-			if (isDataChanged() && verifyAddress())
-				sendDataToBackEnd();
+			if (isDataChanged() && isEmailOk())
+				if (verifyAddress())
+					sendDataToBackEnd();
 			if (isImageChanged)
 				sendImageToBackEnd();
+		}
+
+		private boolean isEmailOk() {
+			boolean isOk = true;
+			if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()) {
+				invalidMailIndicator.setVisibility(View.VISIBLE);
+				isOk = false;
+			}
+			return isOk;
 		}
 
 		private boolean verifyAddress() {

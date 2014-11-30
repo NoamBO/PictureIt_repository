@@ -4,127 +4,231 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/iv_my_profile_edit_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:clickable="false" />
-
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black" />
+        android:layout_height="wrap_content" >
+
+        <FrameLayout
+            android:id="@+id/fl_my_profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/app_most_common_yellow_color" >
+        </FrameLayout>
+
+        <utilities.view.RoundImageView
+            android:id="@+id/iv_my_profile_edit_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/fl_my_profile_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-75dp"
+            android:clickable="false" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp" >
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" >
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/linearLayout2"
-            android:layout_alignParentRight="true"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/tv_my_profile_edit_first_name"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/first_name"
-                android:textColor="@android:color/black" />
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/tv_my_profile_edit_last_name"
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_my_profile_edit_first_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/first_name"
+                    android:textColor="@color/text_color_gray" />
+
+                <utilities.view.MyEditText
+                    android:id="@+id/et_my_profile_edit_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_my_profile_edit_first_name"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/et_my_profile_edit_last_name"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignBottom="@+id/et_my_profile_edit_first_name"
+                    android:background="@color/app_most_common_yellow_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/last_name"
-                android:textColor="@android:color/black" />
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/tv_my_profile_edit_phone"
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_my_profile_edit_last_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/last_name"
+                    android:textColor="@color/text_color_gray" />
+
+                <utilities.view.MyEditText
+                    android:id="@+id/et_my_profile_edit_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_my_profile_edit_last_name"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/et_my_profile_edit_email"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignBottom="@+id/et_my_profile_edit_last_name"
+                    android:background="@color/app_most_common_yellow_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/telephone_number"
-                android:textColor="@android:color/black" />
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/tv_my_profile_edit_email"
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_my_profile_edit_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/email"
+                    android:textColor="@color/text_color_gray" />
+
+                <utilities.view.MyEditText
+                    android:id="@+id/et_my_profile_edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_my_profile_edit_email"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:inputType="textEmailAddress"
+                    android:nextFocusDown="@+id/et_my_profile_edit_address"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignBottom="@+id/et_my_profile_edit_email"
+                    android:background="@color/app_most_common_yellow_color" />
+
+                <FrameLayout
+                    android:id="@+id/fl_my_profile_edit_invalid_email_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_my_profile_edit_email"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_red_alert" />
+
+                    <utilities.view.MyFontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/invalid_email"
+                        android:textColor="@color/app_most_common_yellow_color" />
+                </FrameLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/email"
-                android:textColor="@android:color/black" />
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/tv_my_profile_edit_address"
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_my_profile_edit_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/address"
+                    android:textColor="@color/text_color_gray" />
+
+                <utilities.view.MyEditText
+                    android:id="@+id/et_my_profile_edit_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_my_profile_edit_address"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color_gray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignBottom="@+id/et_my_profile_edit_address"
+                    android:background="@color/app_most_common_yellow_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/address"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
+                android:layout_weight="1" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/linearLayout1"
-            android:orientation="vertical" >
+                <utilities.view.MyFontTextView
+                    android:id="@+id/tv_my_profile_edit_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/telephone_number"
+                    android:textColor="@color/text_color_gray" />
 
-            <EditText
-                android:id="@+id/et_my_profile_edit_first_name"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:inputType="textCapWords"
-                android:nextFocusDown="@+id/et_my_profile_edit_last_name" />
+                <utilities.view.MyEditText
+                    android:id="@+id/et_my_profile_edit_telephone_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_my_profile_edit_phone"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:inputType="textCapWords"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color_gray" />
 
-            <EditText
-                android:id="@+id/et_my_profile_edit_last_name"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:inputType="textCapWords"
-                android:nextFocusDown="@+id/et_my_profile_edit_email" />
-
-            <EditText
-                android:id="@+id/et_my_profile_edit_telephone_num"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:inputType="none" />
-
-            <EditText
-                android:id="@+id/et_my_profile_edit_email"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:inputType="textEmailAddress"
-                android:nextFocusDown="@+id/et_my_profile_edit_address" />
-
-            <EditText
-                android:id="@+id/et_my_profile_edit_address"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:inputType="textNoSuggestions" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignBottom="@+id/et_my_profile_edit_telephone_num"
+                    android:background="@color/text_color_gray" />
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 

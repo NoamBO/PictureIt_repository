@@ -1,6 +1,7 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.view.MyBitmapHelper;
+import utilities.view.MyFontTextView;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,13 +22,15 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 	private int EDIT_BUTTON_ID = 123123;
 
+	public static int PROFILE_PIC_DRAWABLE_RESOURCE_ID = R.drawable.profile_avatar;
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		TextView textView = new TextView(ActivityMyProfile.this);
+		MyFontTextView textView = new MyFontTextView(ActivityMyProfile.this);
 		getMenuInflater().inflate(R.menu.menu_activity_treatments, menu);
 		menu.findItem(R.id.action_ask_for_service).setVisible(false);
 		textView.setText(getString(R.string.edit));
-		textView.setTextColor(getResources().getColor(android.R.color.black));
+		textView.setTextColor(getResources().getColor(R.color.app_most_common_yellow_color));
 		textView.setPadding(5, 0, 20, 0);
 		textView.setTypeface(null, Typeface.BOLD_ITALIC);
 		textView.setTextSize(14);
@@ -107,6 +110,8 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					getString(R.string.preference_key_my_profile_picture), ""));
 			if (b != null)
 				ivImage.setImageBitmap(b);
+			else
+				ivImage.setImageDrawable(getResources().getDrawable(PROFILE_PIC_DRAWABLE_RESOURCE_ID));
 		}
 
 		private void setText() {
