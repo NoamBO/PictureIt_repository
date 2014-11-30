@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
@@ -89,8 +88,6 @@ public class BeauticianUtil {
 				count++;
 			}
 		}
-		if (count < 2)
-			tv2.setVisibility(View.GONE);
 		tv1.setText(sb1.toString());
 		tv2.setText(sb2.toString());
 	}

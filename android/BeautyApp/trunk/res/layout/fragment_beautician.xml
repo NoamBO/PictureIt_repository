@@ -66,7 +66,7 @@
                     android:layout_below="@+id/iv_beautician_page_image"
                     android:layout_marginLeft="-4dp"
                     android:layout_marginRight="-4dp"
-                    android:background="@drawable/btn_shape" >
+                    android:background="@drawable/registration_btn_shape" >
 
                     <utilities.view.MyFontTextView
                         android:layout_width="wrap_content"

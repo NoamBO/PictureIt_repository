@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import utilities.BaseActivity;
+import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.AlertDialog;
@@ -313,24 +314,31 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	private void onPendingDialog(boolean isPending) {
 		if (mPendingDialog == null) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-			builder.setMessage(R.string.pending_order_dialog_message);
-			builder.setPositiveButton(R.string.pending_order_dialog_button_wait, null);
-			builder.setNegativeButton(R.string.pending_order_dialog_button_abort,
-					new DialogInterface.OnClickListener() {
+			mPendingDialog = new Dialog(MainActivity.this, R.style.Theme_DialodNoWindowTitle);
+			View view = getLayoutInflater().inflate(R.layout.dialog_wating_to_beautician_response, null);
+			TextView tvWait = findView(view, R.id.pending_dialog_wait);
+			TextView tvCancel = findView(view, R.id.pending_dialog_cancel);
+			tvWait.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mPendingDialog.dismiss();
+				}
+			});
+			tvCancel.setOnClickListener(new OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					ServiceOrderManager.cancelRequest(MainActivity.this, new OnOrderStatusChangeListener() {
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							ServiceOrderManager.cancelRequest(MainActivity.this, new OnOrderStatusChangeListener() {
-								@Override
-								public void onStatusChange(boolean isPending) {
-									onPendingDialog(isPending);
-								}
-							});
+						public void onStatusChange(boolean isPending) {
+							onPendingDialog(isPending);
 						}
 					});
-			builder.setCancelable(false);
-			mPendingDialog = builder.create();
+				}
+			});
+			mPendingDialog.setCancelable(false);
+			mPendingDialog.setContentView(view);
+			Dialogs.setDialogWidth(mPendingDialog);
 		}
 		if (isPending && !mPendingDialog.isShowing())
 			mPendingDialog.show();

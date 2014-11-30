@@ -26,6 +26,7 @@ public class FragmentTreatmentSelection extends Fragment {
 	ArrayList<TreatmentType> treatmentsArrayList;
 	private OnTreatmentsSelectedListener mListener;
 	private String[] treatmentStringArray;
+	private ViewGroup buttonConfirm;
 
 	@Override
 	public void onDetach() {
@@ -45,6 +46,7 @@ public class FragmentTreatmentSelection extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.dialog_select_treatment_layout, container, false);
 		mListView = (ListView) v.findViewById(R.id.lv_treatment_selection);
+		buttonConfirm = (ViewGroup) v.findViewById(R.id.vg_treatment_selection_ok);
 		return v;
 	}
 
@@ -53,6 +55,13 @@ public class FragmentTreatmentSelection extends Fragment {
 		super.onResume();
 		MyAdapter adapter = new MyAdapter();
 		mListView.setAdapter(adapter);
+		buttonConfirm.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getActivity().onBackPressed();
+			}
+		});
 	}
 
 	private class MyAdapter extends BaseAdapter {

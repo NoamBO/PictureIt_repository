@@ -10,7 +10,6 @@
         android:layout_height="@dimen/dialog_row_height"
         android:background="@color/dialog_theme_color"
         android:gravity="center"
-        android:text="dd"
         android:textColor="@color/text_color_gray"
         android:textSize="@dimen/common_title_text_size" />
 

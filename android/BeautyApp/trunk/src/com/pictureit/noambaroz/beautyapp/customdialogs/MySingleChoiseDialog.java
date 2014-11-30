@@ -1,10 +1,5 @@
 package com.pictureit.noambaroz.beautyapp.customdialogs;
 
-import com.pictureit.noambaroz.beautyapp.R;
-import com.pictureit.noambaroz.beautyapp.R.id;
-import com.pictureit.noambaroz.beautyapp.R.layout;
-import com.pictureit.noambaroz.beautyapp.R.style;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -15,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import com.pictureit.noambaroz.beautyapp.R;
 
 public class MySingleChoiseDialog extends Dialog implements OnItemClickListener {
 

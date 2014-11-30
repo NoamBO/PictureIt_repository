@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.view.Gravity;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,5 +82,13 @@ public class Dialogs {
 	public static void makeToastThatCloseActivity(Activity activity, int stringResId) {
 		Toast.makeText(activity, stringResId, Toast.LENGTH_LONG).show();
 		activity.finish();
+	}
+
+	public static void setDialogWidth(Dialog dialog) {
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+		lp.copyFrom(dialog.getWindow().getAttributes());
+		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+		lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+		dialog.getWindow().setAttributes(lp);
 	}
 }
