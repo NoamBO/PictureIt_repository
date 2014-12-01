@@ -34,7 +34,7 @@ public class GetOrderNotification extends BaseHttpPost {
 		setUrl(ServerUtil.URL_REQUEST_GET_ORDER_MESSAGE_NOTIFICATION);
 		mMainJson = new JSONObject();
 		try {
-			mMainJson.put(ServerUtil.ORDER_ID, request);
+			mMainJson.put(ServerUtil.MESSAGE_ID, request);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

@@ -65,8 +65,8 @@ public class ActivityMessages extends ActivityWithFragment {
 
 			String[] from = { DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_AT,
 					DataProvider.COL_PIC };
-			int[] to = { R.id.tv_row_message_beautician_name, R.id.tv_row_message_address,
-					R.id.tv_row_message_received_date, R.id.iv_row_message_beautician_pic };
+			int[] to = { R.id.tv_base_beautician_row_name, R.id.tv_base_beautician_row_address,
+					R.id.tv_row_message_received_date, R.id.iv_base_beautician_row_pic };
 
 			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_message, null, from, to, 0);
 			setListAdapter(adapter);
@@ -76,6 +76,7 @@ public class ActivityMessages extends ActivityWithFragment {
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			super.onViewCreated(view, savedInstanceState);
 			initListview();
+			view.setBackgroundColor(getResources().getColor(R.color.app_most_common_yellow_color));
 		}
 
 		protected void getOrderInBackgroundByNotificationId(String row_id, HttpCallback callback) {
@@ -150,8 +151,8 @@ public class ActivityMessages extends ActivityWithFragment {
 			@Override
 			public void setViewImage(ImageView v, String value) {
 				super.setViewImage(v, value);
-				if (v.getId() == R.id.iv_row_message_beautician_pic) {
-					ImageLoaderUtil.display(value, v);
+				if (v.getId() == R.id.iv_base_beautician_row_pic) {
+					ImageLoaderUtil.display(value, v, R.drawable.row_avatar);
 				}
 			}
 
@@ -210,7 +211,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			c.moveToPosition(position);
 			String messageId = c.getString(c.getColumnIndex(DataProvider.COL_NOTIFICATION_ID));
 			String beauticianName = c.getString(c.getColumnIndex(DataProvider.COL_NAME));
-			boolean everythingOk = !TextUtils.isEmpty(beauticianName) && TextUtils.isEmpty(messageId);
+			boolean everythingOk = !TextUtils.isEmpty(beauticianName) && !TextUtils.isEmpty(messageId);
 			if (everythingOk) {
 				Intent intent = new Intent(getActivity(), ActivityMessagesInner.class);
 				intent.putExtra(Constant.EXTRA_MESSAGE_ID, messageId);

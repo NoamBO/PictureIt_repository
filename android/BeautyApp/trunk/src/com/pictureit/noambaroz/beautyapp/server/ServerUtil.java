@@ -43,6 +43,9 @@ public class ServerUtil {
 	public static final String AMOUNT = "amount";
 	public static final String ORDER_ID = "order_id";
 
+	// Get Messages
+	public static final String MESSAGE_ID = "beauticianresponseorder";
+
 	// POST Update Email
 	public static final String E_MAIL = "email";
 

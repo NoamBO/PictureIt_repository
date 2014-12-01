@@ -10,8 +10,10 @@
 
         <ImageView
             android:id="@+id/iv_base_beautician_row_pic"
-            android:layout_width="@dimen/beautician_picture_width"
-            android:layout_height="@dimen/beautician_picture_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/beautician_picture_width"
+            android:minHeight="@dimen/beautician_picture_height"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/activity_horizontal_margin"
              />

@@ -135,7 +135,7 @@ public class JsonToObject {
 
 	public static String jsonGetMessageId(String json) {
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
-		String id = JsonToObject.jsonGetString(finalString, "order_id");
+		String id = JsonToObject.jsonGetString(finalString, ServerUtil.MESSAGE_ID);
 		return id;
 	}
 

@@ -2,21 +2,17 @@ package com.pictureit.noambaroz.beautyapp;
 
 import java.util.ArrayList;
 
-import utilities.OutgoingCommunication;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.AlertDialog.Builder;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -69,9 +65,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		private String phone;
 		private String unFormattedTreatments;
 
-		private Button bConfirm;
-		private Button bReject;
-		private LinearLayout llCall;
+		private TextView bConfirm;
+		private TextView bReject;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -134,10 +129,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 			TextView price = findView(v, R.id.tv_message_inner_price);
 			TextView treatments1 = findView(v, R.id.tv_message_wanted_treatment1);
 			TextView treatments2 = findView(v, R.id.tv_message_wanted_treatment2);
-			bConfirm = findView(v, R.id.b_message_inner_confirm);
-			bReject = findView(v, R.id.b_message_inner_reject);
-			llCall = findView(v, R.id.ll_message_inner_call);
-			TextView callToName = findView(v, R.id.tv_message_inner_name_to_call_to);
+			bConfirm = findView(v, R.id.tv_message_inner_confirm);
+			bReject = findView(v, R.id.tv_message_inner_reject);
 
 			name.setText(beauticianName);
 			address.setText(beauticianAddress);
@@ -148,7 +141,6 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 			remarks.setText(this.remarks);
 			price.setText(getString(R.string.price) + " " + this.price);
 			ImageLoaderUtil.display(picUrl, pic);
-			callToName.setText(getString(R.string.call_to) + " " + beauticianName);
 			setTreatmentsList(treatments1, treatments2);
 			return v;
 		}
@@ -161,16 +153,6 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 				@Override
 				public void onClick(View v) {
 					isFinished = true;
-					if (!TextUtils.isEmpty(phone))
-						llCall.setVisibility(View.VISIBLE);
-				}
-			});
-
-			llCall.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					OutgoingCommunication.call(getActivity(), phone);
 				}
 			});
 

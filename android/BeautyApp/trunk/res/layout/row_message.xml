@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="@dimen/upcoming_list_card_height" >
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/vg_row_order_notification_data_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/card_shape" >
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@drawable/card_shape"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/home_as_up_indicator" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/devider_color_gray" />
 
         <RelativeLayout
-            android:id="@+id/vg_row_order_notification_data_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible" >
+            android:layout_height="match_parent" >
 
-            <ImageView
-                android:id="@+id/iv_row_message_beautician_pic"
-                android:layout_width="@dimen/beautician_picture_width"
-                android:layout_height="@dimen/beautician_picture_height"
-                android:layout_alignParentRight="true" />
-
-            <TextView
-                android:id="@+id/tv_row_message_beautician_name"
+            <include
+                android:id="@+id/rowMessageBaseBeautician"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/iv_row_message_beautician_pic" />
+                layout="@layout/base_beautician_row" />
 
-            <TextView
-                android:id="@+id/tv_row_message_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_row_message_beautician_name"
-                android:layout_toLeftOf="@+id/iv_row_message_beautician_pic" />
-
-            <TextView
+            <utilities.view.MyFontTextView
                 android:id="@+id/tv_row_message_received_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/iv_row_message_beautician_pic"
-                android:layout_alignParentBottom="true"
-                android:text="kjkj" />
+                android:layout_alignLeft="@+id/rowMessageBaseBeautician"
+                android:layout_below="@+id/rowMessageBaseBeautician"
+                android:textColor="@color/text_color_gray" />
         </RelativeLayout>
-    </FrameLayout>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pb_row_order_notification_spinner"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_gravity="center" />
 
-</RelativeLayout>
+</FrameLayout>
