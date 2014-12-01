@@ -6,132 +6,63 @@ import java.util.List;
 import utilities.BaseFragment;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
-import com.pictureit.noambaroz.beautyapp.data.ClassificationType;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
-import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatmentsSelectedListener;
 import com.pictureit.noambaroz.beautyapp.server.PostSearchBeautician;
+import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class SearchProviderFragment extends BaseFragment {
 
 	private final int SEARCH_STATUS_ALL_FIELDS_EMPTY = 1;
 	private final int SEARCH_STATUS_NO_RESULTS = 2;
 
-	EditText etName;
-	Button bType, bServiceType;
-	AutoCompleteTextView etLocation;
-	TextView tvSearch;
+	private ServiceOrderManager mOrderMenager;
 
-	String mClassification, mServiceType;
-	String stringName, stringLocation, stringServiceType, stringClassification;
-	private Dialog serviceTypeDialog;
-	private Dialog classificationTypeDialog;
-	private ServiceTypeListAdapter serviceTypeListAdapter;
-	private ClassificationListAdapter classificationListAdapter;
+	TextView tvName, tvLocation, tvTreatmentsList1, tvTreatmentsList2;
+	TextView bName, bLocation, bTreatments, bSearch;
+
+	String stringName, stringLocation, stringTreatments1, stringTreatments2;
+
+	private MyCustomDialog dialogName, dialogLocation;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		stringName = "";
 		stringLocation = "";
-		stringServiceType = "";
-		stringClassification = "";
-		serviceTypeDialog = getServiceTypeDialog();
-		classificationTypeDialog = getClassificationTypeDialog();
-	}
-
-	private Dialog getClassificationTypeDialog() {
-		List<ClassificationType> list = StringArrays.getAllClassificationType(getActivity());
-		classificationListAdapter = new ClassificationListAdapter(getActivity(), android.R.layout.simple_list_item_2,
-				list);
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle(R.string.search_provider_search_by_type);
-		builder.setSingleChoiceItems(classificationListAdapter, 0, new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (isLastOnList(classificationListAdapter, which)) {
-					stringClassification = "";
-					mClassification = null;
-					bType.setText(getString(R.string.search_provider_search_by_type));
-					classificationListAdapter.setSelected(null);
-					dialog.dismiss();
-					return;
-				}
-				ClassificationType t = classificationListAdapter.getItem(which);
-				classificationListAdapter.setSelected(t.getId());
-				classificationListAdapter.notifyDataSetChanged();
-				mClassification = t.getTitle();
-				bType.setText(mClassification);
-				dialog.dismiss();
-			}
-		});
-		return builder.create();
-	}
-
-	private Dialog getServiceTypeDialog() {
-		List<TreatmentType> list = StringArrays.getAllTreatmentsType(getActivity());
-		serviceTypeListAdapter = new ServiceTypeListAdapter(getActivity(), android.R.layout.simple_list_item_2, list);
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle(R.string.service_select_treatment);
-		builder.setSingleChoiceItems(serviceTypeListAdapter, 0, new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (isLastOnList(serviceTypeListAdapter, which)) {
-					mServiceType = null;
-					bServiceType.setText(getString(R.string.search_provider_search_by_type));
-					serviceTypeListAdapter.setSelected(null);
-					dialog.dismiss();
-					return;
-				}
-				TreatmentType t = serviceTypeListAdapter.getItem(which);
-				serviceTypeListAdapter.setSelected(t.getTreatments_id());
-				serviceTypeListAdapter.notifyDataSetChanged();
-				mServiceType = t.getName();
-				bServiceType.setText(mServiceType);
-				serviceTypeDialog.dismiss();
-			}
-		});
-		return builder.create();
-	}
-
-	private boolean isLastOnList(ArrayAdapter<?> adapter, int which) {
-		if (adapter.getCount() - 1 == which)
-			return true;
-		else
-			return false;
+		stringTreatments1 = "";
+		stringTreatments2 = "";
+		dialogName = getDialogSearchByName();
+		dialogLocation = getDialogSearchByLocation();
+		mOrderMenager = new ServiceOrderManager(getActivity());
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_search_provider, container, false);
 
-		ArrayAdapter<String> locationsAdapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.select_dialog_item, getResources().getStringArray(R.array.israel_cities));
-		etName = findView(v, R.id.et_search_provider_search_by_name);
-		etLocation = findView(v, R.id.et_search_provider_search_by_location);
-		etLocation.setThreshold(1);
-		etLocation.setAdapter(locationsAdapter);
-		bType = findView(v, R.id.b_search_provider_search_by_type);
-		bServiceType = findView(v, R.id.b_search_provider_search_by_services_type);
-		tvSearch = findView(v, R.id.tv_search_provider_search);
+		tvName = findView(v, R.id.tv_search_provider_by_name);
+		tvLocation = findView(v, R.id.tv_search_provider_by_location);
+		tvTreatmentsList1 = findView(v, R.id.tv_search_provider_treatment_list2);
+		tvTreatmentsList2 = findView(v, R.id.tv_search_provider_treatment_list1);
+		bName = findView(v, R.id.b_search_provider_by_name);
+		bLocation = findView(v, R.id.b_search_provider_by_location);
+		bTreatments = findView(v, R.id.b_search_provider_search_by_treatment);
+		bSearch = findView(v, R.id.tv_search_provider_search);
 
 		return v;
 	}
@@ -139,50 +70,100 @@ public class SearchProviderFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		tvSearch.setOnClickListener(new OnClickListener() {
+		bSearch.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				search();
-
 			}
 		});
-		bServiceType.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				serviceTypeDialog.show();
-			}
-		});
-		bType.setOnClickListener(new OnClickListener() {
+		bTreatments.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				classificationTypeDialog.show();
+				showTreatmentsDialog();
 			}
 		});
-		setLocalText();
+		bName.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialogName.show();
+			}
+		});
+		bLocation.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialogLocation.show();
+			}
+		});
 	}
 
-	private void setLocalText() {
-		etName.setText(stringName);
-		etLocation.setText(stringLocation);
-		if (!stringClassification.equalsIgnoreCase(""))
-			bType.setText(stringClassification);
-		if (!stringServiceType.equalsIgnoreCase(""))
-			bServiceType.setText(stringServiceType);
+	protected void showTreatmentsDialog() {
+		mOrderMenager.showTreatmentSelectionDialog(null, new OnTreatmentsSelectedListener() {
+
+			@Override
+			public void onTreatmentSelected(ArrayList<TreatmentType> treatmentTypes) {
+				String[] treatments = new String[treatmentTypes.size()];
+				for (int i = 0; i < treatments.length; i++) {
+					treatments[i] = treatmentTypes.get(i).getTreatments_id();
+				}
+				BeauticianUtil.setTreatmentsList(getActivity(), tvTreatmentsList1, tvTreatmentsList2, treatmentTypes);
+				setRowOrder(null, null, bTreatments);
+			}
+		});
+	}
+
+	private MyCustomDialog getDialogSearchByName() {
+		MyCustomDialog dialogName = new MyCustomDialog(getActivity());
+		final EditText editText = dialogName.getEditText();
+		dialogName.setDialogTitle(R.string.search_provider_search_by_name).setPositiveButton(R.string.dialog_ok_text,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						setRowOrder(tvName, editText.getText().toString(), bName);
+					}
+				});
+		return dialogName;
+	}
+
+	private MyCustomDialog getDialogSearchByLocation() {
+		MyCustomDialog dialogName = new MyCustomDialog(getActivity());
+		final EditText editText = dialogName.getEditText();
+		dialogName.setDialogTitle(R.string.search_provider_search_by_location).setPositiveButton(
+				R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (editText.getText().toString().equalsIgnoreCase(""))
+							return;
+						PostVerifyAddress httpPost = new PostVerifyAddress(getActivity(), new HttpCallback() {
+
+							@Override
+							public void onAnswerReturn(Object answer) {
+								setRowOrder(tvLocation, (String) answer, bLocation);
+							}
+						}, editText.getText().toString());
+						httpPost.execute();
+					}
+				});
+		return dialogName;
 	}
 
 	private void search() {
-		if (!(!etName.getText().toString().equalsIgnoreCase("")
-				|| !etLocation.getText().toString().equalsIgnoreCase("") || mClassification != null || mServiceType != null)) {
+		if (!(!tvName.getText().toString().equalsIgnoreCase("")
+				|| !tvLocation.getText().toString().equalsIgnoreCase("") || !tvTreatmentsList1.getText().toString()
+				.equalsIgnoreCase(""))) {
 			onSearchFailed(SEARCH_STATUS_ALL_FIELDS_EMPTY);
 			return;
 		}
-		stringName = etName.getText().toString();
-		stringLocation = etLocation.getText().toString();
-		stringServiceType = bServiceType.getText().toString();
-		stringClassification = bType.getText().toString();
+
+		stringName = tvName.getText().toString();
+		stringLocation = tvLocation.getText().toString();
+		stringTreatments1 = tvTreatmentsList1.getText().toString();
+		stringTreatments2 = tvTreatmentsList2.getText().toString();
 		PostSearchBeautician post = new PostSearchBeautician(getActivity(), new HttpCallback() {
 
 			@Override
@@ -196,7 +177,7 @@ public class SearchProviderFragment extends BaseFragment {
 				}
 				onSearchFailed(SEARCH_STATUS_NO_RESULTS);
 			}
-		}, stringName, stringLocation, classificationListAdapter.getSelected(), serviceTypeListAdapter.getSelected());
+		}, stringName, stringLocation, mOrderMenager.getTreatment().tretments);
 		post.execute();
 	}
 
@@ -223,88 +204,16 @@ public class SearchProviderFragment extends BaseFragment {
 		builder.create().show();
 	}
 
-	private class ServiceTypeListAdapter extends ArrayAdapter<TreatmentType> {
-		public ServiceTypeListAdapter(Context context, int resource, List<TreatmentType> objects) {
-			super(context, resource, objects);
-			TreatmentType t = new TreatmentType();
-			t.setTreatments_id("-1");
-			t.setName("бим");
-			add(t);
+	private void setRowOrder(TextView textView, String text, TextView button) {
+		button.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
+		button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
+		button.setBackgroundResource(R.drawable.btn_edit);
+		button.setText(null);
+		button.setTextSize(0);
+		if (textView != null) {
+			textView.setVisibility(View.VISIBLE);
+			textView.setText(text);
 		}
-
-		public void setSelected(String which) {
-			selected = which;
-		}
-
-		public String getSelected() {
-			return selected;
-		}
-
-		private String selected;
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			final ServiceTypeListAdapterHolder holder;
-			if (convertView == null) {
-				holder = new ServiceTypeListAdapterHolder();
-				LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
-						Context.LAYOUT_INFLATER_SERVICE);
-				convertView = inflater.inflate(R.layout.row_single_choice_dialog, parent, false);
-				holder.textView = findView(convertView, R.id.row_single_choise_textview);
-				holder.radio = findView(convertView, R.id.row_single_choise_radio);
-				convertView.setTag(holder);
-			} else {
-				holder = (ServiceTypeListAdapterHolder) convertView.getTag();
-			}
-			holder.radio.setChecked(getItem(position).getTreatments_id().equalsIgnoreCase(selected) ? true : false);
-			holder.textView.setText(getItem(position).getName());
-			return convertView;
-		}
-
 	}
 
-	private class ClassificationListAdapter extends ArrayAdapter<ClassificationType> {
-		public ClassificationListAdapter(Context context, int resource, List<ClassificationType> objects) {
-			super(context, resource, objects);
-			ClassificationType c = new ClassificationType();
-			c.setId("-1");
-			c.setTitle("бим");
-			add(c);
-		}
-
-		public void setSelected(String which) {
-			selected = which;
-		}
-
-		public String getSelected() {
-			return selected;
-		}
-
-		private String selected;
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			final ServiceTypeListAdapterHolder holder;
-			if (convertView == null) {
-				holder = new ServiceTypeListAdapterHolder();
-				LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
-						Context.LAYOUT_INFLATER_SERVICE);
-				convertView = inflater.inflate(R.layout.row_single_choice_dialog, parent, false);
-				holder.textView = findView(convertView, R.id.row_single_choise_textview);
-				holder.radio = findView(convertView, R.id.row_single_choise_radio);
-				convertView.setTag(holder);
-			} else {
-				holder = (ServiceTypeListAdapterHolder) convertView.getTag();
-			}
-			holder.radio.setChecked(getItem(position).getId().equalsIgnoreCase(selected) ? true : false);
-			holder.textView.setText(getItem(position).getTitle());
-			return convertView;
-		}
-
-	}
-
-	static class ServiceTypeListAdapterHolder {
-		TextView textView;
-		RadioButton radio;
-	}
 }

@@ -13,6 +13,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ public class FragmentTreatmentSelection extends Fragment {
 	private OnTreatmentsSelectedListener mListener;
 	private String[] treatmentStringArray;
 	private ViewGroup buttonConfirm;
+	private boolean isActivitySearchProvider;
 
 	@Override
 	public void onDetach() {
@@ -40,6 +43,10 @@ public class FragmentTreatmentSelection extends Fragment {
 		super.onCreate(savedInstanceState);
 		if (treatmentsArrayList == null)
 			treatmentsArrayList = StringArrays.TreatmentList.genarate(getActivity(), treatmentStringArray);
+
+		if (getActivity() instanceof SearchProviderActivity) {
+			isActivitySearchProvider = true;
+		}
 	}
 
 	@Override
@@ -91,7 +98,7 @@ public class FragmentTreatmentSelection extends Fragment {
 				holder.tvName = (TextView) convertView.findViewById(R.id.tv_row_treatment_selection);
 				holder.picker = (MyNumberPicker) convertView.findViewById(R.id.np_row_treatment_selection);
 				holder.checkBox = (CheckBox) convertView.findViewById(R.id.cb_row_treatment_selection);
-				holder.checkBox.setEnabled(false);
+				// holder.checkBox.setEnabled(false);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -104,6 +111,9 @@ public class FragmentTreatmentSelection extends Fragment {
 					showDescription(item);
 				}
 			});
+			if (isActivitySearchProvider)
+				holder.picker.setVisibility(View.INVISIBLE);
+
 			holder.tvName.setText(item.getName());
 
 			holder.picker.setValue(item.getAmount());
@@ -113,6 +123,18 @@ public class FragmentTreatmentSelection extends Fragment {
 				@Override
 				public void onValueChange(int value) {
 					item.setAmount(value);
+					notifyDataSetChanged();
+				}
+			});
+			holder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					if (isChecked) {
+						if (holder.picker.getValue() == 0)
+							item.setAmount(1);
+					} else
+						item.setAmount(0);
 					notifyDataSetChanged();
 				}
 			});

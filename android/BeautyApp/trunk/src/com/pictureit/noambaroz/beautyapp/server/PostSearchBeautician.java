@@ -1,5 +1,8 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,24 +10,30 @@ import utilities.server.BaseHttpPost;
 import android.content.Context;
 
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
+import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
 public class PostSearchBeautician extends BaseHttpPost {
 
-	public PostSearchBeautician(Context ctx, HttpCallback callback, String name, String location, String type,
-			String treatment) {
+	public PostSearchBeautician(Context ctx, HttpCallback callback, String name, String location,
+			ArrayList<TreatmentType> treatment) {
 		super(ctx);
 		this.callback = callback;
 		prepare(ServerUtil.URL_REQUEST_SEARCH_BEAUTICIAN);
-		setRequest(name, location, type, treatment);
+		setRequest(name, location, treatment);
 	}
 
-	private void setRequest(String name, String location, String type, String treatment) {
+	private void setRequest(String name, String location, ArrayList<TreatmentType> treatments) {
 		JSONObject temp = new JSONObject();
 		try {
 			temp.put(ServerUtil.NAME, name);
 			temp.put(ServerUtil.LOCATION, location);
-			temp.put(ServerUtil.TYPE, (type == null ? "" : type));
-			temp.put(ServerUtil.TREATMENT, (treatment == null ? "" : treatment));
+			JSONArray treatmentsJson = new JSONArray();
+			for (TreatmentType treatment : treatments) {
+				if (treatment.getAmount() > 0)
+					treatmentsJson.put(new JSONObject().put(ServerUtil.TREATMENT_ID, treatment.getTreatments_id()).put(
+							ServerUtil.AMOUNT, treatment.getAmount()));
+			}
+			temp.put(ServerUtil.TREATMENT, treatmentsJson);
 			mMainJson = temp;
 		} catch (JSONException e) {
 			e.printStackTrace();

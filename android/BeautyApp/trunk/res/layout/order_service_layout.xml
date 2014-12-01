@@ -39,7 +39,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp" >
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
 
                     <utilities.view.MyFontTextView
                         android:id="@+id/tvServiceOrderFor"
@@ -65,7 +66,7 @@
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/b_service_order_for"
-                            android:layout_width="match_parent"
+                            android:layout_width="match_parent" android:layout_gravity="center_vertical"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_shape"
                             android:gravity="center"
@@ -122,7 +123,7 @@
                             android:id="@+id/b_service_order_when"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_shape"
+                            android:background="@drawable/btn_shape" android:layout_gravity="center_vertical"
                             android:gravity="center"
                             android:text="@string/when_the_service_happen"
                             android:textColor="@color/button_text_color"
@@ -172,7 +173,7 @@
                         android:layout_toLeftOf="@+id/tvServiceOrderSelectTreatment"
                         android:orientation="horizontal" >
 
-                        <utilities.view.MyFontTextView
+                        <utilities.view.MyFontTextView android:layout_gravity="center_vertical"
                             android:id="@+id/b_service_order_select_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -227,8 +228,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp" >
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp" >
 
                     <utilities.view.MyFontTextView
                         android:id="@+id/tvServiceOrderLocation"
@@ -253,7 +254,7 @@
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/b_service_order_location"
-                            android:layout_width="wrap_content"
+                            android:layout_width="wrap_content" android:layout_gravity="center_vertical"
                             android:layout_height="wrap_content"
                             android:background="@drawable/btn_edit" />
 
@@ -301,7 +302,7 @@
                         android:layout_toLeftOf="@+id/tvServiceOrderRemarks"
                         android:orientation="horizontal" >
 
-                        <utilities.view.MyFontTextView
+                        <utilities.view.MyFontTextView android:layout_gravity="center_vertical"
                             android:id="@+id/b_service_order_remarks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
