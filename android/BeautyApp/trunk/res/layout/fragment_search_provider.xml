@@ -60,7 +60,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:drawablePadding="8dp"
-                        android:drawableRight="@drawable/ic_group"
+                        android:drawableRight="@drawable/ic_individual"
                         android:gravity="center_vertical"
                         android:text="@string/search_provider_search_by_name"
                         android:textColor="@color/app_most_common_yellow_color"
