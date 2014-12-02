@@ -110,7 +110,6 @@
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beautyapp.ActivityTermsOfService"
-            android:label="@string/title_terms_of_service"
             android:screenOrientation="portrait" >
         </activity>
         <activity

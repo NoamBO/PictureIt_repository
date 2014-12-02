@@ -2,8 +2,9 @@ package com.pictureit.noambaroz.beautyapp;
 
 import java.util.ArrayList;
 
+import utilities.Dialogs;
+import utilities.OutgoingCommunication;
 import utilities.server.HttpBase.HttpCallback;
-import android.app.AlertDialog.Builder;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -16,12 +17,16 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.customdialogs.ConfirmedMessageDialog;
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
+import com.pictureit.noambaroz.beautyapp.server.PostConfirmBeauticianOffer;
+import com.pictureit.noambaroz.beautyapp.server.PostRejectBeauticianOffer;
 
 public class ActivityMessagesInner extends ActivityWithFragment {
 
@@ -152,7 +157,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					isFinished = true;
+					onButtonConfirm();
 				}
 			});
 
@@ -160,30 +165,76 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					// TODO
+					onReject();
 				}
 			});
 		}
 
 		private void onReject() {
-			Builder builder = new Builder(getActivity());
-			builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+			if (isFinished)
+				return;
+
+			MyCustomDialog dialog = new MyCustomDialog(getActivity());
+			dialog.setPositiveButton(getString(R.string.dialog_ok_text), new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					HttpCallback callback = new HttpCallback() {
 
 						@Override
 						public void onAnswerReturn(Object answer) {
-							isFinished = true;
-							backPressed();
+							if ((Boolean) answer) {
+								isFinished = true;
+								backPressed();
+							} else {
+								Dialogs.showServerFailedDialog(getActivity());
+							}
 						}
 					};
-					// TODO
+					PostRejectBeauticianOffer httpRequest = new PostRejectBeauticianOffer(getActivity(), callback,
+							messageId);
+					httpRequest.execute();
 				}
 			});
-			builder.setNegativeButton("cancel", null);
-			builder.setTitle("title");
-			builder.setMessage("message");
+			dialog.setNegativeButton(getString(R.string.dialog_cancel_text), null);
+			dialog.setMessage(getString(R.string.reject_dialog_message));
+			dialog.show();
+		}
+
+		private void onButtonConfirm() {
+			if (isFinished)
+				return;
+
+			PostConfirmBeauticianOffer httpRequest = new PostConfirmBeauticianOffer(getActivity(), new HttpCallback() {
+
+				@Override
+				public void onAnswerReturn(Object answer) {
+					if ((Boolean) answer) {
+						onConfirmed();
+					} else {
+						Dialogs.showServerFailedDialog(getActivity());
+					}
+				}
+			}, messageId);
+			httpRequest.execute();
+		}
+
+		private void onConfirmed() {
+			isFinished = true;
+			ConfirmedMessageDialog dialog = new ConfirmedMessageDialog(getActivity());
+			dialog.setCallButtonListener(new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					OutgoingCommunication.call(getActivity(), phone);
+				}
+			});
+			dialog.setCloseButtonListener(new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					backPressed();
+				}
+			});
 		}
 
 		@Override

@@ -11,6 +11,12 @@ import android.text.format.DateFormat;
 
 public class TimeUtils {
 
+	/**
+	 * 
+	 * @param date
+	 *            in format of "dd/MM/yyyy HH:mm"
+	 * @return timestamp (millisecond)
+	 */
 	public static long dateToTimestamp(String date) {
 		Calendar calendar = Calendar.getInstance();
 
@@ -27,6 +33,13 @@ public class TimeUtils {
 		return timeInMilis;
 	}
 
+	/**
+	 * 
+	 * @param timestamp
+	 *            (millisecond)
+	 * @return date in format of "dd/MM/yyyy HH:mm"
+	 * 
+	 */
 	public static String timestampToDate(String timestamp) {
 		Calendar cal = Calendar.getInstance(Locale.getDefault());
 		cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);

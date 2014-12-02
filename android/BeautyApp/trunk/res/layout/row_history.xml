@@ -2,219 +2,211 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/card_shape"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/card_shape"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_history_date"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_text_size" />
+
+        <utilities.view.MyFontTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:drawableRight="@drawable/ic_calendar"
+            android:gravity="center_vertical"
+            android:text="@string/date"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/common_title_text_size" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/text_color_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_history_beautician"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_text_size" />
+
+        <utilities.view.MyFontTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:drawableRight="@drawable/ic_beautician"
+            android:gravity="center_vertical"
+            android:text="@string/beautician"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/common_title_text_size" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/text_color_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_history_treatment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_text_size" />
+
+        <utilities.view.MyFontTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:drawableRight="@drawable/ic_treatment"
+            android:gravity="center_vertical"
+            android:text="@string/treatment"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/common_title_text_size" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/text_color_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_history_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_text_size" />
+
+        <utilities.view.MyFontTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:drawableRight="@drawable/ic_location"
+            android:gravity="center_vertical"
+            android:text="@string/address"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/common_title_text_size" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/text_color_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_history_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_text_size" />
+
+        <utilities.view.MyFontTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:drawableRight="@drawable/ic_nis"
+            android:gravity="center_vertical"
+            android:text="@string/price"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/common_title_text_size" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/text_color_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:id="@+id/fl_row_history_call"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal" >
+            android:layout_weight="1"
+            android:background="@drawable/btn_shape" >
 
-            <utilities.view.MyFontTextView
-                android:id="@+id/tv_row_history_date"
-                android:layout_width="0dp"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:textColor="@color/text_color_gray"
-                android:textSize="@dimen/common_text_size" />
+                android:layout_gravity="center"
+                android:background="@drawable/ic_call" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_row_history_rate"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:background="@drawable/btn_shape" >
 
             <utilities.view.MyFontTextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:drawableRight="@drawable/ic_calendar"
-                android:gravity="center_vertical"
-                android:text="@string/date"
-                android:textColor="@color/app_most_common_yellow_color"
-                android:textSize="@dimen/common_title_text_size" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_color_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal" >
-
-            <utilities.view.MyFontTextView
-                android:id="@+id/tv_row_history_beautician"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:textColor="@color/text_color_gray"
-                android:textSize="@dimen/common_text_size" />
-
-            <utilities.view.MyFontTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:drawableRight="@drawable/ic_beautician"
-                android:gravity="center_vertical"
-                android:text="@string/beautician"
-                android:textColor="@color/app_most_common_yellow_color"
-                android:textSize="@dimen/common_title_text_size" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_color_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal" >
-
-            <utilities.view.MyFontTextView
-                android:id="@+id/tv_row_history_treatment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:textColor="@color/text_color_gray"
-                android:textSize="@dimen/common_text_size" />
-
-            <utilities.view.MyFontTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:drawableRight="@drawable/ic_treatment"
-                android:gravity="center_vertical"
-                android:text="@string/treatment"
-                android:textColor="@color/app_most_common_yellow_color"
-                android:textSize="@dimen/common_title_text_size" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_color_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal" >
-
-            <utilities.view.MyFontTextView
-                android:id="@+id/tv_row_history_address"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:textColor="@color/text_color_gray"
-                android:textSize="@dimen/common_text_size" />
-
-            <utilities.view.MyFontTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:drawableRight="@drawable/ic_location"
-                android:gravity="center_vertical"
-                android:text="@string/address"
-                android:textColor="@color/app_most_common_yellow_color"
-                android:textSize="@dimen/common_title_text_size" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_color_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal" >
-
-            <utilities.view.MyFontTextView
-                android:id="@+id/tv_row_history_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:singleLine="true"
-                android:textColor="@color/text_color_gray"
-                android:textSize="@dimen/common_text_size" />
-
-            <utilities.view.MyFontTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:drawableRight="@drawable/ic_nis"
-                android:gravity="center_vertical"
-                android:text="@string/price"
-                android:textColor="@color/app_most_common_yellow_color"
-                android:textSize="@dimen/common_title_text_size" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_color_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <FrameLayout
-                android:id="@+id/fl_row_history_call"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:layout_weight="1"
-                android:background="@drawable/btn_shape" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_call" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/fl_row_history_rate"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:layout_weight="1"
-                android:background="@drawable/btn_shape" >
-
-                <utilities.view.MyFontTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawableRight="@drawable/ic_rate"
-                    android:gravity="center"
-                    android:text="@string/rate"
-                    android:textColor="@color/text_color_gray"
-                    android:textSize="@dimen/common_title_text_size" />
-            </FrameLayout>
-
-            <utilities.view.MyFontTextView
-                android:id="@+id/fl_row_history_reorder"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:layout_weight="1"
-                android:background="@drawable/btn_shape"
+                android:layout_gravity="center"
+                android:drawableRight="@drawable/ic_rate"
                 android:gravity="center"
-                android:text="@string/reorder"
+                android:text="@string/rate"
                 android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/common_title_text_size" />
-        </LinearLayout>
+        </FrameLayout>
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_history_reorder"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:background="@drawable/btn_shape"
+            android:gravity="center"
+            android:text="@string/reorder"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_title_text_size" />
     </LinearLayout>
 
 </LinearLayout>

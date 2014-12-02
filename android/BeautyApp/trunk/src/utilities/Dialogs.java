@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.R;
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 
 public class Dialogs {
 
@@ -90,5 +91,13 @@ public class Dialogs {
 		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
 		lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		dialog.getWindow().setAttributes(lp);
+	}
+
+	public static void showServerFailedDialog(Context context) {
+		MyCustomDialog dialog = new MyCustomDialog(context);
+		dialog.setDialogTitle(R.string.dialog_title_error);
+		dialog.setMessage(context.getString(R.string.dialog_messege_server_error));
+		dialog.setPositiveButton(R.string.dialog_ok_text, null);
+		dialog.show();
 	}
 }

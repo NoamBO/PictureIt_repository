@@ -86,7 +86,7 @@ public class FragmentTreatmentSelection extends Fragment {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			final ViewHolder holder;
 			if (convertView == null) {
 				holder = new ViewHolder();
@@ -98,7 +98,6 @@ public class FragmentTreatmentSelection extends Fragment {
 				holder.tvName = (TextView) convertView.findViewById(R.id.tv_row_treatment_selection);
 				holder.picker = (MyNumberPicker) convertView.findViewById(R.id.np_row_treatment_selection);
 				holder.checkBox = (CheckBox) convertView.findViewById(R.id.cb_row_treatment_selection);
-				// holder.checkBox.setEnabled(false);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -108,21 +107,22 @@ public class FragmentTreatmentSelection extends Fragment {
 
 				@Override
 				public void onClick(View v) {
-					showDescription(item);
+					showDescription(getItem(position));
 				}
 			});
 			if (isActivitySearchProvider)
 				holder.picker.setVisibility(View.INVISIBLE);
 
-			holder.tvName.setText(item.getName());
+			holder.tvName.setText(getItem(position).getName());
 
-			holder.picker.setValue(item.getAmount());
-			holder.checkBox.setChecked(item.getAmount() != 0 ? true : false);
+			holder.picker.setValue(getItem(position).getAmount());
+			holder.checkBox.setOnCheckedChangeListener(null);
+			holder.checkBox.setChecked(getItem(position).getAmount() != 0 ? true : false);
 			holder.picker.addOnValueChangeListener(new onValueChangeListener() {
 
 				@Override
 				public void onValueChange(int value) {
-					item.setAmount(value);
+					getItem(position).setAmount(value);
 					notifyDataSetChanged();
 				}
 			});
@@ -132,9 +132,9 @@ public class FragmentTreatmentSelection extends Fragment {
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					if (isChecked) {
 						if (holder.picker.getValue() == 0)
-							item.setAmount(1);
+							getItem(position).setAmount(1);
 					} else
-						item.setAmount(0);
+						getItem(position).setAmount(0);
 					notifyDataSetChanged();
 				}
 			});
