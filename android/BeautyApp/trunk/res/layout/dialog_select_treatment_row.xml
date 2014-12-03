@@ -14,14 +14,14 @@
         android:layout_marginRight="7dp"
         android:layout_marginTop="15dp" />
 
-    <utilities.view.MyFontTextView
+    <utilities.view.MyFontTextView android:background="@drawable/circle"
         android:id="@+id/tv_row_treatment_selection_additional_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:gravity="center"
+        android:gravity="center" 
         android:text="@string/question_mark" />
 
     <utilities.view.MyNumberPicker

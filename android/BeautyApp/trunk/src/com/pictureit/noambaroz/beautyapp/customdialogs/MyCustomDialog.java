@@ -1,32 +1,23 @@
 package com.pictureit.noambaroz.beautyapp.customdialogs;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.R;
 
-public class MyCustomDialog extends Dialog {
+public class MyCustomDialog extends BaseDialog {
 
-	private Context mContext;
-	private View mView;
 	private EditText mEditText;
 
 	public MyCustomDialog(Context context) {
-		super(context, R.style.Theme_DialodNoWindowTitle);
-		mContext = context;
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mView = inflater.inflate(R.layout.my_custom_dialog, null);
-		setContentView(mView);
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-		lp.copyFrom(this.getWindow().getAttributes());
-		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-		this.getWindow().setAttributes(lp);
+		super(context);
+	}
+
+	@Override
+	protected int getViewResourceId() {
+		return R.layout.my_custom_dialog;
 	}
 
 	public EditText getEditText() {
@@ -121,4 +112,5 @@ public class MyCustomDialog extends Dialog {
 		}
 		return this;
 	}
+
 }

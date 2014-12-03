@@ -4,17 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utilities.Dialogs;
+import utilities.OutgoingCommunication;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
-import android.app.ListFragment;
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
+import com.pictureit.noambaroz.beautyapp.customdialogs.DialogRate;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.PostHistory;
@@ -35,36 +43,47 @@ public class ActivityHistory extends ActivityWithFragment {
 		FRAGMENT_TAG = "FragmentHistory";
 	}
 
-	private class FragmentHistory extends ListFragment {
+	private class FragmentHistory extends Fragment {
+
+		private ListView mListView;
+		private HistoryListAdapter mAdapter;
 
 		@Override
-		public void onViewCreated(View view, Bundle savedInstanceState) {
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View view = inflater.inflate(R.layout.fragment_history, container, false);
+			mListView = findView(view, R.id.history_listView);
+			return view;
+		}
+
+		@Override
+		public void onViewCreated(final View view, Bundle savedInstanceState) {
 			super.onViewCreated(view, savedInstanceState);
-			initListview();
-			view.setBackgroundColor(getResources().getColor(R.color.app_most_common_yellow_color));
+			initListview(mListView);
 			PostHistory httpRequest = new PostHistory(getActivity(), new HttpCallback() {
 
 				@SuppressWarnings("unchecked")
 				@Override
 				public void onAnswerReturn(Object answer) {
 					ArrayList<UpcomingTreatment> arr = (ArrayList<UpcomingTreatment>) answer;
+					AnimationManager.fadeIn(getActivity(), findView(view, R.id.vg_history_container));
+					findView(view, R.id.pb_history_loading_indicator).setVisibility(View.GONE);
 					if (answer == null)
 						Dialogs.showServerFailedDialog(getActivity());
 					else if (arr.size() == 0) {
-						// TODO No History Indicator
+						findView(view, R.id.vg_history_empty_list_indicator).setVisibility(View.VISIBLE);
 					} else {
-						HistoryListAdapter adapter = new HistoryListAdapter(getActivity(), R.layout.row_history, arr);
-						setListAdapter(adapter);
+						mAdapter = new HistoryListAdapter(getActivity(), R.layout.row_history, arr);
+						mListView.setAdapter(mAdapter);
 					}
 				}
 			});
 			httpRequest.execute();
 		}
 
-		private void initListview() {
-			getListView().setPadding(15, 0, 15, 0);
-			getListView().setDivider(new ColorDrawable(getResources().getColor(R.color.transparent)));
-			getListView().setDividerHeight((int) getResources().getDimension(R.dimen.activity_horizontal_margin));
+		private void initListview(ListView listView) {
+			listView.setPadding(15, 0, 15, 0);
+			listView.setDivider(new ColorDrawable(getResources().getColor(R.color.transparent)));
+			listView.setDividerHeight((int) getResources().getDimension(R.dimen.activity_horizontal_margin));
 		}
 
 	}
@@ -76,7 +95,7 @@ public class ActivityHistory extends ActivityWithFragment {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			final ViewHolder holder;
 			if (convertView == null) {
 				holder = new ViewHolder();
@@ -94,16 +113,46 @@ public class ActivityHistory extends ActivityWithFragment {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			// holder.bCall
-			// holder.bRate
-			// holder.bReorder
 			holder.tvDate.setText(TimeUtils.timestampToDate(getItem(position).getTreatment_date()));
 			holder.tvBeauticianName.setText(getItem(position).getBeautician_name());
 			holder.tvTreatments.setText(getTreatmentName(getItem(position)));
 			holder.tvAddress.setText(getItem(position).getTreatment_location());
 			holder.tvPrice.setText(getItem(position).getPrice() + getString(R.string.currency));
 
+			holder.bCall.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					OutgoingCommunication.call((Activity) getContext(), getItem(position).getPhone());
+				}
+			});
+			holder.bRate.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					rate(v, getItem(position).getBeautician_name());
+				}
+			});
+			holder.bReorder.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+
+				}
+			});
 			return convertView;
+		}
+
+		protected void rate(View v, String beauticianName) {
+			new DialogRate(getContext()).setOkButton(beauticianName, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+
+				}
+			}).setCancelButton(null).show(v);
 		}
 
 		private String getTreatmentName(UpcomingTreatment t) {

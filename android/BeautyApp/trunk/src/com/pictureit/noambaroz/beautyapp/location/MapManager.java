@@ -29,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beautyapp.ActivityBeautician;
+import com.pictureit.noambaroz.beautyapp.MainActivity;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.MarkerData;
@@ -45,7 +47,7 @@ import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
 public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener,
-		OnInfoWindowClickListener, LocationListener {
+		OnInfoWindowClickListener, LocationListener, OnMarkerClickListener {
 
 	public interface MapMoovingListener {
 		public void onZoomChange(CameraPosition position);
@@ -132,6 +134,7 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 		});
 
 		onMyLocationChange(location);
+		mMap.setOnMarkerClickListener(this);
 		mMap.setOnInfoWindowClickListener(this);
 		mMap.setOnCameraChangeListener(this);
 		mMap.getUiSettings().setRotateGesturesEnabled(false);
@@ -221,6 +224,7 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	public void onInfoWindowClick(Marker marker) {
 		if (ServiceOrderManager.isPending(mActivity)) {
 			Toast.makeText(mActivity, R.string.pending_order_toast, Toast.LENGTH_LONG).show();
+			((MainActivity) mActivity).onPendingDialog(true);
 			return;
 		}
 		if (mVisibleMarkers.containsKey(marker)) {
@@ -358,6 +362,13 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 
 		mMyPositionMarker = mMap.addMarker(mMyPositionMarkerOptions);
 
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker arg0) {
+		if (arg0.equals(mMyPositionMarker))
+			return true;
+		return false;
 	}
 
 }

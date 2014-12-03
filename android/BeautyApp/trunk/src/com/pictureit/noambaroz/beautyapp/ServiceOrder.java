@@ -190,11 +190,6 @@ public class ServiceOrder extends ActivityWithFragment {
 				return;
 			}
 			mManager.placeOrder(beauticianId);
-			// ServiceSummaryFragment f = new ServiceSummaryFragment();
-			// f.setTreatment(mManager.getTreatment());
-			// getActivity().getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER,
-			// f).addToBackStack(null)
-			// .commit();
 		}
 
 		public boolean isOrderOk() {

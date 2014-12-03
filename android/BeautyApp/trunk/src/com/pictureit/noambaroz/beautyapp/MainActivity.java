@@ -91,9 +91,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (isUserWaitingForTreatmentOrderResponse())
+				if (isUserWaitingForTreatmentOrderResponse()) {
 					Toast.makeText(getApplicationContext(), R.string.pending_order_toast, Toast.LENGTH_LONG).show();
-				else
+					onPendingDialog(true);
+				} else
 					BeauticianUtil.openBeauticianInNewActivity(MainActivity.this, mAdapter.getItem(position));
 			}
 		});
@@ -206,8 +207,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 			launchActivity(T);
 		else if (isUserWaitingForTreatmentOrderResponse() && T == ActivityMessages.class)
 			launchActivity(T);
-		else
+		else {
 			Toast.makeText(getApplicationContext(), R.string.pending_order_toast, Toast.LENGTH_LONG).show();
+			onPendingDialog(true);
+		}
 	}
 
 	private <T> boolean launchActivity(Class<T> T) {
@@ -312,7 +315,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		onPendingDialog(isUserWaitingForTreatmentOrderResponse());
 	}
 
-	private void onPendingDialog(boolean isPending) {
+	public void onPendingDialog(boolean isPending) {
 		if (mPendingDialog == null) {
 			mPendingDialog = new Dialog(MainActivity.this, R.style.Theme_DialodNoWindowTitle);
 			View view = getLayoutInflater().inflate(R.layout.dialog_wating_to_beautician_response, null);

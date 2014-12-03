@@ -4,12 +4,14 @@ import java.util.HashMap;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.Context;
 import android.view.Display;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.animation.Transformation;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -17,6 +19,31 @@ import android.widget.ListView;
 import com.pictureit.noambaroz.beautyapp.R;
 
 public class AnimationManager {
+
+	public static void fadeIn(Context context, final View v) {
+		Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+		v.setVisibility(View.VISIBLE);
+		AnimationListener l = new BaseAnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+				v.setVisibility(View.VISIBLE);
+			}
+		};
+		animation.setAnimationListener(l);
+		v.startAnimation(animation);
+	}
+
+	public static void fadeOut(Context context, final View v) {
+		Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+		AnimationListener l = new BaseAnimationListener() {
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				v.setVisibility(View.VISIBLE);
+			}
+		};
+		animation.setAnimationListener(l);
+		v.startAnimation(animation);
+	}
 
 	public interface OnRowCollapseCallback {
 		public void onCollapse(View v, int initialHeight);

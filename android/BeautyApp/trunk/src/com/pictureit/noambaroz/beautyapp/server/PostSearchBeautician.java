@@ -28,11 +28,11 @@ public class PostSearchBeautician extends BaseHttpPost {
 			temp.put(ServerUtil.NAME, name);
 			temp.put(ServerUtil.LOCATION, location);
 			JSONArray treatmentsJson = new JSONArray();
-			for (TreatmentType treatment : treatments) {
-				if (treatment.getAmount() > 0)
-					treatmentsJson.put(new JSONObject().put(ServerUtil.TREATMENT_ID, treatment.getTreatments_id()).put(
-							ServerUtil.AMOUNT, treatment.getAmount()));
-			}
+			if (treatments != null && treatments.size() > 0)
+				for (TreatmentType treatment : treatments) {
+					if (treatment.getAmount() > 0)
+						treatmentsJson.put(treatment.getTreatments_id());
+				}
 			temp.put(ServerUtil.TREATMENT, treatmentsJson);
 			mMainJson = temp;
 		} catch (JSONException e) {

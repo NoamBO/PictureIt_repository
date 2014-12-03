@@ -5,7 +5,7 @@ import java.util.HashMap;
 import utilities.Log;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
-import android.app.ListFragment;
+import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -15,13 +15,17 @@ import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.server.GetOrderNotification;
@@ -51,12 +55,14 @@ public class ActivityMessages extends ActivityWithFragment {
 		backPressed();
 	}
 
-	private class FragmentMessages extends ListFragment implements LoaderCallbacks<Cursor>, OnItemClickListener {
+	private class FragmentMessages extends Fragment implements LoaderCallbacks<Cursor>, OnItemClickListener {
 
 		int mRowViewInitialHeight;
 		View mRowViewToRemove;
 		private HashMap<String, GetOrderNotification> getOrderNotificationThreadPoll;
 		SimpleCursorAdapter adapter;
+		private ListView mListView;
+		private ViewGroup emptyListIndicator;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -69,14 +75,20 @@ public class ActivityMessages extends ActivityWithFragment {
 					R.id.tv_row_message_received_date, R.id.iv_base_beautician_row_pic };
 
 			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_message, null, from, to, 0);
-			setListAdapter(adapter);
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View view = inflater.inflate(R.layout.fragment_messages, container, false);
+			mListView = findView(view, R.id.messages_listView);
+			emptyListIndicator = findView(view, R.id.vg_messages_empty_list_indicator);
+			return view;
 		}
 
 		@Override
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			super.onViewCreated(view, savedInstanceState);
-			initListview();
-			view.setBackgroundColor(getResources().getColor(R.color.app_most_common_yellow_color));
+			initListview(mListView);
 		}
 
 		protected void getOrderInBackgroundByNotificationId(String row_id, HttpCallback callback) {
@@ -86,10 +98,10 @@ public class ActivityMessages extends ActivityWithFragment {
 			}
 		}
 
-		private void initListview() {
-			getListView().setOnItemClickListener(this);
-			getListView().setPadding(15, 0, 15, 0);
-			getListView().setDivider(new ColorDrawable(getResources().getColor(R.color.transparent)));
+		private void initListview(ListView listView) {
+			listView.setOnItemClickListener(this);
+			listView.setPadding(15, 0, 15, 0);
+			listView.setDivider(new ColorDrawable(getResources().getColor(R.color.transparent)));
 		}
 
 		@Override
@@ -126,6 +138,12 @@ public class ActivityMessages extends ActivityWithFragment {
 				mRowViewToRemove.requestLayout();
 				mRowViewInitialHeight = 0;
 				mRowViewToRemove = null;
+			}
+
+			if (data.getCount() == 0) {
+				AnimationManager.fadeIn(getActivity(), emptyListIndicator);
+			} else {
+				AnimationManager.fadeOut(getActivity(), emptyListIndicator);
 			}
 		}
 

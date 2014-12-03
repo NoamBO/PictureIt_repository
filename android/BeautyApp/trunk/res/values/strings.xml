@@ -114,6 +114,7 @@
 	<string name="treatment_succecfuly_ordered_dialog_title">הטיפול הוזמן בהצלחה!</string>
 	<string name="treatment_succecfuly_ordered_dialog_message">מעוניין להתקשר לקוסמטיקאית?</string>
 	<string name="treatment_succecfuly_ordered_dialog_sub_message">במידה ותרצו להתקשר במועד אחר תוכלו להגיע למספר הטלפון דרך הטיפול שנקבע לכם עם הקוסמטיקאית באיזור "טיפולים".</string>
+    <string name="no_messages">אין הודעות</string>
 	
 	<!-- Upcoming Treatments Screens -->
 	<string name="no_treatments">לא הוזמנו טיפולים</string>
@@ -158,6 +159,7 @@
 	<string name="rate">דרג</string>
 	<string name="reorder">הזמן שוב</string>
 	<string name="currency">ש\"ח</string>
+    <string name="no_history">אין הסטוריה זמינה</string>
    
     <!-- general dialogs text -->
     <string name="dialog_ok_text">אישור</string>

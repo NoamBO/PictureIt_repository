@@ -77,10 +77,10 @@ public class MyNumberPicker extends LinearLayout {
 
 		this.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
-		LayoutParams elementParams = new LinearLayout.LayoutParams((int) PixelsConverter.convertDpToPixel(ELEMENT_WIDTH, context),
-				(int) PixelsConverter.convertDpToPixel(ELEMENT_HEIGHT, context));
-		LayoutParams editTextParams = new LinearLayout.LayoutParams((int) PixelsConverter.convertDpToPixel(EDIT_TEXT_WIDTH, context),
-				(int) PixelsConverter.convertDpToPixel(EDIT_TEXT_HEIGHT, context));
+		LayoutParams elementParams = new LinearLayout.LayoutParams((int) PixelsConverter.convertDpToPixel(
+				ELEMENT_WIDTH, context), (int) PixelsConverter.convertDpToPixel(ELEMENT_HEIGHT, context));
+		LayoutParams editTextParams = new LinearLayout.LayoutParams((int) PixelsConverter.convertDpToPixel(
+				EDIT_TEXT_WIDTH, context), (int) PixelsConverter.convertDpToPixel(EDIT_TEXT_HEIGHT, context));
 		// init the individual elements
 		initDecrementButton(context);
 		initValueEditText(context);

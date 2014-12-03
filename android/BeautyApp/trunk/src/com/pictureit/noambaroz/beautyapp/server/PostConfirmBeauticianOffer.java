@@ -10,9 +10,12 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 
 public class PostConfirmBeauticianOffer extends BaseHttpPost {
 
-	public PostConfirmBeauticianOffer(Context ctx, HttpCallback callback, String messageId) {
+	String isConfirm;
+
+	public PostConfirmBeauticianOffer(Context ctx, HttpCallback callback, String messageId, String toConfirm) {
 		super(ctx);
 		this.callback = callback;
+		isConfirm = toConfirm;
 		prepare(messageId);
 	}
 
@@ -27,7 +30,7 @@ public class PostConfirmBeauticianOffer extends BaseHttpPost {
 		mMainJson = new JSONObject();
 		try {
 			mMainJson.put(ServerUtil.MESSAGE_ID, request);
-			mMainJson.put("isaccepted", "true");
+			mMainJson.put("isaccepted", isConfirm);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

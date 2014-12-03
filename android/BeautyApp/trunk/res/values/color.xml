@@ -13,5 +13,6 @@
 	<color name="devider_color_gray">#e5e6e7</color>
 	<color name="text_color_gray">#6d6e71</color>
 	<color name="dialog_theme_color">#eddb58</color>
+	<color name="my_number_picker_button_color">#6d6e71</color>
     
 </resources>

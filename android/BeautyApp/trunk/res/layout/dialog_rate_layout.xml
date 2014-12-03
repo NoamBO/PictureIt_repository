@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_most_common_yellow_color"
+        android:padding="@dimen/activity_horizontal_margin" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_dialog_rate_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/dialog_cancel_text"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_title_text_size" />
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_dialog_rate_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/rate"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_title_text_size" />
+    </RelativeLayout>
+
+    <RatingBar
+        android:id="@+id/rb_dialog_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
+        android:max="5"
+        android:stepSize="0.5" />
+
+</LinearLayout>

@@ -98,6 +98,14 @@ public class SearchProviderFragment extends BaseFragment {
 				dialogLocation.show();
 			}
 		});
+		if (stringName != null && !stringName.equalsIgnoreCase(""))
+			setRowOrder(tvName, stringName, bName);
+		if (stringLocation != null && !stringLocation.equalsIgnoreCase(""))
+			setRowOrder(tvLocation, stringLocation, bLocation);
+		if (stringTreatments1 != null && !stringTreatments1.equalsIgnoreCase(""))
+			tvTreatmentsList1.setText(stringTreatments1);
+		if (stringTreatments2 != null && !stringTreatments2.equalsIgnoreCase(""))
+			tvTreatmentsList2.setText(stringTreatments2);
 	}
 
 	protected void showTreatmentsDialog() {

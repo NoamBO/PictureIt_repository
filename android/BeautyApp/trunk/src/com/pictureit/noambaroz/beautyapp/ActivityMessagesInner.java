@@ -24,9 +24,9 @@ import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beautyapp.server.PostConfirmBeauticianOffer;
-import com.pictureit.noambaroz.beautyapp.server.PostRejectBeauticianOffer;
 
 public class ActivityMessagesInner extends ActivityWithFragment {
 
@@ -56,7 +56,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 	class FragmentInnerMessage extends Fragment {
 
-		private boolean isFinished;
+		private boolean isDeleted;
 
 		private String picUrl;
 		private String beauticianName;
@@ -171,7 +171,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		}
 
 		private void onReject() {
-			if (isFinished)
+			if (isDeleted)
 				return;
 
 			MyCustomDialog dialog = new MyCustomDialog(getActivity());
@@ -183,15 +183,15 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 						@Override
 						public void onAnswerReturn(Object answer) {
 							if ((Boolean) answer) {
-								isFinished = true;
+								isDeleted = true;
 								backPressed();
 							} else {
 								Dialogs.showServerFailedDialog(getActivity());
 							}
 						}
 					};
-					PostRejectBeauticianOffer httpRequest = new PostRejectBeauticianOffer(getActivity(), callback,
-							messageId);
+					PostConfirmBeauticianOffer httpRequest = new PostConfirmBeauticianOffer(getActivity(), callback,
+							messageId, "false");
 					httpRequest.execute();
 				}
 			});
@@ -201,7 +201,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		}
 
 		private void onButtonConfirm() {
-			if (isFinished)
+			if (isDeleted)
 				return;
 
 			PostConfirmBeauticianOffer httpRequest = new PostConfirmBeauticianOffer(getActivity(), new HttpCallback() {
@@ -214,12 +214,11 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 						Dialogs.showServerFailedDialog(getActivity());
 					}
 				}
-			}, messageId);
+			}, messageId, "true");
 			httpRequest.execute();
 		}
 
 		private void onConfirmed() {
-			isFinished = true;
 			ConfirmedMessageDialog dialog = new ConfirmedMessageDialog(getActivity());
 			dialog.setCallButtonListener(new DialogInterface.OnClickListener() {
 
@@ -235,12 +234,15 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 					backPressed();
 				}
 			});
+			dialog.show();
+			ServiceOrderManager.setPending(getActivity(), false);
+			getContentResolver().delete(DataProvider.CONTENT_URI_MESSAGES, null, null);
 		}
 
 		@Override
 		public void onDestroy() {
 			super.onDestroy();
-			if (isFinished)
+			if (isDeleted)
 				getContentResolver().delete(DataProvider.CONTENT_URI_MESSAGES,
 						DataProvider.COL_NOTIFICATION_ID + " = ?", new String[] { messageId });
 		}

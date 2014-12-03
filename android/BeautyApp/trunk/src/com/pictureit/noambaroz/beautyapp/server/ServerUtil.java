@@ -20,8 +20,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_UPDATE_USER_PROFILE_DATA = URL_BASE + "updateuserdetails";
 	public static final String URL_REQUEST_UPDATE_USER_PROFILE_PICTURE = URL_BASE + "uploadimage";
 	public static final String URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS = URL_BASE + "upcomingtreatment";
-	public static final String URL_REQUEST_CANCEL_TREATMENT_ORDER = URL_BASE + "cancelresponse";
-	public static final String URL_REQUEST_REJECT_BEAUTICIAN_OFFER = URL_BASE + "cancelbeauticianresponse";
+	public static final String URL_REQUEST_CANCEL_TREATMENT_ORDER = URL_BASE + "cancelorder";
 	public static final String URL_REQUEST_CONFIRM_BEAUTICIAN_OFFER = URL_BASE + "customeresponsebeautician";
 	// TODO
 	public static final String URL_REQUEST_GET_HISTORY_LIST = URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS;
@@ -56,7 +55,7 @@ public class ServerUtil {
 	// POST Search Beautician
 	public static final String NAME = "name";
 	public static final String TYPE = "classification";
-	public static final String TREATMENT = "treatment";
+	public static final String TREATMENT = "treatments";
 
 	// POST Get Beautician Array By IDs
 	public static final String IDs = "ids";

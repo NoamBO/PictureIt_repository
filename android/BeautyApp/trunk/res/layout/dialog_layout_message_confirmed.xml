@@ -2,36 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/app_most_common_yellow_color" >
+        android:layout_height="150dp"
+        android:background="@android:color/transparent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:background="@color/app_most_common_yellow_color" >
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="@string/treatment_succecfuly_ordered_dialog_title"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_title_text_size" />
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-50dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/logo_circle" />
-
-        <utilities.view.MyFontTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:text="@string/treatment_succecfuly_ordered_dialog_title"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/common_title_text_size" />
-    </RelativeLayout>
+    </FrameLayout>
 
     <utilities.view.MyFontTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/app_background"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/treatment_succecfuly_ordered_dialog_message"
         android:textColor="@color/text_color_gray"
@@ -40,6 +45,7 @@
     <utilities.view.MyFontTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/app_background"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/treatment_succecfuly_ordered_dialog_sub_message"
         android:textColor="@color/text_color_gray"
@@ -48,6 +54,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/app_background"
         android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin" >
 
@@ -60,9 +67,10 @@
             android:background="@drawable/btn_shape"
             android:gravity="center"
             android:text="@string/no"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/common_title_text_size" />
 
-        <FrameLayout 
+        <FrameLayout
             android:id="@+id/fl_dialog_order_confirmed_layout_button_call"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"
