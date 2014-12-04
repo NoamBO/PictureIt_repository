@@ -14,7 +14,7 @@ public class Application extends android.app.Application {
 		super.onCreate();
 
 		initImageLoader();
-		// initSplunkMINT();
+		initSplunkMINT();
 	}
 
 	private void initSplunkMINT() {

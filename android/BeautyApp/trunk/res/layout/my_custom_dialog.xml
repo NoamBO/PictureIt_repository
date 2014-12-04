@@ -37,6 +37,7 @@
 
     <utilities.view.MyEditText
         android:id="@+id/my_custom_dialog_edittext"
+        style="@style/EditTextCustomHolo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:visibility="gone" />
