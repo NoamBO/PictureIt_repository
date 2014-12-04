@@ -160,6 +160,7 @@
 	<string name="reorder">הזמן שוב</string>
 	<string name="currency">ש\"ח</string>
     <string name="no_history">אין הסטוריה זמינה</string>
+	<string name="rate_dialog_positive_button">דרג את</string>
    
     <!-- general dialogs text -->
     <string name="dialog_ok_text">אישור</string>
@@ -170,6 +171,7 @@
     <string name="dialog_title_for">עבור</string>
     <string name="for_me">עבורי</string>
     <string name="for_group">קבוצה</string>
+    <string name="people_amount">כמות אנשים:</string>
     <string-array name="for_who_array">
         <item>@string/for_me</item>
         <item>@string/for_group</item>

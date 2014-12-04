@@ -23,9 +23,12 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.customdialogs.DialogRate;
+import com.pictureit.noambaroz.beautyapp.data.ReorderObject;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
+import com.pictureit.noambaroz.beautyapp.server.GetOrderSummary;
 import com.pictureit.noambaroz.beautyapp.server.PostHistory;
+import com.pictureit.noambaroz.beautyapp.server.PostRate;
 
 public class ActivityHistory extends ActivityWithFragment {
 
@@ -130,27 +133,55 @@ public class ActivityHistory extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					rate(v, getItem(position).getBeautician_name());
+					rate(v, getItem(position));
 				}
 			});
 			holder.bReorder.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-
+					onReorder(getItem(position).getBeautician_nots());
 				}
 			});
 			return convertView;
 		}
 
-		protected void rate(View v, String beauticianName) {
-			new DialogRate(getContext()).setOkButton(beauticianName, new DialogInterface.OnClickListener() {
+		protected void onReorder(String string) {
+			GetOrderSummary httpRequest = new GetOrderSummary(getContext(), new HttpCallback() {
 
 				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
+				public void onAnswerReturn(Object answer) {
+					if (answer == null) {
+						Dialogs.showServerFailedDialog(getContext());
+					} else {
+						ReorderObject o = (ReorderObject) answer;
+						FragmentReorder fragment = new FragmentReorder(ActivityHistory.this, o.getForWho(),
+								o.getWhen(), o.getWhare(), o.getRemarks(), o.getTretments());
+						ActivityHistory.this.getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, fragment)
+								.addToBackStack(null).commit();
+					}
+				}
+			}, "10");
+			httpRequest.execute();
+		}
 
+		protected void rate(View v, final UpcomingTreatment t) {
+			new DialogRate(getContext()).setOkButton(t.getBeautician_name(), new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int rating) {
+					PostRate httpRequest = new PostRate(getContext(), new HttpCallback() {
+
+						@Override
+						public void onAnswerReturn(Object answer) {
+							if ((Boolean) answer) {
+
+							} else {
+								Dialogs.showServerFailedDialog(getContext());
+							}
+						}
+					}, t.getBeautician_id(), rating);
+					httpRequest.execute();
 				}
 			}).setCancelButton(null).show(v);
 		}

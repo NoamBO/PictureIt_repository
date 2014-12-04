@@ -4,54 +4,54 @@ import java.util.ArrayList;
 
 public class TreatmentSummary {
 
-	public String forWho;
-	public String when;
-	public String whare;
-	public String remarks;
-	public ArrayList<TreatmentType> tretments;
+	public String forwho;
+	public String date;
+	public String location;
+	public String comments;
+	public ArrayList<TreatmentType> treatments;
 
 	public String getForWho() {
-		return forWho;
+		return forwho;
 	}
 
 	public TreatmentSummary setForWho(String forWho) {
-		this.forWho = forWho;
+		this.forwho = forWho;
 		return this;
 	}
 
 	public String getWhen() {
-		return when;
+		return date;
 	}
 
 	public TreatmentSummary setWhen(String when) {
-		this.when = when;
+		this.date = when;
 		return this;
 	}
 
 	public String getWhare() {
-		return whare;
+		return location;
 	}
 
 	public TreatmentSummary setWhare(String whare) {
-		this.whare = whare;
+		this.location = whare;
 		return this;
 	}
 
 	public String getRemarks() {
-		return remarks;
+		return comments;
 	}
 
 	public TreatmentSummary setRemarks(String remarks) {
-		this.remarks = remarks;
+		this.comments = remarks;
 		return this;
 	}
 
 	public ArrayList<TreatmentType> getTretments() {
-		return tretments;
+		return treatments;
 	}
 
 	public TreatmentSummary setTretments(ArrayList<TreatmentType> tretments) {
-		this.tretments = tretments;
+		this.treatments = tretments;
 		return this;
 	}
 

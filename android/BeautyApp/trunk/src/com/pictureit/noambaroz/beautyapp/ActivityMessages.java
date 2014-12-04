@@ -89,6 +89,7 @@ public class ActivityMessages extends ActivityWithFragment {
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			super.onViewCreated(view, savedInstanceState);
 			initListview(mListView);
+			mListView.setAdapter(adapter);
 		}
 
 		protected void getOrderInBackgroundByNotificationId(String row_id, HttpCallback callback) {

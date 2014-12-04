@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import net.simonvt.numberpicker.NumberPicker;
 import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
@@ -26,10 +27,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -94,11 +94,11 @@ public class ServiceOrderManager {
 
 			@Override
 			public void onTreatmentSelected(ArrayList<TreatmentType> tt) {
-				mTreatment.tretments = tt;
+				mTreatment.treatments = tt;
 				activityListener.onTreatmentSelected(tt);
 			}
 		});
-		f.setTreatments(mTreatment.tretments);
+		f.setTreatments(mTreatment.treatments);
 		f.putTreatments(treatments);
 		activity.getFragmentManager().beginTransaction().add(android.R.id.content, f).addToBackStack(null).commit();
 	}
@@ -107,10 +107,10 @@ public class ServiceOrderManager {
 		String title = activity.getString(R.string.dialog_title_for);
 		String[] stringArray = activity.getResources().getStringArray(R.array.for_who_array);
 		int checkedItem = 0;
-		if (mTreatment.forWho != null) {
-			if (mTreatment.forWho.equalsIgnoreCase(stringArray[0]))
+		if (mTreatment.forwho != null) {
+			if (mTreatment.forwho.equalsIgnoreCase(stringArray[0]))
 				checkedItem = 0;
-			else if (mTreatment.forWho.contains(stringArray[1]))
+			else if (mTreatment.forwho.contains(stringArray[1]))
 				checkedItem = 1;
 			else
 				checkedItem = 2;
@@ -119,7 +119,7 @@ public class ServiceOrderManager {
 
 			@Override
 			public void onItemSelected(String selection) {
-				mTreatment.forWho = selection;
+				mTreatment.forwho = selection;
 				onFieldChangeListener.onFieldChange(selection);
 			}
 		};
@@ -136,7 +136,7 @@ public class ServiceOrderManager {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (which == selections.length - 1) {
-							getEditableDialog(l, mTreatment.forWho, dFor, title).show();
+							getEditableDialog(l, mTreatment.forwho, dFor, title).show();
 						} else if (which == selections.length - 2) {
 							createGroupDialog(l, selections[which]);
 						} else
@@ -148,12 +148,12 @@ public class ServiceOrderManager {
 	}
 
 	private void createGroupDialog(final OnItemSelectedListener l, String title) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		Dialog d = new Dialog(activity, R.style.Theme_DialodNoWindowTitle);
 		LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.number_picker_dialog_layout, null);
-		builder.setCustomTitle(Dialogs.getDialogTitleTextView(activity, title));
-		Button bOk = (Button) view.findViewById(R.id.number_picker_dialog_ok);
-		Button bCancel = (Button) view.findViewById(R.id.number_picker_dialog_cancel);
+		((TextView) view.findViewById(R.id.number_picker_dialog_title)).setText(title);
+		TextView bOk = (TextView) view.findViewById(R.id.number_picker_dialog_ok);
+		TextView bCancel = (TextView) view.findViewById(R.id.number_picker_dialog_cancel);
 		final NumberPicker np = (NumberPicker) view.findViewById(R.id.number_picker_dialog_wheel);
 		np.setMaxValue(20); // max value 20
 		np.setMinValue(2); // min value 2
@@ -174,8 +174,9 @@ public class ServiceOrderManager {
 				dGroup.dismiss();
 			}
 		});
-		builder.setView(view);
-		dGroup = builder.create();
+		d.setContentView(view);
+		dGroup = d;
+		Dialogs.setDialogWidth(dGroup);
 		dGroup.show();
 	}
 
@@ -183,10 +184,10 @@ public class ServiceOrderManager {
 		String title = activity.getString(R.string.dialog_title_location);
 		String[] stringArray = activity.getResources().getStringArray(R.array.dialog_location_array);
 		int checkedItem = 0;
-		if (mTreatment.whare != null) {
-			if (mTreatment.whare.equalsIgnoreCase(stringArray[0]))
+		if (mTreatment.location != null) {
+			if (mTreatment.location.equalsIgnoreCase(stringArray[0]))
 				checkedItem = 0;
-			else if (mTreatment.whare.equalsIgnoreCase(stringArray[1]))
+			else if (mTreatment.location.equalsIgnoreCase(stringArray[1]))
 				checkedItem = 1;
 			else
 				checkedItem = 2;
@@ -195,7 +196,7 @@ public class ServiceOrderManager {
 
 			@Override
 			public void onItemSelected(String selection) {
-				mTreatment.whare = selection;
+				mTreatment.location = selection;
 				onFieldChangeListener.onFieldChange(selection);
 			}
 		};
@@ -271,8 +272,8 @@ public class ServiceOrderManager {
 				String hr = String.valueOf(hour);
 				min = min.length() == 1 ? "0" + min : min;
 				hr = hr.length() == 1 ? "0" + hr : hr;
-				mTreatment.when = tempTime + " " + hr + ":" + min;
-				onFieldChangeListener.onFieldChange(mTreatment.when);
+				mTreatment.date = tempTime + " " + hr + ":" + min;
+				onFieldChangeListener.onFieldChange(mTreatment.date);
 			}
 
 			@Override
@@ -304,13 +305,13 @@ public class ServiceOrderManager {
 		final EditText editText = dialog.getEditText();
 		dialog.setDialogTitle(R.string.dialog_title_remarks);
 
-		if (mTreatment.remarks != null)
-			editText.setText(mTreatment.remarks);
+		if (mTreatment.comments != null)
+			editText.setText(mTreatment.comments);
 		dialog.setPositiveButton(R.string.dialog_ok_text, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				mTreatment.remarks = (editText.getText().toString());
+				mTreatment.comments = (editText.getText().toString());
 				onFieldChangeListener.onFieldChange(editText.getText().toString());
 			}
 		}).setNegativeButton(R.string.dialog_cancel_text, null).show();
@@ -346,8 +347,8 @@ public class ServiceOrderManager {
 	}
 
 	public void placeOrder(String beauticianId) {
-		PostOrderTreatment httpPost = new PostOrderTreatment(activity, placeOrderHttpCallback, mTreatment.forWho,
-				mTreatment.when, mTreatment.remarks, mTreatment.whare, mTreatment.tretments);
+		PostOrderTreatment httpPost = new PostOrderTreatment(activity, placeOrderHttpCallback, mTreatment.forwho,
+				mTreatment.date, mTreatment.comments, mTreatment.location, mTreatment.treatments);
 		if (beauticianId == null)
 			placeOrderByLocation(httpPost);
 		else
@@ -437,11 +438,11 @@ public class ServiceOrderManager {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			Calendar calendar = Calendar.getInstance();
-			if (mTreatment.when != null) {
+			if (mTreatment.date != null) {
 				SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 				Date yourDate = null;
 				try {
-					yourDate = parser.parse(mTreatment.when);
+					yourDate = parser.parse(mTreatment.date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

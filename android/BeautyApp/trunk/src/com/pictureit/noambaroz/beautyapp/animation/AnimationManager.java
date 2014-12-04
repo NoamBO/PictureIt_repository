@@ -22,7 +22,6 @@ public class AnimationManager {
 
 	public static void fadeIn(Context context, final View v) {
 		Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-		v.setVisibility(View.VISIBLE);
 		AnimationListener l = new BaseAnimationListener() {
 			@Override
 			public void onAnimationStart(Animation animation) {
@@ -38,7 +37,7 @@ public class AnimationManager {
 		AnimationListener l = new BaseAnimationListener() {
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				v.setVisibility(View.VISIBLE);
+				v.setVisibility(View.GONE);
 			}
 		};
 		animation.setAnimationListener(l);

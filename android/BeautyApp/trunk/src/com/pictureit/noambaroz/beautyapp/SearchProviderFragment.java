@@ -8,6 +8,7 @@ import utilities.server.HttpBase.HttpCallback;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -118,7 +119,11 @@ public class SearchProviderFragment extends BaseFragment {
 					treatments[i] = treatmentTypes.get(i).getTreatments_id();
 				}
 				BeauticianUtil.setTreatmentsList(getActivity(), tvTreatmentsList1, tvTreatmentsList2, treatmentTypes);
-				setRowOrder(null, null, bTreatments);
+				if (tvTreatmentsList1.getText().toString().equalsIgnoreCase("")
+						&& tvTreatmentsList2.getText().toString().equalsIgnoreCase(""))
+					setRowOrder(null, null, bTreatments, getString(R.string.select_treatment));
+				else
+					setRowOrder(null, null, bTreatments, null);
 			}
 		});
 	}
@@ -185,7 +190,7 @@ public class SearchProviderFragment extends BaseFragment {
 				}
 				onSearchFailed(SEARCH_STATUS_NO_RESULTS);
 			}
-		}, stringName, stringLocation, mOrderMenager.getTreatment().tretments);
+		}, stringName, stringLocation, mOrderMenager.getTreatment().treatments);
 		post.execute();
 	}
 
@@ -213,6 +218,23 @@ public class SearchProviderFragment extends BaseFragment {
 	}
 
 	private void setRowOrder(TextView textView, String text, TextView button) {
+		setRowOrder(textView, text, button, null);
+	}
+
+	private void setRowOrder(TextView textView, String text, TextView button, String buttonText) {
+		if (buttonText != null) {
+			button.getLayoutParams().width = LayoutParams.MATCH_PARENT;
+			button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
+			button.setBackgroundResource(R.drawable.btn_shape);
+			button.setText(buttonText);
+			button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
+			if (textView != null)
+				textView.setVisibility(View.GONE);
+
+			return;
+		}
+
 		button.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
 		button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
 		button.setBackgroundResource(R.drawable.btn_edit);

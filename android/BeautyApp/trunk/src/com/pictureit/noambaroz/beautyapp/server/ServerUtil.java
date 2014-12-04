@@ -24,6 +24,8 @@ public class ServerUtil {
 	public static final String URL_REQUEST_CONFIRM_BEAUTICIAN_OFFER = URL_BASE + "customeresponsebeautician";
 	// TODO
 	public static final String URL_REQUEST_GET_HISTORY_LIST = URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS;
+	public static final String URL_REQUEST_REORDER = URL_BASE + "reorder";
+	public static final String URL_REQUEST_RATE = URL_BASE + "ratebeautician";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";
@@ -73,5 +75,11 @@ public class ServerUtil {
 	public static final String PROFILE_IMAGE = "image";
 	public static final String SENDER = "sender";
 	public static final String SENDER_TYPE_CUSTOMER = "customer";
+
+	// Reorder
+	public static final String HISTORY_ROW_ID = "treatmenthistoryid";
+
+	// Post Rate
+	public static final String RATE = "rate";
 
 }

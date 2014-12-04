@@ -66,8 +66,9 @@
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/b_service_order_for"
-                            android:layout_width="match_parent" android:layout_gravity="center_vertical"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:background="@drawable/btn_shape"
                             android:gravity="center"
                             android:text="@string/who_the_service_for"

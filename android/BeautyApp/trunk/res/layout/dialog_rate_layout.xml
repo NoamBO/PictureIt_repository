@@ -27,7 +27,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/activity_horizontal_margin"
-            android:text="@string/rate"
+            android:text="@string/rate_dialog_positive_button"
             android:textColor="@color/text_color_gray"
             android:textSize="@dimen/common_title_text_size" />
     </RelativeLayout>
@@ -40,6 +40,7 @@
         android:layout_marginBottom="25dp"
         android:layout_marginTop="25dp"
         android:max="5"
-        android:stepSize="0.5" />
+        android:numStars="5"
+        android:stepSize="1.0" />
 
 </LinearLayout>

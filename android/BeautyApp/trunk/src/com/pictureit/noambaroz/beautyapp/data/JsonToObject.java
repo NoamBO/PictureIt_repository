@@ -34,12 +34,9 @@ public class JsonToObject {
 				JSONArray ja = o.getJSONArray("d");
 				s = ja.toString();
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NullPointerException e) {
-				// TODO: handle exception
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 
 		} else if (type.equals(JsonType.TYPE_OBJECT)) {
@@ -49,12 +46,9 @@ public class JsonToObject {
 				JSONObject ja = o.getJSONObject("d");
 				s = ja.toString();
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NullPointerException e) {
-				// TODO: handle exception
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 
 		}
@@ -90,7 +84,6 @@ public class JsonToObject {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		}
 		return arrayList;
 	}
@@ -115,7 +108,6 @@ public class JsonToObject {
 			b = new Gson().fromJson(finalString, Beautician.class);
 		} catch (Exception e) {
 			Log.i("");
-			// TODO: handle exception
 		}
 		return b;
 	}
@@ -245,7 +237,6 @@ public class JsonToObject {
 			}
 			return s;
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -260,9 +251,15 @@ public class JsonToObject {
 			JSONObject object = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
 			s = object.getString("code_status");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return s;
+	}
+
+	public static ReorderObject jsonToReorderTreatmentSummary(String json) {
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		Gson gson = new GsonBuilder().serializeNulls().create();
+		ReorderObject o = gson.fromJson(finalString, ReorderObject.class);
+		return o;
 	}
 }

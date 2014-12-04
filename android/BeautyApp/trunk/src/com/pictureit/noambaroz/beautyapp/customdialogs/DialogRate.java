@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.R;
@@ -19,6 +20,14 @@ public class DialogRate extends BaseDialog {
 		bRate = (TextView) findViewById(R.id.tv_dialog_rate_ok);
 		bCancel = (TextView) findViewById(R.id.tv_dialog_rate_cancel);
 		mRatingBar = (RatingBar) findViewById(R.id.rb_dialog_rate);
+		mRatingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+
+			@Override
+			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+				if (rating < 1)
+					ratingBar.setRating(1);
+			}
+		});
 	}
 
 	@Override
@@ -32,10 +41,11 @@ public class DialogRate extends BaseDialog {
 			@Override
 			public void onClick(View v) {
 				if (clickListener != null)
-					clickListener.onClick(DialogRate.this, 0);
+					clickListener.onClick(DialogRate.this, mRatingBar.getProgress());
 				dismiss();
 			}
 		});
+		bRate.setText(bRate.getText().toString() + " " + beauticianName);
 		return this;
 	}
 
