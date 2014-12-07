@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import utilities.Dialogs;
 import utilities.OutgoingCommunication;
+import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -141,7 +142,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 			address.setText(beauticianAddress);
 			raters.setText("( " + beauticianRaters + " )");
 			ratingBar.setRating((float) beauticianRating);
-			date.setText(treatmentDate);
+			date.setText(TimeUtils.timestampToDate(treatmentDate));
 			location.setText(treatmentLocation);
 			remarks.setText(this.remarks);
 			price.setText(getString(R.string.price) + " " + this.price);

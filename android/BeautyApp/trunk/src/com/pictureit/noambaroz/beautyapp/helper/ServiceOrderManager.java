@@ -7,17 +7,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import net.simonvt.datepicker.DatePicker;
+import net.simonvt.datepicker.DatePickerDialog;
 import net.simonvt.numberpicker.NumberPicker;
 import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -27,10 +26,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.Application;
@@ -51,7 +48,6 @@ import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class ServiceOrderManager {
 
-	private boolean isTodaySelected;
 	private Activity activity;
 	private TreatmentSummary mTreatment;
 	private Dialog dFor, dLocation, dGroup;
@@ -250,54 +246,13 @@ public class ServiceOrderManager {
 
 			@Override
 			public void onItemSelected(String selection) {
-				createTimeDialog(selection, onFieldChangeListener);
+				mTreatment.date = selection;
+				onFieldChangeListener.onFieldChange(mTreatment.date);
 			}
 		};
 
 		dDate = new DatePickerFragment(l);
 		dDate.show(activity.getFragmentManager(), "timePicker");
-	}
-
-	private boolean isTimeDialogCanceled;
-
-	private void createTimeDialog(final String selection, final OnFieldChangeListener onFieldChangeListener) {
-		final String tempTime = selection;
-		final Calendar c = Calendar.getInstance();
-		int currentHour = c.get(Calendar.HOUR_OF_DAY);
-		int currentMinute = c.get(Calendar.MINUTE);
-		TimePickerDialog dialog = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
-
-			private void updateDisplay(int hour, int minute) {
-				String min = String.valueOf(minute);
-				String hr = String.valueOf(hour);
-				min = min.length() == 1 ? "0" + min : min;
-				hr = hr.length() == 1 ? "0" + hr : hr;
-				mTreatment.date = tempTime + " " + hr + ":" + min;
-				onFieldChangeListener.onFieldChange(mTreatment.date);
-			}
-
-			@Override
-			public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-				if (isTimeDialogCanceled) {
-					isTimeDialogCanceled = false;
-					return;
-				}
-				if (isTodaySelected) {
-					Calendar c = Calendar.getInstance();
-					if (selectedHour < c.get(Calendar.HOUR_OF_DAY)
-							|| (selectedHour == c.get(Calendar.HOUR_OF_DAY) && selectedMinute < c.get(Calendar.MINUTE))) {
-						Toast.makeText(activity, "invalid time", Toast.LENGTH_SHORT).show();
-						createTimeDialog(selection, onFieldChangeListener);
-					} else {
-						updateDisplay(selectedHour, selectedMinute);
-					}
-				} else {
-					updateDisplay(selectedHour, selectedMinute);
-				}
-				isTimeDialogCanceled = true;
-			}
-		}, currentHour, currentMinute, false);
-		dialog.show();
 	}
 
 	public void showRemarksDialog(final OnFieldChangeListener onFieldChangeListener) {
@@ -426,7 +381,6 @@ public class ServiceOrderManager {
 	private class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 		private OnItemSelectedListener mListener;
-		private boolean isPositiveButtonClicked;
 		private boolean toReshow;
 
 		private int mYear, mMonth, mDay;
@@ -438,8 +392,11 @@ public class ServiceOrderManager {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			Calendar calendar = Calendar.getInstance();
+			mYear = calendar.get(Calendar.YEAR);
+			mMonth = calendar.get(Calendar.MONTH);
+			mDay = calendar.get(Calendar.DAY_OF_MONTH);
 			if (mTreatment.date != null) {
-				SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+				SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 				Date yourDate = null;
 				try {
 					yourDate = parser.parse(mTreatment.date);
@@ -450,114 +407,21 @@ public class ServiceOrderManager {
 				calendar.setTime(yourDate);
 			}
 
-			// Use the current date as the default date in the picker
-			mYear = calendar.get(Calendar.YEAR);
-			mMonth = calendar.get(Calendar.MONTH);
-			mDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-			DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, mYear, mMonth, mDay);
-
-			// dpd.setTitle("");
-			//
-			// // Divider changing:
-			// DatePicker dpView = dpd.getDatePicker();
-			// LinearLayout llFirst = (LinearLayout) dpView.getChildAt(0);
-			// LinearLayout llSecond = (LinearLayout) llFirst.getChildAt(0);
-			// for (int i = 0; i < llSecond.getChildCount(); i++) {
-			// NumberPicker picker = (NumberPicker) llSecond.getChildAt(i); //
-			// Numberpickers
-			// // in
-			// // llSecond
-			// // reflection - picker.setDividerDrawable(divider); << didn't
-			// // seem to work.
-			// Field[] pickerFields = NumberPicker.class.getDeclaredFields();
-			// for (Field pf : pickerFields) {
-			// if (pf.getName().equals("mSelectionDivider")) {
-			// pf.setAccessible(true);
-			// try {
-			// pf.set(picker,
-			// getResources().getColor(R.color.app_most_common_yellow_color));
-			// } catch (IllegalArgumentException e) {
-			// e.printStackTrace();
-			// } catch (NotFoundException e) {
-			// e.printStackTrace();
-			// } catch (IllegalAccessException e) {
-			// e.printStackTrace();
-			// }
-			// break;
-			// }
-			// }
-			// }
-			// // New top:
-			// int titleHeight = (int)
-			// getResources().getDimension(R.dimen.dialog_row_height);
-			// // Container:
-			// LinearLayout llTitleBar = new LinearLayout(getActivity());
-			// llTitleBar.setOrientation(LinearLayout.VERTICAL);
-			// llTitleBar.setLayoutParams(new
-			// LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-			// titleHeight));
-			// llTitleBar.setBackgroundColor(getResources().getColor(R.color.app_most_common_yellow_color));
-			//
-			// // TextView Title:
-			// TextView tvTitle = new TextView(getActivity());
-			// tvTitle.setText("Select a date");
-			// tvTitle.setGravity(Gravity.CENTER);
-			// tvTitle.setPadding(10, 10, 10, 10);
-			// tvTitle.setTextSize(24);
-			// tvTitle.setTextColor(Color.BLACK);
-			// tvTitle.setLayoutParams(new
-			// LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-			// titleHeight - 2));
-			// llTitleBar.addView(tvTitle);
-			//
-			// // View line:
-			// View vTitleDivider = new View(getActivity());
-			// vTitleDivider.setLayoutParams(new
-			// LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-			// 2));
-			// vTitleDivider.setBackgroundColor(getResources().getColor(R.color.app_most_common_yellow_color));
-			// llTitleBar.addView(vTitleDivider);
-			//
-			// dpView.addView(llTitleBar);
-			// FrameLayout.LayoutParams lp =
-			// (android.widget.FrameLayout.LayoutParams)
-			// llFirst.getLayoutParams();
-			// lp.setMargins(0, titleHeight, 0, 0);
+			DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
 			return dpd;
 		}
 
 		@Override
-		public void onResume() {
-			((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(
-					new View.OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							isPositiveButtonClicked = true;
-							dismiss();
-						}
-					});
-			super.onResume();
-		}
-
-		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-			if (!isPositiveButtonClicked) {
-				return;
-			}
-			isPositiveButtonClicked = false;
 			if (mYear > year || (mYear == year && mMonth > month) || (mYear == year && mMonth == month && mDay > day)) {
 				Toast.makeText(activity, "invalid date", Toast.LENGTH_SHORT).show();
 				toReshow = true;
 				// dDate.show(activity.getFragmentManager(), "timePicker");
 				return;
 			}
-			if (mYear == year && mMonth == month && mDay == day)
-				isTodaySelected = true;
-			else
-				isTodaySelected = false;
+
 			StringBuilder sb = new StringBuilder();
 			sb.append(day).append("/").append(month + 1).append("/").append(year);
 			String selection = sb.toString();
@@ -572,5 +436,6 @@ public class ServiceOrderManager {
 				dDate.show(activity.getFragmentManager(), "timePicker");
 			}
 		}
+
 	}
 }

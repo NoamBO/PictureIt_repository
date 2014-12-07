@@ -18,8 +18,7 @@ public class PostHistory extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		// TODO
-		return JsonToObject.jsonToUpcomingTreatments(result);
+		return JsonToObject.jsonToHistoryList(result);
 	}
 
 	@Override

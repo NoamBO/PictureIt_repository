@@ -7,6 +7,9 @@ import android.os.Parcelable;
 
 public class UpcomingTreatment implements Parcelable {
 
+	public UpcomingTreatment() {
+	}
+
 	private String image_url;
 	private String beautician_id;
 	private String beautician_name;

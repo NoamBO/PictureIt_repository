@@ -18,6 +18,7 @@ public class Splash extends Activity {
 
 		@Override
 		public void onAnswerReturn(Object answer) {
+			utilities.Log.i("answer = " + answer);
 			if (answer != null) {
 				String result = (String) answer;
 				if (result.equalsIgnoreCase(PostVerifyUser.VERIFY_USER_RESULT_ACTIVE))
@@ -50,6 +51,7 @@ public class Splash extends Activity {
 
 			@Override
 			public void run() {
+				utilities.Log.i("Requesting user validation");
 				PostVerifyUser httpPost = new PostVerifyUser(Splash.this, callback);
 				httpPost.execute();
 			}

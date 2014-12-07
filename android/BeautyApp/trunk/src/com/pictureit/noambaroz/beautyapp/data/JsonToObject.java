@@ -180,6 +180,15 @@ public class JsonToObject {
 		return array;
 	}
 
+	public static ArrayList<HistoryObject> jsonToHistoryList(String json) {
+		String finalString = getJson(json, JsonType.TYPE_ARRAY);
+
+		Type arrayType = new TypeToken<List<HistoryObject>>() {
+		}.getType();
+		ArrayList<HistoryObject> array = new Gson().fromJson(finalString, arrayType);
+		return array;
+	}
+
 	public static String jsonGetArrayAsString(String json, String key) {
 		String value = null;
 		try {
@@ -216,6 +225,7 @@ public class JsonToObject {
 
 	public static String jsonToVerifyUser(String json) {
 		try {
+			Log.i("json = " + json);
 			JSONObject jsonObject = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
 			boolean isActive = jsonObject.getBoolean("active");
 			if (isActive)

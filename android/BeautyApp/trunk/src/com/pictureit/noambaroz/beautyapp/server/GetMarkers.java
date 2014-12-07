@@ -2,7 +2,6 @@ package com.pictureit.noambaroz.beautyapp.server;
 
 import org.json.JSONObject;
 
-import utilities.Log;
 import utilities.server.BaseHttpPost;
 import android.content.Context;
 
@@ -28,7 +27,6 @@ public class GetMarkers extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		Log.i("Server found " + String.valueOf(JsonToObject.jsonToMarkers(result).size()) + " Markers");
 		return JsonToObject.jsonToMarkers(result);
 	}
 

@@ -22,8 +22,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS = URL_BASE + "upcomingtreatment";
 	public static final String URL_REQUEST_CANCEL_TREATMENT_ORDER = URL_BASE + "cancelorder";
 	public static final String URL_REQUEST_CONFIRM_BEAUTICIAN_OFFER = URL_BASE + "customeresponsebeautician";
-	// TODO
-	public static final String URL_REQUEST_GET_HISTORY_LIST = URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS;
+	public static final String URL_REQUEST_GET_HISTORY_LIST = URL_BASE + "userhistory";
 	public static final String URL_REQUEST_REORDER = URL_BASE + "reorder";
 	public static final String URL_REQUEST_RATE = URL_BASE + "ratebeautician";
 

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.customdialogs.DialogRate;
+import com.pictureit.noambaroz.beautyapp.data.HistoryObject;
 import com.pictureit.noambaroz.beautyapp.data.ReorderObject;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
@@ -67,7 +68,7 @@ public class ActivityHistory extends ActivityWithFragment {
 				@SuppressWarnings("unchecked")
 				@Override
 				public void onAnswerReturn(Object answer) {
-					ArrayList<UpcomingTreatment> arr = (ArrayList<UpcomingTreatment>) answer;
+					ArrayList<HistoryObject> arr = (ArrayList<HistoryObject>) answer;
 					AnimationManager.fadeIn(getActivity(), findView(view, R.id.vg_history_container));
 					findView(view, R.id.pb_history_loading_indicator).setVisibility(View.GONE);
 					if (answer == null)
@@ -91,9 +92,9 @@ public class ActivityHistory extends ActivityWithFragment {
 
 	}
 
-	private class HistoryListAdapter extends ArrayAdapter<UpcomingTreatment> {
+	private class HistoryListAdapter extends ArrayAdapter<HistoryObject> {
 
-		public HistoryListAdapter(Context context, int resource, List<UpcomingTreatment> objects) {
+		public HistoryListAdapter(Context context, int resource, List<HistoryObject> objects) {
 			super(context, resource, objects);
 		}
 
