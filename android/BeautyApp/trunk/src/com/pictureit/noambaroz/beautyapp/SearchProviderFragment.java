@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utilities.BaseFragment;
+import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -203,18 +203,16 @@ public class SearchProviderFragment extends BaseFragment {
 	}
 
 	private void onSearchFailed(int status) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle(R.string.search_provider_error_dialog_title);
 		switch (status) {
 		case SEARCH_STATUS_ALL_FIELDS_EMPTY:
-			builder.setMessage(R.string.dialog_error_message_all_feilds_are_empty);
+			Dialogs.generalDialog(getActivity(), R.string.dialog_error_message_all_feilds_are_empty,
+					R.string.search_provider_error_dialog_title);
 			break;
 		case SEARCH_STATUS_NO_RESULTS:
-			builder.setMessage(R.string.search_provider_error_dialog_no_results);
+			Dialogs.generalDialog(getActivity(), R.string.search_provider_error_dialog_no_results,
+					R.string.search_provider_error_dialog_title);
 			break;
 		}
-		builder.setPositiveButton(R.string.dialog_ok_text, null);
-		builder.create().show();
 	}
 
 	private void setRowOrder(TextView textView, String text, TextView button) {

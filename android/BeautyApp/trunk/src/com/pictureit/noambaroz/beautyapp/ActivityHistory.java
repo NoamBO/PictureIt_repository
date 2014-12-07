@@ -141,13 +141,13 @@ public class ActivityHistory extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					onReorder(getItem(position).getBeautician_nots());
+					onReorder(getItem(position).getTreatmenthistory_id());
 				}
 			});
 			return convertView;
 		}
 
-		protected void onReorder(String string) {
+		protected void onReorder(String historyID) {
 			GetOrderSummary httpRequest = new GetOrderSummary(getContext(), new HttpCallback() {
 
 				@Override
@@ -156,13 +156,13 @@ public class ActivityHistory extends ActivityWithFragment {
 						Dialogs.showServerFailedDialog(getContext());
 					} else {
 						ReorderObject o = (ReorderObject) answer;
-						FragmentReorder fragment = new FragmentReorder(ActivityHistory.this, o.getForWho(),
-								o.getWhen(), o.getWhare(), o.getRemarks(), o.getTretments());
+						FragmentReorder fragment = new FragmentReorder(ActivityHistory.this, o.getBeauticianID(),
+								o.getForWho(), o.getWhen(), o.getWhare(), o.getRemarks(), o.getTretments());
 						ActivityHistory.this.getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, fragment)
 								.addToBackStack(null).commit();
 					}
 				}
-			}, "10");
+			}, historyID);
 			httpRequest.execute();
 		}
 

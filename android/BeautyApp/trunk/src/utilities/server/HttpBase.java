@@ -79,7 +79,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	}
 
 	protected HttpParams getParams() {
-		int TIMEOUT_MILLISEC = 15000;
+		int TIMEOUT_MILLISEC = 30 * 1000;
 		HttpParams httpParams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(httpParams, TIMEOUT_MILLISEC);
 		HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT_MILLISEC);

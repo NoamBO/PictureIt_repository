@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utilities.Dialogs;
 import utilities.server.BaseHttpPost;
 import android.content.Context;
 
@@ -32,6 +33,13 @@ public class PostUpdateProfilePicture extends BaseHttpPost {
 		if (JsonToObject.isResponseOk(result))
 			return result;
 		return null;
+	}
+
+	@Override
+	protected void onPostExecute(Object result) {
+		super.onPostExecute(result);
+		if (result != null)
+			Dialogs.successToast(ctx);
 	}
 
 	@Override

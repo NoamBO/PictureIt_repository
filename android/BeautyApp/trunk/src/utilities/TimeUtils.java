@@ -14,10 +14,32 @@ public class TimeUtils {
 	/**
 	 * 
 	 * @param date
-	 *            in format of "dd/MM/yyyy HH:mm"
+	 *            in format of "dd/MM/yyyy"
 	 * @return timestamp (millisecond)
 	 */
 	public static long dateToTimestamp(String date) {
+		Calendar calendar = Calendar.getInstance();
+
+		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+		Date yourDate = null;
+		try {
+			yourDate = parser.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		calendar.setTime(yourDate);
+		long timeInMilis = calendar.getTimeInMillis();
+		return timeInMilis;
+	}
+
+	/**
+	 * 
+	 * @param date
+	 *            in format of "dd/MM/yyyy HH:mm"
+	 * @return timestamp (millisecond)
+	 */
+	public static long dateAndTimeToTimestamp(String date) {
 		Calendar calendar = Calendar.getInstance();
 
 		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());

@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utilities.Dialogs;
 import utilities.server.BaseHttpPost;
 import android.content.Context;
 
@@ -37,6 +38,13 @@ public class PostRate extends BaseHttpPost {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	protected void onPostExecute(Object result) {
+		super.onPostExecute(result);
+		if ((Boolean) result)
+			Dialogs.successToast(ctx);
 	}
 
 }

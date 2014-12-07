@@ -23,25 +23,28 @@ public class Dialogs {
 		public void onDialogItemSelected(String selection);
 	}
 
+	public static void generalDialog(Activity activity, int message, int title) {
+		generalDialog(activity, activity.getString(message), activity.getString(title));
+	}
+
 	public static void generalDialog(Activity activity, String message) {
 		generalDialog(activity, message, null);
 	}
 
 	public static void generalDialog(Activity activity, String message, String title) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setMessage(message);
+		MyCustomDialog dialog = new MyCustomDialog(activity);
+		dialog.setMessage(message);
 		if (title != null)
-			builder.setTitle(title);
-		builder.setPositiveButton(activity.getString(R.string.dialog_ok_text), new OnClickListener() {
+			dialog.setDialogTitle(title);
+		dialog.setPositiveButton(activity.getString(R.string.dialog_ok_text), new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 			}
 		});
-		Dialog d = builder.create();
-		d.setCanceledOnTouchOutside(false);
-		d.show();
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.show();
 	}
 
 	public static void closeActivity(final Activity activity, String message) {
@@ -99,5 +102,9 @@ public class Dialogs {
 		dialog.setMessage(context.getString(R.string.dialog_messege_server_error));
 		dialog.setPositiveButton(R.string.dialog_ok_text, null);
 		dialog.show();
+	}
+
+	public static void successToast(Context ctx) {
+		Toast.makeText(ctx, ctx.getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
 	}
 }

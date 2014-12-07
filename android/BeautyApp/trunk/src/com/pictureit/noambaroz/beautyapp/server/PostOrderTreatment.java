@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utilities.Dialogs;
 import utilities.TimeUtils;
 import utilities.server.BaseHttpPost;
 import android.content.Context;
@@ -73,8 +74,9 @@ public class PostOrderTreatment extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		if (result == null || !JsonToObject.isResponseOk(result))
+		if (result == null || !JsonToObject.isResponseOk(result)) {
 			return null;
+		}
 		String s = "";
 		try {
 			JSONObject json = new JSONObject(result).getJSONObject("d");
@@ -87,6 +89,13 @@ public class PostOrderTreatment extends BaseHttpPost {
 			return null;
 		}
 		return s;
+	}
+
+	@Override
+	protected void onPostExecute(Object result) {
+		super.onPostExecute(result);
+		if (result == null)
+			Dialogs.showServerFailedDialog(ctx);
 	}
 
 	@Override

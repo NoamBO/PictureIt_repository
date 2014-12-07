@@ -10,8 +10,8 @@ import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 
 public class FragmentReorder extends FragmentServiceOrder {
 
-	public FragmentReorder(Activity activity, String forWho, String when, String location, String remarks,
-			ArrayList<TreatmentType> treatments) {
+	public FragmentReorder(Activity activity, String beauticianId, String forWho, String when, String location,
+			String remarks, ArrayList<TreatmentType> treatments) {
 		ServiceOrderManager manager = new ServiceOrderManager(activity);
 		TreatmentSummary t = new TreatmentSummary();
 		t.setForWho(forWho);
@@ -21,6 +21,7 @@ public class FragmentReorder extends FragmentServiceOrder {
 		t.setWhen(when);
 		manager.setTreatment(t);
 		setLocalManager(manager);
+		this.beauticianId = beauticianId;
 	}
 
 	private void setLocalManager(ServiceOrderManager manager) {

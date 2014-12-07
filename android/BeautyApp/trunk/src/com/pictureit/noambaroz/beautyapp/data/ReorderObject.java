@@ -3,8 +3,8 @@ package com.pictureit.noambaroz.beautyapp.data;
 public class ReorderObject extends TreatmentSummary {
 
 	private String orderID;
-	private String customerID;
-	private String beauticianID;
+	private String customeruid;
+	private String beauticianuid;
 
 	public String getOrderID() {
 		return orderID;
@@ -15,18 +15,18 @@ public class ReorderObject extends TreatmentSummary {
 	}
 
 	public String getCustomerID() {
-		return customerID;
+		return customeruid;
 	}
 
 	public void setCustomerID(String customerID) {
-		this.customerID = customerID;
+		this.customeruid = customerID;
 	}
 
 	public String getBeauticianID() {
-		return beauticianID;
+		return beauticianuid;
 	}
 
 	public void setBeauticianID(String beauticianID) {
-		this.beauticianID = beauticianID;
+		this.beauticianuid = beauticianID;
 	}
 }

@@ -88,6 +88,7 @@
     <string name="dialog_messege_server_error">יש לנו בעית התקשרות.. אנו עובדים על פתרון</string>
     <string name="dialog_messege_no_location">לא ניתן להמשיך. מיקומך המדוייק לא אותר</string>
     <string name="dialog_messege_please_wait">אנא המתן..</string>
+    <string name="success">הצליח!</string>
     
     <!-- Dialog presented on main screen when no visible marker on screen if onpening the SLIDER -->
     <string name="main_screen_slider_empty_dialog_title">אין תוצאות</string>

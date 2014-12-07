@@ -21,6 +21,8 @@ import com.pictureit.noambaroz.beautyapp.R;
 public class AnimationManager {
 
 	public static void fadeIn(Context context, final View v) {
+		if (context == null)
+			v.setVisibility(View.VISIBLE);
 		Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_in);
 		AnimationListener l = new BaseAnimationListener() {
 			@Override

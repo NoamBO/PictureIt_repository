@@ -27,7 +27,7 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 		this.treatmentStringArray = treatmentStringArray;
 	}
 
-	private String beauticianId;
+	protected String beauticianId;
 	private String beauticianName;
 	private String[] treatmentStringArray;
 
