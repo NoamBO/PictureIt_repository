@@ -178,7 +178,7 @@ public class GcmUtil {
 		}
 
 		public RegistrationIdSender(Context ctx, String regId) {
-			super(ctx);
+			super(ctx, null);
 			this.regId = regId;
 			prepare(null);
 		}

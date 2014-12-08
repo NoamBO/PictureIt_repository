@@ -15,8 +15,7 @@ public class PostUpdateProfileData extends BaseHttpPost {
 
 	public PostUpdateProfileData(Context ctx, HttpCallback callback, String firstName, String lastName, String address,
 			String email) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

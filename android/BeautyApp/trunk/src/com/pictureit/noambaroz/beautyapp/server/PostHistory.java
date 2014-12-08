@@ -11,8 +11,7 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 public class PostHistory extends BaseHttpPost {
 
 	public PostHistory(Context ctx, HttpCallback callback) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		prepare(null);
 	}
 

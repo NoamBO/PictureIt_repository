@@ -14,8 +14,7 @@ public class PostRegister extends BaseHttpPost {
 
 	public PostRegister(Context ctx, HttpCallback callback, String firstName, String lastName, String email,
 			String address, String phoneNumber) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

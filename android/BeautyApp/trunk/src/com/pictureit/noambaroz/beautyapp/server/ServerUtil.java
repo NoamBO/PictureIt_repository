@@ -25,6 +25,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_GET_HISTORY_LIST = URL_BASE + "userhistory";
 	public static final String URL_REQUEST_REORDER = URL_BASE + "reorder";
 	public static final String URL_REQUEST_RATE = URL_BASE + "ratebeautician";
+	public static final String URL_REQUEST_CANCEL_UPCOMING_TREATMENT = URL_BASE + "deleteupcomingtreatment";
 
 	public static final String UID = "uid";
 	public static final String SERVER_RESPONSE_STATUS = "status";
@@ -80,5 +81,8 @@ public class ServerUtil {
 
 	// Post Rate
 	public static final String RATE = "rate";
+
+	// Cancel upcoming treatment
+	public static final String UPCOMING_TREATMENT_ID = "upcomingtreatmentid";
 
 }

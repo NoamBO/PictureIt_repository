@@ -26,8 +26,7 @@ public class PostOrderTreatment extends BaseHttpPost {
 
 	public PostOrderTreatment(Context ctx, HttpCallback callback, String for_who, String time, String comments,
 			String location, ArrayList<TreatmentType> treatments) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		this.for_who = for_who;
 		this.time = time;
 		this.comments = comments;

@@ -14,8 +14,7 @@ public class PostUpdateProfilePicture extends BaseHttpPost {
 	private String image;
 
 	public PostUpdateProfilePicture(Context ctx, HttpCallback callback, String image) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		this.image = image;
 
 	}

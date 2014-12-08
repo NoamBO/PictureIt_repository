@@ -16,8 +16,7 @@ public class PostSearchBeautician extends BaseHttpPost {
 
 	public PostSearchBeautician(Context ctx, HttpCallback callback, String name, String location,
 			ArrayList<TreatmentType> treatment) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		prepare(ServerUtil.URL_REQUEST_SEARCH_BEAUTICIAN);
 		setRequest(name, location, treatment);
 	}

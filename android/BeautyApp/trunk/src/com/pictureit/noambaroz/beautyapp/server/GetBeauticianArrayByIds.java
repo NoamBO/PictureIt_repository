@@ -17,8 +17,7 @@ public class GetBeauticianArrayByIds extends BaseHttpPost {
 	private ArrayList<String> IDs;
 
 	public GetBeauticianArrayByIds(Context ctx, HttpCallback callback, ArrayList<String> IDs) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		this.IDs = IDs;
 		prepare(ServerUtil.URL_REQUEST_GET_BEAUTICIAN_ARRAY_BY_IDs);
 	}

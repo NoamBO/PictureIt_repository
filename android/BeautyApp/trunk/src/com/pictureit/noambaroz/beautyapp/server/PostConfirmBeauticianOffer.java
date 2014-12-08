@@ -14,8 +14,7 @@ public class PostConfirmBeauticianOffer extends BaseHttpPost {
 	String isConfirm;
 
 	public PostConfirmBeauticianOffer(Context ctx, HttpCallback callback, String messageId, String toConfirm) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		isConfirm = toConfirm;
 		prepare(messageId);
 	}

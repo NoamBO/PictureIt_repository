@@ -14,8 +14,7 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 public class GetOrderNotification extends BaseHttpPost {
 
 	public GetOrderNotification(Context ctx, String orderId, HttpCallback callback) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		prepare(orderId);
 	}
 

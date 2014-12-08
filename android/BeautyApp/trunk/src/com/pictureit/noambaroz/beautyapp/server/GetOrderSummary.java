@@ -11,8 +11,7 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 public class GetOrderSummary extends BaseHttpPost {
 
 	public GetOrderSummary(Context ctx, HttpCallback callback, String historyId) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		prepare(historyId);
 	}
 

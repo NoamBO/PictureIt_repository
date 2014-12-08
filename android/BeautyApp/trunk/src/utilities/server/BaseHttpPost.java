@@ -20,8 +20,9 @@ public abstract class BaseHttpPost extends HttpBase {
 	protected String response;
 	protected JSONObject mMainJson;
 
-	public BaseHttpPost(Context ctx) {
+	public BaseHttpPost(Context ctx, HttpCallback callback) {
 		super(ctx);
+		this.callback = callback;
 	}
 
 	@Override

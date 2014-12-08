@@ -15,8 +15,7 @@ public class PostRate extends BaseHttpPost {
 	private String beauticianID;
 
 	public PostRate(Context ctx, HttpCallback callback, String beauticianID, int rating) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		this.beauticianID = beauticianID;
 		this.rating = rating;
 		prepare(null);

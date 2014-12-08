@@ -14,8 +14,7 @@ import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 public class GetUpcomingTreatments extends BaseHttpPost {
 
 	public GetUpcomingTreatments(Context ctx, HttpCallback callback) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		prepare(ServerUtil.URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS);
 	}
 

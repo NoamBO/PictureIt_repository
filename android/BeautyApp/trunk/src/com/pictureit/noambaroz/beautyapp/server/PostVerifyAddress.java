@@ -23,8 +23,7 @@ public class PostVerifyAddress extends BaseHttpPost {
 	private static final String KEY_ADDRESS = "address";
 
 	public PostVerifyAddress(Context ctx, HttpCallback callback, String address) {
-		super(ctx);
-		myCallback = callback;
+		super(ctx, callback);
 		prepare(address);
 	}
 

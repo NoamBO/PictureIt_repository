@@ -11,8 +11,7 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 public class PostVerificationRegisterCode extends BaseHttpPost {
 
 	public PostVerificationRegisterCode(Context ctx, HttpCallback callback, String code) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		prepare(code);
 	}
 

@@ -14,8 +14,7 @@ public class PostVerifyUser extends BaseHttpPost {
 	public static final String VERIFY_USER_RESULT_ACTIVE = "active";
 
 	public PostVerifyUser(Context ctx, HttpCallback callback) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		prepare(ServerUtil.URL_REQUEST_VERIFY_USER);
 	}
 

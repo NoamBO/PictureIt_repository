@@ -13,8 +13,7 @@ public class GetMarkers extends BaseHttpPost {
 	private double longitude;
 
 	public GetMarkers(Context ctx, HttpCallback callback, double latitude, double longitude) {
-		super(ctx);
-		this.callback = callback;
+		super(ctx, callback);
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
