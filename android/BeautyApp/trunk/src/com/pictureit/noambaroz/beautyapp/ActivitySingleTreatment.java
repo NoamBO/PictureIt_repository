@@ -92,7 +92,8 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			date.setText(TimeUtils.timestampToDate(mUpcomingTreatment.getTreatment_date()));
 			location.setText(mUpcomingTreatment.getTreatment_location());
 			remarks.setText(mUpcomingTreatment.getBeautician_nots());
-			price.setText(getString(R.string.price) + " " + mUpcomingTreatment.getPrice());
+			price.setText(getString(R.string.price) + " " + mUpcomingTreatment.getPrice() + " "
+					+ getActivity().getString(R.string.currency));
 			ImageLoaderUtil.display(mUpcomingTreatment.getPic(), pic);
 			BeauticianUtil.setTreatmentsList(getActivity(), treatments1, treatments2,
 					mUpcomingTreatment.getTreatmentsArray());

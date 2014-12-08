@@ -150,7 +150,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 			date.setText(TimeUtils.timestampToDate(treatmentDate));
 			location.setText(treatmentLocation);
 			remarks.setText(this.remarks);
-			price.setText(getString(R.string.price) + " " + this.price);
+			price.setText(getString(R.string.price) + " " + this.price + " "
+					+ getActivity().getString(R.string.currency));
 			ImageLoaderUtil.display(picUrl, pic);
 			setTreatmentsList(treatments1, treatments2);
 			return v;
