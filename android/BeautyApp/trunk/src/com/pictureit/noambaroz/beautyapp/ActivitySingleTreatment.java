@@ -3,7 +3,9 @@ package com.pictureit.noambaroz.beautyapp;
 import utilities.Dialogs;
 import utilities.OutgoingCommunication;
 import utilities.TimeUtils;
+import utilities.server.HttpBase.HttpCallback;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
+import com.pictureit.noambaroz.beautyapp.server.PostCancelTreatment;
 
 public class ActivitySingleTreatment extends ActivityWithFragment {
 
@@ -41,8 +45,7 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			Dialogs.makeToastThatCloseActivity(ActivitySingleTreatment.this, R.string.dialog_title_error);
 			return;
 		}
-		fragment = new FragmentSingleTreatment();
-		((FragmentSingleTreatment) fragment).setModel(ut);
+		fragment = new FragmentSingleTreatment(ut);
 	}
 
 	@Override
@@ -57,7 +60,7 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 		private FrameLayout bCall;
 		private FrameLayout bDelete;
 
-		public void setModel(UpcomingTreatment upcomingTreatment) {
+		public FragmentSingleTreatment(UpcomingTreatment upcomingTreatment) {
 			mUpcomingTreatment = upcomingTreatment;
 		}
 
@@ -107,9 +110,40 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
+					onDelete();
 				}
 			});
+		}
+
+		private void onDelete() {
+			MyCustomDialog dialog = new MyCustomDialog(getActivity());
+			dialog.setDialogTitle(R.string.cancel_treatment)
+					.setMessage(R.string.are_you_sure_you_want_to_cancel_the_treatment)
+					.setNegativeButton(R.string.no, null)
+					.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							delete();
+						}
+					}).show();
+		}
+
+		private void delete() {
+			PostCancelTreatment httpRequest = new PostCancelTreatment(getActivity(), new HttpCallback() {
+
+				@Override
+				public void onAnswerReturn(Object answer) {
+					if (!(Boolean) answer) {
+						Dialogs.showServerFailedDialog(getActivity());
+					} else {
+						Dialogs.successToast(getActivity());
+						setResult(ActivityTreatments.RESULT_CODE_TREATMENT_CANCELED);
+						finish();
+					}
+				}
+			}, mUpcomingTreatment.getUpcomingTreatmentId());
+			httpRequest.execute();
 		}
 
 	}

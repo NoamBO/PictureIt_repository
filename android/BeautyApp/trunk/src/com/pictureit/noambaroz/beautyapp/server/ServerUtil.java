@@ -19,7 +19,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_RE_SEND_REGISTER_CODE = URL_BASE + "reSendCode";
 	public static final String URL_REQUEST_UPDATE_USER_PROFILE_DATA = URL_BASE + "updateuserdetails";
 	public static final String URL_REQUEST_UPDATE_USER_PROFILE_PICTURE = URL_BASE + "uploadimage";
-	public static final String URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS = URL_BASE + "upcomingtreatment";
+	public static final String URL_REQUEST_GET_ALL_UPCOMING_TREATMENTS = URL_BASE + "upcomingtreatments";
 	public static final String URL_REQUEST_CANCEL_TREATMENT_ORDER = URL_BASE + "cancelorder";
 	public static final String URL_REQUEST_CONFIRM_BEAUTICIAN_OFFER = URL_BASE + "customeresponsebeautician";
 	public static final String URL_REQUEST_GET_HISTORY_LIST = URL_BASE + "userhistory";

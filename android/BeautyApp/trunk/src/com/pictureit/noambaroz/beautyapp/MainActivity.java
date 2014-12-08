@@ -8,7 +8,6 @@ import utilities.BaseActivity;
 import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
@@ -40,6 +39,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.animation.BaseAnimationListener;
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
@@ -261,14 +261,17 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	}
 
 	private void showEmptyBeauticianArrayDialog(int resId) {
-		new AlertDialog.Builder(MainActivity.this).setTitle(R.string.main_screen_slider_empty_dialog_title)
-				.setMessage(resId).setNeutralButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
+
+		MyCustomDialog dialog = new MyCustomDialog(MainActivity.this);
+		dialog.setDialogTitle(R.string.main_screen_slider_empty_dialog_title).setMessage(resId)
+				.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						onFooterClick();
 					}
-				}).setCancelable(false).create().show();
+				}).setCancelable(false);
+		dialog.show();
 	}
 
 	private boolean googlePlayServicesAvailable() {

@@ -99,7 +99,7 @@ public class Dialogs {
 	public static void showServerFailedDialog(Context context) {
 		MyCustomDialog dialog = new MyCustomDialog(context);
 		dialog.setDialogTitle(R.string.dialog_title_error);
-		dialog.setMessage(context.getString(R.string.dialog_messege_server_error));
+		dialog.setMessage(R.string.dialog_messege_server_error);
 		dialog.setPositiveButton(R.string.dialog_ok_text, null);
 		dialog.show();
 	}

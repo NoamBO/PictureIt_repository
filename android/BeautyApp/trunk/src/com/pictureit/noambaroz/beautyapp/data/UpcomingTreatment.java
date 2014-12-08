@@ -10,6 +10,7 @@ public class UpcomingTreatment implements Parcelable {
 	public UpcomingTreatment() {
 	}
 
+	private String upcomingtreatment_id;
 	private String image_url;
 	private String beautician_id;
 	private String beautician_name;
@@ -21,7 +22,7 @@ public class UpcomingTreatment implements Parcelable {
 	private String treatment_price;
 	private String beautician_nots;
 	private String beautician_phone;
-	private String unFormattedTreatments;
+	// private String unFormattedTreatments;
 	private ArrayList<TreatmentType> treatments;
 
 	public String getPic() {
@@ -112,13 +113,13 @@ public class UpcomingTreatment implements Parcelable {
 		this.beautician_phone = phone;
 	}
 
-	public String getUnFormattedTreatments() {
-		return unFormattedTreatments;
-	}
-
-	public void setUnFormattedTreatments(String unFormattedTreatments) {
-		this.unFormattedTreatments = unFormattedTreatments;
-	}
+	// public String getUnFormattedTreatments() {
+	// return unFormattedTreatments;
+	// }
+	//
+	// public void setUnFormattedTreatments(String unFormattedTreatments) {
+	// this.unFormattedTreatments = unFormattedTreatments;
+	// }
 
 	public ArrayList<TreatmentType> getTreatmentsArray() {
 		return treatments;
@@ -135,6 +136,7 @@ public class UpcomingTreatment implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeString(upcomingtreatment_id);
 		out.writeString(image_url);
 		out.writeString(beautician_id);
 		out.writeString(beautician_name);
@@ -153,6 +155,7 @@ public class UpcomingTreatment implements Parcelable {
 	}
 
 	private UpcomingTreatment(Parcel in) {
+		upcomingtreatment_id = in.readString();
 		image_url = in.readString();
 		beautician_id = in.readString();
 		beautician_name = in.readString();
@@ -169,6 +172,14 @@ public class UpcomingTreatment implements Parcelable {
 
 		treatments = new ArrayList<TreatmentType>();
 		in.readTypedList(treatments, TreatmentType.CREATOR);
+	}
+
+	public String getUpcomingTreatmentId() {
+		return upcomingtreatment_id;
+	}
+
+	public void setUpcomingTreatmentId(String upcomingtreatment_id) {
+		this.upcomingtreatment_id = upcomingtreatment_id;
 	}
 
 	public static final Parcelable.Creator<UpcomingTreatment> CREATOR = new Parcelable.Creator<UpcomingTreatment>() {

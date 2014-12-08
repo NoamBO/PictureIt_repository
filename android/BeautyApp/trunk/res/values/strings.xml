@@ -126,6 +126,8 @@
 	<string name="location">מיקום:</string>
 	<string name="remarks">הערות:</string>
 	<string name="remarks_empty">אין הערות</string>
+	<string name="cancel_treatment">ביטול טיפול</string>
+	<string name="are_you_sure_you_want_to_cancel_the_treatment">האם אתם בטוחים שאתם רוצים לבטל את הטיפול?\n\nביטולים חוזרים ונשנים יגרמו לחשבונכם להיסגר</string>
     
    	<!-- Search Provider -->
    	<string name="search_provider_title">חיפוש קוסמטיקאיות</string>

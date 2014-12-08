@@ -30,6 +30,8 @@ import com.pictureit.noambaroz.beautyapp.server.GetUpcomingTreatments;
 
 public class ActivityTreatments extends ActivityWithFragment {
 
+	public static int RESULT_CODE_TREATMENT_CANCELED = 052605;
+
 	@Override
 	public void onBackPressed() {
 		backPressed();
@@ -82,6 +84,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 		private ListView mListView;
 		private ProgressBar mProgressBar;
 		private ViewGroup mNoTreatmentsIndicator;
+		private UpcomingTreatment mTempTreatment;
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -124,10 +127,23 @@ public class ActivityTreatments extends ActivityWithFragment {
 					UpcomingTreatment t = (UpcomingTreatment) parent.getAdapter().getItem(position);
 					Intent intent = new Intent(getActivity(), ActivitySingleTreatment.class);
 					intent.putExtra(Constant.EXTRA_UPCOMING_TREATMENT, t);
-					startActivity(intent);
+					mTempTreatment = t;
+					startActivityForResult(intent, 0);
 					overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 				}
 			});
+		}
+
+		@Override
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+			super.onActivityResult(requestCode, resultCode, data);
+			if (requestCode == 0) {
+				if (resultCode == RESULT_CODE_TREATMENT_CANCELED && mTempTreatment != null) {
+					((UpcomingTreatmentsListViewAdapter) mListView.getAdapter()).remove(mTempTreatment);
+					((UpcomingTreatmentsListViewAdapter) mListView.getAdapter()).notifyDataSetChanged();
+				}
+			}
+			mTempTreatment = null;
 		}
 
 	}

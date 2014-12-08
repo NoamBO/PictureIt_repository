@@ -87,6 +87,10 @@ public class MyCustomDialog extends BaseDialog {
 		return this;
 	}
 
+	public MyCustomDialog setMessage(int messageResId) {
+		return setMessage(getContext().getString(messageResId));
+	}
+
 	public MyCustomDialog setMessage(String message) {
 		TextView tvMessage = (TextView) mView.findViewById(R.id.my_custom_dialog_message);
 		if (tvMessage != null) {
