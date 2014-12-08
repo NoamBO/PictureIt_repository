@@ -8,7 +8,7 @@ public class Beautician implements Parcelable {
 	private String beautician_id;
 	private String photo;
 	private String name;
-	private String type;
+	private String classification;
 	private Address address;
 	private Rating rating;
 	private String[] degrees;
@@ -20,7 +20,7 @@ public class Beautician implements Parcelable {
 		beautician_id = in.readString();
 		photo = in.readString();
 		name = in.readString();
-		type = in.readString();
+		classification = in.readString();
 		address = (Address) in.readParcelable(Address.class.getClassLoader());
 		rating = (Rating) in.readParcelable(Rating.class.getClassLoader());
 		degrees = in.createStringArray();
@@ -42,7 +42,7 @@ public class Beautician implements Parcelable {
 		dest.writeString(beautician_id);
 		dest.writeString(photo);
 		dest.writeString(name);
-		dest.writeString(type);
+		dest.writeString(classification);
 		dest.writeParcelable(address, flags);
 		dest.writeParcelable(rating, flags);
 		dest.writeStringArray(degrees);
@@ -86,7 +86,7 @@ public class Beautician implements Parcelable {
 	}
 
 	public String getClassificationId() {
-		return type;
+		return classification;
 	}
 
 	public Address getAddress() {
