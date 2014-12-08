@@ -262,13 +262,18 @@ public class AnimationManager {
 		}
 
 		private static int getProvidersListSliderHeight(Activity activity) {
-			int actionBarHeight = activity.getActionBar().getHeight();
-			View touchToSlideButton = activity.findViewById(R.id.vg_main_touch_to_slide_list);
-			touchToSlideButton.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-					MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-			int touchToSlideButtonHeight = touchToSlideButton.getMeasuredHeight();
+			// int actionBarHeight = activity.getActionBar().getHeight();
+			// View touchToSlideButton =
+			// activity.findViewById(R.id.vg_main_touch_to_slide_list);
+			// touchToSlideButton.measure(MeasureSpec.makeMeasureSpec(0,
+			// MeasureSpec.UNSPECIFIED),
+			// MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+			// int touchToSlideButtonHeight =
+			// touchToSlideButton.getMeasuredHeight();
 			int sliderHeight = getHeightToExpand(100, activity, null);
-			int i = sliderHeight - (actionBarHeight * 2 + touchToSlideButtonHeight);
+			// int i = sliderHeight - (actionBarHeight * 2 +
+			// touchToSlideButtonHeight);
+			int i = sliderHeight;
 			return i;
 		}
 	}

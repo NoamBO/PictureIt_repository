@@ -222,11 +222,6 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		if (ServiceOrderManager.isPending(mActivity)) {
-			Toast.makeText(mActivity, R.string.pending_order_toast, Toast.LENGTH_LONG).show();
-			((MainActivity) mActivity).onPendingDialog(true);
-			return;
-		}
 		if (mVisibleMarkers.containsKey(marker)) {
 			Intent intent = new Intent(mActivity, ActivityBeautician.class);
 			intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mVisibleMarkers.get(marker));

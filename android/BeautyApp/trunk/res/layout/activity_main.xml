@@ -18,6 +18,12 @@
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:background="@drawable/btn_my_location" />
 
+    <include
+        android:id="@+id/pendingDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/dialog_wating_to_beautician_response" />
+
     <LinearLayout
         android:id="@+id/ll_main_list_container"
         android:layout_width="match_parent"

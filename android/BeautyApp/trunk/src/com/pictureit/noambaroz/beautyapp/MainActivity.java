@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import utilities.BaseActivity;
-import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
-import android.app.Dialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -40,6 +38,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.animation.BaseAnimationListener;
 import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
+import com.pictureit.noambaroz.beautyapp.customdialogs.PendingDialog;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
@@ -57,8 +56,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	private MainProviderListAdapter mAdapter;
 	private static final int REQUEST_UPDATE_GOOGLE_PLAY_APK = 12;
 	private GetBeauticianArrayByIds getBeauticianArrayByIds;
-	private Dialog mPendingDialog;
 	private ImageView sliderArrowDown, sliderArrowUp;
+
+	private PendingDialog mPendingDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +91,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (isUserWaitingForTreatmentOrderResponse()) {
-					Toast.makeText(getApplicationContext(), R.string.pending_order_toast, Toast.LENGTH_LONG).show();
-					onPendingDialog(true);
-				} else
-					BeauticianUtil.openBeauticianInNewActivity(MainActivity.this, mAdapter.getItem(position));
+				BeauticianUtil.openBeauticianInNewActivity(MainActivity.this, mAdapter.getItem(position));
 			}
 		});
 	}
@@ -186,32 +182,34 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		if (id == R.id.action_explanation) {
 
 		} else if (id == R.id.action_future_treatments) {
-			launchActivityIfPossible(ActivityTreatments.class);
+			launchActivity(ActivityTreatments.class);
 		} else if (id == R.id.action_pending_orders) {
-			launchActivityIfPossible(ActivityMessages.class);
+			launchActivity(ActivityMessages.class);
 		} else if (id == R.id.action_history) {
-			launchActivityIfPossible(ActivityHistory.class);
+			launchActivity(ActivityHistory.class);
 		} else if (id == R.id.action_terms_of_service) {
-			launchActivityIfPossible(ActivityTermsOfService.class);
+			launchActivity(ActivityTermsOfService.class);
 		} else if (id == R.id.action_search_providers) {
-			launchActivityIfPossible(SearchProviderActivity.class);
+			launchActivity(SearchProviderActivity.class);
 		} else if (id == R.id.action_my_profile) {
-			launchActivityIfPossible(ActivityMyProfile.class);
+			launchActivity(ActivityMyProfile.class);
 		}
 
 		return true;
 	}
 
-	private <T> void launchActivityIfPossible(Class<T> T) {
-		if (!isUserWaitingForTreatmentOrderResponse())
-			launchActivity(T);
-		else if (isUserWaitingForTreatmentOrderResponse() && T == ActivityMessages.class)
-			launchActivity(T);
-		else {
-			Toast.makeText(getApplicationContext(), R.string.pending_order_toast, Toast.LENGTH_LONG).show();
-			onPendingDialog(true);
-		}
-	}
+	// private <T> void launchActivityIfPossible(Class<T> T) {
+	// if (!isUserWaitingForTreatmentOrderResponse())
+	// launchActivity(T);
+	// else if (isUserWaitingForTreatmentOrderResponse() && T ==
+	// ActivityMessages.class)
+	// launchActivity(T);
+	// else {
+	// Toast.makeText(getApplicationContext(), R.string.pending_order_toast,
+	// Toast.LENGTH_LONG).show();
+	// onPendingDialog(true);
+	// }
+	// }
 
 	private <T> boolean launchActivity(Class<T> T) {
 		Intent intent = new Intent(MainActivity.this, T);
@@ -320,17 +318,8 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	public void onPendingDialog(boolean isPending) {
 		if (mPendingDialog == null) {
-			mPendingDialog = new Dialog(MainActivity.this, R.style.Theme_DialodNoWindowTitle);
-			View view = getLayoutInflater().inflate(R.layout.dialog_wating_to_beautician_response, null);
-			TextView tvWait = findView(view, R.id.pending_dialog_wait);
-			TextView tvCancel = findView(view, R.id.pending_dialog_cancel);
-			tvWait.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					mPendingDialog.dismiss();
-				}
-			});
-			tvCancel.setOnClickListener(new OnClickListener() {
+			mPendingDialog = new PendingDialog(MainActivity.this);
+			mPendingDialog.setCancelButton(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -342,13 +331,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 					});
 				}
 			});
-			mPendingDialog.setCancelable(false);
-			mPendingDialog.setContentView(view);
-			Dialogs.setDialogWidth(mPendingDialog);
 		}
-		if (isPending && !mPendingDialog.isShowing())
+		if (isPending)
 			mPendingDialog.show();
-		else if (!isPending && mPendingDialog.isShowing())
+		else
 			mPendingDialog.dismiss();
 	}
 

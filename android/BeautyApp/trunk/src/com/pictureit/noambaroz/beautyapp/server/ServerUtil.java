@@ -83,6 +83,6 @@ public class ServerUtil {
 	public static final String RATE = "rate";
 
 	// Cancel upcoming treatment
-	public static final String UPCOMING_TREATMENT_ID = "upcomingtreatmentid";
+	public static final String UPCOMING_TREATMENT_ID = "upcomingtreatment_id";
 
 }

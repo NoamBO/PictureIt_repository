@@ -1,14 +1,19 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 
 public class ServiceOrder extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {
-		// initActionBar();
+		if (ServiceOrderManager.isPending(getApplicationContext())) {
+			Toast.makeText(getApplicationContext(), R.string.pending_order_toast, Toast.LENGTH_LONG).show();
+			backPressed();
+		}
 	}
 
 	@Override

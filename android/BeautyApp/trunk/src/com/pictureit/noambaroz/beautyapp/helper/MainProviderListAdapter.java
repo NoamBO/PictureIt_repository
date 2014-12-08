@@ -27,15 +27,9 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 
 	public MainProviderListAdapter(Context context, int resource, ArrayList<Beautician> objects) {
 		super(context, resource, objects);
-		// arrayList = objects;
-		// itemsAll = (ArrayList<Beautician>) arrayList.clone();
-		// suggestions = new ArrayList<Beautician>();
 		ctx = context;
 	}
 
-	// private ArrayList<Beautician> arrayList;
-	// private ArrayList<Beautician> itemsAll;
-	// private ArrayList<Beautician> suggestions;
 	private Context ctx;
 
 	@Override
@@ -71,31 +65,6 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 
 		return convertView;
 	}
-
-	// public void filter() {
-	// if (MapManager.getInstance() == null)
-	// return;
-	//
-	// LatLngBounds latLngBounds =
-	// MapManager.getInstance().getGoogleMap().getProjection().getVisibleRegion().latLngBounds;
-	// for (Beautician beautician : itemsAll) {
-	// boolean visible =
-	// MapManager.getInstance().checkIfMarkerOnScreen(beautician.latLng,
-	// latLngBounds);
-	// if (visible)
-	// suggestions.add(beautician);
-	// }
-	// arrayList.clear();
-	// if (suggestions != null && suggestions.size() > 0) {
-	// clear();
-	// for (Beautician b : suggestions) {
-	// add(b);
-	// }
-	// notifyDataSetChanged();
-	// }
-	// suggestions.clear();
-	//
-	// }
 
 	private static class ViewHolder {
 		ImageView pic;
