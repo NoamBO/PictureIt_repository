@@ -21,7 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
 				+ " double, " + DataProvider.COL_RATE + " integer, " + DataProvider.COL_AT + " text, "
 				+ DataProvider.COL_LOCATION + " text, " + DataProvider.COL_REMARKS + " text, " + DataProvider.COL_PRICE
 				+ " text, " + DataProvider.COL_PIC + " text, " + DataProvider.COL_PHONE + " text, "
-				+ DataProvider.COL_TREATMENTS + " text);");
+				+ DataProvider.COL_TREATMENTS + " text, " + DataProvider.COL_CLASSIFICATION + " text);");
 	}
 
 	@Override

@@ -12,11 +12,10 @@
             android:id="@+id/iv_base_beautician_row_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="@dimen/beautician_picture_width"
-            android:minHeight="@dimen/beautician_picture_height"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/activity_horizontal_margin"
-             />
+            android:minHeight="@dimen/beautician_picture_height"
+            android:minWidth="@dimen/beautician_picture_width" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,6 +42,7 @@
                 android:id="@+id/tv_base_beautician_row_classification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/common_text_size" />
         </LinearLayout>
 
@@ -73,7 +73,5 @@
                 android:numStars="5" />
         </RelativeLayout>
     </RelativeLayout>
-
-
 
 </LinearLayout>

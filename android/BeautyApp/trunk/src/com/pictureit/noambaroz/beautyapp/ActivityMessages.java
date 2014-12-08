@@ -70,9 +70,10 @@ public class ActivityMessages extends ActivityWithFragment {
 			getOrderNotificationThreadPoll = new HashMap<String, GetOrderNotification>();
 
 			String[] from = { DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_AT,
-					DataProvider.COL_PIC };
+					DataProvider.COL_PIC, DataProvider.COL_CLASSIFICATION };
 			int[] to = { R.id.tv_base_beautician_row_name, R.id.tv_base_beautician_row_address,
-					R.id.tv_row_message_received_date, R.id.iv_base_beautician_row_pic };
+					R.id.tv_row_message_received_date, R.id.iv_base_beautician_row_pic,
+					R.id.tv_base_beautician_row_classification };
 
 			adapter = new MySimpleCursorAdapter(getActivity(), R.layout.row_message, null, from, to, 0);
 		}
@@ -126,7 +127,8 @@ public class ActivityMessages extends ActivityWithFragment {
 					DataProvider.COL_ID, DataProvider.COL_NOTIFICATION_ID, DataProvider.COL_BEAUTICIAN_ID,
 					DataProvider.COL_PIC, DataProvider.COL_NAME, DataProvider.COL_ADDRESS, DataProvider.COL_RATERS,
 					DataProvider.COL_RATE, DataProvider.COL_AT, DataProvider.COL_LOCATION, DataProvider.COL_REMARKS,
-					DataProvider.COL_PRICE }, null, null, DataProvider.COL_ID + " DESC");
+					DataProvider.COL_PRICE, DataProvider.COL_CLASSIFICATION }, null, null, DataProvider.COL_ID
+					+ " DESC");
 			return loader;
 		}
 
@@ -164,6 +166,9 @@ public class ActivityMessages extends ActivityWithFragment {
 				if (v.getId() == R.id.tv_row_message_received_date && !TextUtils.isEmpty(text)
 						&& !text.equalsIgnoreCase("null"))
 					text = TimeUtils.timestampToDate(text);
+				if (v.getId() == R.id.tv_base_beautician_row_classification && !TextUtils.isEmpty(text)
+						&& !text.equalsIgnoreCase("null"))
+					text = BeauticianUtil.getClassificationTypeById(getActivity(), text).getTitle();
 				super.setViewText(v, text);
 			}
 

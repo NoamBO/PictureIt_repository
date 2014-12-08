@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
@@ -108,7 +109,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 			ArrayList<UpcomingTreatment> arr = (ArrayList<UpcomingTreatment>) answer;
 			mProgressBar.setVisibility(View.GONE);
 			if (arr == null || arr.size() == 0) {
-				mNoTreatmentsIndicator.setVisibility(View.VISIBLE);
+				AnimationManager.fadeIn(getActivity(), mNoTreatmentsIndicator);
 				return;
 			}
 
@@ -141,6 +142,9 @@ public class ActivityTreatments extends ActivityWithFragment {
 				if (resultCode == RESULT_CODE_TREATMENT_CANCELED && mTempTreatment != null) {
 					((UpcomingTreatmentsListViewAdapter) mListView.getAdapter()).remove(mTempTreatment);
 					((UpcomingTreatmentsListViewAdapter) mListView.getAdapter()).notifyDataSetChanged();
+					if (((UpcomingTreatmentsListViewAdapter) mListView.getAdapter()).getCount() < 1) {
+						AnimationManager.fadeIn(getActivity(), mNoTreatmentsIndicator);
+					}
 				}
 			}
 			mTempTreatment = null;

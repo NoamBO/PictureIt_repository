@@ -135,11 +135,12 @@ public class JsonToObject {
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
 		Gson gson = new GsonBuilder().serializeNulls().create();
 		UpcomingTreatment item = gson.fromJson(finalString, UpcomingTreatment.class);
-		ContentValues values = new ContentValues(12);
+		ContentValues values = new ContentValues(13);
 		String beauticianId = item.getBeautician_id();
 		String name = item.getBeautician_name();
 		String picUrl = item.getPic();
 		String address = item.getBeautician_address();
+		String classification = item.getClassification();
 		int raters = item.getBeautician_raters();
 		double rate = item.getBeautician_rate();
 		String time = item.getTreatment_date();
@@ -157,6 +158,7 @@ public class JsonToObject {
 		values.put(DataProvider.COL_NAME, name);
 		values.put(DataProvider.COL_PIC, picUrl);
 		values.put(DataProvider.COL_ADDRESS, address);
+		values.put(DataProvider.COL_CLASSIFICATION, classification);
 		values.put(DataProvider.COL_RATERS, raters);
 		values.put(DataProvider.COL_RATE, rate);
 		values.put(DataProvider.COL_AT, time);

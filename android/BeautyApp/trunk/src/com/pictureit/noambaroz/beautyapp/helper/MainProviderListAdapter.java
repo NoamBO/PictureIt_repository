@@ -62,6 +62,10 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 			holder.raters.setText(BeauticianUtil.formatRaters(getItem(position).getRating().getRaters(), ctx));
 			holder.ratingBar.setRating((float) getItem(position).getRating().getRate());
 		}
+		if (getItem(position).getClassificationId() != null) {
+			holder.role.setText(BeauticianUtil.getClassificationTypeById(ctx, getItem(position).getClassificationId())
+					.getTitle());
+		}
 
 		return convertView;
 	}

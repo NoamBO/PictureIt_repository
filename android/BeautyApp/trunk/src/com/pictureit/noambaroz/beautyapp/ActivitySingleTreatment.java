@@ -70,6 +70,7 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			View v = inflater.inflate(R.layout.fragment_upcoming_treatment, container, false);
 			ImageView pic = findView(v, R.id.iv_base_beautician_row_pic);
 			TextView name = findView(v, R.id.tv_base_beautician_row_name);
+			TextView classification = findView(v, R.id.tv_base_beautician_row_classification);
 			TextView address = findView(v, R.id.tv_base_beautician_row_address);
 			TextView raters = findView(v, R.id.tv_base_beautician_row_raters);
 			RatingBar ratingBar = findView(v, R.id.rb_base_beautician_row_rating);
@@ -84,6 +85,8 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 
 			name.setText(mUpcomingTreatment.getBeautician_name());
 			address.setText(mUpcomingTreatment.getBeautician_address());
+			classification.setText(BeauticianUtil.getClassificationTypeById(getActivity(),
+					mUpcomingTreatment.getClassification()).getTitle());
 			raters.setText(BeauticianUtil.formatRaters(mUpcomingTreatment.getBeautician_raters(), getActivity()));
 			ratingBar.setRating((float) mUpcomingTreatment.getBeautician_rate());
 			date.setText(TimeUtils.timestampToDate(mUpcomingTreatment.getTreatment_date()));

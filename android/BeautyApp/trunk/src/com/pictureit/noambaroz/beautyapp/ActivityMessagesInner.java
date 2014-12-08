@@ -62,6 +62,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		private String picUrl;
 		private String beauticianName;
 		private String beauticianAddress;
+		private String beauticianClassification;
 		private int beauticianRaters;
 		private double beauticianRating;
 		private String treatmentDate;
@@ -87,6 +88,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 				picUrl = c.getString(c.getColumnIndex(DataProvider.COL_PIC));
 				beauticianName = c.getString(c.getColumnIndex(DataProvider.COL_NAME));
 				beauticianAddress = c.getString(c.getColumnIndex(DataProvider.COL_ADDRESS));
+				beauticianClassification = BeauticianUtil.getClassificationTypeById(getActivity(),
+						c.getString(c.getColumnIndex(DataProvider.COL_CLASSIFICATION))).getTitle();
 				beauticianRaters = c.getInt(c.getColumnIndex(DataProvider.COL_RATERS));
 				beauticianRating = c.getDouble(c.getColumnIndex(DataProvider.COL_RATE));
 				treatmentDate = c.getString(c.getColumnIndex(DataProvider.COL_AT));
@@ -127,6 +130,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 			ImageView pic = findView(v, R.id.iv_base_beautician_row_pic);
 			TextView name = findView(v, R.id.tv_base_beautician_row_name);
 			TextView address = findView(v, R.id.tv_base_beautician_row_address);
+			TextView classification = findView(v, R.id.tv_base_beautician_row_classification);
 			TextView raters = findView(v, R.id.tv_base_beautician_row_raters);
 			RatingBar ratingBar = findView(v, R.id.rb_base_beautician_row_rating);
 			TextView date = findView(v, R.id.tv_message_inner_treatment_date);
@@ -140,6 +144,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 			name.setText(beauticianName);
 			address.setText(beauticianAddress);
+			classification.setText(beauticianClassification);
 			raters.setText("( " + beauticianRaters + " )");
 			ratingBar.setRating((float) beauticianRating);
 			date.setText(TimeUtils.timestampToDate(treatmentDate));

@@ -15,6 +15,7 @@ public class UpcomingTreatment implements Parcelable {
 	private String beautician_id;
 	private String beautician_name;
 	private String beautician_address;
+	private String classification;
 	private int beautician_raters;
 	private double beautician_rate;
 	private String treatment_date;
@@ -141,6 +142,7 @@ public class UpcomingTreatment implements Parcelable {
 		out.writeString(beautician_id);
 		out.writeString(beautician_name);
 		out.writeString(beautician_address);
+		out.writeString(classification);
 
 		out.writeInt(beautician_raters);
 		out.writeDouble(beautician_rate);
@@ -160,6 +162,7 @@ public class UpcomingTreatment implements Parcelable {
 		beautician_id = in.readString();
 		beautician_name = in.readString();
 		beautician_address = in.readString();
+		classification = in.readString();
 
 		beautician_raters = in.readInt();
 		beautician_rate = in.readDouble();
@@ -180,6 +183,14 @@ public class UpcomingTreatment implements Parcelable {
 
 	public void setUpcomingTreatmentId(String upcomingtreatment_id) {
 		this.upcomingtreatment_id = upcomingtreatment_id;
+	}
+
+	public String getClassification() {
+		return classification;
+	}
+
+	public void setClassification(String classification) {
+		this.classification = classification;
 	}
 
 	public static final Parcelable.Creator<UpcomingTreatment> CREATOR = new Parcelable.Creator<UpcomingTreatment>() {

@@ -6,24 +6,23 @@ import org.json.JSONObject;
 import utilities.Dialogs;
 import utilities.server.BaseHttpPost;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
 import com.pictureit.noambaroz.beautyapp.R;
+import com.pictureit.noambaroz.beautyapp.customdialogs.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 
 public class PostVerifyAddress extends BaseHttpPost {
 
 	private HttpCallback myCallback;
-	private Dialog addressesDialog;
 
 	private static final String KEY_ADDRESS = "address";
 
 	public PostVerifyAddress(Context ctx, HttpCallback callback, String address) {
-		super(ctx, callback);
+		super(ctx, null);
+		myCallback = callback;
 		prepare(address);
 	}
 
@@ -42,19 +41,18 @@ public class PostVerifyAddress extends BaseHttpPost {
 		if (array.length == 0) {
 			myCallback.onAnswerReturn(null);
 		} else {
-			AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-			builder.setCustomTitle(Dialogs.getDialogTitleTextView(ctx, ctx.getString(R.string.select_address)));
-			builder.setSingleChoiceItems(array, 0, new OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					myCallback.onAnswerReturn(array[which]);
-					addressesDialog.dismiss();
-				}
-			});
-			addressesDialog = builder.create();
-			addressesDialog.setCanceledOnTouchOutside(false);
-			addressesDialog.show();
+			MySingleChoiseDialog dialog = new MySingleChoiseDialog(ctx, ctx.getString(R.string.select_address), array,
+					0, new OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							myCallback.onAnswerReturn(array[which]);
+							dialog.dismiss();
+						}
+					});
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
 		}
 		super.onPostExecute(result);
 	}
