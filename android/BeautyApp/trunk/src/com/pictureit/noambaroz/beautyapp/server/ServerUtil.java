@@ -81,6 +81,7 @@ public class ServerUtil {
 
 	// Post Rate
 	public static final String RATE = "rate";
+	public static final String TREATMENT_HISTORY_ID = "treatmenthistory_id";
 
 	// Cancel upcoming treatment
 	public static final String UPCOMING_TREATMENT_ID = "upcomingtreatment_id";

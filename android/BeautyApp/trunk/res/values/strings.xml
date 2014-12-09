@@ -9,8 +9,8 @@
     <string name="preference_key_my_profile_address">PREF_PROFILE_ADDRESS</string>
 	<string name="preference_key_my_profile_phone_number">PREF_PROFILE_PHONE_NUMBER</string>
 
-	<string name="push_notification_title">מבצע החודש</string>
-	<string name="push_notification_message">"חברת פיקצ'ר איט יוצאת במבצעים חסרי תקדים ללקוחות חדשים!"</string>
+	<string name="push_notification_messages_message_from">הודעה מ </string>
+	<string name="push_notification_messages_message">"היי, מחכה לך הצעה ממני בתוך האפליקציה. כנס כדי להגיב"</string>
     <string name="question_mark">"?"</string>
     <string name="press_again_to_exit">לחץ פעם נוספת ליציאה</string>
     <string name="loading">טוען..</string>
@@ -164,6 +164,8 @@
 	<string name="currency">ש\"ח</string>
     <string name="no_history">אין הסטוריה זמינה</string>
 	<string name="rate_dialog_positive_button">דרג את</string>
+	<string name="rate_impossible">לא ניתן לדרג</string>
+	<string name="you_already_rate_this_beautician">כבר דירגת את הקוסמטיקאית לטיפול הנוכחי.</string>
    
     <!-- general dialogs text -->
     <string name="dialog_ok_text">אישור</string>

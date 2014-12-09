@@ -1,5 +1,8 @@
 package com.pictureit.noambaroz.beautyapp.gcm;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import utilities.Log;
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -18,6 +21,12 @@ import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
+
+	private static final String NOTIFICATION_TYPE_MESSAGE = "message";
+
+	private static final String FROM = "from";
+	private static final String ORDER_ID = "order_id";
+
 	// private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
 	private NotificationManager mNotificationManager;
@@ -33,7 +42,7 @@ public class GcmIntentService extends IntentService {
 		// The getMessageType() intent parameter must be the intent you received
 		// in your BroadcastReceiver.
 		String messageType = gcm.getMessageType(intent);
-
+		Log.i("notification arrived");
 		if (!extras.isEmpty()) { // has effect of unparcelling Bundle
 			/*
 			 * Filter messages based on message type. Since it is likely that
@@ -41,17 +50,16 @@ public class GcmIntentService extends IntentService {
 			 * ignore any message types you're not interested in, or that you
 			 * don't recognize.
 			 */
-			if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-				// sendNotification("Send error: " + extras.toString(), extras);
+			// If it's a regular GCM message, do some work.
+			if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+				try {
+					setNotification(extras);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-				// sendNotification("Deleted messages on server: " +
-				// extras.toString(), extras);
-				// If it's a regular GCM message, do some work.
-			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-				onMessageNotification(extras);
-				// Post notification of received message.
-				sendNotification(extras);
-				Log.i("Received: " + extras.toString());
+			} else if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
 			}
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -61,7 +69,7 @@ public class GcmIntentService extends IntentService {
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
-	private void sendNotification(Bundle data) {
+	private void sendNotification(Bundle data, String message, String title) {
 		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		Intent notificationIntent = new Intent(this, ActivityMessages.class);
@@ -72,24 +80,43 @@ public class GcmIntentService extends IntentService {
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 		// Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR);
 
-		String notificationMessage = data.getString("from");
 		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-				.setSmallIcon(R.drawable.ic_stat_gcm)
-				.setContentTitle(getResources().getString(R.string.push_notification_title))
-				.setStyle(
-						new NotificationCompat.BigTextStyle().bigText(getResources().getString(
-								R.string.push_notification_message)))
-				.setContentText(getResources().getString(R.string.push_notification_message)).setAutoCancel(true)
-				.setSound(uri);
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_launcher)
+				.setContentTitle(title).setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+				.setContentText(message).setAutoCancel(true).setSound(uri);
 
 		mBuilder.setContentIntent(contentIntent);
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}
 
-	private void onMessageNotification(Bundle json) {
-		String notificationId = json.getString("alert");
+	private void onMessageNotification(JSONObject json) {
+		String notificationId = null;
+		try {
+			notificationId = json.getString(ORDER_ID);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		if (notificationId != null)
 			DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), notificationId);
+	}
+
+	private void setNotification(Bundle extras) throws JSONException {
+		if (!extras.containsKey("data"))
+			return;
+
+		String dataString = (String) extras.get("data");
+		JSONObject data = null;
+
+		data = new JSONObject(dataString);
+
+		String notificationType = data.getString("type");
+		if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_MESSAGE)) {
+			onMessageNotification(data);
+			String from = data.getString(FROM);
+			String title = getString(R.string.push_notification_messages_message_from)
+					+ (from != null ? from : getString(R.string.beautician));
+			String message = getString(R.string.push_notification_messages_message);
+			sendNotification(extras, message, title);
+		}
 	}
 }

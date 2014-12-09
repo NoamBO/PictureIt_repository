@@ -12,11 +12,11 @@ import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
 public class PostRate extends BaseHttpPost {
 
 	private int rating;
-	private String beauticianID;
+	private String historyID;
 
-	public PostRate(Context ctx, HttpCallback callback, String beauticianID, int rating) {
+	public PostRate(Context ctx, HttpCallback callback, String historyID, int rating) {
 		super(ctx, callback);
-		this.beauticianID = beauticianID;
+		this.historyID = historyID;
 		this.rating = rating;
 		prepare(null);
 	}
@@ -32,8 +32,7 @@ public class PostRate extends BaseHttpPost {
 		mMainJson = new JSONObject();
 		try {
 			mMainJson.put(ServerUtil.RATE, rating);
-			mMainJson.put(ServerUtil.BEAUTICIAN_UID, beauticianID);
-			mMainJson.put(ServerUtil.CUSTOMER_UID, getUid());
+			mMainJson.put(ServerUtil.TREATMENT_HISTORY_ID, historyID);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

@@ -41,6 +41,7 @@
         android:layout_marginTop="25dp"
         android:max="5"
         android:numStars="5"
+        android:rating="1"
         android:stepSize="1.0" />
 
 </LinearLayout>

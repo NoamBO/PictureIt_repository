@@ -2,7 +2,9 @@ package com.pictureit.noambaroz.beautyapp.customdialogs;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
@@ -26,6 +28,17 @@ public class DialogRate extends BaseDialog {
 			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 				if (rating < 1)
 					ratingBar.setRating(1);
+			}
+		});
+		mRatingBar.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (mRatingBar.getRating() < 1) {
+					mRatingBar.setRating(1);
+					return true;
+				}
+				return false;
 			}
 		});
 	}
@@ -60,15 +73,6 @@ public class DialogRate extends BaseDialog {
 			}
 		});
 		return this;
-	}
-
-	public float getProgress() {
-		return mRatingBar.getRating();
-	}
-
-	public void setProgress(float progress) {
-		if (progress > 0 && progress < mRatingBar.getMax())
-			mRatingBar.setRating(progress);
 	}
 
 	public void show(View v) {

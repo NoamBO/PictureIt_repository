@@ -134,7 +134,12 @@ public class ActivityHistory extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					rate(v, getItem(position));
+					if (!getItem(position).isRated())
+						rate(v, position);
+					else {
+						Dialogs.generalDialog(getContext(), getString(R.string.you_already_rate_this_beautician),
+								getString(R.string.rate_impossible));
+					}
 				}
 			});
 			holder.bReorder.setOnClickListener(new OnClickListener() {
@@ -166,25 +171,26 @@ public class ActivityHistory extends ActivityWithFragment {
 			httpRequest.execute();
 		}
 
-		protected void rate(View v, final UpcomingTreatment t) {
-			new DialogRate(getContext()).setOkButton(t.getBeautician_name(), new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int rating) {
-					PostRate httpRequest = new PostRate(getContext(), new HttpCallback() {
+		protected void rate(View v, final int position) {
+			new DialogRate(getContext())
+					.setOkButton(getItem(position).getBeautician_name(), new DialogInterface.OnClickListener() {
 
 						@Override
-						public void onAnswerReturn(Object answer) {
-							if ((Boolean) answer) {
+						public void onClick(DialogInterface dialog, int rating) {
+							PostRate httpRequest = new PostRate(getContext(), new HttpCallback() {
 
-							} else {
-								Dialogs.showServerFailedDialog(getContext());
-							}
+								@Override
+								public void onAnswerReturn(Object answer) {
+									if ((Boolean) answer) {
+										getItem(position).setRated(true);
+									} else {
+										Dialogs.showServerFailedDialog(getContext());
+									}
+								}
+							}, getItem(position).getTreatmenthistory_id(), rating);
+							httpRequest.execute();
 						}
-					}, t.getBeautician_id(), rating);
-					httpRequest.execute();
-				}
-			}).setCancelButton(null).show(v);
+					}).setCancelButton(null).show(v);
 		}
 
 		private String getTreatmentName(UpcomingTreatment t) {

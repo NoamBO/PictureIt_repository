@@ -31,12 +31,12 @@ public class Dialogs {
 		generalDialog(activity, message, null);
 	}
 
-	public static void generalDialog(Activity activity, String message, String title) {
-		MyCustomDialog dialog = new MyCustomDialog(activity);
+	public static void generalDialog(Context context, String message, String title) {
+		MyCustomDialog dialog = new MyCustomDialog(context);
 		dialog.setMessage(message);
 		if (title != null)
 			dialog.setDialogTitle(title);
-		dialog.setPositiveButton(activity.getString(R.string.dialog_ok_text), new OnClickListener() {
+		dialog.setPositiveButton(context.getString(R.string.dialog_ok_text), new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

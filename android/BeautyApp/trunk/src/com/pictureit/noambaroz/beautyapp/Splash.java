@@ -1,13 +1,13 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.Dialogs;
+import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
