@@ -40,6 +40,9 @@ public class SearchProviderFragment extends BaseFragment {
 
 	private MyCustomDialog dialogName, dialogLocation;
 
+	public SearchProviderFragment() {
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

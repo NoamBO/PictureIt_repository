@@ -87,6 +87,9 @@ public class ActivityTreatments extends ActivityWithFragment {
 		private ViewGroup mNoTreatmentsIndicator;
 		private UpcomingTreatment mTempTreatment;
 
+		public FragmentTreatments() {
+		}
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_treatments, container, false);

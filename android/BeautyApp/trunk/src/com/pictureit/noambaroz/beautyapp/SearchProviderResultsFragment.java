@@ -20,6 +20,9 @@ public class SearchProviderResultsFragment extends ListFragment {
 		mArrayList = list;
 	}
 
+	public SearchProviderResultsFragment() {
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle data) {
 

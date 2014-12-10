@@ -20,6 +20,9 @@ import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatments
 
 public class FragmentServiceOrder extends BaseFragment implements OnClickListener {
 
+	public FragmentServiceOrder() {
+	}
+
 	public void setBeauticianIdNameAndTreatments(String beauticianId, String beauticianName,
 			String[] treatmentStringArray) {
 		this.beauticianId = beauticianId;

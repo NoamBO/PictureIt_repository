@@ -75,6 +75,9 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		private TextView bConfirm;
 		private TextView bReject;
 
+		public FragmentInnerMessage() {
+		}
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

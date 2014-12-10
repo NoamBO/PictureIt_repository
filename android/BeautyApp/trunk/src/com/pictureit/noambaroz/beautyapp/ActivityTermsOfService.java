@@ -34,6 +34,9 @@ public class ActivityTermsOfService extends ActivityWithFragment {
 
 	private class FragmentTermsOfService extends Fragment {
 
+		public FragmentTermsOfService() {
+		}
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			ViewGroup v = (ViewGroup) inflater.inflate(R.layout.fragment_terms_of_service, container, false);

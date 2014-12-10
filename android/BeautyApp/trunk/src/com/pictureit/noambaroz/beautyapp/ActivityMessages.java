@@ -64,6 +64,9 @@ public class ActivityMessages extends ActivityWithFragment {
 		private ListView mListView;
 		private ViewGroup emptyListIndicator;
 
+		public FragmentMessages() {
+		}
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

@@ -60,6 +60,9 @@ public class ActivityBeautician extends ActivityWithFragment {
 		private TextView tvClassification;
 		private TextView tvMobility;
 
+		public FragmentBeautician() {
+		}
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

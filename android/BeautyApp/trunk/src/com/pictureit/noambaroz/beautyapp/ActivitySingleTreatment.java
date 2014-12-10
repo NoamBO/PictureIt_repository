@@ -64,6 +64,9 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			mUpcomingTreatment = upcomingTreatment;
 		}
 
+		public FragmentSingleTreatment() {
+		}
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

@@ -31,6 +31,9 @@ public class FragmentTreatmentSelection extends Fragment {
 	private ViewGroup buttonConfirm;
 	private boolean isActivitySearchProvider;
 
+	public FragmentTreatmentSelection() {
+	}
+
 	@Override
 	public void onDetach() {
 		if (mListener != null)

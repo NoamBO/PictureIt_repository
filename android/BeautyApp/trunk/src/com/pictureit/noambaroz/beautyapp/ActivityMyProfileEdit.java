@@ -93,6 +93,9 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 
 		private String tempFirstName, tempLastName, tempAddress, tempEmail;
 
+		public FragmentMyProfileEdit() {
+		}
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

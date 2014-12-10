@@ -81,6 +81,9 @@ public class ActivityMyProfile extends ActivityWithFragment {
 		private ImageView ivImage;
 		private SharedPreferences mPrefs;
 
+		public FragmentMyProfile() {
+		}
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
