@@ -3,7 +3,8 @@ package com.pictureit.noambaroz.beautyapp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.splunk.mint.Mint;
+import com.parse.Parse;
+import com.parse.ParseCrashReporting;
 
 public class Application extends android.app.Application {
 
@@ -11,14 +12,11 @@ public class Application extends android.app.Application {
 
 	@Override
 	public void onCreate() {
-		super.onCreate();
+		ParseCrashReporting.enable(this);
+		Parse.initialize(this, "5mBoLBhfZitSwKM5F4CH09w2ivUsWNM4AFEsudsu", "9OpBDEPTOq5RSqbO3lSf9NCpaUQfzO3waVOQagh6");
 
 		initImageLoader();
-		// initSplunkMINT();
-	}
-
-	private void initSplunkMINT() {
-		Mint.initAndStartSession(Application.this, "3c8f08a6");
+		super.onCreate();
 	}
 
 	private void initImageLoader() {
