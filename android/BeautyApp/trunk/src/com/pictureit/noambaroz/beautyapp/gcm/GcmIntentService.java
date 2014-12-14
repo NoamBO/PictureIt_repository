@@ -25,7 +25,7 @@ public class GcmIntentService extends IntentService {
 	private static final String NOTIFICATION_TYPE_MESSAGE = "message";
 
 	private static final String FROM = "from";
-	private static final String ORDER_ID = "order_id";
+	private static final String ORDER_ID = "beauticianresponseid";
 
 	// private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;

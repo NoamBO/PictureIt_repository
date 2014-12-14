@@ -5,15 +5,27 @@
     android:background="@color/app_background"
     android:orientation="vertical" >
 
-    <utilities.view.MyFontTextView
-        android:id="@+id/my_custom_dialog_title"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialog_row_height"
-        android:background="@color/dialog_theme_color"
-        android:gravity="center"
-        android:textColor="@color/app_background"
-        android:textSize="@dimen/common_title_text_size"
-        android:visibility="gone" />
+        android:layout_height="wrap_content" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/my_custom_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_row_height"
+            android:background="@color/dialog_theme_color"
+            android:gravity="center"
+            android:textColor="@color/app_background"
+            android:textSize="@dimen/common_title_text_size"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/my_custom_dialog_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <utilities.view.MyFontTextView
         android:id="@+id/my_custom_dialog_message"

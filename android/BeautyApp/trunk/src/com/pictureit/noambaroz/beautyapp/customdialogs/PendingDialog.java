@@ -1,8 +1,11 @@
 package com.pictureit.noambaroz.beautyapp.customdialogs;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.R;
@@ -12,6 +15,7 @@ public class PendingDialog {
 
 	private Activity mActivity;
 	private View mView;
+	private Animator mIconAnim;
 
 	public PendingDialog(Activity activity) {
 		mActivity = activity;
@@ -20,22 +24,31 @@ public class PendingDialog {
 			return;
 
 		mView.setVisibility(View.GONE);
+
+		ImageView icon = (ImageView) mView.findViewById(R.id.pending_dialog_icon);
+		mIconAnim = AnimatorInflater.loadAnimator(activity, R.anim.rotatr_by_y);
+		mIconAnim.setTarget(icon);
 	}
 
 	public void dismiss() {
 		if (mView == null)
 			return;
 
-		if (isShowing())
+		if (isShowing()) {
 			AnimationManager.fadeOut(mActivity, mView);
+			mIconAnim.cancel();
+		}
 	}
 
 	public void show() {
 		if (mView == null)
 			return;
 
-		if (!isShowing())
+		if (!isShowing()) {
 			AnimationManager.fadeIn(mActivity, mView);
+			mIconAnim.start();
+		}
+
 	}
 
 	public boolean isShowing() {
@@ -52,4 +65,5 @@ public class PendingDialog {
 		TextView tvCancel = (TextView) mActivity.findViewById(R.id.pending_dialog_cancel);
 		tvCancel.setOnClickListener(onClickListener);
 	}
+
 }

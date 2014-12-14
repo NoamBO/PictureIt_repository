@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import utilities.view.MyNumberPicker;
 import utilities.view.MyNumberPicker.onValueChangeListener;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatmentsSelectedListener;
@@ -105,7 +105,6 @@ public class FragmentTreatmentSelection extends Fragment {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			final TreatmentType item = getItem(position);
 			holder.tvDescription.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -146,16 +145,15 @@ public class FragmentTreatmentSelection extends Fragment {
 		}
 
 		protected void showDescription(TreatmentType treatmentType) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setTitle(treatmentType.getName());
-			builder.setIcon(android.R.drawable.ic_dialog_info);
-			StringBuilder sb = new StringBuilder();
-			sb.append(treatmentType.getDescription());
-			sb.append("\n");
-			sb.append("מחיר: ");
-			sb.append(treatmentType.getPrice());
-			builder.setMessage(sb.toString());
-			builder.create().show();
+			StringBuilder messageBuilder = new StringBuilder();
+			messageBuilder.append(getString(R.string.price));
+			messageBuilder.append(" ");
+			messageBuilder.append(treatmentType.getPrice());
+			messageBuilder.append(" ");
+			messageBuilder.append(getString(R.string.currency));
+			new MyCustomDialog(getActivity()).setDialogTitle(treatmentType.getName())
+					.setIcon(android.R.drawable.ic_dialog_info).setMessage(treatmentType.getDescription())
+					.setSubMessage(messageBuilder.toString()).show();
 		}
 
 		@Override

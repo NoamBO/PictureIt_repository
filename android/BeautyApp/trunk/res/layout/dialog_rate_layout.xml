@@ -33,7 +33,7 @@
     </RelativeLayout>
 
     <RatingBar
-        android:id="@+id/rb_dialog_rate"
+        android:id="@+id/rb_dialog_rate" style="@style/MyRatingBarBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

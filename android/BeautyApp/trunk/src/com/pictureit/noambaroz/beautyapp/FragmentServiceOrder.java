@@ -3,7 +3,6 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.ArrayList;
 
 import utilities.BaseFragment;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
+import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager.OnTreatmentsSelectedListener;
@@ -183,9 +183,11 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 
 	public void order() {
 		if (!isOrderOk()) {
-			new AlertDialog.Builder(getActivity()).setTitle(getResources().getString(R.string.dialog_title_error))
-					.setMessage(getResources().getString(R.string.dialog_error_message_must_fill_all_feilde))
-					.setPositiveButton(R.string.dialog_ok_text, null).create().show();
+
+			new MyCustomDialog(getActivity()).setDialogTitle(R.string.dialog_title_error)
+					.setMessage(R.string.dialog_error_message_must_fill_all_feilde)
+					.setPositiveButton(R.string.dialog_ok_text, null).show();
+
 			return;
 		}
 		mManager.placeOrder(beauticianId);

@@ -7,7 +7,7 @@
         <item name="android:actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
         <item name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</item>
         <item name="android:textColorPrimary">@color/text_color_gray</item>
-         <item name="numberPickerStyle">@style/NPWidget.Holo.NumberPicker</item>
+        <item name="numberPickerStyle">@style/NPWidget.Holo.NumberPicker</item>
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -31,6 +31,10 @@
     <style name="MyRatingBar" parent="@android:style/Widget.Holo.Light.RatingBar.Small">
         <item name="android:progressDrawable">@drawable/rating_bar_progress</item>
     </style>
+    
+     <style name="MyRatingBarBig" parent="@android:style/Widget.RatingBar">
+       <item name="android:progressDrawable">@drawable/rating_bar_big</item>
+   </style>
 
     <style name="Theme.DialodNoWindowTitle" parent="@android:Theme.Holo.Light.Dialog">
         <item name="android:windowNoTitle">true</item>

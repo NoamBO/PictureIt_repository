@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp.customdialogs;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.R;
@@ -113,6 +114,15 @@ public class MyCustomDialog extends BaseDialog {
 		if (tvTitle != null) {
 			tvTitle.setVisibility(View.VISIBLE);
 			tvTitle.setText(title == null ? mContext.getString(resId) : title);
+		}
+		return this;
+	}
+
+	public MyCustomDialog setIcon(int resId) {
+		ImageView icon = (ImageView) mView.findViewById(R.id.my_custom_dialog_icon);
+		if (icon != null && resId != 0) {
+			icon.setVisibility(View.GONE);
+			icon.setBackgroundResource(resId);
 		}
 		return this;
 	}

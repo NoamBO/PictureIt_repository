@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +38,7 @@ public class MyNumberPicker extends LinearLayout {
 	private final int textSize = 12;
 
 	private final int MINIMUM = 0;
-	private final int MAXIMUM = 99;
+	private final int MAXIMUM = 10;
 
 	public Integer value;
 
@@ -112,24 +111,24 @@ public class MyNumberPicker extends LinearLayout {
 			}
 		});
 
-		// Auto increment for a long click
-		increment.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View arg0) {
-				autoIncrement = true;
-				repeatUpdateHandler.post(new RepetetiveUpdater());
-				return false;
-			}
-		});
-
-		// When the button is released, if we're auto incrementing, stop
-		increment.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_UP && autoIncrement) {
-					autoIncrement = false;
-				}
-				return false;
-			}
-		});
+		// // Auto increment for a long click
+		// increment.setOnLongClickListener(new View.OnLongClickListener() {
+		// public boolean onLongClick(View arg0) {
+		// autoIncrement = true;
+		// repeatUpdateHandler.post(new RepetetiveUpdater());
+		// return false;
+		// }
+		// });
+		//
+		// // When the button is released, if we're auto incrementing, stop
+		// increment.setOnTouchListener(new View.OnTouchListener() {
+		// public boolean onTouch(View v, MotionEvent event) {
+		// if (event.getAction() == MotionEvent.ACTION_UP && autoIncrement) {
+		// autoIncrement = false;
+		// }
+		// return false;
+		// }
+		// });
 	}
 
 	private void initValueEditText(Context context) {
@@ -188,24 +187,24 @@ public class MyNumberPicker extends LinearLayout {
 			}
 		});
 
-		// Auto Decrement for a long click
-		decrement.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View arg0) {
-				autoDecrement = true;
-				repeatUpdateHandler.post(new RepetetiveUpdater());
-				return false;
-			}
-		});
-
-		// When the button is released, if we're auto decrementing, stop
-		decrement.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_UP && autoDecrement) {
-					autoDecrement = false;
-				}
-				return false;
-			}
-		});
+		// // Auto Decrement for a long click
+		// decrement.setOnLongClickListener(new View.OnLongClickListener() {
+		// public boolean onLongClick(View arg0) {
+		// autoDecrement = true;
+		// repeatUpdateHandler.post(new RepetetiveUpdater());
+		// return false;
+		// }
+		// });
+		//
+		// // When the button is released, if we're auto decrementing, stop
+		// decrement.setOnTouchListener(new View.OnTouchListener() {
+		// public boolean onTouch(View v, MotionEvent event) {
+		// if (event.getAction() == MotionEvent.ACTION_UP && autoDecrement) {
+		// autoDecrement = false;
+		// }
+		// return false;
+		// }
+		// });
 	}
 
 	public void increment() {
