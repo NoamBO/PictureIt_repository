@@ -26,13 +26,13 @@
             android:layout_height="wrap_content"
             android:src="@drawable/no_treatments" />
 
-        <TextView
+        <utilities.view.MyFontTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/black_stroke_rounded_corner"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="@string/no_treatments" />
+            android:text="@string/no_treatments"
+            android:textColor="@color/text_color_gray" />
     </LinearLayout>
 
     <ProgressBar

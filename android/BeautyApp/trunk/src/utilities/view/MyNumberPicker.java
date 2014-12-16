@@ -2,6 +2,7 @@ package utilities.view;
 
 import utilities.PixelsConverter;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.text.InputType;
 import android.util.AttributeSet;
@@ -11,14 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-/**
- * A simple layout group that provides a numeric text area with two buttons to
- * increment or decrement the value in the text area. Holding either button will
- * auto increment the value up or down appropriately.
- * 
- * @author Jeffrey F. Cole
- *
- */
+import com.pictureit.noambaroz.beautyapp.R;
+
 public class MyNumberPicker extends LinearLayout {
 
 	public interface onValueChangeListener {
@@ -29,11 +24,11 @@ public class MyNumberPicker extends LinearLayout {
 
 	private final long REPEAT_DELAY = 50;
 
-	private final int ELEMENT_HEIGHT = 30;
-	private final int ELEMENT_WIDTH = ELEMENT_HEIGHT; // you're all squares, yo
+	private final int ELEMENT_HEIGHT = 25;
+	private final int ELEMENT_WIDTH = ELEMENT_HEIGHT;
 
-	private final int EDIT_TEXT_HEIGHT = ELEMENT_HEIGHT;
-	private final int EDIT_TEXT_WIDTH = ELEMENT_HEIGHT + 10;
+	private final int EDIT_TEXT_HEIGHT = ELEMENT_HEIGHT + 10;
+	private final int EDIT_TEXT_WIDTH = ELEMENT_HEIGHT + 13;
 
 	private final int textSize = 12;
 
@@ -51,14 +46,6 @@ public class MyNumberPicker extends LinearLayout {
 	private boolean autoIncrement = false;
 	private boolean autoDecrement = false;
 
-	/**
-	 * This little guy handles the auto part of the auto incrementing feature.
-	 * In doing so it instantiates itself. There has to be a pattern name for
-	 * that...
-	 * 
-	 * @author Jeffrey F. Cole
-	 *
-	 */
 	class RepetetiveUpdater implements Runnable {
 		public void run() {
 			if (autoIncrement) {
@@ -75,11 +62,13 @@ public class MyNumberPicker extends LinearLayout {
 		super(context, attributeSet);
 
 		this.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		this.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
 		LayoutParams elementParams = new LinearLayout.LayoutParams((int) PixelsConverter.convertDpToPixel(
 				ELEMENT_WIDTH, context), (int) PixelsConverter.convertDpToPixel(ELEMENT_HEIGHT, context));
 		LayoutParams editTextParams = new LinearLayout.LayoutParams((int) PixelsConverter.convertDpToPixel(
 				EDIT_TEXT_WIDTH, context), (int) PixelsConverter.convertDpToPixel(EDIT_TEXT_HEIGHT, context));
+
 		// init the individual elements
 		initDecrementButton(context);
 		initValueEditText(context);
@@ -101,8 +90,12 @@ public class MyNumberPicker extends LinearLayout {
 
 	private void initIncrementButton(Context context) {
 		increment = new Button(context);
-		increment.setTextSize(textSize);
-		increment.setText("+");
+		// increment.setTextSize(textSize);
+		// increment.setTypeface(null, Typeface.BOLD);
+		// increment.setTextColor(getContext().getResources().getColor(R.color.app_background));
+		// increment.setText("+");
+		// increment.setBackgroundColor(getContext().getResources().getColor(R.color.app_most_common_yellow_color));
+		increment.setBackgroundResource(R.drawable.ic_plus);
 
 		// Increment once for a click
 		increment.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +130,7 @@ public class MyNumberPicker extends LinearLayout {
 
 		valueText = new EditText(context);
 		valueText.setTextSize(textSize);
+		valueText.setBackgroundColor(Color.parseColor("#00000000"));
 
 		// Since we're a number that gets affected by the button, we need to be
 		// ready to change the numeric value with a simple ++/--, so whenever
@@ -169,16 +163,20 @@ public class MyNumberPicker extends LinearLayout {
 				}
 			}
 		});
-		valueText.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+		valueText.setGravity(Gravity.CENTER);
 		valueText.setText(value.toString());
 		valueText.setInputType(InputType.TYPE_CLASS_NUMBER);
 	}
 
 	private void initDecrementButton(Context context) {
 		decrement = new Button(context);
-		decrement.setTextSize(textSize);
-		decrement.setText("-");
-		decrement.setGravity(Gravity.CENTER);
+		// decrement.setTextSize(textSize);
+		// decrement.setText("-");
+		// decrement.setTypeface(null, Typeface.BOLD);
+		// decrement.setTextColor(getContext().getResources().getColor(R.color.app_background));
+		// decrement.setBackgroundColor(getContext().getResources().getColor(R.color.app_most_common_yellow_color));
+		// decrement.setGravity(Gravity.CENTER);
+		decrement.setBackgroundResource(R.drawable.ic_minus);
 
 		// Decrement once for a click
 		decrement.setOnClickListener(new View.OnClickListener() {

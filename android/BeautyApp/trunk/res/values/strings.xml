@@ -437,7 +437,7 @@
     </string-array>
     <string-array name="treatment_38">
         <item name="id">38</item>
-        <item name="title">הסרת שיער באמצעות אינפרא אדום (׳׳קרן אור׳׳ או "IPL")</item>
+        <item name="title">הסרת שיער - אינפרא אדום</item>
         <item name="description">הסרת שיער הגוף או הפנים לצמיתות באמצעות קרני אינפרא אדום</item>
         <item name="price"> 500&#8211;2500 (תלוי באזור בגוף)</item>
     </string-array>

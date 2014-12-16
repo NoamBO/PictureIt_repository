@@ -46,21 +46,25 @@ public class FragmentReorder extends FragmentServiceOrder {
 	private void setAllFildes() {
 		if (mManager.getTreatment().forwho.equalsIgnoreCase(""))
 			setRowOrder(tvFor, mManager.getTreatment().forwho, bFor,
-					getResources().getString(R.string.who_the_service_for));
+					getResources().getString(R.string.who_the_service_for), -1);
 		else
-			setRowOrder(tvFor, mManager.getTreatment().forwho, bFor);
+			setRowOrder(tvFor, mManager.getTreatment().forwho, bFor, -1);
 
 		BeauticianUtil.setTreatmentsList(getActivity(), tvTreatmentsList1, tvTreatmentsList2,
 				mManager.getTreatment().treatments);
+
 		if (tvTreatmentsList1.getText().toString().equalsIgnoreCase("")
 				&& tvTreatmentsList2.getText().toString().equalsIgnoreCase(""))
-			setRowOrder(null, null, bTreatmentSelection, getString(R.string.select_treatment));
+			setRowOrder(null, null, bTreatmentSelection, getString(R.string.select_treatment), -1);
 		else
-			setRowOrder(null, null, bTreatmentSelection);
+			setRowOrder(null, null, bTreatmentSelection, -1);
 
-		setRowOrder(tvLocation, mManager.getTreatment().location, bLocation);
-
-		setRowOrder(tvRemarks, mManager.getTreatment().comments, bRemarks);
+		if (mManager.getTreatment().location.equalsIgnoreCase(""))
+			setRowOrder(tvLocation, mManager.getTreatment().location, bLocation,
+					getResources().getString(R.string.select_location), -1);
+		else
+			setRowOrder(tvLocation, mManager.getTreatment().location, bLocation, -1);
+		setRowOrder(tvRemarks, mManager.getTreatment().comments, bRemarks, -1);
 	}
 
 }

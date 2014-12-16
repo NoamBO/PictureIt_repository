@@ -34,7 +34,7 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 	private String beauticianName;
 	private String[] treatmentStringArray;
 
-	protected TextView tvFor, tvWhen, tvTreatmentSelection, tvLocation, tvRemarks, tvOrder;
+	protected TextView tvFor, tvWhen, tvLocation, tvRemarks, tvOrder;
 	protected TextView bFor, bWhen, bTreatmentSelection, bLocation, bRemarks;
 	protected TextView tvTreatmentsList1, tvTreatmentsList2;
 
@@ -56,7 +56,6 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 		tvWhen = findView(v, R.id.tv_service_order_when);
 		bWhen = findView(v, R.id.b_service_order_when);
 
-		tvTreatmentSelection = findView(v, R.id.tv_service_order_select_treatment);
 		bTreatmentSelection = findView(v, R.id.b_service_order_select_treatment);
 		tvTreatmentsList1 = findView(v, R.id.tv_service_order_treatment_list2);
 		tvTreatmentsList2 = findView(v, R.id.tv_service_order_treatment_list1);
@@ -94,9 +93,10 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 				@Override
 				public void onFieldChange(String result) {
 					if (result.equalsIgnoreCase(""))
-						setRowOrder(tvFor, result, bFor, getResources().getString(R.string.who_the_service_for));
+						setRowOrder(tvFor, result, bFor, getResources().getString(R.string.who_the_service_for),
+								R.id.dividerServiceOrderFor);
 					else
-						setRowOrder(tvFor, result, bFor);
+						setRowOrder(tvFor, result, bFor, R.id.dividerServiceOrderFor);
 				}
 			});
 			break;
@@ -105,9 +105,10 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 				@Override
 				public void onFieldChange(String result) {
 					if (result.equalsIgnoreCase(""))
-						setRowOrder(tvWhen, result, bWhen, getResources().getString(R.string.when_the_service_happen));
+						setRowOrder(tvWhen, result, bWhen, getResources().getString(R.string.when_the_service_happen),
+								R.id.dividerServiceOrderWhen);
 					else
-						setRowOrder(tvWhen, result, bWhen);
+						setRowOrder(tvWhen, result, bWhen, R.id.dividerServiceOrderWhen);
 				}
 			});
 			break;
@@ -119,9 +120,10 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 					BeauticianUtil.setTreatmentsList(getActivity(), tvTreatmentsList1, tvTreatmentsList2, tl);
 					if (tvTreatmentsList1.getText().toString().equalsIgnoreCase("")
 							&& tvTreatmentsList2.getText().toString().equalsIgnoreCase(""))
-						setRowOrder(null, null, bTreatmentSelection, getString(R.string.select_treatment));
+						setRowOrder(null, null, bTreatmentSelection, getString(R.string.select_treatment),
+								R.id.dividerServiceOrderSelectTreatment);
 					else
-						setRowOrder(null, null, bTreatmentSelection);
+						setRowOrder(null, null, bTreatmentSelection, R.id.dividerServiceOrderSelectTreatment);
 				}
 			});
 			break;
@@ -130,7 +132,11 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 
 				@Override
 				public void onFieldChange(String result) {
-					setRowOrder(tvLocation, result, bLocation);
+					if (result.equalsIgnoreCase(""))
+						setRowOrder(tvLocation, result, bLocation, getResources().getString(R.string.select_location),
+								R.id.dividerServiceOrderWhen);
+					else
+						setRowOrder(tvLocation, result, bLocation, R.id.dividerServiceOrderLocation);
 				}
 			});
 			break;
@@ -139,7 +145,7 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 
 				@Override
 				public void onFieldChange(String result) {
-					setRowOrder(tvRemarks, result, bRemarks);
+					setRowOrder(tvRemarks, result, bRemarks, -1);
 				}
 			});
 			break;
@@ -152,12 +158,14 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 		}
 	}
 
-	protected void setRowOrder(TextView textView, String text, TextView button) {
-		setRowOrder(textView, text, button, null);
+	protected void setRowOrder(TextView textView, String text, TextView button, int dividerResId) {
+		setRowOrder(textView, text, button, null, dividerResId);
 	}
 
-	protected void setRowOrder(TextView textView, String text, TextView button, String buttonText) {
+	protected void setRowOrder(TextView textView, String text, TextView button, String buttonText, int dividerResId) {
 		if (buttonText != null) {
+			if (dividerResId != -1)
+				findView(getView(), dividerResId).setVisibility(View.GONE);
 			button.getLayoutParams().width = LayoutParams.MATCH_PARENT;
 			button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
 			button.setBackgroundResource(R.drawable.btn_shape);
@@ -170,6 +178,8 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 			return;
 		}
 
+		if (dividerResId != -1)
+			findView(getView(), dividerResId).setVisibility(View.VISIBLE);
 		button.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
 		button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
 		button.setBackgroundResource(R.drawable.btn_edit);
@@ -195,42 +205,22 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 
 	public boolean isOrderOk() {
 		boolean isOk = true;
-		int colorFilled = getResources().getColor(R.color.text_color_filled);
-		int colorUnfilled = getResources().getColor(R.color.text_color_un_filled);
-		if (mManager.getTreatment().forwho == null || mManager.getTreatment().forwho.equalsIgnoreCase("")) {
+		if (mManager.getTreatment().forwho == null || mManager.getTreatment().forwho.equalsIgnoreCase(""))
 			isOk = false;
-			tvFor.setTextColor(colorUnfilled);
-		} else {
-			tvFor.setTextColor(colorFilled);
-		}
-		if (mManager.getTreatment().location == null || mManager.getTreatment().location.equalsIgnoreCase("")) {
+		if (mManager.getTreatment().location == null || mManager.getTreatment().location.equalsIgnoreCase(""))
 			isOk = false;
-			tvLocation.setTextColor(colorUnfilled);
-		} else {
-			tvLocation.setTextColor(colorFilled);
-		}
-		if (mManager.getTreatment().date == null || mManager.getTreatment().date.equalsIgnoreCase("")) {
+		if (mManager.getTreatment().date == null || mManager.getTreatment().date.equalsIgnoreCase(""))
 			isOk = false;
-			tvWhen.setTextColor(colorUnfilled);
-		} else {
-			tvWhen.setTextColor(colorFilled);
-		}
 		if (mManager.getTreatment().treatments != null) {
 			boolean temp = false;
 			for (TreatmentType t : mManager.getTreatment().treatments) {
 				if (Integer.valueOf(t.getAmount()) > 0)
 					temp = true;
 			}
-			if (!temp) {
+			if (!temp)
 				isOk = false;
-				tvTreatmentSelection.setTextColor(colorUnfilled);
-			} else {
-				tvTreatmentSelection.setTextColor(colorFilled);
-			}
-		} else {
+		} else
 			isOk = false;
-			tvTreatmentSelection.setTextColor(colorUnfilled);
-		}
 		return isOk;
 	}
 

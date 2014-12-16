@@ -25,11 +25,12 @@
             android:textColor="@color/button_text_color"
             android:textSize="17sp" />
 
-        <ScrollView android:layout_marginTop="-2dp"
+        <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/tv_service_order_one" >
+            android:layout_above="@+id/tv_service_order_one"
+            android:layout_marginTop="-2dp" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,10 +87,12 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerServiceOrderFor"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignBottom="@+id/llServiceOrderFor"
-                        android:background="@color/app_most_common_yellow_color" />
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -124,7 +127,8 @@
                             android:id="@+id/b_service_order_when"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_shape" android:layout_gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/btn_shape"
                             android:gravity="center"
                             android:text="@string/when_the_service_happen"
                             android:textColor="@color/button_text_color"
@@ -141,10 +145,12 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerServiceOrderWhen"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignBottom="@+id/llServiceOrderWhen"
-                        android:background="@color/app_most_common_yellow_color" />
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -167,53 +173,48 @@
                         android:textColor="@color/app_most_common_yellow_color"
                         android:textSize="@dimen/common_title_text_size" />
 
-                    <LinearLayout
-                        android:id="@+id/llServiceSelectTreatment"
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/tvServiceOrderSelectTreatment"
-                        android:orientation="horizontal" >
+                        android:layout_alignParentBottom="true"
+                        android:layout_toLeftOf="@id/tvServiceOrderSelectTreatment" >
 
-                        <utilities.view.MyFontTextView android:layout_gravity="center_vertical"
+                        <utilities.view.MyFontTextView
                             android:id="@+id/b_service_order_select_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="left"
                             android:background="@drawable/btn_shape"
                             android:gravity="center"
                             android:text="@string/select_treatment"
                             android:textColor="@color/button_text_color"
                             android:textSize="@dimen/common_title_text_size" />
-
-                        <utilities.view.MyFontTextView
-                            android:id="@+id/tv_service_order_select_treatment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_toRightOf="@+id/b_service_order_select_treatment"
-                            android:gravity="center"
-                            android:textColor="@color/text_color_gray"
-                            android:textSize="@dimen/common_text_size" />
-                    </LinearLayout>
+                    </FrameLayout>
 
                     <View
+                        android:id="@+id/dividerServiceOrderSelectTreatment"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignBottom="@+id/llServiceSelectTreatment"
-                        android:background="@color/app_most_common_yellow_color" />
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
 
-                    <LinearLayout
+                    <LinearLayout android:paddingLeft="25dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/llServiceSelectTreatment"
-                        android:layout_toLeftOf="@+id/tvServiceOrderSelectTreatment"
-                        android:orientation="horizontal" >
+                        android:layout_below="@+id/tvServiceOrderSelectTreatment"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp" >
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/tv_service_order_treatment_list1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text="ddd"
                             android:textColor="@color/text_color_gray"
-                            android:textSize="@dimen/common_text_size" />
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/tv_service_order_treatment_list2"
@@ -221,7 +222,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textColor="@color/text_color_gray"
-                            android:textSize="@dimen/common_text_size" />
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -255,9 +257,14 @@
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/b_service_order_location"
-                            android:layout_width="wrap_content" android:layout_gravity="center_vertical"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_edit" />
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/btn_shape"
+                            android:gravity="center"
+                            android:text="@string/select_location"
+                            android:textColor="@color/button_text_color"
+                            android:textSize="@dimen/common_title_text_size" />
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/tv_service_order_location"
@@ -270,10 +277,12 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerServiceOrderLocation"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignBottom="@+id/llServiceOrderLocation"
-                        android:background="@color/app_most_common_yellow_color" />
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -303,10 +312,11 @@
                         android:layout_toLeftOf="@+id/tvServiceOrderRemarks"
                         android:orientation="horizontal" >
 
-                        <utilities.view.MyFontTextView android:layout_gravity="center_vertical"
+                        <utilities.view.MyFontTextView
                             android:id="@+id/b_service_order_remarks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:background="@drawable/btn_edit" />
 
                         <utilities.view.MyFontTextView

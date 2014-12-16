@@ -7,6 +7,7 @@ import utilities.server.BaseHttpPost;
 import android.content.Context;
 
 import com.pictureit.noambaroz.beautyapp.data.JsonToObject;
+import com.pictureit.noambaroz.beautyapp.telephony.PhoneUtils;
 
 public class PostRegister extends BaseHttpPost {
 
@@ -19,7 +20,8 @@ public class PostRegister extends BaseHttpPost {
 		this.lastName = lastName;
 		this.email = email;
 		this.address = address;
-		this.phoneNum = phoneNumber;
+		this.phoneNum = PhoneUtils.get(ctx).getPhoneNumberWithZipCodeByIso(phoneNumber);
+
 		prepare(ServerUtil.URL_REQUEST_REGISTER);
 	}
 
