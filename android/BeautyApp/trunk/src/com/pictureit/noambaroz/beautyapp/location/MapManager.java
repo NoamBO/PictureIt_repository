@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -29,6 +28,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -38,11 +38,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beautyapp.ActivityBeautician;
-import com.pictureit.noambaroz.beautyapp.MainActivity;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.MarkerData;
-import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
 
@@ -67,6 +65,8 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	private Marker mMyPositionMarker;
 	private MarkerOptions mMyPositionMarkerOptions;
 
+	private LoadingMapIndicator mLoadingMapIndicator;
+
 	public GoogleMap getGoogleMap() {
 		return mMap;
 	}
@@ -90,6 +90,7 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	private MapManager(Activity activity) {
 		mActivity = activity;
 		mVisibleMarkers = new HashMap<Marker, String>();
+		mLoadingMapIndicator = new LoadingMapIndicator(mActivity);
 	}
 
 	public HashMap<Marker, String> getMarkers() {
@@ -103,10 +104,18 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	public void setUpMapIfNeeded(Location location) {
 		// Do a null check to confirm that we have not already instantiated the
 		// map.
+		showMapLoadingIndicator();
 		if (mMap == null) {
 			mMap = ((MapFragment) mActivity.getFragmentManager().findFragmentById(R.id.map)).getMap();
 			// Check if we were successful in obtaining the map.
 			if (mMap != null) {
+				mMap.setOnMapLoadedCallback(new OnMapLoadedCallback() {
+
+					@Override
+					public void onMapLoaded() {
+						onMapFullyLoaded();
+					}
+				});
 				setUpMap(location);
 			}
 		}
@@ -293,7 +302,25 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 			}
 		};
 		MyLocation myLocation = new MyLocation();
-		myLocation.getLocation(mActivity, locationResult);
+		boolean mapCanBeLoaded = myLocation.getLocation(mActivity, locationResult);
+		if (!mapCanBeLoaded)
+			onLoadingMapImpossible();
+	}
+
+	private void onLoadingMapImpossible() {
+		showNoMapIndicator();
+	}
+
+	private void showMapLoadingIndicator() {
+		mLoadingMapIndicator.showMapLoadingIndicator();
+	}
+
+	private void showNoMapIndicator() {
+		mLoadingMapIndicator.showNoMapIndicator();
+	}
+
+	private void onMapFullyLoaded() {
+		mLoadingMapIndicator.mapFullyLoaded();
 	}
 
 	public boolean checkIfMarkerOnScreen(LatLng markerPosition, LatLngBounds bounds) {

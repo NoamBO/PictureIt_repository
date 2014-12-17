@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import utilities.BaseActivity;
+import utilities.Dialogs;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -43,7 +44,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.animation.BaseAnimationListener;
-import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.customdialogs.PendingDialog;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
@@ -271,17 +271,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	}
 
 	private void showEmptyBeauticianArrayDialog(int resId) {
-
-		MyCustomDialog dialog = new MyCustomDialog(MainActivity.this);
-		dialog.setDialogTitle(R.string.main_screen_slider_empty_dialog_title).setMessage(resId)
-				.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						onFooterClick();
-					}
-				}).setCancelable(false);
-		dialog.show();
+		Dialogs.showErrorDialog(MainActivity.this, resId);
 	}
 
 	private boolean googlePlayServicesAvailable() {

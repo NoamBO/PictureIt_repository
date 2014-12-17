@@ -5,12 +5,10 @@ import java.io.File;
 import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
 import utilities.view.MyBitmapHelper;
-import utilities.view.MyFontTextView;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -21,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.pictureit.noambaroz.beautyapp.cropimage.CropMenager;
@@ -34,17 +33,16 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MyFontTextView textView = new MyFontTextView(ActivityMyProfileEdit.this);
+		ImageButton button = new ImageButton(ActivityMyProfileEdit.this);
 		getMenuInflater().inflate(R.menu.menu_activity_treatments, menu);
 		menu.findItem(R.id.action_ask_for_service).setVisible(false);
-		textView.setText("סיימתי");
-		textView.setTextColor(getResources().getColor(R.color.app_most_common_yellow_color));
-		textView.setPadding(5, 0, 20, 0);
-		textView.setTypeface(null, Typeface.BOLD_ITALIC);
-		textView.setTextSize(14);
+
+		button.setBackgroundResource(R.drawable.ic_finish_edit);
+		button.setPadding(5, 0, 20, 0);
+
 		final MenuItem m = menu.add(0, FINISH_BUTTON_ID, 1, "סיים");
-		m.setActionView(textView).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		textView.setOnClickListener(new OnClickListener() {
+		m.setActionView(button).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		button.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -57,7 +55,7 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == FINISH_BUTTON_ID) {
-			((FragmentMyProfileEdit) fragment).save();
+			((FragmentMyProfileEdit) fragment).saveIfNeeded();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -216,12 +214,21 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 			etPhone.setText(mPrefs.getString(getString(R.string.preference_key_my_profile_phone_number), ""));
 		}
 
-		public void save() {
-			if (isDataChanged() && isEmailOk())
-				if (verifyAddress())
-					sendDataToBackEnd();
-			if (isImageChanged)
+		public void saveIfNeeded() {
+			boolean saving = false;
+			if (isDataChanged()) {
+				saving = true;
+				if (isEmailOk())
+					if (verifyAddress()) {
+						sendDataToBackEnd();
+					}
+			}
+			if (isImageChanged) {
+				saving = true;
 				sendImageToBackEnd();
+			}
+			if (!saving)
+				backPressed();
 		}
 
 		private boolean isEmailOk() {

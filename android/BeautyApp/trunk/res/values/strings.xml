@@ -82,6 +82,8 @@
     <string name="code_resended">הצליח! תקבל הודעה ברגעים הקרובים</string>
     
     <!-- General Dialog Messages -->
+    <string name="no_internet_connection">אין חיבור אינטרנט פעיל</string>
+    <string name="cant_load_map">לא ניתן לטעון את המפה.\nבדוק בהגדרות המכשיר את שירותי המיקום</string>
     <string name="dialog_error_message_all_feilds_are_empty">לפחות אחד השדות חייב להיות מלא</string>
     <string name="dialog_error_message_must_fill_all_feilde">על כל השדות להיות מלאים</string>
     <string name="dialog_title_error">תקלה</string>
@@ -105,6 +107,7 @@
     <string name="diplomas">תעודות</string>
     <string name="no_diplomas">אין תעודות</string>
     <string name="treatments">טיפולים</string>
+    <string name="cant_load_beautician">בעיה בטעינת הדף</string>
     
     <!-- Message Screen -->
     <string name="confirm">אשר</string>

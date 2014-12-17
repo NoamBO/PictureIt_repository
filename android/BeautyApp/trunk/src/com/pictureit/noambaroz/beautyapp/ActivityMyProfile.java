@@ -1,12 +1,10 @@
 package com.pictureit.noambaroz.beautyapp;
 
 import utilities.view.MyBitmapHelper;
-import utilities.view.MyFontTextView;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -15,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,17 +25,15 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MyFontTextView textView = new MyFontTextView(ActivityMyProfile.this);
+		ImageButton button = new ImageButton(ActivityMyProfile.this);
 		getMenuInflater().inflate(R.menu.menu_activity_treatments, menu);
 		menu.findItem(R.id.action_ask_for_service).setVisible(false);
-		textView.setText(getString(R.string.edit));
-		textView.setTextColor(getResources().getColor(R.color.app_most_common_yellow_color));
-		textView.setPadding(5, 0, 20, 0);
-		textView.setTypeface(null, Typeface.BOLD_ITALIC);
-		textView.setTextSize(14);
+
+		button.setPadding(5, 0, 20, 0);
+		button.setBackgroundResource(R.drawable.ic_edit);
 		final MenuItem m = menu.add(0, EDIT_BUTTON_ID, 1, R.string.edit);
-		m.setActionView(textView).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		textView.setOnClickListener(new OnClickListener() {
+		m.setActionView(button).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		button.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {

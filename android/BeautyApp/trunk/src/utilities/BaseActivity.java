@@ -7,10 +7,6 @@ import android.view.View;
 
 public class BaseActivity extends Activity {
 
-	protected void showErrorDialog() {
-		Dialogs.generalDialog(BaseActivity.this, Dialogs.somthing_went_wrong);
-	}
-
 	@SuppressWarnings("unchecked")
 	protected <T extends View> T findView(int id) {
 		return (T) findViewById(id);

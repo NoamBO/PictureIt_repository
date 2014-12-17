@@ -6,7 +6,7 @@
     <FrameLayout
         android:id="@+id/fl_my_profile_image"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="160dp"
         android:background="@color/app_most_common_yellow_color" >
     </FrameLayout>
 
@@ -30,22 +30,27 @@
             android:id="@+id/tv_my_profile_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:gravity="center_horizontal"
             android:textColor="@color/app_most_common_yellow_color"
-            android:textSize="@dimen/common_title_text_size"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <utilities.view.MyFontTextView
             android:id="@+id/tv_my_profile_telephone_num"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal" />
+            android:layout_height="wrap_content" android:textSize="17sp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_color_gray" />
 
         <utilities.view.MyFontTextView
             android:id="@+id/tv_my_profile_email"
-            android:layout_width="match_parent"
+            android:layout_width="match_parent" android:textSize="17sp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal" />
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_color_gray" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,7 +74,7 @@
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:background="@android:color/black" />
+            android:background="@color/devider_color_gray" />
 
         <utilities.view.MyFontTextView
             android:id="@+id/tv_my_profile_address"

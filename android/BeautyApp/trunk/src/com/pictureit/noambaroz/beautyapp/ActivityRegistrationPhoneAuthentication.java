@@ -84,8 +84,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 								Dialogs.generalDialog(getActivity(), getString(R.string.code_resended));
 								startCountDown(false);
 							} else {
-								Dialogs.generalDialog(getActivity(), getString(R.string.failed_on_re_sending_code),
-										getString(R.string.dialog_title_error));
+								Dialogs.showErrorDialog(getActivity(), R.string.failed_on_re_sending_code);
 							}
 						}
 					}).execute();
@@ -127,8 +126,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 
 		private void onIncorrectCodeTyped(String result) {
 			if (result.equalsIgnoreCase(CODE_INVALID))
-				Dialogs.generalDialog(getActivity(), getString(R.string.invalid_phone_verification_code),
-						getString(R.string.dialog_title_error));
+				Dialogs.showErrorDialog(getActivity(), R.string.invalid_phone_verification_code);
 			else {
 				showExpiredCodeDialog();
 				cancelTimer();
@@ -136,8 +134,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 		}
 
 		private void showExpiredCodeDialog() {
-			Dialogs.generalDialog(getActivity(), getString(R.string.code_expaired),
-					getString(R.string.dialog_title_error));
+			Dialogs.showErrorDialog(getActivity(), R.string.code_expaired);
 		}
 
 		public void cancelTimer() {

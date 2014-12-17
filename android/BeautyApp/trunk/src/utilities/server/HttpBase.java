@@ -47,7 +47,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 
 	protected boolean isConnectionAvailable(Context context) {
 		if (!InternetSettings.isNetworkAvailable(context)) {
-			Dialogs.generalDialog((Activity) context, Dialogs.no_internet_connection);
+			Dialogs.showErrorDialog(context, R.string.no_internet_connection);
 			return false;
 		}
 		return true;
@@ -182,7 +182,6 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	}
 
 	public static void showErrorDialog(Activity activity) {
-		Dialogs.generalDialog(activity, activity.getString(R.string.dialog_messege_server_error),
-				activity.getString(R.string.dialog_title_error));
+		Dialogs.showErrorDialog(activity, R.string.dialog_messege_server_error);
 	}
 }

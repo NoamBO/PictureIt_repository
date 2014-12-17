@@ -329,8 +329,7 @@ public class ServiceOrderManager {
 			public void gotLocation(Location location) {
 				pd.cancel();
 				if (location == null) {
-					Dialogs.generalDialog(activity, activity.getString(R.string.dialog_messege_no_location),
-							activity.getString(R.string.dialog_title_error));
+					Dialogs.showErrorDialog(activity, R.string.dialog_messege_no_location);
 					return;
 				}
 				try {
@@ -341,7 +340,11 @@ public class ServiceOrderManager {
 				}
 			}
 		};
-		new MyLocation().getLocation(activity, lr);
+		MyLocation l = new MyLocation();
+		if (!l.getLocation(activity, lr)) {
+			pd.cancel();
+			Dialogs.showErrorDialog(activity, R.string.dialog_messege_no_location);
+		}
 	}
 
 	public static void setPending(Context context, boolean isPending) {

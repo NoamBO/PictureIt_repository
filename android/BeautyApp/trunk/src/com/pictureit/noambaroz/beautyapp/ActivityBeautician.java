@@ -81,7 +81,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 
 			if (beautycianId != null && beautycianId.equalsIgnoreCase("") && mBeautician == null) {
 				getFragmentManager().popBackStack();
-				Dialogs.closeActivity(getActivity(), Dialogs.somthing_went_wrong);
+				Dialogs.showErrorDialog(getActivity(), R.string.cant_load_beautician);
 				return super.onCreateView(inflater, container, savedInstanceState);
 			}
 			View v = inflater.inflate(R.layout.fragment_beautician, container, false);
@@ -107,7 +107,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 							mBeautician = (Beautician) answer;
 							initPage();
 						} else {
-							Dialogs.closeActivity(getActivity(), Dialogs.somthing_went_wrong);
+							Dialogs.showErrorDialog(getActivity(), R.string.cant_load_beautician);
 						}
 					}
 				}, beautycianId);
