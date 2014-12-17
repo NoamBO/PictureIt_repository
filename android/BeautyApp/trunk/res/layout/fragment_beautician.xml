@@ -20,7 +20,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp" >
+                android:padding="@dimen/activity_horizontal_margin" >
 
                 <ImageView
                     android:id="@+id/iv_beautician_page_image"
@@ -66,6 +66,7 @@
                     android:layout_below="@+id/iv_beautician_page_image"
                     android:layout_marginLeft="-4dp"
                     android:layout_marginRight="-4dp"
+                    android:layout_marginTop="3dp"
                     android:background="@drawable/registration_btn_shape" >
 
                     <utilities.view.MyFontTextView

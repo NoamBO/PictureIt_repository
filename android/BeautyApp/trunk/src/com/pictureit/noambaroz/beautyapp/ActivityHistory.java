@@ -133,18 +133,24 @@ public class ActivityHistory extends ActivityWithFragment {
 					OutgoingCommunication.call((Activity) getContext(), getItem(position).getPhone());
 				}
 			});
-			holder.bRate.setOnClickListener(new OnClickListener() {
+			if (!getItem(position).isRated())
+				holder.bRate.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					if (!getItem(position).isRated())
+					@Override
+					public void onClick(View v) {
+
 						rate(v, position);
-					else {
-						Dialogs.generalDialog(getContext(), getString(R.string.you_already_rate_this_beautician),
-								getString(R.string.rate_impossible));
+						// else {
+						// Dialogs.generalDialog(getContext(),
+						// getString(R.string.you_already_rate_this_beautician),
+						// getString(R.string.rate_impossible));
+						// }
 					}
-				}
-			});
+				});
+			else {
+				holder.bRate.setAlpha(0.6f);
+				holder.bRate.setOnClickListener(null);
+			}
 			holder.bReorder.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -186,6 +192,7 @@ public class ActivityHistory extends ActivityWithFragment {
 								public void onAnswerReturn(Object answer) {
 									if ((Boolean) answer) {
 										getItem(position).setRated(true);
+										notifyDataSetChanged();
 									} else {
 										Dialogs.showServerFailedDialog(getContext());
 									}

@@ -175,43 +175,39 @@
                         android:textColor="@color/app_most_common_yellow_color"
                         android:textSize="@dimen/common_title_text_size" />
 
-                    <LinearLayout
-                        android:id="@+id/llSearchProviderTreatment"
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/tvSearchProviderSelectTreatment"
-                        android:orientation="horizontal" >
+                        android:layout_alignParentBottom="true"
+                        android:layout_toLeftOf="@id/tvSearchProviderSelectTreatment" >
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/b_search_provider_search_by_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_shape"
+                            android:layout_gravity="left"
+                            android:background="@drawable/btn_select_shape"
                             android:gravity="center"
                             android:text="@string/select_treatment"
                             android:textColor="@color/button_text_color"
                             android:textSize="@dimen/common_title_text_size" />
-
-                        <utilities.view.MyFontTextView
-                            android:id="@+id/tv_search_provider_search_by_treatment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:textColor="@color/text_color_gray"
-                            android:textSize="@dimen/common_text_size" />
-                    </LinearLayout>
+                    </FrameLayout>
 
                     <View
+                        android:id="@+id/dividerSearchProviderSelectTreatment"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignBottom="@+id/llSearchProviderTreatment"
-                        android:background="@color/app_most_common_yellow_color" />
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/llSearchProviderTreatment"
-                        android:orientation="horizontal" >
+                        android:layout_below="@+id/tvSearchProviderSelectTreatment"
+                        android:orientation="horizontal"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="20dp" >
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/tv_search_provider_treatment_list1"
@@ -219,7 +215,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textColor="@color/text_color_gray"
-                            android:textSize="@dimen/common_text_size" />
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
 
                         <utilities.view.MyFontTextView
                             android:id="@+id/tv_search_provider_treatment_list2"
@@ -227,7 +224,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textColor="@color/text_color_gray"
-                            android:textSize="@dimen/common_text_size" />
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>

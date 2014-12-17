@@ -168,7 +168,7 @@ public class FragmentServiceOrder extends BaseFragment implements OnClickListene
 				findView(getView(), dividerResId).setVisibility(View.GONE);
 			button.getLayoutParams().width = LayoutParams.MATCH_PARENT;
 			button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
-			button.setBackgroundResource(R.drawable.btn_shape);
+			button.setBackgroundResource(R.drawable.btn_select_shape);
 			button.setText(buttonText);
 			button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 

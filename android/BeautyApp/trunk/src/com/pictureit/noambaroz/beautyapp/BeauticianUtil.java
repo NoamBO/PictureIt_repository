@@ -84,7 +84,8 @@ public class BeauticianUtil {
 		for (TreatmentType t : treatmentsList) {
 			if (Integer.valueOf(t.getAmount()) > 0) {
 				String treatmentName = StringArrays.getTreatmentType(context, t.getTreatments_id()).getName();
-				String text = context.getString(R.string.bullet) + treatmentName + " (" + t.getAmount() + ")" + "\n";
+				String text = context.getString(R.string.bullet) + treatmentName
+						+ (t.getAmount() > 1 ? " (" + t.getAmount() + ")" : "") + "\n";
 				if (count % 2 == 0)
 					sb1.append(text);
 				else

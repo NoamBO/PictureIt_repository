@@ -193,7 +193,7 @@
         <item>@string/else_</item>
     </string-array>
     
-    <string name="dialog_title_remarks">היערות</string>
+    <string name="dialog_title_remarks">הערות</string>
     
     <!-- Service Order dialog Select Treatment text -->
     <string name="dialog_title_select_treatment">בחר טיפול</string>

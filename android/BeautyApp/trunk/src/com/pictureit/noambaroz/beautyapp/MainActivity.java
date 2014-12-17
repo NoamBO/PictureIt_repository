@@ -8,15 +8,21 @@ import utilities.BaseActivity;
 import utilities.Log;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.AttributeSet;
+import android.view.InflateException;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -160,6 +166,11 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			setDropdownTextViewFont();
+		}
+
 		getMenuInflater().inflate(R.menu.main, menu);
 		getLoaderManager().initLoader(0, null, this);
 		final MenuItem badgeItem = menu.findItem(R.id.action_pending_orders);
@@ -173,6 +184,7 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 				onOptionsItemSelected(badgeItem);
 			}
 		});
+
 		return true;
 	}
 
@@ -380,6 +392,38 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	/**
+	 * work on API Level 11+
+	 */
+	private void setDropdownTextViewFont() {
+		getLayoutInflater().setFactory(new LayoutInflater.Factory() {
+			@Override
+			public View onCreateView(String name, Context context, AttributeSet attrs) {
+				android.util.Log.e("mymy", name);
+				if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")
+						|| name.equalsIgnoreCase("TextView")) {
+					try {
+						LayoutInflater li = LayoutInflater.from(context);
+						final View view = li.createView(name, null, attrs);
+						new Handler().post(new Runnable() {
+							public void run() {
+								Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/FbExtrim-Regular.ttf");
+								((TextView) view).setTypeface(tf, Typeface.NORMAL);
+							}
+						});
+						return view;
+					} catch (InflateException e) {
+						// Handle any inflation exception here
+					} catch (ClassNotFoundException e) {
+						// Handle any ClassNotFoundException here
+					}
+				}
+				return null;
+			}
+
+		});
 	}
 
 }

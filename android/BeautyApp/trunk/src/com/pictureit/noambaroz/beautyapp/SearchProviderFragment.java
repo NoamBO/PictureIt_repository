@@ -124,9 +124,10 @@ public class SearchProviderFragment extends BaseFragment {
 				BeauticianUtil.setTreatmentsList(getActivity(), tvTreatmentsList1, tvTreatmentsList2, treatmentTypes);
 				if (tvTreatmentsList1.getText().toString().equalsIgnoreCase("")
 						&& tvTreatmentsList2.getText().toString().equalsIgnoreCase(""))
-					setRowOrder(null, null, bTreatments, getString(R.string.select_treatment));
+					setRowOrder(null, null, bTreatments, getString(R.string.select_treatment),
+							R.id.dividerSearchProviderSelectTreatment);
 				else
-					setRowOrder(null, null, bTreatments, null);
+					setRowOrder(null, null, bTreatments, null, R.id.dividerSearchProviderSelectTreatment);
 			}
 		});
 	}
@@ -219,23 +220,26 @@ public class SearchProviderFragment extends BaseFragment {
 	}
 
 	private void setRowOrder(TextView textView, String text, TextView button) {
-		setRowOrder(textView, text, button, null);
+		setRowOrder(textView, text, button, null, -1);
 	}
 
-	private void setRowOrder(TextView textView, String text, TextView button, String buttonText) {
+	private void setRowOrder(TextView textView, String text, TextView button, String buttonText, int dividerResId) {
 		if (buttonText != null) {
 			button.getLayoutParams().width = LayoutParams.MATCH_PARENT;
 			button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
-			button.setBackgroundResource(R.drawable.btn_shape);
+			button.setBackgroundResource(R.drawable.btn_select_shape);
 			button.setText(buttonText);
 			button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
 			if (textView != null)
 				textView.setVisibility(View.GONE);
-
+			if (dividerResId != -1)
+				findView(getView(), dividerResId).setVisibility(View.GONE);
 			return;
 		}
 
+		if (dividerResId != -1)
+			findView(getView(), dividerResId).setVisibility(View.VISIBLE);
 		button.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
 		button.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
 		button.setBackgroundResource(R.drawable.btn_edit);
