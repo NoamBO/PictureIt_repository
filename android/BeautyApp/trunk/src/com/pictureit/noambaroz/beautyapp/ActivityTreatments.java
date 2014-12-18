@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -84,7 +85,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 		private ListView mListView;
 		private ProgressBar mProgressBar;
-		private ViewGroup mNoTreatmentsIndicator;
+		private LinearLayout mNoTreatmentsIndicator;
 		private UpcomingTreatment mTempTreatment;
 
 		public FragmentTreatments() {
@@ -106,7 +107,6 @@ public class ActivityTreatments extends ActivityWithFragment {
 			super.onViewCreated(view, savedInstanceState);
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void onAnswerReturn(Object answer) {
 			ArrayList<UpcomingTreatment> arr = (ArrayList<UpcomingTreatment>) answer;

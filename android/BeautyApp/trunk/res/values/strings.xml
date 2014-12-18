@@ -61,10 +61,10 @@
     <string name="invalid_email">מייל לא תקין</string>
     
     <string name="telephone_number">מספר טלפון</string>
-    <string name="first_name">שם פרטי:</string>
-    <string name="last_name">שם משפחה:</string>
-    <string name="email">מייל:</string>
-    <string name="address">כתובת:</string>
+    <string name="first_name">שם פרטי</string>
+    <string name="last_name">שם משפחה</string>
+    <string name="email">מייל</string>
+    <string name="address">כתובת</string>
     <string name="proceed">המשך</string>
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
     <string name="phone_number_confirmation">אימות מספר טלפון</string>

@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/phone_number_confirmation_explanation"
-            android:textColor="@color/button_text_color" />
+            android:textColor="@color/text_color_gray" />
 
         <RelativeLayout
             android:id="@+id/rl_registration_page_two_proceed"
