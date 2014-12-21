@@ -32,7 +32,7 @@ public class PreferenceImageView extends Preference {
 	private int mGravity;
 
 	private Drawable icon = null;
-	private final int DEFULT_ICON_RES_ID = R.drawable.ic_launcher;
+	private final int DEFULT_ICON_RES_ID = R.drawable.android_icon;
 
 	public PreferenceImageView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -105,7 +105,8 @@ public class PreferenceImageView extends Preference {
 				// remove the existing imageView (there may not be one) and add
 				// ours
 				newContainer.removeAllViews();
-				newContainer.addView(mImageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+				newContainer.addView(mImageView, ViewGroup.LayoutParams.MATCH_PARENT,
+						ViewGroup.LayoutParams.WRAP_CONTENT);
 			}
 		} catch (Exception ex) {
 			Log.e(TAG, "Error binding view: " + ex.toString());

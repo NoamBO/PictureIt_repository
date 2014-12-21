@@ -81,9 +81,10 @@ public class GcmIntentService extends IntentService {
 		// Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR);
 
 		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_launcher)
-				.setContentTitle(title).setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-				.setContentText(message).setAutoCancel(true).setSound(uri);
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+				.setSmallIcon(R.drawable.ic_notification).setContentTitle(title)
+				.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setContentText(message)
+				.setAutoCancel(true).setSound(uri);
 
 		mBuilder.setContentIntent(contentIntent);
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
