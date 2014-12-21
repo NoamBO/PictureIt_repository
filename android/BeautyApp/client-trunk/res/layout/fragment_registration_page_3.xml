@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/beautyapp_reg_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_number_confirmation_code"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/black" />
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <utilities.view.MyEditText
+            android:id="@+id/et_registration_page_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_shape"
+            android:gravity="center"
+            android:hint="_ _ _ _ _ _"
+            android:inputType="numberSigned"
+            android:maxLength="6"
+            android:textSize="22sp" />
+
+        <utilities.view.MyFontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/phone_number_confirmation_code_explanation" />
+    </LinearLayout>
+
+    <utilities.view.MyFontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/three_of_three"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/rl_registration_page_three_proceed"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/registration_btn_shape" >
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="15dp"
+                android:text="@string/proceed"
+                android:textColor="@color/button_text_color"
+                android:textSize="17sp" />
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="@string/character_next"
+                android:textColor="@color/button_text_color"
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/b_registration_page_three_resend"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight="1"
+                android:background="@drawable/registration_btn_shape"
+                android:text="@string/code_expaired_send_new_one"
+                android:textColor="@color/button_text_color" />
+
+            <utilities.view.MyFontTextView
+                android:id="@+id/tv_registration_page_three_counter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/registration_btn_shape"
+                android:gravity="center"
+                android:textColor="@color/button_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

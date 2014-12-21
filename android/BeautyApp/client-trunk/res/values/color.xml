@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="action_bar_color">#ff0000</color>
+    <color name="treatment_selection_dialog_title_background">#d1d3d4</color>
+    <color name="text_color_un_filled">#ff0000</color>
+    <color name="text_color_filled">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="yellow">#e6d455</color>
+    <color name="app_most_common_yellow_color">#eddb58</color>
+    <color name="app_background">#fafafa</color>
+    <color name="button_text_color">#827830</color>
+	<color name="devider_color_gray">#e5e6e7</color>
+	<color name="text_color_gray">#6d6e71</color>
+	<color name="dialog_theme_color">#eddb58</color>
+	<color name="my_number_picker_button_color">#6d6e71</color>
+    
+</resources>
