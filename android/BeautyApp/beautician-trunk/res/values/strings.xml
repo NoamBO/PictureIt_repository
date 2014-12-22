@@ -2,7 +2,13 @@
 <resources>
 
     <string name="app_name">BeautycianApp</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    
+    
+    
+    <string name="dialog_ok_text">OK</string>
+    <string name="dialog_messege_server_error">יש לנו בעית התקשרות.. אנו עובדים על פתרון</string>
+     <string name="success">הצליח!</string>
+     <string name="no_internet_connection">אין חיבור אינטרנט פעיל</string>
+    <string name="dialog_messege_please_wait">אנא המתן..</string>
 
 </resources>

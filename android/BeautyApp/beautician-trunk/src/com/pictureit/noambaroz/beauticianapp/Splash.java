@@ -1,4 +1,4 @@
-package com.pictureit.noambaroz.beautycianapp;
+package com.pictureit.noambaroz.beauticianapp;
 
 import android.app.Activity;
 
