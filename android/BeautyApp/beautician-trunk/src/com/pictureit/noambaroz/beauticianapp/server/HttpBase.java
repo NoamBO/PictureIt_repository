@@ -21,6 +21,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.pictureit.noambaroz.beauticianapp.Constant;
+import com.pictureit.noambaroz.beauticianapp.Settings;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beautycianapp.R;
 
@@ -175,9 +176,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	}
 
 	protected String getUid() {
-		SharedPreferences pref = ctx.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE);
-		return pref.getString(Constant.PREFS_KEY_UID, "");
-		// return Secure.getString(ctx.getContentResolver(), Secure.ANDROID_ID);
+		return Settings.getUID(ctx);
 	}
 
 	public static void showErrorDialog(Activity activity) {
