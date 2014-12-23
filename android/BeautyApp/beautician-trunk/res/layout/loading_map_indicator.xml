@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical" >
+
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+        android:id="@+id/loadingMapFailedIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/no_results_indicator"
+        android:gravity="center_horizontal"
+        android:text="@string/cant_load_map"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/common_text_size"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/loadingMapStartIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/loadingMapStartRotatingImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/app_logo" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/loading"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_text_size" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -210,19 +210,6 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		return true;
 	}
 
-	// private <T> void launchActivityIfPossible(Class<T> T) {
-	// if (!isUserWaitingForTreatmentOrderResponse())
-	// launchActivity(T);
-	// else if (isUserWaitingForTreatmentOrderResponse() && T ==
-	// ActivityMessages.class)
-	// launchActivity(T);
-	// else {
-	// Toast.makeText(getApplicationContext(), R.string.pending_order_toast,
-	// Toast.LENGTH_LONG).show();
-	// onPendingDialog(true);
-	// }
-	// }
-
 	private <T> boolean launchActivity(Class<T> T) {
 		Intent intent = new Intent(MainActivity.this, T);
 		startActivity(intent);
@@ -391,7 +378,6 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		getLayoutInflater().setFactory(new LayoutInflater.Factory() {
 			@Override
 			public View onCreateView(String name, Context context, AttributeSet attrs) {
-				android.util.Log.e("mymy", name);
 				if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")
 						|| name.equalsIgnoreCase("TextView")) {
 					try {
