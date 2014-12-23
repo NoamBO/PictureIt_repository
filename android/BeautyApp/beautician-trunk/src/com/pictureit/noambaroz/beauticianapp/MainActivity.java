@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beauticianapp;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -55,9 +56,9 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private boolean mRequestingLocationUpdates;
 
-	private Location mCurrentLocation;
-
 	private LocationListener mMapFragmentLocationListener;
+
+	private final int FRAGMENT_CONTAINER = R.id.main_screen_fragment_container;
 
 	private Switch sIsAvailable;
 
@@ -79,7 +80,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private void initActivity() {
 		setContentView(R.layout.activity_main);
-		getFragmentManager().beginTransaction().add(R.id.main_screen_fragment_container, new MapFragment()).commit();
+		getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new MapFragment()).commit();
 		sIsAvailable = (Switch) findViewById(R.id.s_main_activity_availability_switch);
 	}
 
@@ -100,11 +101,16 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private void updateServer(boolean isChecked) {
 		// TODO Auto-generated method stub
-
+		onAvailabilityChanged(isChecked);
 	}
 
 	protected void onAvailabilityChanged(boolean isChecked) {
-
+		Fragment f;
+		if (isChecked)
+			f = new MapFragment();
+		else
+			f = new FragmentUnAvailable();
+		getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, f).commit();
 	}
 
 	@Override
@@ -260,11 +266,6 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		}
 	}
 
-	private void disconnectFromGooglePlayServicesApi() {
-		mGoogleApiClient.disconnect();
-		mRequestingLocationUpdates = false;
-	}
-
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
 		if (mResolvingError) {
@@ -355,10 +356,13 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		if (location == null)
 			return;
 
-		mCurrentLocation = location;
 		updateLocationOnBackendInBackground();
 		if (mMapFragmentLocationListener != null)
 			mMapFragmentLocationListener.onLocationChanged(location);
+	}
+
+	public Location getLastLocation() {
+		return LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 	}
 
 	private void updateLocationOnBackendInBackground() {

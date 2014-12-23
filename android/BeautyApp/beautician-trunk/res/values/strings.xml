@@ -43,5 +43,8 @@
     <string name="if_your_password_got_lost">במידה ואבדה לכם הסיסמא או שטרם נרשמתם, אנא כנסו לאתר:</string>
     <string name="proceed">המשך</string>
     <string name="invalid_registration_code">הקוד שהוקש שגוי!</string>
-
+    
+    <!-- Unavailable screen -->
+	<string name="upcoming_treatments">טיפולים קרובים</string>
+	<string name="no_treatments_change_status_to_available">אין טיפולים\n\nעל מנת לקבל הזמנות לטיפולים\nעלייך להיות במצב זמין</string>
 </resources>

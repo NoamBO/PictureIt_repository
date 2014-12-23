@@ -12,14 +12,14 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
+import com.google.android.gms.maps.GoogleMap.CancelableCallback;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.pictureit.noambaroz.beauticianapp.location.LoadingMapIndicator;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class MapFragment extends Fragment implements LocationListener, OnMapLoadedCallback {
+public class MapFragment extends Fragment implements LocationListener {
 
 	private MapView mapView;
 	private GoogleMap mMap;
@@ -29,6 +29,8 @@ public class MapFragment extends Fragment implements LocationListener, OnMapLoad
 	private static final float MIN_ZOOM_ALLOWED = INITIAL_ZOOM - 1;
 
 	private LoadingMapIndicator mLoadingMapIndicator;
+
+	private boolean isMapLoadingFirstTry = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,14 @@ public class MapFragment extends Fragment implements LocationListener, OnMapLoad
 	private void initMapIfNeeded(Location location) {
 		if (mMap == null) {
 			if (location == null) {
+				if (isMapLoadingFirstTry) {
+					isMapLoadingFirstTry = false;
+					return;
+				}
 				mLoadingMapIndicator.showNoMapIndicator();
 				return;
 			}
 			mMap = mapView.getMap();
-			mMap.setOnMapLoadedCallback(this);
 
 			LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
 
@@ -62,7 +67,19 @@ public class MapFragment extends Fragment implements LocationListener, OnMapLoad
 			mMap.getUiSettings().setZoomControlsEnabled(false);
 			MapsInitializer.initialize(this.getActivity());
 			CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ll, INITIAL_ZOOM);
-			mMap.animateCamera(cameraUpdate);
+			mMap.animateCamera(cameraUpdate, new CancelableCallback() {
+
+				@Override
+				public void onFinish() {
+					mLoadingMapIndicator.mapFullyLoaded();
+				}
+
+				@Override
+				public void onCancel() {
+				}
+			});
+		} else {
+			mLoadingMapIndicator.mapFullyLoaded();
 		}
 	}
 
@@ -75,6 +92,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapLoad
 	@Override
 	public void onResume() {
 		mapView.onResume();
+		initMapIfNeeded(((MainActivity) getActivity()).getLastLocation());
 		super.onResume();
 	}
 
@@ -95,8 +113,4 @@ public class MapFragment extends Fragment implements LocationListener, OnMapLoad
 		initMapIfNeeded(location);
 	}
 
-	@Override
-	public void onMapLoaded() {
-		mLoadingMapIndicator.mapFullyLoaded();
-	}
 }

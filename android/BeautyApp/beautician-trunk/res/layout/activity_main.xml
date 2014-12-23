@@ -24,10 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:checked="true"
             android:thumb="@drawable/apptheme_switch_inner_holo_light"
-            android:thumbTextPadding="75dp"
+            android:thumbTextPadding="72dp"
             android:track="@drawable/apptheme_switch_track_holo_light" />
-
     </FrameLayout>
 
 </RelativeLayout>

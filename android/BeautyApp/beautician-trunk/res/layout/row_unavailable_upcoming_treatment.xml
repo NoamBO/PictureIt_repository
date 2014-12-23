@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/fragment_padding" >
+
+    <ImageView
+        android:id="@+id/iv_row_unavailable_upcoming_treatment_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/fragment_padding"
+        android:background="@drawable/profile_avatar" />
+
+    <TextView
+        android:id="@+id/textViewRowUnavailable"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/fragment_padding"
+        android:gravity="center"
+        android:text="@string/character_next"
+        android:textColor="@color/text_color_gray" />
+
+    <View
+        android:id="@+id/dividerRowUnavailable"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/textViewRowUnavailable"
+        android:background="@color/devider_color_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/iv_row_unavailable_upcoming_treatment_image"
+        android:layout_toRightOf="@+id/dividerRowUnavailable"
+        android:orientation="vertical" >
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/tv_row_unavailable_upcoming_treatment_beautician_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/tv_row_unavailable_upcoming_treatment_customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/tv_row_unavailable_upcoming_treatment_beautician_treatment_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/text_color_gray" />
+    </LinearLayout>
+
+</RelativeLayout>

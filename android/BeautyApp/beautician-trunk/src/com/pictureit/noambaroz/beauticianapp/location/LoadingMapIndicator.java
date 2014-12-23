@@ -51,8 +51,10 @@ public class LoadingMapIndicator {
 	}
 
 	public void mapFullyLoaded() {
-		AnimationManager.fadeOut(mActivity, getScreenCover());
-		mAnim.cancel();
+		if (getScreenCover().getVisibility() == View.VISIBLE) {
+			AnimationManager.fadeOut(mActivity, getScreenCover());
+			mAnim.cancel();
+		}
 	}
 
 }

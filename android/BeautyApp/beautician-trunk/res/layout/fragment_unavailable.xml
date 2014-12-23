@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_shape" >
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/textViewUnavailableStatusTitleUpcoming"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:background="@color/app_most_common_yellow_color"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:text="@string/upcoming_treatments"
+            android:textColor="@color/app_white"
+            android:textSize="22sp" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewUnavailableStatusTitleUpcoming"
+            android:layout_marginBottom="10dp"
+            android:drawableTop="@drawable/no_results_indicator"
+            android:gravity="center"
+            android:text="@string/no_treatments_change_status_to_available"
+            android:textColor="@color/text_color_gray"
+            android:visibility="visible" />
+
+        <ListView
+            android:id="@+id/lv_unavailable_status_upcoming_treatments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </RelativeLayout>
+
+</LinearLayout>
