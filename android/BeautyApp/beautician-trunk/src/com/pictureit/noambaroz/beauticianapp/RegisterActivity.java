@@ -17,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.noambaroz.crop_image.Crop;
+import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
+import com.pictureit.noambaroz.beauticianapp.server.RegisterInBackground;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class RegisterActivity extends Activity {
@@ -105,8 +108,27 @@ public class RegisterActivity extends Activity {
 	}
 
 	private void registerInBackground(String code) {
-		// TODO Auto-generated method stub
+		RegisterInBackground httpRequest = new RegisterInBackground(RegisterActivity.this, code, bitmapByteString,
+				new HttpCallback() {
 
+					@Override
+					public void onAnswerReturn(Object answer) {
+						if ((Integer) answer == RegisterInBackground.REGISTER_SERVER_FAILED)
+							Dialogs.showServerFailedDialog(RegisterActivity.this);
+						else if ((Integer) answer == RegisterInBackground.REGISTER_CODE_INVALID)
+							Dialogs.showErrorDialog(RegisterActivity.this, R.string.invalid_registration_code);
+						else if ((Integer) answer != RegisterInBackground.REGISTER_SUCCESS)
+							Dialogs.generalDialog(RegisterActivity.this, Dialogs.somthing_went_wrong);
+						else {
+							Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+							startActivity(intent);
+							finish();
+							overridePendingTransition(R.anim.activity_enter_slidein_anim,
+									R.anim.activity_exit_slideout_anim);
+						}
+					}
+				});
+		httpRequest.execute();
 	}
 
 	private boolean isCodeFormOk(String code) {

@@ -20,6 +20,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +59,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private LocationListener mMapFragmentLocationListener;
 
+	private Switch sIsAvailable;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,8 +79,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private void initActivity() {
 		setContentView(R.layout.activity_main);
-		MapFragment mapFragment = new MapFragment();
-		getFragmentManager().beginTransaction().add(R.id.main_screen_fragment_container, mapFragment).commit();
+		getFragmentManager().beginTransaction().add(R.id.main_screen_fragment_container, new MapFragment()).commit();
+		sIsAvailable = (Switch) findViewById(R.id.s_main_activity_availability_switch);
 	}
 
 	@Override
@@ -83,7 +88,23 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		super.onResume();
 		ActivityWithFragment.addViewToTopOfActionBar(MainActivity.this);
 		getActionBar().setTitle("");
+		sIsAvailable.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				updateServer(isChecked);
+			}
+		});
 		resume();
+	}
+
+	private void updateServer(boolean isChecked) {
+		// TODO Auto-generated method stub
+
+	}
+
+	protected void onAvailabilityChanged(boolean isChecked) {
+
 	}
 
 	@Override

@@ -42,5 +42,6 @@
     <string name="password_that_sent_to_you_by_mail">סיסמא שנשלחה אליכם במייל/טלפון</string>
     <string name="if_your_password_got_lost">במידה ואבדה לכם הסיסמא או שטרם נרשמתם, אנא כנסו לאתר:</string>
     <string name="proceed">המשך</string>
+    <string name="invalid_registration_code">הקוד שהוקש שגוי!</string>
 
 </resources>

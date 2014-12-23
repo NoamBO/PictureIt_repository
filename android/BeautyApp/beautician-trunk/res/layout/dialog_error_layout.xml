@@ -12,7 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/no_results_indicator" />
 
-    <utilities.view.MyFontTextView
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
         android:id="@+id/my_error_dialog_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:textColor="@color/text_color_gray"
         android:textSize="@dimen/common_title_text_size" />
 
-    <utilities.view.MyFontTextView
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
         android:id="@+id/my_error_dialog_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

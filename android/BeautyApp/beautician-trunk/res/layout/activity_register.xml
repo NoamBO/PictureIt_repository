@@ -67,8 +67,10 @@
             style="@style/AppTheme.View.EditTextCustomHolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:hint="@string/password_that_sent_to_you_by_mail"
-            android:singleLine="true" >
+            android:singleLine="true"
+            android:textSize="20sp" >
 
             <requestFocus />
         </com.pictureit.noambaroz.beauticianapp.utilities.view.MyEditText>
