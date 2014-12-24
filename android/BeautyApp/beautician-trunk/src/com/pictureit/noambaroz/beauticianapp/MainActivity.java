@@ -39,6 +39,7 @@ import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateAvailabilityTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateLocationTask;
+import com.pictureit.noambaroz.beautyapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class MainActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
@@ -82,8 +83,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 		if (googlePlayServicesAvailable()) {
 			initActivity();
+			GcmUtil.get(getApplicationContext()).registerToGcm();
 			resume();
-			// GcmUtil.get(getApplicationContext()).registerToGcm();
 		}
 
 	}
