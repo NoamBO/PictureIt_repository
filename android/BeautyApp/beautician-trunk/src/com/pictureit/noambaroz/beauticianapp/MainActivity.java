@@ -66,6 +66,14 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private Switch sIsAvailable;
 
+	private OnCheckedChangeListener mAvailabilityChackedChangeListener = new OnCheckedChangeListener() {
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			updateServer(isChecked);
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,13 +104,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		super.onResume();
 		ActivityWithFragment.addViewToTopOfActionBar(MainActivity.this);
 		getActionBar().setTitle("");
-		sIsAvailable.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				updateServer(isChecked);
-			}
-		});
+		sIsAvailable.setOnCheckedChangeListener(mAvailabilityChackedChangeListener);
 		resume();
 	}
 
@@ -115,12 +117,13 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 					onAvailabilityChanged(MyPreference.isAvailable());
 				else {
 					Dialogs.showServerFailedDialog(MainActivity.this);
+					sIsAvailable.setOnCheckedChangeListener(null);
 					sIsAvailable.setChecked(MyPreference.isAvailable());
+					sIsAvailable.setOnCheckedChangeListener(mAvailabilityChackedChangeListener);
 				}
 			}
 		}, isChecked);
-		// TODO
-		// httpRequest.execute();
+		httpRequest.execute();
 	}
 
 	protected void onAvailabilityChanged(boolean isChecked) {
@@ -150,7 +153,14 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
+		switch (id) {
+		case R.id.action_settings:
+			launchActivity(SettingsActivity.class);
+			break;
 
+		default:
+			break;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -213,8 +223,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	private void launchActivity(Class<?> class1) {
 		Intent intent = new Intent(MainActivity.this, class1);
 		startActivity(intent);
-		finish();
-		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+		overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 	}
 
 	private boolean googlePlayServicesAvailable() {
@@ -373,12 +382,11 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	}
 
 	protected void createLocationRequestIfNeeded() {
-		// TODO
-		// int interval = 15 * 60 * 1000; // 15 Minutes
-		// int fastestInterval = 10 * 60 * 1000; // 10 Minutes
+		int interval = 15 * 60 * 1000; // 15 Minutes
+		int fastestInterval = 10 * 60 * 1000; // 10 Minutes
 		Log.i("create location request");
-		int interval = 10 * 1000; // 10 Seconds
-		int fastestInterval = 5 * 1000; // 5 Seconds
+		// int interval = 10 * 1000; // 10 Seconds
+		// int fastestInterval = 5 * 1000; // 5 Seconds
 
 		if (mLocationRequest != null)
 			return;

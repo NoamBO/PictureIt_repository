@@ -2,7 +2,7 @@ package com.pictureit.noambaroz.beauticianapp;
 
 public class Log {
 
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	private final static String TAG = "my_app";
 

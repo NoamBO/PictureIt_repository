@@ -15,13 +15,10 @@ public class UpdateAvailabilityTask extends BaseHttpPost {
 		super(ctx, callback);
 		this.isAvailable = isAvailable;
 		prepare(null);
-
-		// TODO remove
-		onPostExecute(continueInBackground(JSON));
 	}
 
 	@Override
-	protected synchronized Object continueInBackground(String result) {
+	protected Object continueInBackground(String result) {
 		if (JsonToObject.isResponseOk(result)) {
 			MyPreference.setAvailability(isAvailable);
 			Log.i("Availability changed to: " + isAvailable);
@@ -36,14 +33,11 @@ public class UpdateAvailabilityTask extends BaseHttpPost {
 		try {
 			JSONObject j = new JSONObject();
 			j.put(ServerUtil.UID, getUid());
-			j.put(ServerUtil.IS_AVAILABLE, this.isAvailable);
+			j.put(ServerUtil.IS_AVAILABLE, String.valueOf(this.isAvailable));
 			mMainJson = j;
 		} catch (Exception e) {
 			Log.i("Cant build json object");
 		}
 	}
-
-	// TODO remove
-	String JSON = "{\"d\":{\"status\":\"success\",\"message\":\"\"}}";
 
 }

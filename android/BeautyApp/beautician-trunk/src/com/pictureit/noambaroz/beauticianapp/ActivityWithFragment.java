@@ -17,7 +17,6 @@ public abstract class ActivityWithFragment extends BaseActivity {
 
 	protected String FRAGMENT_TAG = "";
 	protected Fragment fragment;
-	// protected final int FRAGMENT_CONTAINER = R.id.fragment_container;
 	protected final int FRAGMENT_CONTAINER = android.R.id.content;
 	protected boolean initActionBar = true;
 	protected boolean isTitleVisible = true;

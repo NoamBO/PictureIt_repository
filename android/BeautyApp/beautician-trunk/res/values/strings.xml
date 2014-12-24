@@ -25,6 +25,7 @@
 
     <!-- Dialogs text -->
     <string name="dialog_ok_text">OK</string>
+    <string name="dialog_cancel_text">Cancel</string>
     <string name="dialog_messege_server_error">יש לנו בעית התקשרות.. אנו עובדים על פתרון</string>
     <string name="success">הצליח!</string>
     <string name="no_internet_connection">אין חיבור אינטרנט פעיל</string>
@@ -47,4 +48,14 @@
     <!-- Unavailable screen -->
 	<string name="upcoming_treatments">טיפולים קרובים</string>
 	<string name="no_treatments_change_status_to_available">אין טיפולים\n\nעל מנת לקבל הזמנות לטיפולים\nעלייך להיות במצב זמין</string>
+	
+	<!-- Settings activity -->
+	<string name="settings">הגדרות</string>
+	<string name="time_before_treatment_to_alert">פרק זמן להתראה לפני טיפול:</string>
+	<string name="pre_treatment_alert">התראה לפני טיפול</string>
+	<string name="close">סגור</string>
+	<string name="minutes">דקות</string>
+	<string name="hours">שעות</string>
+	
+	
 </resources>
