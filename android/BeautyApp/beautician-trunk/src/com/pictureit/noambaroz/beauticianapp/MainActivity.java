@@ -35,6 +35,10 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
+import com.pictureit.noambaroz.beauticianapp.server.UpdateAvailabilityTask;
+import com.pictureit.noambaroz.beauticianapp.server.UpdateLocationTask;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class MainActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
@@ -68,8 +72,6 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 		mResolvingError = savedInstanceState != null && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
-		createLocationRequestIfNeeded();
-
 		if (googlePlayServicesAvailable()) {
 			initActivity();
 			resume();
@@ -80,8 +82,13 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private void initActivity() {
 		setContentView(R.layout.activity_main);
-		getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new MapFragment()).commit();
 		sIsAvailable = (Switch) findViewById(R.id.s_main_activity_availability_switch);
+		if (MyPreference.isAvailable())
+			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new MapFragment()).commit();
+		else {
+			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentUnAvailable()).commit();
+			sIsAvailable.setChecked(false);
+		}
 	}
 
 	@Override
@@ -100,16 +107,32 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	}
 
 	private void updateServer(boolean isChecked) {
-		// TODO Auto-generated method stub
-		onAvailabilityChanged(isChecked);
+		UpdateAvailabilityTask httpRequest = new UpdateAvailabilityTask(MainActivity.this, new HttpCallback() {
+
+			@Override
+			public void onAnswerReturn(Object answer) {
+				if ((Boolean) answer)
+					onAvailabilityChanged(MyPreference.isAvailable());
+				else {
+					Dialogs.showServerFailedDialog(MainActivity.this);
+					sIsAvailable.setChecked(MyPreference.isAvailable());
+				}
+			}
+		}, isChecked);
+		// TODO
+		// httpRequest.execute();
 	}
 
 	protected void onAvailabilityChanged(boolean isChecked) {
 		Fragment f;
-		if (isChecked)
+		if (isChecked) {
 			f = new MapFragment();
-		else
+			connectToGooglePlayServicesApi();
+
+		} else {
 			f = new FragmentUnAvailable();
+			disconnectGooglePlayServices();
+		}
 		getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, f).commit();
 	}
 
@@ -257,13 +280,26 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	@Override
 	protected void onStart() {
 		super.onStart();
-		connectToGooglePlayServicesApi();
+		if (MyPreference.isAvailable()) {
+			connectToGooglePlayServicesApi();
+		} else {
+
+		}
 	}
 
 	private void connectToGooglePlayServicesApi() {
 		if (!mResolvingError && !mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
 			mGoogleApiClient.connect();
 		}
+	}
+
+	private void disconnectGooglePlayServices() {
+		LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+
+		mGoogleApiClient.disconnect();
+		mRequestingLocationUpdates = false;
+		MyPreference.setLocationServiceState(false);
+
 	}
 
 	@Override
@@ -288,7 +324,9 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
+		Log.i("onConnected");
 		if (!mRequestingLocationUpdates) {
+			createLocationRequestIfNeeded();
 			startLocationUpdates();
 		}
 	}
@@ -335,8 +373,12 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	}
 
 	protected void createLocationRequestIfNeeded() {
-		int interval = 15 * 60 * 1000; // 15 Minutes
-		int fastestInterval = 10 * 60 * 1000; // 10 Minutes
+		// TODO
+		// int interval = 15 * 60 * 1000; // 15 Minutes
+		// int fastestInterval = 10 * 60 * 1000; // 10 Minutes
+		Log.i("create location request");
+		int interval = 10 * 1000; // 10 Seconds
+		int fastestInterval = 5 * 1000; // 5 Seconds
 
 		if (mLocationRequest != null)
 			return;
@@ -347,8 +389,12 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	}
 
 	protected void startLocationUpdates() {
-		LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-		mRequestingLocationUpdates = true;
+		if (!MyPreference.isLocationServiceOn()) {
+			Log.i("start location updates");
+			MyPreference.setLocationServiceState(true);
+			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+			mRequestingLocationUpdates = true;
+		}
 	}
 
 	@Override
@@ -356,7 +402,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		if (location == null)
 			return;
 
-		updateLocationOnBackendInBackground();
+		updateLocationOnBackendInBackground(location);
 		if (mMapFragmentLocationListener != null)
 			mMapFragmentLocationListener.onLocationChanged(location);
 	}
@@ -365,12 +411,16 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		return LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 	}
 
-	private void updateLocationOnBackendInBackground() {
-		// TODO Auto-generated method stub
-		Log.i("Got location!");
+	private void updateLocationOnBackendInBackground(Location location) {
+		Log.i("Got location! start updating the server");
+		UpdateLocationTask httpRequest = new UpdateLocationTask(MainActivity.this, location);
+
+		// TODO
+		// httpRequest.execute();
 	}
 
 	public void setMapFragmentLocationListener(LocationListener l) {
 		mMapFragmentLocationListener = l;
 	}
+
 }

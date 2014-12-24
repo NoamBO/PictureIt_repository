@@ -30,12 +30,13 @@
             android:gravity="center"
             android:text="@string/no_treatments_change_status_to_available"
             android:textColor="@color/text_color_gray"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <ListView
             android:id="@+id/lv_unavailable_status_upcoming_treatments"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewUnavailableStatusTitleUpcoming" >
         </ListView>
     </RelativeLayout>
 

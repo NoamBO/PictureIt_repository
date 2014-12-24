@@ -26,7 +26,7 @@ public class RegisterInBackground extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		if (statusCode != 202)
+		if (statusCode != 200)
 			return REGISTER_SERVER_FAILED;
 		if (JsonToObject.isResponseOk(result)) {
 			String uid = JsonToObject.jsonGetUid(result);

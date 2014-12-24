@@ -30,18 +30,18 @@ public class MapFragment extends Fragment implements LocationListener {
 
 	private LoadingMapIndicator mLoadingMapIndicator;
 
-	private boolean isMapLoadingFirstTry = true;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mLoadingMapIndicator = new LoadingMapIndicator(getActivity());
+		if (mLoadingMapIndicator == null) {
+			mLoadingMapIndicator = new LoadingMapIndicator(getActivity());
+			mLoadingMapIndicator.showMapLoadingIndicator();
+		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_map_container, container, false);
-		mLoadingMapIndicator.showMapLoadingIndicator();
 		mapView = (MapView) v.findViewById(R.id.mapview);
 		mapView.onCreate(savedInstanceState);
 
@@ -49,15 +49,12 @@ public class MapFragment extends Fragment implements LocationListener {
 	}
 
 	private void initMapIfNeeded(Location location) {
-		if (mMap == null) {
-			if (location == null) {
-				if (isMapLoadingFirstTry) {
-					isMapLoadingFirstTry = false;
-					return;
-				}
-				mLoadingMapIndicator.showNoMapIndicator();
-				return;
-			}
+
+		if (location == null) {
+			return;
+		} else if (mMap != null) {
+			mLoadingMapIndicator.mapFullyLoaded();
+		} else {
 			mMap = mapView.getMap();
 
 			LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
@@ -78,8 +75,6 @@ public class MapFragment extends Fragment implements LocationListener {
 				public void onCancel() {
 				}
 			});
-		} else {
-			mLoadingMapIndicator.mapFullyLoaded();
 		}
 	}
 
@@ -92,6 +87,7 @@ public class MapFragment extends Fragment implements LocationListener {
 	@Override
 	public void onResume() {
 		mapView.onResume();
+
 		initMapIfNeeded(((MainActivity) getActivity()).getLastLocation());
 		super.onResume();
 	}
@@ -100,6 +96,7 @@ public class MapFragment extends Fragment implements LocationListener {
 	public void onDestroy() {
 		super.onDestroy();
 		mapView.onDestroy();
+
 	}
 
 	@Override
@@ -110,6 +107,7 @@ public class MapFragment extends Fragment implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
+
 		initMapIfNeeded(location);
 	}
 

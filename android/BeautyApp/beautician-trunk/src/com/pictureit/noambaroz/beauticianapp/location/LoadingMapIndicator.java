@@ -36,6 +36,7 @@ public class LoadingMapIndicator {
 	}
 
 	public void showMapLoadingIndicator() {
+		getScreenCover().setVisibility(View.VISIBLE);
 		getScreenCover().findViewById(R.id.loadingMapFailedIndicator).setVisibility(View.GONE);
 		View indicator = getScreenCover().findViewById(R.id.loadingMapStartIndicator);
 		if (indicator.getVisibility() == View.GONE) {

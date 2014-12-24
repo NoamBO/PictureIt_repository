@@ -16,12 +16,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.pictureit.noambaroz.beauticianapp.Constant;
-import com.pictureit.noambaroz.beauticianapp.Settings;
+import com.pictureit.noambaroz.beauticianapp.MyPreference;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beautycianapp.R;
 
@@ -176,7 +174,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	}
 
 	protected String getUid() {
-		return Settings.getUID(ctx);
+		return MyPreference.getUID();
 	}
 
 	public static void showErrorDialog(Activity activity) {

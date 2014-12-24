@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -38,10 +39,10 @@ public class Splash extends Activity implements Runnable {
 
 	@Override
 	public void run() {
-		// if (TextUtils.isEmpty(Settings.getUID(Splash.this)))
-		// launchActivity(RegisterActivity.class);
-		// else
-		launchActivity(MainActivity.class);
+		if (TextUtils.isEmpty(MyPreference.getUID()))
+			launchActivity(RegisterActivity.class);
+		else
+			launchActivity(MainActivity.class);
 	}
 
 	private void launchActivity(Class<?> class1) {
