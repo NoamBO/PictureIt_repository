@@ -5,20 +5,27 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.AttributeSet;
+import android.view.InflateException;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -140,7 +147,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			// setDropdownTextViewFont();
+			setDropdownTextViewFont();
 		}
 
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -395,6 +402,37 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	public void setMapFragmentLocationListener(LocationListener l) {
 		mMapFragmentLocationListener = l;
+	}
+
+	/**
+	 * work on API Level 11+
+	 */
+	private void setDropdownTextViewFont() {
+		getLayoutInflater().setFactory(new LayoutInflater.Factory() {
+			@Override
+			public View onCreateView(String name, Context context, AttributeSet attrs) {
+				if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")
+						|| name.equalsIgnoreCase("TextView")) {
+					try {
+						LayoutInflater li = LayoutInflater.from(context);
+						final View view = li.createView(name, null, attrs);
+						new Handler().post(new Runnable() {
+							public void run() {
+								Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/FbExtrim-Regular.ttf");
+								((TextView) view).setTypeface(tf, Typeface.NORMAL);
+							}
+						});
+						return view;
+					} catch (InflateException e) {
+						// Handle any inflation exception here
+					} catch (ClassNotFoundException e) {
+						// Handle any ClassNotFoundException here
+					}
+				}
+				return null;
+			}
+
+		});
 	}
 
 }
