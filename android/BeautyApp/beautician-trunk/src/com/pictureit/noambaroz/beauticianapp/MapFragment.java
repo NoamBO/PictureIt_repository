@@ -1,7 +1,6 @@
 package com.pictureit.noambaroz.beauticianapp;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,49 +12,38 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.CancelableCallback;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
-import com.pictureit.noambaroz.beauticianapp.location.LoadingMapIndicator;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class MapFragment extends Fragment implements LocationListener {
+public class MapFragment extends MapFragmentBase implements LocationListener {
 
-	private MapView mapView;
-	private GoogleMap mMap;
+	private static GoogleMap mMap;
 
 	private static final float INITIAL_ZOOM = 17;
 
 	private static final float MIN_ZOOM_ALLOWED = INITIAL_ZOOM - 1;
 
-	private LoadingMapIndicator mLoadingMapIndicator;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (mLoadingMapIndicator == null) {
-			mLoadingMapIndicator = new LoadingMapIndicator(getActivity());
-			mLoadingMapIndicator.showMapLoadingIndicator();
-		}
-	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_map_container, container, false);
-		mapView = (MapView) v.findViewById(R.id.mapview);
-		mapView.onCreate(savedInstanceState);
-
+		mLoadingMapCoverScreen = findView(v, R.id.myMap_fragment_loading_view);
+		initIndicator();
+		showMapLoadingIndicator();
 		return v;
 	}
 
-	private void initMapIfNeeded(Location location) {
+	private synchronized void initMapIfNeeded(Location location) {
 
 		if (location == null) {
 			return;
-		} else if (mMap != null) {
-			mLoadingMapIndicator.mapFullyLoaded();
-		} else {
-			mMap = mapView.getMap();
+		} else if (mMap == null) {
+
+			mMap = ((com.google.android.gms.maps.MapFragment) MainActivity.fragmentManager
+					.findFragmentById(R.id.location_map)).getMap();
+			// Check if we were successful in obtaining the map.
+			if (mMap == null)
+				return;
 
 			LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
 
@@ -68,7 +56,7 @@ public class MapFragment extends Fragment implements LocationListener {
 
 				@Override
 				public void onFinish() {
-					mLoadingMapIndicator.mapFullyLoaded();
+					mapFullyLoaded();
 				}
 
 				@Override
@@ -85,29 +73,39 @@ public class MapFragment extends Fragment implements LocationListener {
 	}
 
 	@Override
-	public void onResume() {
-		mapView.onResume();
+	public void onDetach() {
+		super.onDetach();
+		((MainActivity) getActivity()).setMapFragmentLocationListener(null);
+	}
 
+	@Override
+	public void onResume() {
 		initMapIfNeeded(((MainActivity) getActivity()).getLastLocation());
 		super.onResume();
 	}
 
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		mapView.onDestroy();
-
+	public void onPause() {
+		if (mMap != null && getActivity().isFinishing()) {
+			MainActivity.fragmentManager.beginTransaction()
+					.remove(MainActivity.fragmentManager.findFragmentById(R.id.location_map)).commit();
+			mMap = null;
+		}
+		super.onPause();
 	}
 
 	@Override
-	public void onLowMemory() {
-		super.onLowMemory();
-		mapView.onLowMemory();
+	public void onDestroyView() {
+		super.onDestroyView();
+		if (mMap != null && !getActivity().isFinishing()) {
+			MainActivity.fragmentManager.beginTransaction()
+					.remove(MainActivity.fragmentManager.findFragmentById(R.id.location_map)).commit();
+			mMap = null;
+		}
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-
 		initMapIfNeeded(location);
 	}
 

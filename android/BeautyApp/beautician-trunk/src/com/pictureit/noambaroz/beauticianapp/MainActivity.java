@@ -4,27 +4,21 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.content.Context;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
-import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.AttributeSet;
-import android.view.InflateException;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -61,11 +55,13 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private boolean mRequestingLocationUpdates;
 
-	private LocationListener mMapFragmentLocationListener;
+	private static LocationListener mMapFragmentLocationListener;
 
 	private final int FRAGMENT_CONTAINER = R.id.main_screen_fragment_container;
 
 	private Switch sIsAvailable;
+
+	public static FragmentManager fragmentManager;
 
 	private OnCheckedChangeListener mAvailabilityChackedChangeListener = new OnCheckedChangeListener() {
 
@@ -78,7 +74,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		fragmentManager = getFragmentManager();
 		mResolvingError = savedInstanceState != null && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
 		if (googlePlayServicesAvailable()) {
@@ -144,7 +140,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			setDropdownTextViewFont();
+			// setDropdownTextViewFont();
 		}
 
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -163,37 +159,6 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 			break;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * work on API Level 11+
-	 */
-	private void setDropdownTextViewFont() {
-		getLayoutInflater().setFactory(new LayoutInflater.Factory() {
-			@Override
-			public View onCreateView(String name, Context context, AttributeSet attrs) {
-				if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")
-						|| name.equalsIgnoreCase("TextView")) {
-					try {
-						LayoutInflater li = LayoutInflater.from(context);
-						final View view = li.createView(name, null, attrs);
-						new Handler().post(new Runnable() {
-							public void run() {
-								Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/FbExtrim-Regular.ttf");
-								((TextView) view).setTypeface(tf, Typeface.NORMAL);
-							}
-						});
-						return view;
-					} catch (InflateException e) {
-						// Handle any inflation exception here
-					} catch (ClassNotFoundException e) {
-						// Handle any ClassNotFoundException here
-					}
-				}
-				return null;
-			}
-
-		});
 	}
 
 	private boolean isOkToFinishApp;
@@ -383,11 +348,11 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	}
 
 	protected void createLocationRequestIfNeeded() {
-		int interval = 15 * 60 * 1000; // 15 Minutes
-		int fastestInterval = 10 * 60 * 1000; // 10 Minutes
+		// int interval = 15 * 60 * 1000; // 15 Minutes
+		// int fastestInterval = 10 * 60 * 1000; // 10 Minutes
 		Log.i("create location request");
-		// int interval = 10 * 1000; // 10 Seconds
-		// int fastestInterval = 5 * 1000; // 5 Seconds
+		int interval = 10 * 1000; // 10 Seconds
+		int fastestInterval = 5 * 1000; // 5 Seconds
 
 		if (mLocationRequest != null)
 			return;

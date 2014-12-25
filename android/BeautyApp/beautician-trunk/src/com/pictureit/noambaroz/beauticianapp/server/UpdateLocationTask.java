@@ -18,19 +18,10 @@ public class UpdateLocationTask extends BaseHttpPost {
 		showNoConnectionDialog = false;
 		mLocation = location;
 		prepare(null);
-		// TODO remove
-		onPostExecute(continueInBackground(JSON));
 	}
 
 	@Override
-	protected synchronized Object continueInBackground(String result) {
-		// TODO remove
-		try {
-			wait(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected Object continueInBackground(String result) {
 		if (!JsonToObject.isResponseOk(result)) {
 			Log.i("Failed..");
 		} else {
@@ -57,7 +48,5 @@ public class UpdateLocationTask extends BaseHttpPost {
 			e.printStackTrace();
 		}
 	}
-
-	String JSON = "{\"d\":{\"status\":\"success\",\"message\":\"\"}}";
 
 }

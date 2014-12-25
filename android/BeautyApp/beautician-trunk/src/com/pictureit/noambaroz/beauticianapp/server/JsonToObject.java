@@ -1,12 +1,15 @@
 package com.pictureit.noambaroz.beauticianapp.server;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 
 public class JsonToObject {
@@ -52,7 +55,7 @@ public class JsonToObject {
 		boolean isOk = false;
 		try {
 			JSONObject j = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
-			JSONObject statusModel = j.getJSONObject("model_status");
+			JSONObject statusModel = j.getJSONObject("base_status");
 			if (statusModel.has(ServerUtil.SERVER_RESPONSE_STATUS)) {
 				if (statusModel.getString(ServerUtil.SERVER_RESPONSE_STATUS).equalsIgnoreCase(
 						ServerUtil.SERVER_RESPONSE_STATUS_SUCCESS)) {
@@ -76,11 +79,17 @@ public class JsonToObject {
 
 	public static ArrayList<UpcomingTreatment> getUpcomingTretments(String json) {
 		String finalString = getJson(json, JsonType.TYPE_ARRAY);
-		UpcomingTreatmentsResponse response = new GsonBuilder().serializeNulls().create()
-				.fromJson(finalString, UpcomingTreatmentsResponse.class);
+		ArrayList<UpcomingTreatment> array = new ArrayList<UpcomingTreatment>();
+		try {
+			JSONArray j = new JSONObject(finalString).getJSONArray("upcomingtreatments");
 
-		ArrayList<UpcomingTreatment> array = response.getUpcomingTreatments();
+			Type arrayType = new TypeToken<List<UpcomingTreatment>>() {
+			}.getType();
 
+			array = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), arrayType);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return array;
 	}
 
@@ -109,18 +118,6 @@ public class JsonToObject {
 			e.printStackTrace();
 		}
 		return value;
-	}
-
-	private class UpcomingTreatmentsResponse {
-		private ArrayList<UpcomingTreatment> upcomingtreatments;
-
-		public ArrayList<UpcomingTreatment> getUpcomingTreatments() {
-			return upcomingtreatments;
-		}
-
-		public void setUpcomingTreatments(ArrayList<UpcomingTreatment> upcomingtreatments) {
-			this.upcomingtreatments = upcomingtreatments;
-		}
 	}
 
 }

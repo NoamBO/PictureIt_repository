@@ -19,12 +19,13 @@ public class UpdateAvailabilityTask extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		if (JsonToObject.isResponseOk(result)) {
-			MyPreference.setAvailability(isAvailable);
-			Log.i("Availability changed to: " + isAvailable);
-			return true;
-		} else
-			return false;
+		// TODO
+		// if (JsonToObject.isResponseOk(result)) {
+		MyPreference.setAvailability(isAvailable);
+		// Log.i("Availability changed to: " + isAvailable);
+		return true;
+		// } else
+		// return false;
 	}
 
 	@Override

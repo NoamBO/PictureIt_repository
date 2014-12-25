@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+    <fragment
+        android:id="@+id/location_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.MapFragment" />
 
     <ImageButton
         android:id="@+id/my_location_button"
@@ -16,5 +17,49 @@
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:background="@drawable/btn_my_location" />
+
+    <FrameLayout
+        android:id="@+id/myMap_fragment_loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_white"
+        android:visibility="gone" >
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/loadingMapFailedIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/no_results_indicator"
+            android:gravity="center_horizontal"
+            android:text="@string/cant_load_map"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_text_size"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/loadingMapStartIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/loadingMapStartRotatingImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/app_logo" />
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/loading"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
+        </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>
