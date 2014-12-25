@@ -49,13 +49,16 @@ public abstract class BaseHttpPost extends HttpBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return continueInBackground(response);
+		if (response != null)
+			return continueInBackground(response);
+		else
+			return null;
 	}
 
 	@Override
 	protected void onPostExecute(Object result) {
 		super.onPostExecute(result);
-		if (callback != null)
+		if (callback != null && result != null)
 			callback.onAnswerReturn(result);
 	}
 

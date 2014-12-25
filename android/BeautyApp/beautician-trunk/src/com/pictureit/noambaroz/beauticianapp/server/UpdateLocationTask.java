@@ -15,6 +15,7 @@ public class UpdateLocationTask extends BaseHttpPost {
 	public UpdateLocationTask(Context ctx, Location location) {
 		super(ctx, null);
 		showProgressDialog = false;
+		showNoConnectionDialog = false;
 		mLocation = location;
 		prepare(null);
 		// TODO remove

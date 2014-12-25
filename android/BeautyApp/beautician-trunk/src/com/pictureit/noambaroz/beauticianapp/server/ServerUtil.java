@@ -24,6 +24,9 @@ public class ServerUtil {
 	public static final String LATITUDE = "latitude";
 	public static final String LONGITUDE = "longitude";
 
+	// Get Upcoming Treatments
+	public static final String URL_REQUEST_GET_UPCOMING_TREATMENTS = URL_BASE + "upcomingtreatments";
+
 	// GCM Integration
 	public static final String URL_REQUEST_SEND_GCM_REG_ID = URL_BASE + "updatepushregid";
 	public static final String GCM_REGISTRATION_ID = "registration_id";

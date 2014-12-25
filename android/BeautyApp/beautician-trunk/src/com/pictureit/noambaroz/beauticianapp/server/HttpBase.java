@@ -33,6 +33,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	protected Context ctx;
 	protected MyProgressDialog mProgressDialog;
 	protected boolean showProgressDialog = true;
+	protected boolean showNoConnectionDialog = true;
 
 	public HttpBase(Context ctx) {
 		this.ctx = ctx;
@@ -73,7 +74,15 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	protected void onPostExecute(Object result) {
 		if (mProgressDialog != null)
 			mProgressDialog.dismiss();
+
+		if (result == null && showNoConnectionDialog)
+			showNoConnectionDialog();
+
 		super.onPostExecute(result);
+	}
+
+	private void showNoConnectionDialog() {
+		Dialogs.showErrorDialog(ctx, R.string.no_internet_connection);
 	}
 
 	protected HttpParams getParams() {

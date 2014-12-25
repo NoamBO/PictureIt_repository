@@ -1,8 +1,13 @@
 package com.pictureit.noambaroz.beauticianapp.server;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.gson.GsonBuilder;
+import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 
 public class JsonToObject {
 
@@ -47,8 +52,9 @@ public class JsonToObject {
 		boolean isOk = false;
 		try {
 			JSONObject j = new JSONObject(getJson(json, JsonType.TYPE_OBJECT));
-			if (j.has(ServerUtil.SERVER_RESPONSE_STATUS)) {
-				if (j.getString(ServerUtil.SERVER_RESPONSE_STATUS).equalsIgnoreCase(
+			JSONObject statusModel = j.getJSONObject("model_status");
+			if (statusModel.has(ServerUtil.SERVER_RESPONSE_STATUS)) {
+				if (statusModel.getString(ServerUtil.SERVER_RESPONSE_STATUS).equalsIgnoreCase(
 						ServerUtil.SERVER_RESPONSE_STATUS_SUCCESS)) {
 					isOk = true;
 				}
@@ -67,6 +73,20 @@ public class JsonToObject {
 
 		return uid;
 	}
+
+	public static ArrayList<UpcomingTreatment> getUpcomingTretments(String json) {
+		String finalString = getJson(json, JsonType.TYPE_ARRAY);
+		UpcomingTreatmentsResponse response = new GsonBuilder().serializeNulls().create()
+				.fromJson(finalString, UpcomingTreatmentsResponse.class);
+
+		ArrayList<UpcomingTreatment> array = response.getUpcomingTreatments();
+
+		return array;
+	}
+
+	/* **********************************************************************************************************************
+	 * **********************************************************************************************************************
+	 */
 
 	public static String jsonGetString(String json, String key) {
 		String value = null;
@@ -89,6 +109,18 @@ public class JsonToObject {
 			e.printStackTrace();
 		}
 		return value;
+	}
+
+	private class UpcomingTreatmentsResponse {
+		private ArrayList<UpcomingTreatment> upcomingtreatments;
+
+		public ArrayList<UpcomingTreatment> getUpcomingTreatments() {
+			return upcomingtreatments;
+		}
+
+		public void setUpcomingTreatments(ArrayList<UpcomingTreatment> upcomingtreatments) {
+			this.upcomingtreatments = upcomingtreatments;
+		}
 	}
 
 }

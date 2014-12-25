@@ -177,6 +177,8 @@ public class GcmUtil {
 
 		public RegistrationIdSender(Context ctx, String regId) {
 			super(ctx, null);
+			showProgressDialog = false;
+			showNoConnectionDialog = false;
 			this.regId = regId;
 			prepare(null);
 		}
