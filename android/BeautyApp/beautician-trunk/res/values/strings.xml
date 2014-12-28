@@ -50,8 +50,10 @@
 	<string name="no_treatments_change_status_to_available">אין טיפולים\n\nעל מנת לקבל הזמנות לטיפולים\nעלייך להיות במצב זמין</string>
 	
 	<!-- Upcoming Treatments -->
+	<string name="treatments">טיפולים</string>
 	<string name="and_more">ועוד</string>
 	<string name="additional">נוספים</string>
+	<string name="no_treatments">לא הוזמנו טיפולים</string>
 	
 	<!-- Settings activity -->
 	<string name="settings">הגדרות</string>

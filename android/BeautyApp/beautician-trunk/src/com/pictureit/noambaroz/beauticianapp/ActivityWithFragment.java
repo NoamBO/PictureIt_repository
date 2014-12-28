@@ -6,11 +6,14 @@ import android.app.Fragment;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
+import com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public abstract class ActivityWithFragment extends BaseActivity {
@@ -59,6 +62,19 @@ public abstract class ActivityWithFragment extends BaseActivity {
 			getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();
 	}
 
+	private void setActionBarTitleFont() {
+		this.getActionBar().setDisplayShowCustomEnabled(true);
+		this.getActionBar().setDisplayShowTitleEnabled(false);
+
+		LayoutInflater inflator = LayoutInflater.from(this);
+		View v = inflator.inflate(R.layout.actionbar_title_view,
+				(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content), false);
+		MyFontTextView tv = findView(v, R.id.actionbar_title);
+
+		tv.setText(this.getTitle());
+		this.getActionBar().setCustomView(tv);
+	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -71,8 +87,11 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	protected void initActionBar(ActionBar actionBar) {
 		if (initActionBar)
 			actionBar.setDisplayHomeAsUpEnabled(true);
+
 		if (!isTitleVisible)
 			actionBar.setTitle("");
+		else
+			setActionBarTitleFont();
 	}
 
 	@Override

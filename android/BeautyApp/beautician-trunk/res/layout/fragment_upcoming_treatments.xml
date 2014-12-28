@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+        android:id="@+id/tv_upcoming_treatments_empty_list_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/no_results_indicator"
+        android:gravity="center"
+        android:text="@string/no_treatments"
+        android:textColor="@color/text_color_gray"
+        android:visibility="visible" />
+
+</FrameLayout>

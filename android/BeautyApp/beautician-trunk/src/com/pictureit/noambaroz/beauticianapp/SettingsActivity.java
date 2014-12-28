@@ -28,6 +28,11 @@ public class SettingsActivity extends ActivityWithFragment {
 		FRAGMENT_TAG = "settings_fragment";
 	}
 
+	@Override
+	public void onBackPressed() {
+		backPressed();
+	}
+
 	private class SettingsFragment extends Fragment {
 
 		private ViewGroup bEdit;
