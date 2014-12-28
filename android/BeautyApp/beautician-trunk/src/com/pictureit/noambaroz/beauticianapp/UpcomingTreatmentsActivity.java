@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
@@ -124,7 +126,8 @@ public class UpcomingTreatmentsActivity extends ActivityWithFragment {
 		private UpcomingTreatment mUpcomingTreatment;
 
 		private ViewGroup bCall, bDelete;
-		private TextView tvName, tvAddress, tvDate, tvTreatment1, tvTreatment2, tvLocation, tvRemarks, tvPrice;
+
+		private MySingleChoiseDialog mSingleChoiseDialog;
 
 		public void setOnTreatmentCanceledListener(OnTreatmentCanceledListener onTreatmentCanceledListener) {
 			this.onTreatmentCanceledListener = onTreatmentCanceledListener;
@@ -140,6 +143,8 @@ public class UpcomingTreatmentsActivity extends ActivityWithFragment {
 			bCall = findView(v, R.id.fl_upcoming_treatment_call);
 			bDelete = findView(v, R.id.fl_upcoming_treatment_delete);
 
+			TextView tvName, tvAddress, tvDate, tvTreatment1, tvTreatment2, tvLocation, tvRemarks, tvPrice;
+			ImageView image;
 			tvName = findView(v, R.id.tv_upcoming_treatment_name);
 			tvAddress = findView(v, R.id.tv_upcoming_treatment_address);
 			tvDate = findView(v, R.id.tv_upcoming_treatment_date);
@@ -148,16 +153,19 @@ public class UpcomingTreatmentsActivity extends ActivityWithFragment {
 			tvLocation = findView(v, R.id.tv_upcoming_treatment_location);
 			tvRemarks = findView(v, R.id.tv_upcoming_treatment_remarks);
 			tvPrice = findView(v, R.id.tv_upcoming_treatment_price);
+			image = findView(v, R.id.iv_upcoming_treatment);
 
 			tvName.setText(mUpcomingTreatment.getClientName());
 			tvAddress.setText(mUpcomingTreatment.getClientAddress());
 			tvDate.setText(TimeUtils.timestampToDate(mUpcomingTreatment.getTreatmentDate()));
-			TreatmentsFormatter.getSelf(getActivity()).setTreatmentsList(tvTreatment1, tvTreatment2,
-					mUpcomingTreatment.getTreatments());
 			tvLocation.setText(mUpcomingTreatment.getClientAddress());
 			tvRemarks.setText(mUpcomingTreatment.getClientComments());
 			tvPrice.setText(getString(R.string.price) + " " + mUpcomingTreatment.getPrice() + " "
 					+ getActivity().getString(R.string.currency));
+
+			TreatmentsFormatter.getSelf(getActivity()).setTreatmentsList(tvTreatment1, tvTreatment2,
+					mUpcomingTreatment.getTreatments());
+			ImageLoaderUtil.display(mUpcomingTreatment.getImageUrl(), image);
 
 			return v;
 		}
@@ -176,10 +184,42 @@ public class UpcomingTreatmentsActivity extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					// TODO
-					// onTreatmentCanceled();
+					onDeletePressed();
 				}
 			});
+		}
+
+		private void onDeletePressed() {
+			if (mSingleChoiseDialog == null) {
+				mSingleChoiseDialog = new MySingleChoiseDialog(getActivity(), getActivity().getResources()
+						.getStringArray(R.array.cancel_request_dialog_list))
+						.setMyTitle(R.string.cause_to_cancel_treatment)
+						.setSubTitle(R.string.canceling_time_after_time_will_cause_your_account_to_be_closed)
+						.showButtons(new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int cancelTreatmentReasonId) {
+								if (cancelTreatmentReasonId != -1)
+									doCancel(cancelTreatmentReasonId);
+							}
+						}, null);
+			}
+			mSingleChoiseDialog.show();
+		}
+
+		protected void doCancel(int cancelTreatmentReasonId) {
+			// TODO Auto-generated method stub
+			// httpRequest
+			new HttpCallback() {
+
+				@Override
+				public void onAnswerReturn(Object answer) {
+					if (answer != null)
+						onTreatmentCanceled();
+					else
+						Dialogs.showServerFailedDialog(getActivity());
+				}
+			};
 		}
 
 		private void onTreatmentCanceled() {

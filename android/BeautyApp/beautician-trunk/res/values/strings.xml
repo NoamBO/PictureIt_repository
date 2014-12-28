@@ -64,6 +64,17 @@
 	<string name="price">מחיר:</string>
 	<string name="currency">ש"ח</string>
 	
+	<!-- Cancel treatment dialog -->
+	<string name="cause_to_cancel_treatment">סיבת ביטול הטיפול</string>
+	<string name="canceling_time_after_time_will_cause_your_account_to_be_closed">ביטולים חוזרים ונשנים יגרמו לחשבונך להיסגר</string>
+	
+	<string name="go_back">חזור</string>
+	<array name="cancel_request_dialog_list">
+	    <item>לא פנויה</item>
+	    <item>סיבות אישיות</item>
+	    <item>חולה</item>
+	</array>
+	
 	<!-- Settings activity -->
 	<string name="settings">הגדרות</string>
 	<string name="time_before_treatment_to_alert">פרק זמן להתראה לפני טיפול:</string>

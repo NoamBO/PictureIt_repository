@@ -33,7 +33,6 @@
                     android:id="@+id/tv_upcoming_treatment_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="שם המטופל"
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/title_medium_text_size" />
 
@@ -41,7 +40,6 @@
                     android:id="@+id/tv_upcoming_treatment_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="כתובת"
                     android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/common_text_size" />
             </LinearLayout>
@@ -76,7 +74,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="3"
-                        android:text="כתובת"
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/common_text_size" />
 
@@ -106,7 +103,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="20dp"
                         android:layout_weight="3"
                         android:orientation="horizontal" >
 
@@ -116,7 +113,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="כתובת2"
                             android:textColor="@color/text_color_gray"
                             android:textSize="@dimen/common_text_size" />
 
@@ -126,7 +122,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="כתובת1"
                             android:textColor="@color/text_color_gray"
                             android:textSize="@dimen/common_text_size" />
                     </LinearLayout>
@@ -160,7 +155,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="3"
-                        android:text="כתובת"
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/common_text_size" />
 
@@ -193,7 +187,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="3"
-                        android:text="כתובת"
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/common_text_size" />
 
@@ -218,7 +211,6 @@
             android:layout_above="@+id/linearLayout1"
             android:background="@color/text_color_gray"
             android:gravity="center"
-            android:text="sssss"
             android:textColor="@color/dark_gray"
             android:textSize="@dimen/title_large_text_size" />
 

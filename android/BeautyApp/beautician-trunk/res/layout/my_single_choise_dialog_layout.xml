@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_white"
+    android:orientation="vertical" >
+
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+        android:id="@+id/singlechois_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_row_height"
+        android:background="@color/dialog_theme_color"
+        android:gravity="center"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/title_large_text_size" />
+
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+        android:id="@+id/singlechois_dialog_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/text_color_gray"
+        android:gravity="center"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/title_medium_text_size"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/singlechois_dialog_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/fragment_padding" >
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/singlechois_dialog_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginRight="@dimen/fragment_padding"
+            android:layout_weight="1"
+            android:background="@color/app_most_common_yellow_color"
+            android:gravity="center"
+            android:text="@string/go_back"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/title_large_text_size"
+            android:visibility="gone" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/singlechois_dialog_ok"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:background="@color/app_most_common_yellow_color"
+            android:gravity="center"
+            android:text="@string/proceed"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/title_large_text_size"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>
