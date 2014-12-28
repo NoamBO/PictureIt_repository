@@ -15,7 +15,7 @@ public class TimeUtils {
 	 * 
 	 * @param date
 	 *            in format of "dd/MM/yyyy"
-	 * @return timestamp (millisecond)
+	 * @return timestamp (seconds)
 	 */
 	public static long dateToTimestamp(String date) {
 		Calendar calendar = Calendar.getInstance();
@@ -30,14 +30,14 @@ public class TimeUtils {
 		}
 		calendar.setTime(yourDate);
 		long timeInMilis = calendar.getTimeInMillis();
-		return timeInMilis;
+		return (timeInMilis / 1000);
 	}
 
 	/**
 	 * 
 	 * @param date
 	 *            in format of "dd/MM/yyyy HH:mm"
-	 * @return timestamp (millisecond)
+	 * @return timestamp (second)
 	 */
 	public static long dateAndTimeToTimestamp(String date) {
 		Calendar calendar = Calendar.getInstance();
@@ -52,13 +52,13 @@ public class TimeUtils {
 		}
 		calendar.setTime(yourDate);
 		long timeInMilis = calendar.getTimeInMillis();
-		return timeInMilis;
+		return (timeInMilis / 1000);
 	}
 
 	/**
 	 * 
 	 * @param timestamp
-	 *            (millisecond)
+	 *            (seconds)
 	 * @return date in format of "dd/MM/yyyy HH:mm"
 	 * 
 	 */
