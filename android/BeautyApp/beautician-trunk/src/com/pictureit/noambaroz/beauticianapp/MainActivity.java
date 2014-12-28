@@ -133,6 +133,9 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	protected void onAvailabilityChanged(boolean isChecked) {
 		Fragment f;
 		if (isChecked) {
+
+			if (getFragmentManager().getBackStackEntryCount() > 0)
+				getFragmentManager().popBackStack();
 			f = new MapFragment();
 			connectToGooglePlayServicesApi();
 
@@ -358,11 +361,11 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	}
 
 	protected void createLocationRequestIfNeeded() {
-		// int interval = 15 * 60 * 1000; // 15 Minutes
-		// int fastestInterval = 10 * 60 * 1000; // 10 Minutes
+		int interval = 15 * 60 * 1000; // 15 Minutes
+		int fastestInterval = 10 * 60 * 1000; // 10 Minutes
 		Log.i("create location request");
-		int interval = 10 * 1000; // 10 Seconds
-		int fastestInterval = 5 * 1000; // 5 Seconds
+		// int interval = 10 * 1000; // 10 Seconds
+		// int fastestInterval = 5 * 1000; // 5 Seconds
 
 		if (mLocationRequest != null)
 			return;
@@ -398,9 +401,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	private void updateLocationOnBackendInBackground(Location location) {
 		Log.i("Got location! start updating the server");
 		UpdateLocationTask httpRequest = new UpdateLocationTask(MainActivity.this, location);
-
-		// TODO
-		// httpRequest.execute();
+		httpRequest.execute();
 	}
 
 	public void setMapFragmentLocationListener(LocationListener l) {

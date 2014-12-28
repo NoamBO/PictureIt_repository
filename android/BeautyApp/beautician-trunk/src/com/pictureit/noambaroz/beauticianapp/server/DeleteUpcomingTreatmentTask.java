@@ -3,7 +3,6 @@ package com.pictureit.noambaroz.beauticianapp.server;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Context;
 
 public class DeleteUpcomingTreatmentTask extends BaseHttpPost {
@@ -20,7 +19,7 @@ public class DeleteUpcomingTreatmentTask extends BaseHttpPost {
 	@Override
 	protected Object continueInBackground(String result) {
 		if (JsonToObject.isResponseOk(result))
-			return Activity.RESULT_OK;
+			return 1;
 		else
 			return "failed";
 	}
