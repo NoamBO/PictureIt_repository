@@ -7,6 +7,7 @@
     <string name="app_name">BeautycianApp</string>
     <string name="character_next">&lt;</string>
     <string name="empty_text">""</string>
+    <string name="bullet"><b>&#183;</b></string>
 
     <!-- Main activity -->
     <string name="cant_load_map">לא ניתן לטעון מפה</string>
@@ -54,6 +55,14 @@
 	<string name="and_more">ועוד</string>
 	<string name="additional">נוספים</string>
 	<string name="no_treatments">לא הוזמנו טיפולים</string>
+	
+	<!-- Upcoming treatment -->
+	<string name="when">מתי:</string>
+	<string name="wanted_treatment">טיפול מבוקש:</string>
+	<string name="location">מיקום:</string>
+	<string name="remarks">היערות:</string>
+	<string name="price">מחיר:</string>
+	<string name="currency">ש"ח</string>
 	
 	<!-- Settings activity -->
 	<string name="settings">הגדרות</string>

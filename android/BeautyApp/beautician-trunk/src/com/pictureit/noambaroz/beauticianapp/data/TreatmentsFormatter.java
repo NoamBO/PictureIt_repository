@@ -8,6 +8,8 @@ import java.util.List;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.view.View;
+import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautycianapp.R;
 
@@ -141,5 +143,31 @@ public class TreatmentsFormatter {
 			sb.append(mContext.getString(R.string.additional));
 		}
 		return sb.toString();
+	}
+
+	public void setTreatmentsList(TextView tv1, TextView tv2, ArrayList<TreatmentType> treatmentsList) {
+		tv1.setVisibility(View.VISIBLE);
+		tv2.setVisibility(View.VISIBLE);
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		int count = 0;
+		for (TreatmentType t : treatmentsList) {
+			if (Integer.valueOf(t.getAmount()) > 0) {
+				String treatmentName = getTreatmentType(t.getTreatmentId()).getName();
+				String text = mContext.getString(R.string.bullet) + treatmentName
+						+ (t.getAmount() > 1 ? " (" + t.getAmount() + ")" : "") + "\n";
+				if (count % 2 == 0)
+					sb1.append(text);
+				else
+					sb2.append(text);
+				count++;
+			}
+		}
+		if (sb1.toString().length() == 0)
+			tv1.setVisibility(View.GONE);
+		tv1.setText(sb1.toString());
+		if (sb2.toString().length() == 0)
+			tv2.setVisibility(View.GONE);
+		tv2.setText(sb2.toString());
 	}
 }

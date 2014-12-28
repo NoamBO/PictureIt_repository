@@ -1,4 +1,4 @@
-package com.pictureit.noambaroz.beautyapp.gcm;
+package com.pictureit.noambaroz.beauticianapp.gcm;
 
 import org.json.JSONException;
 import org.json.JSONObject;

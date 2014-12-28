@@ -79,7 +79,7 @@ public class JsonToObject {
 
 	public static ArrayList<UpcomingTreatment> getUpcomingTretments(String json) {
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
-		ArrayList<UpcomingTreatment> array = new ArrayList<UpcomingTreatment>();
+		ArrayList<UpcomingTreatment> array = null;
 		try {
 			JSONArray j = new JSONObject(finalString).getJSONArray("upcomingtreatments");
 

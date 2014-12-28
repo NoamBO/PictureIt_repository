@@ -37,10 +37,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateAvailabilityTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateLocationTask;
-import com.pictureit.noambaroz.beautyapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class MainActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {

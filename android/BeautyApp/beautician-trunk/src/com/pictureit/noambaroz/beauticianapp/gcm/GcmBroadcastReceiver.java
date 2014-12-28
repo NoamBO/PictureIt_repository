@@ -1,4 +1,4 @@
-package com.pictureit.noambaroz.beautyapp.gcm;
+package com.pictureit.noambaroz.beauticianapp.gcm;
 
 import android.content.ComponentName;
 import android.content.Context;

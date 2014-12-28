@@ -24,7 +24,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/devider_color_gray" />
+            android:background="@color/divider_color_gray" />
 
         <LinearLayout
             android:id="@+id/ll_fragment_setting_pre_tretment_alesrt_time_edit"
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="120dp"
-            android:background="@color/devider_color_gray" />
+            android:background="@color/divider_color_gray" />
     </LinearLayout>
 
 </LinearLayout>
