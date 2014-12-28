@@ -24,6 +24,7 @@ import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
+import com.pictureit.noambaroz.beauticianapp.server.DeleteUpcomingTreatmentTask;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
@@ -208,18 +209,18 @@ public class UpcomingTreatmentsActivity extends ActivityWithFragment {
 		}
 
 		protected void doCancel(int cancelTreatmentReasonId) {
-			// TODO Auto-generated method stub
-			// httpRequest
-			new HttpCallback() {
+			DeleteUpcomingTreatmentTask httpRequest = new DeleteUpcomingTreatmentTask(getActivity(),
+					new HttpCallback() {
 
-				@Override
-				public void onAnswerReturn(Object answer) {
-					if (answer != null)
-						onTreatmentCanceled();
-					else
-						Dialogs.showServerFailedDialog(getActivity());
-				}
-			};
+						@Override
+						public void onAnswerReturn(Object answer) {
+							if (answer instanceof Integer)
+								onTreatmentCanceled();
+							else
+								Dialogs.showServerFailedDialog(getActivity());
+						}
+					}, mUpcomingTreatment.getUpcomingtreatmentId(), cancelTreatmentReasonId);
+			httpRequest.execute();
 		}
 
 		private void onTreatmentCanceled() {

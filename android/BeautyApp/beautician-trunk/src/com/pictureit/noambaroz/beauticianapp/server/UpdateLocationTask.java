@@ -27,7 +27,7 @@ public class UpdateLocationTask extends BaseHttpPost {
 		} else {
 			Log.i("Success!");
 		}
-		return null;
+		return "";
 	}
 
 	@Override
