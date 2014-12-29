@@ -18,7 +18,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.execSQL("create table " + DataProvider.TABLE_ORDERS_AROUND_ME + " (_id integer primary key autoincrement, "
 				+ DataProvider.COL_FIRST_NAME + " text, " + DataProvider.COL_LAST_NAME + " text, "
 				+ DataProvider.COL_LATITUDE + " text, " + DataProvider.COL_LONGITUDE + " text, "
-				+ DataProvider.COL_IS_DIRECTED_TO_ME + " boolean, " + DataProvider.COL_ORDER_ID + " text);");
+				+ DataProvider.COL_IS_DIRECTED_TO_ME + " text, " + DataProvider.COL_ORDER_ID + " text);");
 	}
 
 	@Override

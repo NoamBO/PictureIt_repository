@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 
@@ -102,6 +103,24 @@ public class JsonToObject {
 			JSONArray j = new JSONObject(finalString).getJSONArray("beauticians_around");
 
 			Type arrayType = new TypeToken<List<OrderAroundMe>>() {
+			}.getType();
+
+			array = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), arrayType);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return array;
+	}
+
+	public static ArrayList<Message> jsonToMessages(String json) {
+		ArrayList<Message> array = null;
+
+		Message.class.getClass();
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		try {
+			JSONArray j = new JSONObject(finalString).getJSONArray("messages");
+
+			Type arrayType = new TypeToken<List<Message>>() {
 			}.getType();
 
 			array = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), arrayType);

@@ -31,6 +31,7 @@ public class Splash extends Activity implements Runnable {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Log.i("uid", MyPreference.getUID());
 		load();
 	}
 
@@ -42,7 +43,6 @@ public class Splash extends Activity implements Runnable {
 	public void run() {
 		if (TextUtils.isEmpty(MyPreference.getUID())) {
 			launchActivity(RegisterActivity.class);
-			Log.i("uid", MyPreference.getUID());
 		} else
 			launchActivity(MainActivity.class);
 	}

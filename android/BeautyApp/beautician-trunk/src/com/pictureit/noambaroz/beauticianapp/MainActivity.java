@@ -36,7 +36,6 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
@@ -169,7 +168,9 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		case R.id.action_future_treatments:
 			launchActivity(UpcomingTreatmentsActivity.class);
 			break;
-
+		case R.id.action_messages:
+			launchActivity(MessagesActivity.class);
+			break;
 		default:
 			break;
 		}
@@ -205,12 +206,6 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		Intent intent = new Intent(MainActivity.this, class1);
 		startActivity(intent);
 		overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		getContentResolver().delete(DataProvider.CONTENT_URI_ORDERS_AROUND_ME, null, null);
 	}
 
 	private boolean googlePlayServicesAvailable() {
@@ -320,7 +315,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		Log.i("onConnected");
+		Log.i("connected to GoogleServicesApi");
 		if (!mRequestingLocationUpdates) {
 			createLocationRequestIfNeeded();
 			startLocationUpdates();
@@ -371,12 +366,13 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	protected void createLocationRequestIfNeeded() {
 		int interval = 15 * 60 * 1000; // 15 Minutes
 		int fastestInterval = 10 * 60 * 1000; // 10 Minutes
-		Log.i("create location request");
+
 		// int interval = 10 * 1000; // 10 Seconds
 		// int fastestInterval = 5 * 1000; // 5 Seconds
 
 		if (mLocationRequest != null)
 			return;
+		Log.i("creating location request");
 		mLocationRequest = new LocationRequest();
 		mLocationRequest.setInterval(interval);
 		mLocationRequest.setFastestInterval(fastestInterval);
@@ -385,11 +381,12 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	protected void startLocationUpdates() {
 		if (!MyPreference.isLocationServiceOn()) {
-			Log.i("start location updates");
+			Log.i("location updates started");
 			MyPreference.setLocationServiceState(true);
 			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 			mRequestingLocationUpdates = true;
 		}
+		mMapFragmentLocationListener.onLocationChanged(getLastLocation());
 	}
 
 	@Override

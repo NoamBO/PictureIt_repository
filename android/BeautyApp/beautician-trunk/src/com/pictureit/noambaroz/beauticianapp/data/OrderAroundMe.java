@@ -7,7 +7,7 @@ public class OrderAroundMe {
 	private double latitude;
 	private double longitude;
 	private String orderid;
-	private boolean is_directed_to_me;
+	private String is_directed_to_me;
 
 	public String getPrivateName() {
 		return private_name;
@@ -49,11 +49,11 @@ public class OrderAroundMe {
 		this.orderid = orderid;
 	}
 
-	public boolean isDirectedToMe() {
+	public String isDirectedToMe() {
 		return is_directed_to_me;
 	}
 
-	public void setDirectedToMe(boolean is_directed_to_me) {
+	public void setDirectedToMe(String is_directed_to_me) {
 		this.is_directed_to_me = is_directed_to_me;
 	}
 }

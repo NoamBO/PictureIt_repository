@@ -159,6 +159,7 @@ public class MapFragment extends MapFragmentBase implements OnMarkerClickListene
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		Log.i("has " + data.getCount() + " rows on table");
 		mMap.clear();
 		if (mCurrentLocationMarkerOptions != null)
 			mCurrentLocationMarker = mMap.addMarker(mCurrentLocationMarkerOptions);

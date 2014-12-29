@@ -37,4 +37,7 @@ public class ServerUtil {
 	public static final String GCM_REGISTRATION_ID = "registration_id";
 	public static final String OS = "os";
 
+	// Messages
+	public static final String URL_REQUEST_GET_MESSAGES = URL_BASE + "checkmessages";
+
 }

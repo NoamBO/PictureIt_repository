@@ -50,6 +50,9 @@
 	<string name="upcoming_treatments">טיפולים קרובים</string>
 	<string name="no_treatments_change_status_to_available">אין טיפולים\n\nעל מנת לקבל הזמנות לטיפולים\nעלייך להיות במצב זמין</string>
 	
+	<!-- Messages -->
+	<string name="messages">הודעות</string>
+	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>
 	<string name="and_more">ועוד</string>

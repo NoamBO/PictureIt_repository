@@ -2,7 +2,7 @@ package com.pictureit.noambaroz.beauticianapp;
 
 public class Log {
 
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	private final static String TAG = "my_app";
 
@@ -46,11 +46,11 @@ public class Log {
 		boolean seenTHISclassName = false;
 		StackTraceElement e[] = Thread.currentThread().getStackTrace();
 		for (int i = 0; i < e.length; i++) {
-			if (e[i].getClassName().equals("utilities.Log")) {
+			if (e[i].getClassName().equalsIgnoreCase("com.pictureit.noambaroz.beauticianapp.Log")) {
 				seenTHISclassName = true;
 				continue;
 			}
-			if (!e[i].getClassName().equals("utilities.Log") && seenTHISclassName) {
+			if (!e[i].getClassName().equalsIgnoreCase("com.pictureit.noambaroz.beauticianapp.Log") && seenTHISclassName) {
 				return e[i];
 			}
 		}
