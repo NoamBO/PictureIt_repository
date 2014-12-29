@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_shape" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/fragment_padding" >
+
+            <TextView
+                android:id="@+id/tv_message_cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginRight="@dimen/fragment_padding"
+                android:layout_weight="1"
+                android:background="@drawable/btn_shape"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/app_white"
+                android:textSize="@dimen/title_medium_text_size" />
+
+            <TextView
+                android:id="@+id/tv_message_confirm_button"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight="1"
+                android:background="@drawable/btn_shape"
+                android:gravity="center"
+                android:text="@string/send"
+                android:textColor="@color/app_white"
+                android:textSize="@dimen/title_medium_text_size" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fragment_padding" >
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/fragment_padding"
+                android:background="@drawable/profile_avatar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/iv_message"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_message_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/title_medium_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_message_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/common_text_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/linearLayout1"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_marginTop="-2dp"
+            android:padding="@dimen/fragment_padding" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/b_message_when"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_select_shape"
+                        android:gravity="center"
+                        android:padding="@dimen/fragment_padding"
+                        android:text="@string/set_hour"
+                        android:textColor="@color/text_color_gray" />
+
+                    <TextView
+                        android:id="@+id/tvMessageWhenHour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/b_message_when"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/ic_clock_yellow"
+                        android:gravity="center_vertical"
+                        android:text="@string/hour"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/title_small_text_size" />
+
+                    <TextView
+                        android:id="@+id/tv_message_when_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/tvMessageWhen"
+                        android:layout_toRightOf="@+id/tvMessageWhenHour"
+                        android:gravity="center"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <TextView
+                        android:id="@+id/tvMessageWhen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:gravity="center_vertical"
+                        android:text="@string/when"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/title_small_text_size" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/tvMessageSetTreatment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:drawablePadding="2dp"
+                        android:drawableRight="@drawable/ic_treatment"
+                        android:gravity="center_vertical"
+                        android:text="@string/wanted_treatment"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/title_small_text_size" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toLeftOf="@id/tvMessageSetTreatment" >
+
+                        <TextView
+                            android:id="@+id/b_message_select_treatment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:background="@drawable/btn_edit"
+                            android:gravity="center" />
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/app_most_common_yellow_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvMessageSetTreatment"
+                        android:orientation="horizontal"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="20dp" >
+
+                        <TextView
+                            android:id="@+id/tv_message_treatment_list1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_message_treatment_list2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/tvMessageLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:drawablePadding="0dp"
+                        android:drawableRight="@drawable/ic_location"
+                        android:gravity="center_vertical"
+                        android:text="@string/location"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/title_small_text_size" />
+
+                    <LinearLayout
+                        android:id="@+id/llMessageLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/tvMessageLocation"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/b_message_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/btn_edit"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:id="@+id/tv_message_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignBottom="@+id/llMessageLocation"
+                        android:background="@color/app_most_common_yellow_color" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+
+                    <TextView
+                        android:id="@+id/tvMessageRemarks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="0dp"
+                        android:drawableRight="@drawable/ic_remaks"
+                        android:gravity="center_vertical"
+                        android:text="@string/remarks"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/title_small_text_size" />
+
+                    <LinearLayout
+                        android:id="@+id/llMessageRemarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/tvMessageRemarks"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/b_message_remarks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/btn_edit" />
+
+                        <TextView
+                            android:id="@+id/tv_message_remarks"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignBottom="@+id/llMessageRemarks"
+                        android:background="@color/app_most_common_yellow_color" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/tvMessagePrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/fragment_padding"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/ic_nis"
+                        android:gravity="center_vertical"
+                        android:text="@string/price"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/title_small_text_size" />
+
+                    <TextView
+                        android:id="@+id/b_message_set_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/tvMessagePrice"
+                        android:background="@drawable/btn_select_shape"
+                        android:gravity="center"
+                        android:text="@string/set_price"
+                        android:textColor="@color/text_color_gray" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

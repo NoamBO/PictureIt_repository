@@ -12,6 +12,7 @@
         <item name="android:actionOverflowButtonStyle">@style/AppTheme.ActionBar.MyOverflowButtonStyle</item>
         <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
         <item name="android:textColorPrimary">@color/text_color_gray</item>
+        <item name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</item>
         <item name="numberPickerStyle">@style/NPWidget.Holo.NumberPicker</item>
     </style>
 

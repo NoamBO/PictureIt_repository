@@ -52,6 +52,11 @@
 	
 	<!-- Messages -->
 	<string name="messages">הודעות</string>
+	<string name="send">שלח</string>
+	<string name="cancel">בטל</string>
+	<string name="set_hour">הגדרי שעה</string>
+	<string name="hour">שעה</string>
+	<string name="set_price">הגדרי מחיר</string>
 	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>
