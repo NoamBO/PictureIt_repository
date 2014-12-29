@@ -1,5 +1,7 @@
 package com.pictureit.noambaroz.beauticianapp.server;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,6 +9,8 @@ import android.content.Context;
 import android.location.Location;
 
 import com.pictureit.noambaroz.beauticianapp.Log;
+import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
+import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
 
 public class UpdateLocationTask extends BaseHttpPost {
 
@@ -27,6 +31,11 @@ public class UpdateLocationTask extends BaseHttpPost {
 		} else {
 			Log.i("Success!");
 		}
+		ArrayList<OrderAroundMe> array = JsonToObject.jsonToOrdersAroundMe(result);
+		if (array == null || array.size() == 0)
+			return "";
+		else
+			DataUtils.get(ctx).refreshMapFragment(array);
 		return "";
 	}
 

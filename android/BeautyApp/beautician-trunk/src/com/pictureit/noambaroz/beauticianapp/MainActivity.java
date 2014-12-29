@@ -36,6 +36,7 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
@@ -81,6 +82,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		fragmentManager = getFragmentManager();
 		mResolvingError = savedInstanceState != null && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
@@ -203,6 +205,12 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		Intent intent = new Intent(MainActivity.this, class1);
 		startActivity(intent);
 		overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		getContentResolver().delete(DataProvider.CONTENT_URI_ORDERS_AROUND_ME, null, null);
 	}
 
 	private boolean googlePlayServicesAvailable() {
