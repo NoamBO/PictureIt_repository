@@ -8,6 +8,7 @@
     <string name="character_next">&lt;</string>
     <string name="empty_text">""</string>
     <string name="bullet"><b>&#183;</b></string>
+    <string name="question_mark">"?"</string>
 
     <!-- Main activity -->
     <string name="cant_load_map">לא ניתן לטעון מפה</string>
@@ -59,6 +60,8 @@
 	<string name="set_hour">הגדרי שעה</string>
 	<string name="hour">שעה</string>
 	<string name="set_price">הגדרי מחיר</string>
+	<string name="confirm_treatment_dialog_title">אישור טיפול</string>
+	<string name="confirm_treatment_dialog_subtitle">במידה ויש טיפול שאינך יכולה לספק, אנא הסירי אותו מהרשימה</string>
 	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>

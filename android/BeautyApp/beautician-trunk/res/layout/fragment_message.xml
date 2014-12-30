@@ -50,8 +50,8 @@
 
             <ImageView
                 android:id="@+id/iv_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/beautician_picture_width"
+                android:layout_height="@dimen/beautician_picture_height"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/fragment_padding"
                 android:background="@drawable/profile_avatar" />
@@ -107,7 +107,8 @@
                         android:gravity="center"
                         android:padding="@dimen/fragment_padding"
                         android:text="@string/set_hour"
-                        android:textColor="@color/text_color_gray" />
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
 
                     <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessageWhenHour"
@@ -147,6 +148,15 @@
                         android:text="@string/when"
                         android:textColor="@color/app_most_common_yellow_color"
                         android:textSize="@dimen/title_small_text_size" />
+                    
+                    <View
+                        android:id="@+id/divider_messages_when"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/b_message_when"
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
+                    
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -181,7 +191,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
                             android:background="@drawable/btn_edit"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:textSize="@dimen/common_text_size" />
                     </FrameLayout>
 
                     <View
@@ -322,7 +333,9 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp" >
 
                     <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessagePrice"
@@ -340,13 +353,32 @@
 
                     <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/b_message_set_price"
-                        android:layout_width="match_parent"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/tvMessagePrice"
+                        android:layout_alignParentLeft="true"
                         android:background="@drawable/btn_select_shape"
                         android:gravity="center"
                         android:text="@string/set_price"
-                        android:textColor="@color/text_color_gray" />
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                        android:id="@+id/tv_message_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/tvMessagePrice"
+                        android:layout_toRightOf="@+id/b_message_set_price"
+                        android:gravity="center"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
+
+                    <View
+                        android:id="@+id/divider_messages_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/b_message_set_price"
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

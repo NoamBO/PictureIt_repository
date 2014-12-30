@@ -97,9 +97,9 @@ public class MessagesActivity extends ActivityWithFragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			String orderId = adapter.getItem(position).getOrderid();
+			Message m = adapter.getItem(position);
 			Intent intent = new Intent(getActivity(), MessageActivity.class);
-			intent.putExtra(Constant.EXTRA_ORDER_ID, orderId);
+			intent.putExtra(Constant.EXTRA_MESSAGE_OBJECT, m);
 			startActivity(intent);
 			overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}
@@ -132,7 +132,7 @@ public class MessagesActivity extends ActivityWithFragment {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			holder.date.setText(TimeUtils.timestampToDate(getItem(position).getTime()));
+			holder.date.setText(TimeUtils.timestampToDate(getItem(position).getMessageSentTime()));
 			holder.name.setText(getItem(position).getClientName());
 			holder.address.setText(getItem(position).getClientAdress());
 			holder.treatment.setText(TreatmentsFormatter.getSelf(getContext()).getTreatmentName(

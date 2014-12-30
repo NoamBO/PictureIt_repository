@@ -7,64 +7,73 @@ public class MessageResponse {
 	private String beautician_id;
 	private String orderid;
 	private String date;
+	private String hour;
 	private String place;
 	private String price;
 	private String comments;
 	private ArrayList<TreatmentType> treatments;
 
-	String getBeauticianId() {
+	public String getBeauticianId() {
 		return beautician_id;
 	}
 
-	void setBeauticianId(String beautician_id) {
+	public void setBeauticianId(String beautician_id) {
 		this.beautician_id = beautician_id;
 	}
 
-	String getOrderid() {
+	public String getOrderid() {
 		return orderid;
 	}
 
-	void setOrderid(String orderid) {
+	public void setOrderid(String orderid) {
 		this.orderid = orderid;
 	}
 
-	String getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	void setDate(String date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	String getPlace() {
+	public String getPlace() {
 		return place;
 	}
 
-	void setPlace(String place) {
+	public void setPlace(String place) {
 		this.place = place;
 	}
 
-	String getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	void setPrice(String price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	String getComments() {
+	public String getComments() {
 		return comments;
 	}
 
-	void setComments(String comments) {
+	public void setComments(String comments) {
 		this.comments = comments;
 	}
 
-	ArrayList<TreatmentType> getTreatments() {
+	public ArrayList<TreatmentType> getTreatments() {
 		return treatments;
 	}
 
-	void setTreatments(ArrayList<TreatmentType> treatments) {
+	public void setTreatments(ArrayList<TreatmentType> treatments) {
 		this.treatments = treatments;
+	}
+
+	public String getHour() {
+		return hour;
+	}
+
+	public void setHour(String hour) {
+		this.hour = hour;
 	}
 }

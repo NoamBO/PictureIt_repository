@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 public class TimeUtils {
@@ -15,7 +16,7 @@ public class TimeUtils {
 	 * 
 	 * @param date
 	 *            in format of "dd/MM/yyyy"
-	 * @return timestamp (millisecond)
+	 * @return timestamp (seconds)
 	 */
 	public static long dateToTimestamp(String date) {
 		Calendar calendar = Calendar.getInstance();
@@ -30,14 +31,14 @@ public class TimeUtils {
 		}
 		calendar.setTime(yourDate);
 		long timeInMilis = calendar.getTimeInMillis();
-		return timeInMilis;
+		return timeInMilis / 1000;
 	}
 
 	/**
 	 * 
 	 * @param date
 	 *            in format of "dd/MM/yyyy HH:mm"
-	 * @return timestamp (millisecond)
+	 * @return timestamp (second)
 	 */
 	public static long dateAndTimeToTimestamp(String date) {
 		Calendar calendar = Calendar.getInstance();
@@ -52,21 +53,40 @@ public class TimeUtils {
 		}
 		calendar.setTime(yourDate);
 		long timeInMilis = calendar.getTimeInMillis();
-		return timeInMilis;
+		return timeInMilis / 1000;
 	}
 
 	/**
 	 * 
 	 * @param timestamp
-	 *            (millisecond)
+	 *            (seconds)
 	 * @return date in format of "dd/MM/yyyy HH:mm"
 	 * 
 	 */
-	public static String timestampToDate(String timestamp) {
+	public static String timestampToDateWithHour(String timestamp) {
+		if (TextUtils.isEmpty(timestamp))
+			return "";
 		Calendar cal = Calendar.getInstance(Locale.getDefault());
-		cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
+		cal.setTimeInMillis(Long.parseLong(timestamp));
 		cal.setTimeZone(TimeZone.getTimeZone("UTC"));
 		String date = DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
+		return date;
+	}
+
+	/**
+	 * 
+	 * @param timestamp
+	 *            (seconds)
+	 * @return date in format of "dd/MM/yyyy"
+	 * 
+	 */
+	public static String timestampToDate(String timestamp) {
+		if (TextUtils.isEmpty(timestamp))
+			return "";
+		Calendar cal = Calendar.getInstance(Locale.getDefault());
+		cal.setTimeInMillis(Long.parseLong(timestamp));
+		cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+		String date = DateFormat.format("dd/MM/yyyy", cal).toString();
 		return date;
 	}
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:padding="@dimen/fragment_padding" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background" >
+
+        <LinearLayout
+            android:id="@+id/llTreatmentSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/app_most_common_yellow_color"
+                android:gravity="center"
+                android:text="@string/confirm_treatment_dialog_title"
+                android:textColor="@color/app_white"
+                android:textSize="@dimen/title_large_text_size" />
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:id="@+id/tv_treatment_selection_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/treatment_selection_dialog_title_background"
+                android:gravity="center_horizontal"
+                android:padding="7dp"
+                android:text="@string/confirm_treatment_dialog_subtitle"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/title_small_text_size" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lv_treatment_selection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/vg_treatment_selection_ok"
+            android:layout_below="@+id/llTreatmentSelection" >
+        </ListView>
+
+        <FrameLayout
+            android:id="@+id/vg_treatment_selection_ok"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/app_most_common_yellow_color" >
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/dialog_ok_text"
+                android:textColor="@color/app_background"
+                android:textSize="@dimen/title_large_text_size" />
+        </FrameLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

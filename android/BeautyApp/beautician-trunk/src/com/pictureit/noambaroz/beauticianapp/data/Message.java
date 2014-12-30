@@ -2,19 +2,22 @@ package com.pictureit.noambaroz.beauticianapp.data;
 
 import java.util.ArrayList;
 
-public class Message {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Message implements Parcelable {
 
 	private String client_name;
 	private String client_adress;
-	private String time;
+	private String message_timestamp;
 	private String image_url;
 	private String orderid;
-	private ArrayList<TreatmentType> treatments;
 	private String customeruid;
 	private String forwho;
 	private String date;
 	private String location;
 	private String comments;
+	private ArrayList<TreatmentType> treatments;
 
 	public String getCustomeruid() {
 		return customeruid;
@@ -72,12 +75,12 @@ public class Message {
 		this.client_adress = client_adress;
 	}
 
-	public String getTime() {
-		return time;
+	public String getMessageSentTime() {
+		return message_timestamp;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setMessageSentTime(String time) {
+		this.message_timestamp = time;
 	}
 
 	public String getImageUrl() {
@@ -104,4 +107,49 @@ public class Message {
 		this.treatments = treatments;
 	}
 
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(client_name);
+		dest.writeString(client_adress);
+		dest.writeString(message_timestamp);
+		dest.writeString(image_url);
+		dest.writeString(orderid);
+		dest.writeString(customeruid);
+		dest.writeString(forwho);
+		dest.writeString(date);
+		dest.writeString(location);
+		dest.writeString(comments);
+		dest.writeTypedList(treatments);
+	}
+
+	public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+		public Message createFromParcel(Parcel in) {
+			return new Message(in);
+		}
+
+		public Message[] newArray(int size) {
+			return new Message[size];
+		}
+	};
+
+	private Message(Parcel in) {
+		client_name = in.readString();
+		client_adress = in.readString();
+		message_timestamp = in.readString();
+		image_url = in.readString();
+		orderid = in.readString();
+		customeruid = in.readString();
+		forwho = in.readString();
+		date = in.readString();
+		location = in.readString();
+		comments = in.readString();
+
+		treatments = new ArrayList<TreatmentType>();
+		in.readTypedList(treatments, TreatmentType.CREATOR);
+	}
 }
