@@ -84,6 +84,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.pictureit.noambaroz.beauticianapp.MessageActivity"
+            android:label="@string/messages"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
             android:name="com.noambaroz.crop_image.Crop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" >

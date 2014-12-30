@@ -18,7 +18,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/fragment_padding" >
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_message_cancel_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
@@ -30,7 +30,7 @@
                 android:textColor="@color/app_white"
                 android:textSize="@dimen/title_medium_text_size" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_message_confirm_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
@@ -62,14 +62,14 @@
                 android:layout_toLeftOf="@+id/iv_message"
                 android:orientation="vertical" >
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_message_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/title_medium_text_size" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_message_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/b_message_when"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                         android:text="@string/set_hour"
                         android:textColor="@color/text_color_gray" />
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessageWhenHour"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                         android:textColor="@color/app_most_common_yellow_color"
                         android:textSize="@dimen/title_small_text_size" />
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tv_message_when_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/common_text_size" />
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessageWhen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessageSetTreatment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_toLeftOf="@id/tvMessageSetTreatment" >
 
-                        <TextView
+                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                             android:id="@+id/b_message_select_treatment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                         android:paddingLeft="25dp"
                         android:paddingRight="20dp" >
 
-                        <TextView
+                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                             android:id="@+id/tv_message_treatment_list1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
                             android:textSize="@dimen/common_text_size"
                             android:visibility="gone" />
 
-                        <TextView
+                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                             android:id="@+id/tv_message_treatment_list2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -225,7 +225,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp" >
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessageLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -246,7 +246,7 @@
                         android:layout_toLeftOf="@+id/tvMessageLocation"
                         android:orientation="horizontal" >
 
-                        <TextView
+                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                             android:id="@+id/b_message_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                             android:background="@drawable/btn_edit"
                             android:gravity="center" />
 
-                        <TextView
+                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                             android:id="@+id/tv_message_location"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -277,7 +277,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessageRemarks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -297,14 +297,14 @@
                         android:layout_toLeftOf="@+id/tvMessageRemarks"
                         android:orientation="horizontal" >
 
-                        <TextView
+                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                             android:id="@+id/b_message_remarks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/btn_edit" />
 
-                        <TextView
+                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                             android:id="@+id/tv_message_remarks"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -324,7 +324,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/tvMessagePrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -338,7 +338,7 @@
                         android:textColor="@color/app_most_common_yellow_color"
                         android:textSize="@dimen/title_small_text_size" />
 
-                    <TextView
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                         android:id="@+id/b_message_set_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

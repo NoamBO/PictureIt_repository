@@ -8,4 +8,6 @@ public class Constant {
 
 	public static final String PREFS_KEY_IS_AVAILABLE = "is_beautician_available";
 
+	public static final String EXTRA_ORDER_ID = "order_id";
+
 }

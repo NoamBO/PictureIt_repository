@@ -10,6 +10,51 @@ public class Message {
 	private String image_url;
 	private String orderid;
 	private ArrayList<TreatmentType> treatments;
+	private String customeruid;
+	private String forwho;
+	private String date;
+	private String location;
+	private String comments;
+
+	public String getCustomeruid() {
+		return customeruid;
+	}
+
+	public void setCustomeruid(String customeruid) {
+		this.customeruid = customeruid;
+	}
+
+	public String getForwho() {
+		return forwho;
+	}
+
+	public void setForwho(String forwho) {
+		this.forwho = forwho;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 
 	public String getClientName() {
 		return client_name;

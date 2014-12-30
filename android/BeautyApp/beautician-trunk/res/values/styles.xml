@@ -42,5 +42,15 @@
         <item name="android:background">@drawable/edit_text_shape</item>
         <item name="android:textColor">@color/text_color_gray</item>
     </style>
+    
+
+    <style name="mySwitchTextAppearance">
+        <item name="textColor">#FFeeFFee</item>
+        <item name="textColorHighlight">#FFeeFFee</item>
+        <item name="textColorHint">#FFeeFFee</item>
+        <item name="textColorLink">#FFeeFFee</item>
+        <item name="textSize">16sp</item>
+        <item name="textStyle">normal</item>
+    </style>
 
 </resources>

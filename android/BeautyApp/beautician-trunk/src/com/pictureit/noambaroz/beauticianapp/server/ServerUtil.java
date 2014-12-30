@@ -39,5 +39,7 @@ public class ServerUtil {
 
 	// Messages
 	public static final String URL_REQUEST_GET_MESSAGES = URL_BASE + "checkmessages";
+	public static final String URL_REQUEST_GET_MESSAGE_BY_ID = URL_BASE + "orderdetails";
+	public static final String ORDER_ID = "order_id";
 
 }

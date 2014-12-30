@@ -12,6 +12,8 @@
     <!-- Main activity -->
     <string name="cant_load_map">לא ניתן לטעון מפה</string>
     <string name="loading">טוען..</string>
+    <string name="available">זמין</string>
+    <string name="unavailable">לא זמין</string>
     
     <!-- Action bar -->
     <string name="title_future_treatments">הטיפולים הקרובים</string>

@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.pictureit.noambaroz.beautycianapp"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -16,18 +17,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/app_most_common_yellow_color"
-        android:paddingBottom="@dimen/fragment_padding"
         android:paddingTop="@dimen/fragment_padding" >
 
-        <Switch
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MySwitch
             android:id="@+id/s_main_activity_availability_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal|bottom"
             android:checked="true"
-            android:thumb="@drawable/apptheme_switch_inner_holo_light"
-            android:thumbTextPadding="72dp"
-            android:track="@drawable/apptheme_switch_track_holo_light" />
+            app:pushStyle="false"
+            app:switchTextAppearanceAttrib="@style/mySwitchTextAppearance"
+            app:textOff="@string/unavailable"
+            app:textOn="@string/available"
+            app:textOnThumb="true"
+            app:thumb="@drawable/apptheme_switch_inner_holo_light"
+            app:thumbExtraMovement="0dp"
+            app:thumbTextPadding="60dp"
+            app:track="@drawable/apptheme_switch_track_holo_light"
+            app:trackTextPadding="60dp" />
     </FrameLayout>
 
 </RelativeLayout>

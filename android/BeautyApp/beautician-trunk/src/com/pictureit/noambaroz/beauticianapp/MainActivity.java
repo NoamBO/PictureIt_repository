@@ -24,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +40,7 @@ import com.pictureit.noambaroz.beauticianapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateAvailabilityTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateLocationTask;
+import com.pictureit.noambaroz.beauticianapp.utilities.view.MySwitch;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class MainActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private final int FRAGMENT_CONTAINER = R.id.main_screen_fragment_container;
 
-	private Switch sIsAvailable;
+	private MySwitch sIsAvailable;
 
 	public static FragmentManager fragmentManager;
 
@@ -95,7 +95,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private void initActivity() {
 		setContentView(R.layout.activity_main);
-		sIsAvailable = (Switch) findViewById(R.id.s_main_activity_availability_switch);
+		sIsAvailable = (MySwitch) findViewById(R.id.s_main_activity_availability_switch);
 		if (MyPreference.isAvailable())
 			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new MapFragment()).commit();
 		else {

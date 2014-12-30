@@ -5,10 +5,13 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -39,7 +42,12 @@ public class MessagesActivity extends ActivityWithFragment {
 		FRAGMENT_TAG = "messages_fragment";
 	}
 
-	private class MessagesFragment extends Fragment implements HttpCallback {
+	@Override
+	public void onBackPressed() {
+		backPressed();
+	}
+
+	private class MessagesFragment extends Fragment implements HttpCallback, OnItemClickListener {
 
 		private ListView listView;
 		private TextView emptyListIndicator;
@@ -74,6 +82,7 @@ public class MessagesActivity extends ActivityWithFragment {
 			arrayList = (ArrayList<Message>) answer;
 			adapter = new MyAdapter(MessagesActivity.this, android.R.layout.simple_list_item_2, arrayList);
 			listView.setAdapter(adapter);
+			listView.setOnItemClickListener(this);
 			checkStatus();
 
 		}
@@ -84,6 +93,15 @@ public class MessagesActivity extends ActivityWithFragment {
 					AnimationManager.fadeOut(getActivity(), emptyListIndicator);
 			} else if (emptyListIndicator.getVisibility() != View.VISIBLE)
 				AnimationManager.fadeIn(getActivity(), emptyListIndicator);
+		}
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			String orderId = adapter.getItem(position).getOrderid();
+			Intent intent = new Intent(getActivity(), MessageActivity.class);
+			intent.putExtra(Constant.EXTRA_ORDER_ID, orderId);
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}
 
 	}
