@@ -35,6 +35,7 @@
     <string name="no_internet_connection">אין חיבור אינטרנט פעיל, בדוק את החיבור לאינטרנט ונסה שנית</string>
     <string name="dialog_messege_please_wait">אנא המתן..</string>
     <string name="press_again_to_exit">לחץ שוב ליציאה</string>
+    <string name="select_address">בחרי כתובת</string>
 
     <!-- General strings -->
     <string name="invalid_filed">שדה לא תקין</string>
@@ -62,6 +63,16 @@
 	<string name="set_price">הגדרי מחיר</string>
 	<string name="confirm_treatment_dialog_title">אישור טיפול</string>
 	<string name="confirm_treatment_dialog_subtitle">במידה ויש טיפול שאינך יכולה לספק, אנא הסירי אותו מהרשימה</string>
+	 <!-- Dialog Location text -->
+	<string name="address">כתובת</string>
+	<string name="at_costumer_house">בבית הלקוח</string>
+	<string name="at_my_place">אצל הקוסמטיקאית</string>
+	<string name="else_">אחר</string>
+	    <string-array name="dialog_location_array">
+        <item>@string/at_costumer_house</item>
+        <item>@string/at_my_place</item>
+        <item>@string/else_</item>
+    </string-array>
 	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>

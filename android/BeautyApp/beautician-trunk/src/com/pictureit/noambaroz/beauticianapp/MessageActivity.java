@@ -10,6 +10,7 @@ import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -30,8 +32,11 @@ import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
+import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
+import com.pictureit.noambaroz.beauticianapp.server.PostVerifyAddress;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class MessageActivity extends ActivityWithFragment {
@@ -83,7 +88,8 @@ public class MessageActivity extends ActivityWithFragment {
 		private View priceDivider, timeDivider;
 
 		private TimePickerDialog timePikerDialog;
-		private Dialog priceDialog;
+		private Dialog priceDialog, customAddressDialog;
+		private MySingleChoiseDialog locationDialog;
 
 		private String mTreatmentsArrayInString;
 
@@ -168,6 +174,13 @@ public class MessageActivity extends ActivityWithFragment {
 							.addToBackStack(null).commit();
 				}
 			});
+			editLocation.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					showLocationDialog();
+				}
+			});
 		}
 
 		@Override
@@ -199,13 +212,6 @@ public class MessageActivity extends ActivityWithFragment {
 			return array;
 		}
 
-		private void showHourDialog() {
-			if (timePikerDialog == null) {
-				timePikerDialog = new TimePickerDialog(getActivity(), this, 12, 0, true);
-			}
-			timePikerDialog.show();
-		}
-
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			String hour = (hourOfDay < 10 ? "0" + hourOfDay : String.valueOf(hourOfDay)) + ":"
@@ -215,6 +221,18 @@ public class MessageActivity extends ActivityWithFragment {
 			tvHour.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
 			tvHour.setBackground(null);
 			tvHour.setText(hour);
+		}
+
+		private void onLocationSelected(String location) {
+			tvLocation.setText(location);
+			mMessageResponse.setPlace(location);
+		}
+
+		private void showHourDialog() {
+			if (timePikerDialog == null) {
+				timePikerDialog = new TimePickerDialog(getActivity(), this, 12, 0, true);
+			}
+			timePikerDialog.show();
 		}
 
 		private void showPriceDialog() {
@@ -255,6 +273,56 @@ public class MessageActivity extends ActivityWithFragment {
 				Dialogs.setDialogWidth(priceDialog);
 			}
 			priceDialog.show();
+		}
+
+		private void showLocationDialog() {
+			if (locationDialog == null) {
+				locationDialog = new MySingleChoiseDialog(getActivity(), getResources().getStringArray(
+						R.array.dialog_location_array));
+				locationDialog.setMyTitle(R.string.address).setOnItemClickListener(
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								if (which == getResources().getStringArray(R.array.dialog_location_array).length - 1) {
+									showAddressDialog();
+								} else
+									onLocationSelected(getResources().getStringArray(R.array.dialog_location_array)[which]);
+								dialog.dismiss();
+							}
+						});
+			}
+			locationDialog.show();
+		}
+
+		private void showAddressDialog() {
+			if (customAddressDialog == null) {
+				MyCustomDialog dialogEdit = new MyCustomDialog(getActivity());
+				final EditText editText = dialogEdit.getEditText();
+				dialogEdit.setDialogTitle(R.string.address)
+						.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								PostVerifyAddress httpPost = new PostVerifyAddress(getActivity(), new HttpCallback() {
+
+									@Override
+									public void onAnswerReturn(Object answer) {
+										Log.i(answer.toString());
+										if (answer != null)
+											onLocationSelected((String) answer);
+									}
+								}, editText.getText().toString());
+								httpPost.execute();
+							}
+						}).setNegativeButton(R.string.dialog_cancel_text, new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								showLocationDialog();
+							}
+						}).show();
+			}
 		}
 
 	}

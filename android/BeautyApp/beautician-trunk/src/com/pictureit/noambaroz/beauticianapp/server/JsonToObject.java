@@ -79,6 +79,20 @@ public class JsonToObject {
 		return uid;
 	}
 
+	public static String[] jsonToAddresses(String result) {
+		try {
+			JSONArray j = new JSONArray(getJson(result, JsonType.TYPE_ARRAY));
+			String[] s = new String[j.length()];
+			for (int i = 0; i < j.length(); i++) {
+				s[i] = j.getString(i);
+			}
+			return s;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static ArrayList<UpcomingTreatment> getUpcomingTretments(String json) {
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
 		ArrayList<UpcomingTreatment> array = null;
