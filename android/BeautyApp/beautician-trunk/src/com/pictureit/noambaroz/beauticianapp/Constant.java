@@ -14,4 +14,6 @@ public class Constant {
 
 	public static final String EXTRA_MESSAGE_OBJECT = Message.class.getName();
 
+	public static final int REQUEST_CODE_SINGLE_MESSAGE = 20;
+
 }

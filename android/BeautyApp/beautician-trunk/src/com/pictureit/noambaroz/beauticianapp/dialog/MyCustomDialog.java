@@ -11,6 +11,7 @@ import com.pictureit.noambaroz.beautycianapp.R;
 public class MyCustomDialog extends BaseDialog {
 
 	private EditText mEditText;
+	private TextView mMessageTextView;
 
 	public MyCustomDialog(Context context) {
 		super(context);
@@ -24,6 +25,8 @@ public class MyCustomDialog extends BaseDialog {
 	public EditText getEditText() {
 		mEditText = (EditText) mView.findViewById(R.id.my_custom_dialog_edittext);
 		mEditText.setVisibility(View.VISIBLE);
+		if (mMessageTextView != null)
+			mView.findViewById(R.id.my_custom_dialog_edittext_textview_divider).setVisibility(View.VISIBLE);
 		return mEditText;
 	}
 
@@ -93,10 +96,12 @@ public class MyCustomDialog extends BaseDialog {
 	}
 
 	public MyCustomDialog setMessage(String message) {
-		TextView tvMessage = (TextView) mView.findViewById(R.id.my_custom_dialog_message);
-		if (tvMessage != null) {
-			tvMessage.setVisibility(View.VISIBLE);
-			tvMessage.setText(message);
+		mMessageTextView = (TextView) mView.findViewById(R.id.my_custom_dialog_message);
+		if (mMessageTextView != null) {
+			mMessageTextView.setVisibility(View.VISIBLE);
+			mMessageTextView.setText(message);
+			if (mEditText != null)
+				mView.findViewById(R.id.my_custom_dialog_edittext_textview_divider).setVisibility(View.VISIBLE);
 		}
 		return this;
 	}

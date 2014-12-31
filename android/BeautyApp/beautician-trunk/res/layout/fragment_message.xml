@@ -148,7 +148,7 @@
                         android:text="@string/when"
                         android:textColor="@color/app_most_common_yellow_color"
                         android:textSize="@dimen/title_small_text_size" />
-                    
+
                     <View
                         android:id="@+id/divider_messages_when"
                         android:layout_width="match_parent"
@@ -156,7 +156,6 @@
                         android:layout_below="@+id/b_message_when"
                         android:background="@color/app_most_common_yellow_color"
                         android:visibility="gone" />
-                    
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -232,7 +231,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp" >
 
@@ -243,7 +241,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:drawablePadding="0dp"
                         android:drawableRight="@drawable/ic_location"
                         android:gravity="center_vertical"
                         android:text="@string/location"
@@ -269,7 +266,7 @@
                             android:id="@+id/tv_message_location"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="right|center_vertical"
                             android:textColor="@color/text_color_gray"
                             android:textSize="@dimen/common_text_size" />
                     </LinearLayout>
@@ -293,7 +290,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:drawablePadding="0dp"
                         android:drawableRight="@drawable/ic_remaks"
                         android:gravity="center_vertical"
@@ -301,33 +297,31 @@
                         android:textColor="@color/app_most_common_yellow_color"
                         android:textSize="@dimen/title_small_text_size" />
 
-                    <LinearLayout
-                        android:id="@+id/llMessageRemarks"
-                        android:layout_width="match_parent"
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                        android:id="@+id/b_message_remarks"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/viewDividerMessageRemarks"
+                        android:background="@drawable/btn_edit" />
+
+                    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                        android:id="@+id/tv_message_remarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@+id/tvMessageRemarks"
+                        android:layout_marginBottom="7dp"
+                        android:layout_marginTop="5dp"
                         android:layout_toLeftOf="@+id/tvMessageRemarks"
-                        android:orientation="horizontal" >
-
-                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-                            android:id="@+id/b_message_remarks"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/btn_edit" />
-
-                        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-                            android:id="@+id/tv_message_remarks"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:textColor="@color/text_color_gray"
-                            android:textSize="@dimen/common_text_size" />
-                    </LinearLayout>
+                        android:gravity="right"
+                        android:paddingRight="@dimen/fragment_padding"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/common_text_size" />
 
                     <View
+                        android:id="@+id/viewDividerMessageRemarks"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignBottom="@+id/llMessageRemarks"
+                        android:layout_below="@+id/tv_message_remarks"
                         android:background="@color/app_most_common_yellow_color" />
                 </RelativeLayout>
 
@@ -366,9 +360,11 @@
                         android:id="@+id/tv_message_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/tvMessagePrice"
                         android:layout_toRightOf="@+id/b_message_set_price"
-                        android:gravity="center"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/fragment_padding"
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/common_text_size" />
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- The TimePicker style. -->
+    <attr name="timePickerStyle" format="reference" />
+
+    <declare-styleable name="TimePicker">
+
+        <!-- set the time picker to 24Hr if false -->
+        <attr name="is24HourView" format="boolean" />
+        <!-- @hide The layout of the time picker. -->
+        <attr name="tp_internalLayout" format="reference" />
+    </declare-styleable>
+
+</resources>

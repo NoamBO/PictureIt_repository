@@ -100,10 +100,22 @@ public class MessagesActivity extends ActivityWithFragment {
 			Message m = adapter.getItem(position);
 			Intent intent = new Intent(getActivity(), MessageActivity.class);
 			intent.putExtra(Constant.EXTRA_MESSAGE_OBJECT, m);
-			startActivity(intent);
+			startActivityForResult(intent, Constant.REQUEST_CODE_SINGLE_MESSAGE);
 			overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}
 
+		@Override
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+			super.onActivityResult(requestCode, resultCode, data);
+			if (requestCode == Constant.REQUEST_CODE_SINGLE_MESSAGE && resultCode == RESULT_OK
+					&& data.getExtras() != null)
+				for (Message m : arrayList) {
+					if (m.getOrderid().equalsIgnoreCase(data.getStringExtra(Constant.EXTRA_ORDER_ID))) {
+						arrayList.remove(m);
+						return;
+					}
+				}
+		}
 	}
 
 	private class MyAdapter extends ArrayAdapter<Message> {

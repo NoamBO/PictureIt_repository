@@ -45,4 +45,12 @@ public class ServerUtil {
 	// Verify address
 	public static final String URL_REQUEST_VERIFY_ADDRESS = "http://pictureit.co.il/beautyapp/BeautyUpService.asmx/getvalidaddress";
 
+	// Beautician response
+	public static final String URL_REQUEST_BEAUTICIAN_RESPONSE = URL_BASE + "beauticianresponse";
+	public static final String DATE = "date";
+	public static final String LOCATION = "location";
+	public static final String PRICE = "price";
+	public static final String REMARKS = "comments";
+	public static final String TREATMENTS = "treatments";
+
 }

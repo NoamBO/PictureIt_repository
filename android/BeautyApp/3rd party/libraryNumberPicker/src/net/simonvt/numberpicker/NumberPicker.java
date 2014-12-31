@@ -1977,6 +1977,38 @@ public class NumberPicker extends LinearLayout {
             '\u06f0', '\u06f1', '\u06f2', '\u06f3', '\u06f4', '\u06f5', '\u06f6', '\u06f7', '\u06f8'
             , '\u06f9'
     };
+    
+    /**
+     * Sets the IncrementButton description. It briefly describes the view and is
+     * primarily used for accessibility support. Set this property to enable
+     * better accessibility support for your application. This is especially
+     * true for views that do not have textual representation (For example,
+     * ImageButton).
+     *
+     * @param contentDescription The content description.
+     *
+     * @attr ref android.R.styleable#View_contentDescription
+     */
+    public void setIncrementButtonContentDescription(String text) {
+    	if(mIncrementButton != null)
+    	mIncrementButton.setContentDescription(text);
+    }
+    
+    /**
+     * Sets the DecrementButton description. It briefly describes the view and is
+     * primarily used for accessibility support. Set this property to enable
+     * better accessibility support for your application. This is especially
+     * true for views that do not have textual representation (For example,
+     * ImageButton).
+     *
+     * @param contentDescription The content description.
+     *
+     * @attr ref android.R.styleable#View_contentDescription
+     */
+    public void setDecrementButtonContentDescription(String text) {
+    	if(mDecrementButton != null)
+    	mDecrementButton.setContentDescription(text);
+    }
 
     /**
      * Filter for accepting only valid indices or prefixes of the string

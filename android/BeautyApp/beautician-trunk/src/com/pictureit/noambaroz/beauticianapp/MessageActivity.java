@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,7 @@ import android.widget.TimePicker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pictureit.noambaroz.beauticianapp.FragmentTreatmentSelection.OnTreatmentListChangeListener;
+import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.MessageResponse;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
@@ -34,6 +36,7 @@ import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
+import com.pictureit.noambaroz.beauticianapp.server.BeauticianResponseTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.PostVerifyAddress;
@@ -76,8 +79,8 @@ public class MessageActivity extends ActivityWithFragment {
 		FRAGMENT_TAG = "single_message_fragment";
 	}
 
-	private class FragmentMessage extends Fragment implements HttpCallback, OnTimeSetListener,
-			OnTreatmentListChangeListener {
+	private class FragmentMessage extends Fragment implements OnTimeSetListener, OnTreatmentListChangeListener,
+			HttpCallback {
 
 		private MessageResponse mMessageResponse;
 
@@ -88,7 +91,8 @@ public class MessageActivity extends ActivityWithFragment {
 		private View priceDivider, timeDivider;
 
 		private TimePickerDialog timePikerDialog;
-		private Dialog priceDialog, customAddressDialog;
+		private Dialog priceDialog;
+		private MyCustomDialog customAddressDialog, remarksDialog;;
 		private MySingleChoiseDialog locationDialog;
 
 		private String mTreatmentsArrayInString;
@@ -102,6 +106,7 @@ public class MessageActivity extends ActivityWithFragment {
 			mMessageResponse.setPlace(mMessage.getLocation());
 			mTreatmentsArrayInString = new Gson().toJson(mMessage.getTreatments());
 			mMessageResponse.setTreatments(mMessage.getTreatments());
+			mMessageResponse.setDate(TimeUtils.timestampToDate(mMessage.getDate()));
 		}
 
 		@Override
@@ -142,11 +147,6 @@ public class MessageActivity extends ActivityWithFragment {
 		}
 
 		@Override
-		public void onAnswerReturn(Object answer) {
-			// TODO
-		}
-
-		@Override
 		public void onResume() {
 			super.onResume();
 			tvHour.setOnClickListener(new OnClickListener() {
@@ -181,6 +181,51 @@ public class MessageActivity extends ActivityWithFragment {
 					showLocationDialog();
 				}
 			});
+			editRemarks.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					showRemarksDialog();
+				}
+			});
+			tvSend.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					if (isMessageResponseOk()) {
+						BeauticianResponseTask httpRequest = new BeauticianResponseTask(getActivity(),
+								FragmentMessage.this, mMessageResponse);
+						httpRequest.execute();
+					} else {
+						// TODO
+					}
+				}
+			});
+			tvCancel.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+		}
+
+		@Override
+		public void onAnswerReturn(Object answer) {
+			if (TextUtils.isEmpty((String) answer)) {
+				Dialogs.showServerFailedDialog(getActivity());
+			} else {
+				Dialogs.successToast(getApplicationContext());
+				onFinish();
+			}
+		}
+
+		protected boolean isMessageResponseOk() {
+			if (!TextUtils.isEmpty(mMessageResponse.getPrice()) && !TextUtils.isEmpty(mMessageResponse.getHour()))
+				return true;
+			else
+				return false;
 		}
 
 		@Override
@@ -226,6 +271,15 @@ public class MessageActivity extends ActivityWithFragment {
 		private void onLocationSelected(String location) {
 			tvLocation.setText(location);
 			mMessageResponse.setPlace(location);
+		}
+
+		private void onCommentsChanged(String comments) {
+			if (!TextUtils.isEmpty(comments)) {
+				mMessageResponse.setComments(comments);
+				StringBuilder commentBuilder = new StringBuilder();
+				commentBuilder.append("\"").append(mMessage.getComments()).append("\"").append("\n\n").append(comments);
+				tvRemarks.setText(commentBuilder.toString());
+			}
 		}
 
 		private void showHourDialog() {
@@ -288,7 +342,6 @@ public class MessageActivity extends ActivityWithFragment {
 									showAddressDialog();
 								} else
 									onLocationSelected(getResources().getStringArray(R.array.dialog_location_array)[which]);
-								dialog.dismiss();
 							}
 						});
 			}
@@ -297,9 +350,9 @@ public class MessageActivity extends ActivityWithFragment {
 
 		private void showAddressDialog() {
 			if (customAddressDialog == null) {
-				MyCustomDialog dialogEdit = new MyCustomDialog(getActivity());
-				final EditText editText = dialogEdit.getEditText();
-				dialogEdit.setDialogTitle(R.string.address)
+				customAddressDialog = new MyCustomDialog(getActivity());
+				final EditText editText = customAddressDialog.getEditText();
+				customAddressDialog.setDialogTitle(R.string.address)
 						.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
 
 							@Override
@@ -321,8 +374,31 @@ public class MessageActivity extends ActivityWithFragment {
 							public void onClick(DialogInterface dialog, int which) {
 								showLocationDialog();
 							}
-						}).show();
+						});
 			}
+		}
+
+		private void showRemarksDialog() {
+			if (remarksDialog == null) {
+				remarksDialog = new MyCustomDialog(getActivity());
+				final EditText beauticianRemarks = remarksDialog.getEditText();
+				remarksDialog.setMessage("\"" + mMessage.getComments() + "\"").setDialogTitle(R.string.remarks)
+						.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								onCommentsChanged(beauticianRemarks.getText().toString());
+							}
+						}).setNegativeButton(R.string.dialog_cancel_text, null);
+			}
+			remarksDialog.show();
+		}
+
+		private void onFinish() {
+			getContentResolver().delete(DataProvider.CONTENT_URI_ORDERS_AROUND_ME, DataProvider.COL_ORDER_ID + " = ?",
+					new String[] { mMessage.getOrderid() });
+			setResult(RESULT_OK, new Intent().putExtra(Constant.EXTRA_ORDER_ID, mMessage.getOrderid()));
+			backPressed();
 		}
 
 	}
