@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.pictureit.noambaroz.beautycianapp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_white"
+    android:orientation="vertical" >
+
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+        android:id="@+id/timepicker_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_row_height"
+        android:background="@color/dialog_theme_color"
+        android:gravity="center"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/title_large_text_size" />
+
+    <noam.baroz.timepicker.TimePicker
+        android:id="@+id/timepicker_dialog_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:is24HourView="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/fragment_padding" >
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/timepicker_dialog_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginRight="@dimen/fragment_padding"
+            android:layout_weight="1"
+            android:background="@color/app_most_common_yellow_color"
+            android:gravity="center"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/title_large_text_size" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/timepicker_dialog_ok"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:background="@color/app_most_common_yellow_color"
+            android:gravity="center"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/title_large_text_size" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.simonvt.numberpicker.NumberPicker;
+import noam.baroz.timepicker.OnTimeSetListener;
+import noam.baroz.timepicker.TimePicker;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +22,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,6 +35,7 @@ import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
+import com.pictureit.noambaroz.beauticianapp.dialog.TimePickerDialog;
 import com.pictureit.noambaroz.beauticianapp.server.BeauticianResponseTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
@@ -284,7 +284,7 @@ public class MessageActivity extends ActivityWithFragment {
 
 		private void showHourDialog() {
 			if (timePikerDialog == null) {
-				timePikerDialog = new TimePickerDialog(getActivity(), this, 12, 0, true);
+				timePikerDialog = new TimePickerDialog(getActivity(), this);
 			}
 			timePikerDialog.show();
 		}
