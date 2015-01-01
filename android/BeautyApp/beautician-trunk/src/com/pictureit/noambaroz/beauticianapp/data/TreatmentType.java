@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class TreatmentType implements Parcelable {
 
-	private String treatments_id;
+	private String treatment_id;
 	public String name;
 	public String description;
 	private String price;
@@ -22,7 +22,7 @@ public class TreatmentType implements Parcelable {
 	}
 
 	private TreatmentType(Parcel in) {
-		treatments_id = in.readString();
+		treatment_id = in.readString();
 		name = in.readString();
 		description = in.readString();
 		amount = in.readInt();
@@ -61,11 +61,11 @@ public class TreatmentType implements Parcelable {
 	}
 
 	public String getTreatmentId() {
-		return treatments_id;
+		return treatment_id;
 	}
 
 	public void setTreatmentId(String treatments_id) {
-		this.treatments_id = treatments_id;
+		this.treatment_id = treatments_id;
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class TreatmentType implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeString(treatments_id);
+		out.writeString(treatment_id);
 		out.writeString(name);
 		out.writeString(description);
 		out.writeInt(amount);

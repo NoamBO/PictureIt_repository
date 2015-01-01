@@ -25,7 +25,7 @@ public class BeauticianResponseTask extends BaseHttpPost {
 		if (JsonToObject.isResponseOk(result))
 			return "success";
 		else
-			return null;
+			return "";
 	}
 
 	@Override
@@ -37,6 +37,7 @@ public class BeauticianResponseTask extends BaseHttpPost {
 			temp.put(ServerUtil.ORDER_ID, mMessageResponse.getOrderid());
 			temp.put(ServerUtil.DATE, getDateInMillis());
 			temp.put(ServerUtil.LOCATION, mMessageResponse.getPlace());
+			temp.put(ServerUtil.PRICE, mMessageResponse.getPrice());
 			temp.put(ServerUtil.REMARKS, mMessageResponse.getComments());
 			temp.put(ServerUtil.TREATMENTS, getTreatmentsForJson());
 			mMainJson = temp;
@@ -55,19 +56,20 @@ public class BeauticianResponseTask extends BaseHttpPost {
 		return date;
 	}
 
-	private String getTreatmentsForJson() {
+	private JSONArray getTreatmentsForJson() {
 		JSONArray array = new JSONArray();
 		for (TreatmentType t : mMessageResponse.getTreatments()) {
 			JSONObject j = new JSONObject();
 			try {
 				j.put("treatment_id", t.getTreatmentId());
+				j.put("amount", t.getAmount());
 				array.put(j);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return array.toString();
+		return array;
 	}
 
 }

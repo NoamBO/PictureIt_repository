@@ -40,15 +40,19 @@ import com.pictureit.noambaroz.beauticianapp.server.BeauticianResponseTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.PostVerifyAddress;
+import com.pictureit.noambaroz.beauticianapp.utilities.MyBackPressedListener;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class MessageActivity extends ActivityWithFragment {
 
 	private Message mMessage;
 
+	private MyBackPressedListener mBackPressedListener;;
+
 	@Override
 	public void onBackPressed() {
-		backPressed();
+		if (mBackPressedListener == null || (mBackPressedListener != null && mBackPressedListener.onBackPressed()))
+			backPressed();
 	}
 
 	@Override
@@ -101,7 +105,7 @@ public class MessageActivity extends ActivityWithFragment {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			mMessageResponse = new MessageResponse();
-			mMessageResponse.setComments(mMessage.getComments());
+			mMessageResponse.setComments("");
 			mMessageResponse.setOrderid(mMessage.getOrderid());
 			mMessageResponse.setPlace(mMessage.getLocation());
 			mTreatmentsArrayInString = new Gson().toJson(mMessage.getTreatments());
@@ -168,6 +172,7 @@ public class MessageActivity extends ActivityWithFragment {
 				@Override
 				public void onClick(View v) {
 					FragmentTreatmentSelection fragment = new FragmentTreatmentSelection();
+					mBackPressedListener = (MyBackPressedListener) fragment;
 					fragment.setTreatments(mMessage.getTreatments());
 					fragment.setListener(FragmentMessage.this);
 					getActivity().getFragmentManager().beginTransaction().add(android.R.id.content, fragment)
@@ -230,6 +235,7 @@ public class MessageActivity extends ActivityWithFragment {
 
 		@Override
 		public void onTreatmentListChange(ArrayList<TreatmentType> treatments) {
+			mBackPressedListener = null;
 			ArrayList<TreatmentType> arr = new ArrayList<TreatmentType>();
 			for (TreatmentType tt : treatments) {
 				if (tt.getAmount() > 0) {

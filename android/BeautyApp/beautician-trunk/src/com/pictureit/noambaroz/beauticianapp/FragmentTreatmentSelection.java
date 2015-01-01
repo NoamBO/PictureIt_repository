@@ -18,10 +18,12 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
+import com.pictureit.noambaroz.beauticianapp.utilities.MyBackPressedListener;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class FragmentTreatmentSelection extends Fragment {
+public class FragmentTreatmentSelection extends Fragment implements MyBackPressedListener {
 
 	ListView mListView;
 	ArrayList<TreatmentType> treatmentsArrayList;
@@ -172,5 +174,15 @@ public class FragmentTreatmentSelection extends Fragment {
 
 	public void putTreatments(String[] treatments) {
 		treatmentStringArray = treatments;
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		for (TreatmentType tt : treatmentsArrayList) {
+			if (tt.getAmount() > 0)
+				return true;
+		}
+		Dialogs.showErrorDialog(getActivity(), R.string.you_must_provide_at_least_one_treatment);
+		return false;
 	}
 }

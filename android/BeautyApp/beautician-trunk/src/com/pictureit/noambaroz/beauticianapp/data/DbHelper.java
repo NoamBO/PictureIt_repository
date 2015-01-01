@@ -15,10 +15,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table " + DataProvider.TABLE_ORDERS_AROUND_ME + " (_id integer primary key autoincrement, "
-				+ DataProvider.COL_FIRST_NAME + " text, " + DataProvider.COL_LAST_NAME + " text, "
-				+ DataProvider.COL_LATITUDE + " text, " + DataProvider.COL_LONGITUDE + " text, "
-				+ DataProvider.COL_IS_DIRECTED_TO_ME + " text, " + DataProvider.COL_ORDER_ID + " text);");
+		db.execSQL("create table " + DataProvider.TABLE_ORDERS_AROUND_ME + " (" + DataProvider.COL_ID
+				+ " integer primary key autoincrement, " + DataProvider.COL_FIRST_NAME + " text, "
+				+ DataProvider.COL_LAST_NAME + " text, " + DataProvider.COL_LATITUDE + " text, "
+				+ DataProvider.COL_LONGITUDE + " text, " + DataProvider.COL_IS_DIRECTED_TO_ME + " text, "
+				+ DataProvider.COL_ORDER_ID + " text);");
+
+		db.execSQL("create table " + DataProvider.TABLE_ALARMS + " (" + DataProvider.COL_ID
+				+ " integer primary key autoincrement, " + DataProvider.COL_CUSTOMER_NAME + " text, "
+				+ DataProvider.COL_TREATMENT + " text, " + DataProvider.COL_IMAGE_URL + " text, "
+				+ DataProvider.COL_ALARM_ID + " integer, " + DataProvider.COL_IS_PLAYED + " boolean, "
+				+ DataProvider.COL_DATE + " long);");
 	}
 
 	@Override

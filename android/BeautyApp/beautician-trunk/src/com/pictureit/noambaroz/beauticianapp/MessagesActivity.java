@@ -80,19 +80,21 @@ public class MessagesActivity extends ActivityWithFragment {
 				return;
 
 			arrayList = (ArrayList<Message>) answer;
-			adapter = new MyAdapter(MessagesActivity.this, android.R.layout.simple_list_item_2, arrayList);
-			listView.setAdapter(adapter);
-			listView.setOnItemClickListener(this);
-			checkStatus();
-
+			if (checkStatus()) {
+				adapter = new MyAdapter(MessagesActivity.this, android.R.layout.simple_list_item_2, arrayList);
+				listView.setAdapter(adapter);
+				listView.setOnItemClickListener(this);
+			}
 		}
 
-		private void checkStatus() {
+		private boolean checkStatus() {
 			if (arrayList.size() > 0) {
 				if (emptyListIndicator.getVisibility() == View.VISIBLE)
 					AnimationManager.fadeOut(getActivity(), emptyListIndicator);
+				return true;
 			} else if (emptyListIndicator.getVisibility() != View.VISIBLE)
 				AnimationManager.fadeIn(getActivity(), emptyListIndicator);
+			return false;
 		}
 
 		@Override
@@ -112,6 +114,7 @@ public class MessagesActivity extends ActivityWithFragment {
 				for (Message m : arrayList) {
 					if (m.getOrderid().equalsIgnoreCase(data.getStringExtra(Constant.EXTRA_ORDER_ID))) {
 						arrayList.remove(m);
+						adapter.notifyDataSetChanged();
 						return;
 					}
 				}
@@ -144,7 +147,7 @@ public class MessagesActivity extends ActivityWithFragment {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			holder.date.setText(TimeUtils.timestampToDate(getItem(position).getMessageSentTime()));
+			holder.date.setText(TimeUtils.timestampToDateWithHour(getItem(position).getMessageSentTime()));
 			holder.name.setText(getItem(position).getClientName());
 			holder.address.setText(getItem(position).getClientAdress());
 			holder.treatment.setText(TreatmentsFormatter.getSelf(getContext()).getTreatmentName(

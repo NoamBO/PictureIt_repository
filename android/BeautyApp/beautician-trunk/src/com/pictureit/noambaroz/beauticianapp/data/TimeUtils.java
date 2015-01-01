@@ -67,7 +67,7 @@ public class TimeUtils {
 		if (TextUtils.isEmpty(timestamp))
 			return "";
 		Calendar cal = Calendar.getInstance(Locale.getDefault());
-		cal.setTimeInMillis(Long.parseLong(timestamp));
+		cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
 		cal.setTimeZone(TimeZone.getTimeZone("UTC"));
 		String date = DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
 		return date;
@@ -84,7 +84,7 @@ public class TimeUtils {
 		if (TextUtils.isEmpty(timestamp))
 			return "";
 		Calendar cal = Calendar.getInstance(Locale.getDefault());
-		cal.setTimeInMillis(Long.parseLong(timestamp));
+		cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
 		cal.setTimeZone(TimeZone.getTimeZone("UTC"));
 		String date = DateFormat.format("dd/MM/yyyy", cal).toString();
 		return date;

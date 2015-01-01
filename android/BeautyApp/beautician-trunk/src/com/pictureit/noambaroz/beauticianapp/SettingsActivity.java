@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyNumberPickerDialog;
 import com.pictureit.noambaroz.beautycianapp.R;
 
@@ -49,6 +50,7 @@ public class SettingsActivity extends ActivityWithFragment {
 				public void onClick(DialogInterface dialog, int value) {
 					MyPreference.setPreTreatmentAlertTimeInMillis(value * 60 * 1000);
 					tvPreAlertTime.setText(getPreTreatmentAlertTimeInString());
+					AlarmManager.getInstance().resetAlarms();
 				}
 			});
 		}
