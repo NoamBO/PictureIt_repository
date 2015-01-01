@@ -35,6 +35,8 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.pictureit.noambaroz.beauticianapp.alarm.Alarm;
+import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
@@ -170,6 +172,15 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 			break;
 		case R.id.action_messages:
 			launchActivity(MessagesActivity.class);
+			break;
+		case R.id.action_explanation:
+			Alarm alarm = new Alarm();
+			alarm.customer_name = "name";
+			alarm.treatmentTime = System.currentTimeMillis() + (60000 + 3000);
+			alarm.imageUrl = "imageurl";
+			alarm.treatment = "treatment";
+			alarm.id = 222;
+			AlarmManager.getInstance().setAlarm(alarm);
 			break;
 		default:
 			break;

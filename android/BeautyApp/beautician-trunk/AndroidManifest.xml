@@ -95,6 +95,9 @@
             android:theme="@style/Theme.Transparent" >
         </activity>
         
+        <receiver android:name="com.pictureit.noambaroz.beauticianapp.alarm.AlarmReceiver">
+        </receiver>
+        
         <provider
             android:name="com.pictureit.noambaroz.beauticianapp.data.DataProvider"
             android:authorities="com.pictureit.noambaroz.beauticianapp.provider"

@@ -53,4 +53,6 @@ public class ServerUtil {
 	public static final String REMARKS = "comments";
 	public static final String TREATMENTS = "treatments";
 
+	// Cancel treatment request
+	public static final String URL_REQUEST_CANCEL_CUSTOMER_REQUEST = URL_BASE + "canceltreatmentrequest";
 }

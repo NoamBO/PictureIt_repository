@@ -37,6 +37,7 @@ import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.TimePickerDialog;
 import com.pictureit.noambaroz.beauticianapp.server.BeauticianResponseTask;
+import com.pictureit.noambaroz.beauticianapp.server.CancelRequestTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.PostVerifyAddress;
@@ -210,8 +211,9 @@ public class MessageActivity extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-
+					CancelRequestTask httpRequest = new CancelRequestTask(getActivity(), FragmentMessage.this, mMessage
+							.getOrderid());
+					httpRequest.execute();
 				}
 			});
 		}

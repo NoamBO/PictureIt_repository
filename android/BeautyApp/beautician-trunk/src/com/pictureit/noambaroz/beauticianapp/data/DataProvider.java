@@ -29,8 +29,8 @@ public class DataProvider extends ContentProvider {
 	public static final String COL_TREATMENT = "treatment";
 	public static final String COL_IMAGE_URL = "image_url";
 	public static final String COL_IS_PLAYED = "ia_played";
-	public static final String COL_DATE = "date";
-	public static final String COL_ALARM_ID = "alarm_id";
+	public static final String COL_TREATMENT_TIME = "treatment_time";
+	public static final String COL_ALARM_TIME = "alarm_time";
 
 	private DbHelper dbHelper;
 
@@ -41,8 +41,8 @@ public class DataProvider extends ContentProvider {
 
 	private static final int ORDERS_AROUND_ME_ALLROWS = 7;
 	private static final int ORDERS_AROUND_ME_SINGLE_ROW = 8;
-	private static final int ALARMS_ALLROWS = 1;
-	private static final int ALARMS_SINGLE_ROW = 2;
+	private static final int ALARMS_ALLROWS = 3;
+	private static final int ALARMS_SINGLE_ROW = 4;
 
 	private static final UriMatcher uriMatcher;
 	static {
@@ -103,6 +103,7 @@ public class DataProvider extends ContentProvider {
 			break;
 		case ALARMS_ALLROWS:
 			id = db.insertOrThrow(TABLE_ALARMS, null, values);
+			break;
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}

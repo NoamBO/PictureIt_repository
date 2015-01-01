@@ -36,47 +36,45 @@ public class AlarmManager {
 	}
 
 	public void setAlarm(Alarm alarm) {
-		Cursor cursor = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null, null, null,
-				DataProvider.SORT_ORDER_FIRST_TO_LAST);
-		int id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_ID)) + 1;
-		alarm.date = alarm.date - MyPreference.getPreTreatmentAlertTimeInMillis();
-		alarm.id = id;
+		alarm.alarmTime = alarm.treatmentTime - MyPreference.getPreTreatmentAlertTimeInMillis();
 		addAlarm(alarm);
-		ContentValues cv = new ContentValues(6);
+		ContentValues cv = new ContentValues(7);
 		cv.put(DataProvider.COL_CUSTOMER_NAME, alarm.customer_name);
-		cv.put(DataProvider.COL_DATE, alarm.date);
+		cv.put(DataProvider.COL_ALARM_TIME, alarm.alarmTime);
+		cv.put(DataProvider.COL_TREATMENT_TIME, alarm.treatmentTime);
 		cv.put(DataProvider.COL_IMAGE_URL, alarm.imageUrl);
 		cv.put(DataProvider.COL_TREATMENT, alarm.treatment);
-		cv.put(DataProvider.COL_ALARM_ID, alarm.id);
-		cv.put(DataProvider.COL_IS_PLAYED, false);
+		cv.put(DataProvider.COL_ORDER_ID, alarm.id);
+		cv.put(DataProvider.COL_IS_PLAYED, 0);
 		mContext.getContentResolver().insert(DataProvider.CONTENT_URI_ALARMS, cv);
 	}
 
 	public void resetAlarms() {
 		Cursor cursor = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null,
-				DataProvider.COL_IS_PLAYED + " != ?", new String[] { "true" }, null);
+				DataProvider.COL_IS_PLAYED + " != ?", new String[] { "1" }, null);
 		if (cursor.moveToFirst()) {
 			do {
 				Alarm alarm = new Alarm();
-				alarm.date = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_DATE));
+				alarm.treatmentTime = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME));
 				alarm.customer_name = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME));
-				alarm.id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_ALARM_ID));
+				alarm.id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_ORDER_ID));
 				alarm.imageUrl = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
 				alarm.treatment = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT));
 
-				alarm.date = alarm.date - MyPreference.getPreTreatmentAlertTimeInMillis();
-				if (alarm.date > 1000)
+				alarm.alarmTime = alarm.treatmentTime - MyPreference.getPreTreatmentAlertTimeInMillis();
+				if ((alarm.alarmTime - System.currentTimeMillis()) > (60 * 1000))
 					updateAlarm(alarm);
+				else
+					removeAlarm(alarm.id);
 			} while (cursor.moveToNext());
 		}
 	}
 
 	private void updateAlarm(Alarm alarm) {
-		removeAlarm(alarm.id);
 		addAlarm(alarm);
 		ContentValues cv = new ContentValues(1);
-		cv.put(DataProvider.COL_DATE, alarm.date);
-		mContext.getContentResolver().update(DataProvider.CONTENT_URI_ALARMS, cv, DataProvider.COL_ALARM_ID + " = ?",
+		cv.put(DataProvider.COL_ALARM_TIME, alarm.alarmTime);
+		mContext.getContentResolver().update(DataProvider.CONTENT_URI_ALARMS, cv, DataProvider.COL_ORDER_ID + " = ?",
 				new String[] { String.valueOf(alarm.id) });
 	}
 
@@ -85,6 +83,8 @@ public class AlarmManager {
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, alarmId, intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		mAlarmManager.cancel(pendingIntent);
+		mContext.getContentResolver().delete(DataProvider.CONTENT_URI_ALARMS, DataProvider.COL_ORDER_ID + " = ?",
+				new String[] { String.valueOf(alarmId) });
 	}
 
 	private void addAlarm(Alarm alarm) {
@@ -95,6 +95,6 @@ public class AlarmManager {
 		intent.putExtra(ALARM_ID, alarm.id);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, alarm.id, intent,
 				PendingIntent.FLAG_CANCEL_CURRENT);
-		mAlarmManager.set(android.app.AlarmManager.RTC_WAKEUP, alarm.date, pendingIntent);
+		mAlarmManager.set(android.app.AlarmManager.RTC_WAKEUP, alarm.alarmTime, pendingIntent);
 	}
 }
