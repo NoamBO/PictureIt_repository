@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class Splash extends Activity implements Runnable {
 

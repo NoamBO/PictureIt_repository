@@ -42,7 +42,7 @@ import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.PostVerifyAddress;
 import com.pictureit.noambaroz.beauticianapp.utilities.MyBackPressedListener;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class ActivityMessage extends ActivityWithFragment {
 

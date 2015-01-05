@@ -41,7 +41,7 @@ import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.widget.CompoundButton;
 
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 /**
  * A MySwitch is a two-state toggle switch widget that can select between two

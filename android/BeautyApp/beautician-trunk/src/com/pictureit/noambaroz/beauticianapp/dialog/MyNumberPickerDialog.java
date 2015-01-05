@@ -4,7 +4,7 @@ import net.simonvt.numberpicker.NumberPicker;
 import android.app.Activity;
 import android.view.View;
 
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class MyNumberPickerDialog extends BaseDialog implements android.view.View.OnClickListener {
 

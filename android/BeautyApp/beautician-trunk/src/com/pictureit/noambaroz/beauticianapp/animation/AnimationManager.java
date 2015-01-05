@@ -16,7 +16,7 @@ import android.view.animation.Transformation;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class AnimationManager {
 

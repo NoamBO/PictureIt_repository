@@ -20,7 +20,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
 import com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public abstract class ActivityWithFragment extends BaseActivity {
 

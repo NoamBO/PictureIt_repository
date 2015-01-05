@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class MySingleChoiseDialog extends BaseDialog implements OnItemClickListener {
 

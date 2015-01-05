@@ -33,7 +33,6 @@ import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.SetTreatmentStatusTask;
-import com.pictureit.noambaroz.beautycianapp.R;
 
 public class ActivityAlarm extends Activity implements LoaderCallbacks<Cursor> {
 
@@ -245,9 +244,12 @@ public class ActivityAlarm extends Activity implements LoaderCallbacks<Cursor> {
 
 			@Override
 			public void onAnswerReturn(Object answer) {
-				if (answer instanceof Integer)
+				if (answer instanceof Integer) {
 					Dialogs.showServerFailedDialog(mContext);
-				else {
+					dismiss();
+					if (!mCurrentDialog.isShowing())
+						mCurrentDialog.show();
+				} else {
 					AlarmManager.getInstance().deleteAlarmFromTable(alarm.id);
 					mArraylist.remove(alarm);
 					checkStatusAndShowDialog();

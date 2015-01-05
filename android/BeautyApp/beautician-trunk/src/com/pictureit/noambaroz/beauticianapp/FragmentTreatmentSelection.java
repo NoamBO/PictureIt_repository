@@ -21,7 +21,7 @@ import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.utilities.MyBackPressedListener;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class FragmentTreatmentSelection extends Fragment implements MyBackPressedListener {
 

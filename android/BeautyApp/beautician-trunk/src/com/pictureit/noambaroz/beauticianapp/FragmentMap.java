@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class FragmentMap extends MapFragmentBase implements OnMarkerClickListener, LocationListener,
 		LoaderCallbacks<Cursor> {

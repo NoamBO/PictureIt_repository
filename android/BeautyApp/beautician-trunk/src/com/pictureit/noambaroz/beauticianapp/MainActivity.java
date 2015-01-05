@@ -43,7 +43,7 @@ import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateAvailabilityTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateLocationTask;
 import com.pictureit.noambaroz.beauticianapp.utilities.view.MySwitch;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class MainActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 

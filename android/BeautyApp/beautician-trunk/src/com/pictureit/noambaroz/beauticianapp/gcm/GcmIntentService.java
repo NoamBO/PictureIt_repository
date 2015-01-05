@@ -21,7 +21,7 @@ import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.ActivityMessages;
 import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;

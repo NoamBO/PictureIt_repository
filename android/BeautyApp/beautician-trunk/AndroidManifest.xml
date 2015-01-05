@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pictureit.noambaroz.beautycianapp"
+    package="com.pictureit.noambaroz.beauticianapp"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -21,18 +21,18 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <permission
-        android:name="com.pictureit.noambaroz.beautycianapp.permission.C2D_MESSAGE"
+        android:name="com.pictureit.noambaroz.beauticianapp.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.pictureit.noambaroz.beautycianapp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.pictureit.noambaroz.beauticianapp.permission.C2D_MESSAGE" />
 
     <!-- Creating Permission to receive Google Maps -->
     <permission
-        android:name="com.pictureit.noambaroz.beautycianapp.permission.MAPS_RECEIVE"
+        android:name="com.pictureit.noambaroz.beauticianapp.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <!-- Permission to receive Google Maps -->
-    <uses-permission android:name="com.pictureit.noambaroz.beautycianapp.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.pictureit.noambaroz.beauticianapp.permission.MAPS_RECEIVE" />
 
     <!-- Permission to read Google Services -->
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -106,9 +106,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" >
         </activity>
+        
+        <receiver
+            android:name="com.pictureit.noambaroz.beauticianapp.gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
+                <category android:name="com.pictureit.noambaroz.beauticianapp" />
+            </intent-filter>
+        </receiver>
+        
         <receiver android:name="com.pictureit.noambaroz.beauticianapp.alarm.AlarmReceiver" >
         </receiver>
+
+        <service android:name="com.pictureit.noambaroz.beauticianapp.gcm.GcmIntentService" />
 
         <provider
             android:name="com.pictureit.noambaroz.beauticianapp.data.DataProvider"

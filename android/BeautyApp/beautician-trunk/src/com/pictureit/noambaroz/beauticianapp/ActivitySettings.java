@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyNumberPickerDialog;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class ActivitySettings extends ActivityWithFragment {
 

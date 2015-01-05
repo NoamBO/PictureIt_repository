@@ -9,7 +9,7 @@ import android.content.DialogInterface;
 
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class PostVerifyAddress extends BaseHttpPost {
 

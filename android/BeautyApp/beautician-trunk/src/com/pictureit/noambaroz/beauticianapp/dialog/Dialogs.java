@@ -8,7 +8,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class Dialogs {
 

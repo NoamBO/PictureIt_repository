@@ -19,7 +19,7 @@ import com.pictureit.noambaroz.beauticianapp.ActivityAlarm;
 import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
 import com.pictureit.noambaroz.beauticianapp.ActivitySettings;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

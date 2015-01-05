@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 public class MapFragmentBase extends BaseFragment {
 

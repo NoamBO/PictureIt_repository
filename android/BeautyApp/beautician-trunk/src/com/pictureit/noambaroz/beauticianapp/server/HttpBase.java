@@ -21,7 +21,7 @@ import android.os.Bundle;
 
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
-import com.pictureit.noambaroz.beautycianapp.R;
+import com.pictureit.noambaroz.beauticianapp.R;
 
 //Written by @Noam Bar-Oz
 
