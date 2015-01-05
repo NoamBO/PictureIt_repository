@@ -28,9 +28,8 @@ public class DataProvider extends ContentProvider {
 	public static final String COL_CUSTOMER_NAME = "name";
 	public static final String COL_TREATMENT = "treatment";
 	public static final String COL_IMAGE_URL = "image_url";
-	public static final String COL_IS_PLAYED = "ia_played";
 	public static final String COL_TREATMENT_TIME = "treatment_time";
-	public static final String COL_ALARM_TIME = "alarm_time";
+	public static final String COL_NEED_TO_SHOW_DIALOG = "is_alarm_fired";
 
 	private DbHelper dbHelper;
 

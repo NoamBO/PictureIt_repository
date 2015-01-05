@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <permission
         android:name="com.pictureit.noambaroz.beautycianapp.permission.C2D_MESSAGE"
@@ -61,6 +62,7 @@
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beauticianapp.MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -70,34 +72,44 @@
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beauticianapp.SettingsActivity"
-            android:screenOrientation="portrait" 
-            android:label="@string/settings">
+            android:label="@string/settings"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beauticianapp.UpcomingTreatmentsActivity"
             android:label="@string/treatments"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beauticianapp.MessagesActivity"
             android:label="@string/messages"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.pictureit.noambaroz.beauticianapp.MessageActivity"
             android:label="@string/messages"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
-        
+        <activity
+            android:name="com.pictureit.noambaroz.beauticianapp.AlarmActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Activity.Transparent" >
+        </activity>
+
         <activity
             android:name="com.noambaroz.crop_image.Crop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" >
         </activity>
-        
-        <receiver android:name="com.pictureit.noambaroz.beauticianapp.alarm.AlarmReceiver">
+
+        <receiver android:name="com.pictureit.noambaroz.beauticianapp.alarm.AlarmReceiver" >
         </receiver>
-        
+
         <provider
             android:name="com.pictureit.noambaroz.beauticianapp.data.DataProvider"
             android:authorities="com.pictureit.noambaroz.beauticianapp.provider"

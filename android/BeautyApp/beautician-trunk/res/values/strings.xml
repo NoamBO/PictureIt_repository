@@ -9,6 +9,14 @@
     <string name="empty_text">""</string>
     <string name="bullet"><b>&#183;</b></string>
     <string name="question_mark">"?"</string>
+    
+    <!-- Alarms text -->
+    <string name="treatment_of">הטיפול של</string>
+    <string name="start_soon">מתחיל בקרוב..</string>
+    <string name="treatment_start_within">הטיפול יתחיל בעוד</string>
+    <string name="treatment_just_started">טיפול החל</string>
+    <string name="enter_to_set_treatment_status">היכנסי על מנת לעדכן אותנו באם הטיפול התבצע</string>
+    <string name="reminder">תזכורת:</string>
 
     <!-- Main activity -->
     <string name="cant_load_map">לא ניתן לטעון מפה</string>

@@ -92,7 +92,6 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 			GcmUtil.get(getApplicationContext()).registerToGcm();
 			resume();
 		}
-
 	}
 
 	private void initActivity() {
@@ -176,7 +175,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		case R.id.action_explanation:
 			Alarm alarm = new Alarm();
 			alarm.customer_name = "name";
-			alarm.treatmentTime = System.currentTimeMillis() + (60000 + 3000);
+			alarm.treatmentTime = System.currentTimeMillis() + MyPreference.getPreTreatmentAlertTimeInMillis() + 3000;
 			alarm.imageUrl = "imageurl";
 			alarm.treatment = "treatment";
 			alarm.id = 222;
@@ -240,6 +239,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 	}
 
 	private void resume() {
+		if (MyPreference.hasAlarmsDialogsToShow())
+			startActivity(new Intent(MainActivity.this, AlarmActivity.class));
 		if (googlePlayServicesAvailable()) {
 			buildGoogleApiClient();
 		}

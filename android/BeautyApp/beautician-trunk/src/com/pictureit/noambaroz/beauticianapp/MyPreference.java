@@ -3,6 +3,8 @@ package com.pictureit.noambaroz.beauticianapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
+
 public class MyPreference {
 
 	private static final String STATE_REQUESTING_LOCATION = "requesting_location";
@@ -55,6 +57,15 @@ public class MyPreference {
 		mPrefs = context.getSharedPreferences(APP_PREFS_NAME, Context.MODE_PRIVATE);
 		setAvailability(true);
 		setLocationServiceState(false);
+	}
 
+	public static boolean hasAlarmsDialogsToShow() {
+		return mPrefs.getBoolean(AlarmManager.PREFS_HAS_ALARMS, false);
+	}
+
+	public static void setHasAlarmsDialogsToShow(boolean hasAlarms) {
+		SharedPreferences.Editor editor = mPrefs.edit();
+		editor.putBoolean(AlarmManager.PREFS_HAS_ALARMS, hasAlarms);
+		editor.commit();
 	}
 }

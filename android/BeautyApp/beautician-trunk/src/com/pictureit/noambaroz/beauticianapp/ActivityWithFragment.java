@@ -1,8 +1,14 @@
 package com.pictureit.noambaroz.beauticianapp;
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -60,6 +66,8 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		super.onResume();
 		if (getFragmentManager().findFragmentByTag(FRAGMENT_TAG) == null)
 			getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();
+		if (MyPreference.hasAlarmsDialogsToShow())
+			startActivity(new Intent(ActivityWithFragment.this, AlarmActivity.class));
 	}
 
 	private void setActionBarTitleFont() {
@@ -119,4 +127,16 @@ public abstract class ActivityWithFragment extends BaseActivity {
 			getFragmentManager().popBackStack();
 	}
 
+	private Class<?> getClassName() {
+		ActivityManager activityManager = (ActivityManager) ActivityWithFragment.this
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		List<RunningTaskInfo> services = activityManager.getRunningTasks(Integer.MAX_VALUE);
+		Class<?> act = null;
+		try {
+			act = Class.forName(services.get(0).topActivity.getClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return act;
+	}
 }
