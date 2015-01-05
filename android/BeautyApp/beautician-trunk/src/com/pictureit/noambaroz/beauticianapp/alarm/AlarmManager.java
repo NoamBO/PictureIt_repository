@@ -38,12 +38,13 @@ public class AlarmManager {
 	}
 
 	public void setAlarm(Alarm alarm) {
-		ContentValues cv = new ContentValues(6);
+		ContentValues cv = new ContentValues(7);
 		cv.put(DataProvider.COL_CUSTOMER_NAME, alarm.customer_name);
 		cv.put(DataProvider.COL_TREATMENT_TIME, alarm.treatmentTime);
 		cv.put(DataProvider.COL_IMAGE_URL, alarm.imageUrl);
 		cv.put(DataProvider.COL_TREATMENT, alarm.treatment);
 		cv.put(DataProvider.COL_ORDER_ID, alarm.id);
+		cv.put(DataProvider.COL_ADDRESS, alarm.address);
 		cv.put(DataProvider.COL_NEED_TO_SHOW_DIALOG, 0);
 		mContext.getContentResolver().insert(DataProvider.CONTENT_URI_ALARMS, cv);
 		Log.i("alarm", "new alarm set with id = " + alarm.id);
@@ -82,6 +83,7 @@ public class AlarmManager {
 				alarm.id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_ORDER_ID));
 				alarm.imageUrl = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
 				alarm.treatment = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT));
+				alarm.address = cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS));
 			} while (cursor.moveToNext());
 			updateAlarmTime(alarm, alertTime);
 		}

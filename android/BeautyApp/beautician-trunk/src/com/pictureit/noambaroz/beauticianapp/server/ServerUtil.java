@@ -26,6 +26,7 @@ public class ServerUtil {
 
 	// Get Upcoming Treatments
 	public static final String URL_REQUEST_GET_UPCOMING_TREATMENTS = URL_BASE + "upcomingtreatments";
+	public static final String URL_REQUEST_GET_UPCOMING_TREATMENT_BY_ID = URL_BASE + "getupcomingtreatment";
 
 	// Cancel treatment
 	public static final String URL_REQUEST_DELETE_UPCOMING_TREATMENT = URL_BASE + "cancelupcomingtreatment";
@@ -55,4 +56,8 @@ public class ServerUtil {
 
 	// Cancel treatment request
 	public static final String URL_REQUEST_CANCEL_CUSTOMER_REQUEST = URL_BASE + "canceltreatmentrequest";
+
+	// Update treatment status
+	public static final String URL_REQUEST_UPDATE_TREATMENT_STATUS = URL_BASE + "statustreatment";
+	public static final String IS_ACCEPTED = "isaccepted";
 }

@@ -79,6 +79,18 @@ public class JsonToObject {
 		return uid;
 	}
 
+	public static UpcomingTreatment jsonGetUpcomingTretment(String json) {
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		UpcomingTreatment t = null;
+		try {
+			JSONObject j = new JSONObject(finalString).getJSONObject("upcomingtreatment_status");
+			t = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), UpcomingTreatment.class);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return t;
+	}
+
 	public static String[] jsonToAddresses(String result) {
 		try {
 			JSONArray j = new JSONArray(getJson(result, JsonType.TYPE_ARRAY));

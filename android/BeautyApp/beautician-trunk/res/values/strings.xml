@@ -17,7 +17,22 @@
     <string name="treatment_just_started">טיפול החל</string>
     <string name="enter_to_set_treatment_status">היכנסי על מנת לעדכן אותנו באם הטיפול התבצע</string>
     <string name="reminder">תזכורת:</string>
-
+    <string name="treatment_happen_confirmation">אישור על ביצוע טיפול</string>
+    <string name="happen">בוצע</string>
+    <string name="not_happen">לא בוצע</string>
+    <string name="why_treatment_canceled">מדוע לא התבצע טיפול</string>
+    <string-array name="dialog_treatment_not_happend_reasons">
+        <item>הלקוח לא הגיע</item>
+        <item>לא התאפשר לקוסמטיקאית</item>
+        <item>נדחה ליום אחר</item>
+    </string-array>
+    
+    <!-- Treatment confirmed notification and dialog -->
+    <string name="treatment_successfully_confirmed">הטיפול הוזמן בהמלחה!</string>
+    <string name="want_to_call_the_client">מעוניינת ליצור קשר עם הלקוח?</string>
+    <string name="in_case_you_would_like_to_contact_the_customer_another_time">במידה ותרצי להתקשר במועד אחר תוכלי לעשות זאת דרך הטיפול שנקבע לך עם הלקוח, באיזור"\טיפולים\".</string>
+	<string name="no">לא</string>
+	
     <!-- Main activity -->
     <string name="cant_load_map">לא ניתן לטעון מפה</string>
     <string name="loading">טוען..</string>
@@ -45,6 +60,7 @@
     <string name="press_again_to_exit">לחץ שוב ליציאה</string>
     <string name="select_address">בחרי כתובת</string>
 	<string name="you_must_provide_at_least_one_treatment">עלייך לספק לפחות טיפול אחד</string>
+	
     <!-- General strings -->
     <string name="invalid_filed">שדה לא תקין</string>
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
@@ -71,6 +87,7 @@
 	<string name="set_price">הגדרי מחיר</string>
 	<string name="confirm_treatment_dialog_title">אישור טיפול</string>
 	<string name="confirm_treatment_dialog_subtitle">במידה ויש טיפול שאינך יכולה לספק, אנא הסירי אותו מהרשימה</string>
+	
 	 <!-- Dialog Location text -->
 	<string name="address">כתובת</string>
 	<string name="at_costumer_house">בבית הלקוח</string>

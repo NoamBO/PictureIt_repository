@@ -179,6 +179,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 			alarm.imageUrl = "imageurl";
 			alarm.treatment = "treatment";
 			alarm.id = 222;
+			alarm.address = "address";
 			AlarmManager.getInstance().setAlarm(alarm);
 			break;
 		default:

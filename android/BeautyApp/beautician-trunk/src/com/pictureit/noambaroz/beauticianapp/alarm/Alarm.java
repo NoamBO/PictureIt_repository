@@ -10,6 +10,7 @@ public class Alarm implements Parcelable {
 	public String customer_name;
 	public String treatment;
 	public String imageUrl;
+	public String address;
 
 	public Alarm() {
 	}
@@ -20,6 +21,7 @@ public class Alarm implements Parcelable {
 		customer_name = in.readString();
 		treatment = in.readString();
 		imageUrl = in.readString();
+		address = in.readString();
 	}
 
 	public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<Alarm>() {
@@ -44,6 +46,7 @@ public class Alarm implements Parcelable {
 		dest.writeString(customer_name);
 		dest.writeString(treatment);
 		dest.writeString(imageUrl);
+		dest.writeString(address);
 	}
 
 }

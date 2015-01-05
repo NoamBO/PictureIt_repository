@@ -37,7 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		boolean isPlayed = (System.currentTimeMillis() - alarm.treatmentTime) > 0;
 		AlarmManager.getInstance().setRowToShowAnyDialogOnActivity(alarm.id);
 		if (!isAppRunningInForeground()) {
-			setNotification(alarm, isPlayed);
+			setNotificationVariables(alarm, isPlayed);
 		} else {
 			mContext.startActivity(new Intent(mContext, AlarmActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 		}
@@ -65,7 +65,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		return isActivityFound;
 	}
 
-	private void setNotification(Alarm alarm, boolean isAlarmPlayed) {
+	private void setNotificationVariables(Alarm alarm, boolean isAlarmPlayed) {
 		if (mNotificationManager == null)
 			mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -80,11 +80,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 			message = mContext.getString(R.string.enter_to_set_treatment_status);
 			title = mContext.getString(R.string.treatment_just_started);
 		}
+		buildNotification(alarm, title, message);
+	}
+
+	private void buildNotification(Alarm alarm, String title, String message) {
 		Intent notificationIntent = new Intent(mContext, AlarmActivity.class);
 		notificationIntent.putExtra(AlarmManager.EXTRA_ALARM, alarm);
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-		PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+				PendingIntent.FLAG_ONE_SHOT);
 
 		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 

@@ -30,6 +30,7 @@ public class DataProvider extends ContentProvider {
 	public static final String COL_IMAGE_URL = "image_url";
 	public static final String COL_TREATMENT_TIME = "treatment_time";
 	public static final String COL_NEED_TO_SHOW_DIALOG = "is_alarm_fired";
+	public static final String COL_ADDRESS = "address";
 
 	private DbHelper dbHelper;
 
