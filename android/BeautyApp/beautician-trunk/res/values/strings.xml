@@ -27,6 +27,12 @@
         <item>נדחה ליום אחר</item>
     </string-array>
     
+    <!-- Push notification -->
+    <string name="request_received">התקבלה בקשה</string>
+    <string name="new_request_is_waiting_for_you_inside_the_app">בקשה חדשה ממתינה עבורך באפליקציה</string>
+    <string name="watch">צפה</string>
+    <string name="deny">דחה</string>
+    
     <!-- Treatment confirmed notification and dialog -->
     <string name="treatment_successfully_confirmed">הטיפול הוזמן בהמלחה!</string>
     <string name="want_to_call_the_client">מעוניינת ליצור קשר עם הלקוח?</string>

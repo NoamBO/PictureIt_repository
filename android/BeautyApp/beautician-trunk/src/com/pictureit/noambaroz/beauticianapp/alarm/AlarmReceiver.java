@@ -15,10 +15,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 
-import com.pictureit.noambaroz.beauticianapp.AlarmActivity;
+import com.pictureit.noambaroz.beauticianapp.ActivityAlarm;
 import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
-import com.pictureit.noambaroz.beauticianapp.SettingsActivity;
+import com.pictureit.noambaroz.beauticianapp.ActivitySettings;
 import com.pictureit.noambaroz.beautycianapp.R;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -39,7 +39,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		if (!isAppRunningInForeground()) {
 			setNotificationVariables(alarm, isPlayed);
 		} else {
-			mContext.startActivity(new Intent(mContext, AlarmActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			mContext.startActivity(new Intent(mContext, ActivityAlarm.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 		}
 
 		new Handler().postDelayed(new Runnable() {
@@ -75,7 +75,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 			message = mContext.getString(R.string.treatment_of) + " " + alarm.customer_name + " "
 					+ mContext.getString(R.string.start_soon);
 			title = mContext.getString(R.string.treatment_start_within) + " "
-					+ SettingsActivity.SettingsFragment.getPreTreatmentAlertTimeInString(mContext);
+					+ ActivitySettings.SettingsFragment.getPreTreatmentAlertTimeInString(mContext);
 		} else {
 			message = mContext.getString(R.string.enter_to_set_treatment_status);
 			title = mContext.getString(R.string.treatment_just_started);
@@ -84,7 +84,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 	}
 
 	private void buildNotification(Alarm alarm, String title, String message) {
-		Intent notificationIntent = new Intent(mContext, AlarmActivity.class);
+		Intent notificationIntent = new Intent(mContext, ActivityAlarm.class);
 		notificationIntent.putExtra(AlarmManager.EXTRA_ALARM, alarm);
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 

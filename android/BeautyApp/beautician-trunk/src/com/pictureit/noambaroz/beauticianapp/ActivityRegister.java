@@ -22,7 +22,7 @@ import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.RegisterInBackground;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class RegisterActivity extends Activity {
+public class ActivityRegister extends Activity {
 
 	private ImageView ivProfilePic;
 	private ViewGroup bProceed;
@@ -75,7 +75,7 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Crop.doCrop(RegisterActivity.this, mReceiver);
+				Crop.doCrop(ActivityRegister.this, mReceiver);
 			}
 		});
 		bProceed.setOnClickListener(new OnClickListener() {
@@ -108,19 +108,19 @@ public class RegisterActivity extends Activity {
 	}
 
 	private void registerInBackground(String code) {
-		RegisterInBackground httpRequest = new RegisterInBackground(RegisterActivity.this, code, bitmapByteString,
+		RegisterInBackground httpRequest = new RegisterInBackground(ActivityRegister.this, code, bitmapByteString,
 				new HttpCallback() {
 
 					@Override
 					public void onAnswerReturn(Object answer) {
 						if ((Integer) answer == RegisterInBackground.REGISTER_SERVER_FAILED)
-							Dialogs.showServerFailedDialog(RegisterActivity.this);
+							Dialogs.showServerFailedDialog(ActivityRegister.this);
 						else if ((Integer) answer == RegisterInBackground.REGISTER_CODE_INVALID)
-							Dialogs.showErrorDialog(RegisterActivity.this, R.string.invalid_registration_code);
+							Dialogs.showErrorDialog(ActivityRegister.this, R.string.invalid_registration_code);
 						else if ((Integer) answer != RegisterInBackground.REGISTER_SUCCESS)
-							Dialogs.generalDialog(RegisterActivity.this, Dialogs.somthing_went_wrong);
+							Dialogs.generalDialog(ActivityRegister.this, Dialogs.somthing_went_wrong);
 						else {
-							Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+							Intent intent = new Intent(ActivityRegister.this, MainActivity.class);
 							startActivity(intent);
 							finish();
 							overridePendingTransition(R.anim.activity_enter_slidein_anim,

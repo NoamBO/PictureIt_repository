@@ -1,6 +1,6 @@
 package com.pictureit.noambaroz.beauticianapp;
 
-public class MyProfileActivity extends ActivityWithFragment {
+public class ActivityMyProfile extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {

@@ -52,7 +52,7 @@ public class FragmentTreatmentSelection extends Fragment implements MyBackPresse
 		if (treatmentsArrayList == null)
 			treatmentsArrayList = TreatmentsFormatter.TreatmentList.genarate(getActivity(), treatmentStringArray);
 
-		if (getActivity() instanceof MessageActivity) {
+		if (getActivity() instanceof ActivityMessage) {
 			isMessageActivity = true;
 		}
 	}

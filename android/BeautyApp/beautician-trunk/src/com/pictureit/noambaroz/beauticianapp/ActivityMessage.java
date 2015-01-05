@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pictureit.noambaroz.beauticianapp.FragmentTreatmentSelection.OnTreatmentListChangeListener;
-import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
+import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.MessageResponse;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
@@ -44,7 +44,7 @@ import com.pictureit.noambaroz.beauticianapp.server.PostVerifyAddress;
 import com.pictureit.noambaroz.beauticianapp.utilities.MyBackPressedListener;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class MessageActivity extends ActivityWithFragment {
+public class ActivityMessage extends ActivityWithFragment {
 
 	private Message mMessage;
 
@@ -69,7 +69,7 @@ public class MessageActivity extends ActivityWithFragment {
 	}
 
 	private void stopLoadingActivity() {
-		Dialogs.generalDialog(MessageActivity.this, Dialogs.somthing_went_wrong);
+		Dialogs.generalDialog(ActivityMessage.this, Dialogs.somthing_went_wrong);
 		finish();
 		return;
 	}
@@ -403,8 +403,7 @@ public class MessageActivity extends ActivityWithFragment {
 		}
 
 		private void onFinish() {
-			getContentResolver().delete(DataProvider.CONTENT_URI_ORDERS_AROUND_ME, DataProvider.COL_ORDER_ID + " = ?",
-					new String[] { mMessage.getOrderid() });
+			DataUtils.get(getActivity()).deleteOrderAroundMe(mMessage.getOrderid());
 			setResult(RESULT_OK, new Intent().putExtra(Constant.EXTRA_ORDER_ID, mMessage.getOrderid()));
 			backPressed();
 		}

@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beauticianapp.UpcomingTreatmentsActivity.OnTreatmentCanceledListener;
+import com.pictureit.noambaroz.beauticianapp.ActivityUpcomingTreatments.OnTreatmentCanceledListener;
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
@@ -79,7 +79,7 @@ public class FragmentUnAvailable extends BaseFragment implements HttpCallback, O
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		UpcomingTreatmentsActivity.FragmentUpcomingTreatment fragment = new UpcomingTreatmentsActivity.FragmentUpcomingTreatment();
+		ActivityUpcomingTreatments.FragmentUpcomingTreatment fragment = new ActivityUpcomingTreatments.FragmentUpcomingTreatment();
 		fragment.setUpcomingTreatment(mAdapter.getItem(position));
 		fragment.setOnTreatmentCanceledListener(new OnTreatmentCanceledListener() {
 

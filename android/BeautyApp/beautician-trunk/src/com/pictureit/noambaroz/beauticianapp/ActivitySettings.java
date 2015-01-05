@@ -13,7 +13,7 @@ import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyNumberPickerDialog;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class SettingsActivity extends ActivityWithFragment {
+public class ActivitySettings extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {

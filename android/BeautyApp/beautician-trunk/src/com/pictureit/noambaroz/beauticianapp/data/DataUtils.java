@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.text.TextUtils;
 
 public class DataUtils {
@@ -32,15 +33,31 @@ public class DataUtils {
 			if (array.get(i).isDirectedToMe() != null && array.get(i).isDirectedToMe().equalsIgnoreCase("true"))
 				continue;
 
-			ContentValues cv = new ContentValues();
-			cv.put(DataProvider.COL_FIRST_NAME, array.get(i).getPrivateName());
-			cv.put(DataProvider.COL_LAST_NAME, array.get(i).getFamilyName());
-			cv.put(DataProvider.COL_LATITUDE, array.get(i).getLatitude());
-			cv.put(DataProvider.COL_LONGITUDE, array.get(i).getLongitude());
-			cv.put(DataProvider.COL_ORDER_ID, array.get(i).getOrderid());
-			cv.put(DataProvider.COL_IS_DIRECTED_TO_ME, !TextUtils.isEmpty(array.get(i).isDirectedToMe()) ? array.get(i)
-					.isDirectedToMe() : "false");
-			mContext.getContentResolver().insert(DataProvider.CONTENT_URI_ORDERS_AROUND_ME, cv);
+			addOrderAroundMe(array.get(i), false);
 		}
+	}
+
+	public void addOrderAroundMe(OrderAroundMe order, boolean checkDuplicates) {
+		if (checkDuplicates) {
+			Cursor c = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null,
+					DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { order.getOrderid() }, null);
+			if (c.getCount() > 0)
+				return;
+		}
+
+		ContentValues cv = new ContentValues();
+		cv.put(DataProvider.COL_FIRST_NAME, order.getPrivateName());
+		cv.put(DataProvider.COL_LAST_NAME, order.getFamilyName());
+		cv.put(DataProvider.COL_LATITUDE, order.getLatitude());
+		cv.put(DataProvider.COL_LONGITUDE, order.getLongitude());
+		cv.put(DataProvider.COL_ORDER_ID, order.getOrderid());
+		cv.put(DataProvider.COL_IS_DIRECTED_TO_ME, !TextUtils.isEmpty(order.isDirectedToMe()) ? order.isDirectedToMe()
+				: "false");
+		mContext.getContentResolver().insert(DataProvider.CONTENT_URI_ORDERS_AROUND_ME, cv);
+	}
+
+	public void deleteOrderAroundMe(String orderID) {
+		mContext.getContentResolver().delete(DataProvider.CONTENT_URI_ORDERS_AROUND_ME,
+				DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { orderID });
 	}
 }

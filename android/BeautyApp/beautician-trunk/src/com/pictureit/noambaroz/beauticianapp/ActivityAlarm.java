@@ -20,7 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beauticianapp.UpcomingTreatmentsActivity.OnTreatmentCanceledListener;
+import com.pictureit.noambaroz.beauticianapp.ActivityUpcomingTreatments.OnTreatmentCanceledListener;
 import com.pictureit.noambaroz.beauticianapp.alarm.Alarm;
 import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
@@ -35,7 +35,7 @@ import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.SetTreatmentStatusTask;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class AlarmActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class ActivityAlarm extends Activity implements LoaderCallbacks<Cursor> {
 
 	private ArrayList<Alarm> mArraylist;
 
@@ -44,7 +44,7 @@ public class AlarmActivity extends Activity implements LoaderCallbacks<Cursor> {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		View v = new View(AlarmActivity.this);
+		View v = new View(ActivityAlarm.this);
 		v.setBackgroundColor(Color.parseColor("#A6000000"));
 		setContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
@@ -54,7 +54,7 @@ public class AlarmActivity extends Activity implements LoaderCallbacks<Cursor> {
 		lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 		this.getWindow().setAttributes(lp);
 
-		NotificationManager n = (NotificationManager) AlarmActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationManager n = (NotificationManager) ActivityAlarm.this.getSystemService(Context.NOTIFICATION_SERVICE);
 		n.cancelAll();
 
 		mArraylist = new ArrayList<Alarm>();
@@ -75,13 +75,13 @@ public class AlarmActivity extends Activity implements LoaderCallbacks<Cursor> {
 	}
 
 	private void showDialogTreatmentIsOver() {
-		mCurrentDialog = new TreatmentBegin(AlarmActivity.this, mArraylist.get(mArraylist.size() - 1));
+		mCurrentDialog = new TreatmentBegin(ActivityAlarm.this, mArraylist.get(mArraylist.size() - 1));
 		mCurrentDialog.setCanceledOnTouchOutside(false);
 		mCurrentDialog.show();
 	}
 
 	private void showDialogAlert() {
-		mCurrentDialog = new ReminderDialog(AlarmActivity.this, mArraylist.get(mArraylist.size() - 1));
+		mCurrentDialog = new ReminderDialog(ActivityAlarm.this, mArraylist.get(mArraylist.size() - 1));
 		mCurrentDialog.setOnDismissListener(new OnDismissListener() {
 
 			@Override
@@ -95,7 +95,7 @@ public class AlarmActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		CursorLoader loader = new CursorLoader(AlarmActivity.this, DataProvider.CONTENT_URI_ALARMS, null,
+		CursorLoader loader = new CursorLoader(ActivityAlarm.this, DataProvider.CONTENT_URI_ALARMS, null,
 				DataProvider.COL_NEED_TO_SHOW_DIALOG + " != 0", null, null);
 		return loader;
 	}
@@ -161,7 +161,7 @@ public class AlarmActivity extends Activity implements LoaderCallbacks<Cursor> {
 						if (answer == null || answer instanceof Integer)
 							Dialogs.showServerFailedDialog(mContext);
 						else {
-							UpcomingTreatmentsActivity.FragmentUpcomingTreatment fragment = new UpcomingTreatmentsActivity.FragmentUpcomingTreatment();
+							ActivityUpcomingTreatments.FragmentUpcomingTreatment fragment = new ActivityUpcomingTreatments.FragmentUpcomingTreatment();
 							fragment.setUpcomingTreatment((UpcomingTreatment) answer);
 							fragment.setOnTreatmentCanceledListener(onTreatmentCanceledListener);
 							getFragmentManager().beginTransaction().replace(android.R.id.content, fragment)

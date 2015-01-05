@@ -66,36 +66,36 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beauticianapp.RegisterActivity"
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityRegister"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Activity.NoActionBar" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beauticianapp.SettingsActivity"
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivitySettings"
             android:label="@string/settings"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beauticianapp.UpcomingTreatmentsActivity"
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityUpcomingTreatments"
             android:label="@string/treatments"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beauticianapp.MessagesActivity"
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityMessages"
             android:label="@string/messages"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beauticianapp.MessageActivity"
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityMessage"
             android:label="@string/messages"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beauticianapp.AlarmActivity"
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityAlarm"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Activity.Transparent" >

@@ -26,7 +26,7 @@ import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class MessagesActivity extends ActivityWithFragment {
+public class ActivityMessages extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {
@@ -81,7 +81,7 @@ public class MessagesActivity extends ActivityWithFragment {
 
 			arrayList = (ArrayList<Message>) answer;
 			if (checkStatus()) {
-				adapter = new MyAdapter(MessagesActivity.this, android.R.layout.simple_list_item_2, arrayList);
+				adapter = new MyAdapter(ActivityMessages.this, android.R.layout.simple_list_item_2, arrayList);
 				listView.setAdapter(adapter);
 				listView.setOnItemClickListener(this);
 			}
@@ -100,7 +100,7 @@ public class MessagesActivity extends ActivityWithFragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			Message m = adapter.getItem(position);
-			Intent intent = new Intent(getActivity(), MessageActivity.class);
+			Intent intent = new Intent(getActivity(), ActivityMessage.class);
 			intent.putExtra(Constant.EXTRA_MESSAGE_OBJECT, m);
 			startActivityForResult(intent, Constant.REQUEST_CODE_SINGLE_MESSAGE);
 			overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);

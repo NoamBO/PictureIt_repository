@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		setContentView(R.layout.activity_main);
 		sIsAvailable = (MySwitch) findViewById(R.id.s_main_activity_availability_switch);
 		if (MyPreference.isAvailable())
-			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new MapFragment()).commit();
+			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentMap()).commit();
 		else {
 			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentUnAvailable()).commit();
 			sIsAvailable.setChecked(false);
@@ -138,7 +138,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 			if (getFragmentManager().getBackStackEntryCount() > 0)
 				getFragmentManager().popBackStack();
-			f = new MapFragment();
+			f = new FragmentMap();
 			connectToGooglePlayServicesApi();
 
 		} else {
@@ -164,13 +164,13 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.action_settings:
-			launchActivity(SettingsActivity.class);
+			launchActivity(ActivitySettings.class);
 			break;
 		case R.id.action_future_treatments:
-			launchActivity(UpcomingTreatmentsActivity.class);
+			launchActivity(ActivityUpcomingTreatments.class);
 			break;
 		case R.id.action_messages:
-			launchActivity(MessagesActivity.class);
+			launchActivity(ActivityMessages.class);
 			break;
 		case R.id.action_explanation:
 			Alarm alarm = new Alarm();
@@ -241,7 +241,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private void resume() {
 		if (MyPreference.hasAlarmsDialogsToShow())
-			startActivity(new Intent(MainActivity.this, AlarmActivity.class));
+			startActivity(new Intent(MainActivity.this, ActivityAlarm.class));
 		if (googlePlayServicesAvailable()) {
 			buildGoogleApiClient();
 		}

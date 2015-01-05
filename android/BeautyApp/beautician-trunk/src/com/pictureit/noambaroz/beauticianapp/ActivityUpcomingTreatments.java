@@ -31,7 +31,7 @@ import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.utilities.OutgoingCommunication;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class UpcomingTreatmentsActivity extends ActivityWithFragment {
+public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 	private AdapterUpcomingTreatments mAdapter;
 

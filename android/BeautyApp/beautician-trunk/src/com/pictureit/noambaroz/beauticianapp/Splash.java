@@ -42,7 +42,7 @@ public class Splash extends Activity implements Runnable {
 	@Override
 	public void run() {
 		if (TextUtils.isEmpty(MyPreference.getUID())) {
-			launchActivity(RegisterActivity.class);
+			launchActivity(ActivityRegister.class);
 		} else
 			launchActivity(MainActivity.class);
 	}

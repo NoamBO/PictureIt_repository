@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
 import com.pictureit.noambaroz.beautycianapp.R;
 
-public class MapFragment extends MapFragmentBase implements OnMarkerClickListener, LocationListener,
+public class FragmentMap extends MapFragmentBase implements OnMarkerClickListener, LocationListener,
 		LoaderCallbacks<Cursor> {
 
 	private static GoogleMap mMap;
@@ -62,7 +62,7 @@ public class MapFragment extends MapFragmentBase implements OnMarkerClickListene
 			// Check if we were successful in obtaining the map.
 			if (mMap == null)
 				return;
-			getLoaderManager().initLoader(0, null, MapFragment.this);
+			getLoaderManager().initLoader(0, null, FragmentMap.this);
 
 			LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
 
