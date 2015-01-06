@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public class FragmentMap extends MapFragmentBase implements OnMarkerClickListener, LocationListener,
 		LoaderCallbacks<Cursor> {
@@ -165,13 +164,13 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 			mCurrentLocationMarker = mMap.addMarker(mCurrentLocationMarkerOptions);
 		allMarkers.clear();
 		if (data.moveToFirst()) {
-			while (data.moveToNext()) {
+			do {
 				String orderId = data.getString(data.getColumnIndex(DataProvider.COL_ORDER_ID));
 				double lat = data.getDouble(data.getColumnIndex(DataProvider.COL_LATITUDE));
 				double lng = data.getDouble(data.getColumnIndex(DataProvider.COL_LONGITUDE));
 				Marker m = mMap.addMarker(getMarkerOptionsForOrder(lat, lng));
 				allMarkers.put(m, orderId);
-			}
+			} while (data.moveToNext());
 		}
 	}
 

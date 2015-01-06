@@ -11,6 +11,7 @@ public class Alarm implements Parcelable {
 	public String treatment;
 	public String imageUrl;
 	public String address;
+	public int isPlayed = 0;
 
 	public Alarm() {
 	}
@@ -22,6 +23,7 @@ public class Alarm implements Parcelable {
 		treatment = in.readString();
 		imageUrl = in.readString();
 		address = in.readString();
+		isPlayed = in.readInt();
 	}
 
 	public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<Alarm>() {
@@ -47,6 +49,7 @@ public class Alarm implements Parcelable {
 		dest.writeString(treatment);
 		dest.writeString(imageUrl);
 		dest.writeString(address);
+		dest.writeInt(isPlayed);
 	}
 
 }

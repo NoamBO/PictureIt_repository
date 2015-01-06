@@ -67,7 +67,7 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		if (getFragmentManager().findFragmentByTag(FRAGMENT_TAG) == null)
 			getFragmentManager().beginTransaction().replace(FRAGMENT_CONTAINER, fragment, FRAGMENT_TAG).commit();
 		if (MyPreference.hasAlarmsDialogsToShow())
-			startActivity(new Intent(ActivityWithFragment.this, ActivityAlarm.class));
+			startActivity(new Intent(ActivityWithFragment.this, ActivityNotificationsDialog.class));
 	}
 
 	private void setActionBarTitleFont() {

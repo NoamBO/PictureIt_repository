@@ -23,7 +23,7 @@ public class TreatmentConfirmedDialog extends BaseDialog {
 		return R.layout.dialog_layout_treatment_confirmed;
 	}
 
-	public void setCallButtonListener(final DialogInterface.OnClickListener listener) {
+	public TreatmentConfirmedDialog setCallButtonListener(final DialogInterface.OnClickListener listener) {
 		if (bCall == null)
 			bCall = (ViewGroup) mView.findViewById(R.id.fl_dialog_order_confirmed_layout_button_call);
 		bCall.setOnClickListener(new View.OnClickListener() {
@@ -33,10 +33,10 @@ public class TreatmentConfirmedDialog extends BaseDialog {
 				listener.onClick(TreatmentConfirmedDialog.this, 0);
 			}
 		});
-
+		return this;
 	}
 
-	public void setCloseButtonListener(final DialogInterface.OnClickListener listener) {
+	public TreatmentConfirmedDialog setCloseButtonListener(final DialogInterface.OnClickListener listener) {
 		if (bClose == null)
 			bClose = (TextView) mView.findViewById(R.id.tv_dialog_order_confirmed_layout_button_close);
 		bClose.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +48,11 @@ public class TreatmentConfirmedDialog extends BaseDialog {
 				dismiss();
 			}
 		});
+		return this;
+	}
 
+	@Override
+	public void onBackPressed() {
 	}
 
 }

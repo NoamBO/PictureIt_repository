@@ -17,20 +17,25 @@ import android.text.TextUtils;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
+import com.pictureit.noambaroz.beauticianapp.ActivityNotificationsDialog;
+import com.pictureit.noambaroz.beauticianapp.Constant;
 import com.pictureit.noambaroz.beauticianapp.Log;
-import com.pictureit.noambaroz.beauticianapp.ActivityMessages;
+import com.pictureit.noambaroz.beauticianapp.MainActivity;
+import com.pictureit.noambaroz.beauticianapp.MyPreference;
+import com.pictureit.noambaroz.beauticianapp.R;
+import com.pictureit.noambaroz.beauticianapp.alarm.Alarm;
+import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
+import com.pictureit.noambaroz.beauticianapp.data.BeauticianOfferResponse;
 import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
 
-	private static final String NOTIFICATION_TYPE_MESSAGE = "message";
-	private static final String NOTIFICATION_TYPE = "type";
-
-	private static final String FROM = "from";
-	private static final String ORDER_ID = "beauticianresponseid";
+	private static final String NOTIFICATION_TYPE_MESSAGE = "type_message";
+	private static final String NOTIFICATION_TYPE_OFFER_RESPONSE = "type_message_response";
+	private static final String KEY_NOTIFICATION_TYPE = "type";
+	private static final String KEY_NOTIFICATION_DATA = "data";
 
 	// private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
@@ -58,11 +63,13 @@ public class GcmIntentService extends IntentService {
 			// If it's a regular GCM message, do some work.
 			if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
 				String notificationType = null;
-				if (extras.containsKey(NOTIFICATION_TYPE) && extras.containsKey("data")) {
-					notificationType = extras.getString(notificationType);
+				if (extras.containsKey(KEY_NOTIFICATION_TYPE) && extras.containsKey(KEY_NOTIFICATION_DATA)) {
+					notificationType = extras.getString(KEY_NOTIFICATION_TYPE);
 					if (!TextUtils.isEmpty(notificationType)) {
 						if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_MESSAGE))
-							onMessageArrived(extras.get("data").toString());
+							onMessageArrived(extras.get(KEY_NOTIFICATION_DATA).toString());
+						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_OFFER_RESPONSE))
+							onMessageResponse(extras.get(KEY_NOTIFICATION_DATA).toString());
 					}
 				}
 
@@ -74,16 +81,55 @@ public class GcmIntentService extends IntentService {
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
+	private void onMessageResponse(String beauticianOfferResponse) {
+		BeauticianOfferResponse bor = new Gson().fromJson(beauticianOfferResponse, BeauticianOfferResponse.class);
+		if (bor == null || bor.orderid == null)
+			return;
+
+		if (bor.status.equalsIgnoreCase(BeauticianOfferResponse.RESPONSE_STATUS_CONFIRMED))
+			onMessageConfimed(bor);
+		else if (bor.status.equalsIgnoreCase(BeauticianOfferResponse.RESPONSE_STATUS_DECLINED))
+			onMessageDeclined(bor.orderid);
+
+	}
+
+	private void onMessageDeclined(String orderID) {
+		DataUtils.get(getApplicationContext()).deleteOrderAroundMe(orderID);
+	}
+
+	private void onMessageConfimed(BeauticianOfferResponse offerResponse) {
+		Alarm alarm = new Alarm();
+		alarm.address = "test address";
+		alarm.customer_name = "test customer name";
+		alarm.id = Integer.parseInt(offerResponse.orderid);
+		alarm.imageUrl = "";
+		alarm.treatment = "test treatment";
+		alarm.treatmentTime = Long.parseLong(offerResponse.treatment_time) * 1000;
+		AlarmManager.getInstance().setAlarm(alarm);
+
+		DataUtils.get(getApplicationContext()).addTreatmentConfirmedRow(offerResponse);
+		if (!isAppRunningInForeground()) {
+			String title = getString(R.string.response_confirmed);
+			String message = getString(R.string.response_confirmed_message);
+			sendNotification(Constant.EXTRA_CLASS_TYPE_NOTIFICATION, null, message, title);
+		} else {
+			getApplication().startActivity(
+					new Intent(getBaseContext(), ActivityNotificationsDialog.class)
+							.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+		}
+		MyPreference.setHasAlarmsDialogsToShow(true);
+	}
+
 	private void onMessageArrived(String orderAroundMe) {
 		OrderAroundMe oam = new Gson().fromJson(orderAroundMe, OrderAroundMe.class);
 		if (oam == null || oam.getOrderid() == null)
 			return;
-		oam.setDirectedToMe("true");
+
 		DataUtils.get(getApplicationContext()).addOrderAroundMe(oam, true);
 		// if (!isAppRunningInForeground()) {
 		String title = getString(R.string.request_received);
 		String message = getString(R.string.new_request_is_waiting_for_you_inside_the_app);
-		sendNotification(ActivityMessages.class, null, message, title);
+		sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
 		// } else {
 		// TODO
 		// }
@@ -92,14 +138,12 @@ public class GcmIntentService extends IntentService {
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
-	private void sendNotification(Class<?> classToLoad, Bundle data, String message, String title) {
+	private void sendNotification(int classTypeToLoad, Bundle data, String message, String title) {
 		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent notificationIntent;
-		if (classToLoad != null)
-			notificationIntent = new Intent(this, classToLoad);
-		else
-			notificationIntent = new Intent();
+		Intent notificationIntent = new Intent(this, MainActivity.class);
+		notificationIntent.putExtra(Constant.EXTRA_KEY_CLASS_TYPE, classTypeToLoad);
+
 		if (data != null)
 			notificationIntent.putExtras(data);
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

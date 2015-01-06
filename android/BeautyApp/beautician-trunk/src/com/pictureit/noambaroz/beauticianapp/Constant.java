@@ -16,4 +16,12 @@ public class Constant {
 
 	public static final int REQUEST_CODE_SINGLE_MESSAGE = 20;
 
+	public static final String EXTRA_KEY_HAS_NOTIFICATION = "get_boolean_value";
+
+	public static final String EXTRA_KEY_CLASS_TYPE = "class_to_launch";
+
+	public static final int EXTRA_CLASS_TYPE_NOTIFICATION = 2;
+
+	public static final int EXTRA_CLASS_TYPE_MESSAGES = 1;
+
 }

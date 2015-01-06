@@ -15,10 +15,12 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 
-import com.pictureit.noambaroz.beauticianapp.ActivityAlarm;
-import com.pictureit.noambaroz.beauticianapp.Log;
-import com.pictureit.noambaroz.beauticianapp.MyPreference;
+import com.pictureit.noambaroz.beauticianapp.ActivityNotificationsDialog;
 import com.pictureit.noambaroz.beauticianapp.ActivitySettings;
+import com.pictureit.noambaroz.beauticianapp.Constant;
+import com.pictureit.noambaroz.beauticianapp.Log;
+import com.pictureit.noambaroz.beauticianapp.MainActivity;
+import com.pictureit.noambaroz.beauticianapp.MyPreference;
 import com.pictureit.noambaroz.beauticianapp.R;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -39,7 +41,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 		if (!isAppRunningInForeground()) {
 			setNotificationVariables(alarm, isPlayed);
 		} else {
-			mContext.startActivity(new Intent(mContext, ActivityAlarm.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			mContext.startActivity(new Intent(mContext, ActivityNotificationsDialog.class)
+					.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP));
 		}
 
 		new Handler().postDelayed(new Runnable() {
@@ -84,8 +87,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 	}
 
 	private void buildNotification(Alarm alarm, String title, String message) {
-		Intent notificationIntent = new Intent(mContext, ActivityAlarm.class);
-		notificationIntent.putExtra(AlarmManager.EXTRA_ALARM, alarm);
+		Intent notificationIntent = new Intent(mContext, MainActivity.class);
+		notificationIntent.putExtra(Constant.EXTRA_KEY_CLASS_TYPE, Constant.EXTRA_CLASS_TYPE_NOTIFICATION);
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
 		PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent,

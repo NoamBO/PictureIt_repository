@@ -24,4 +24,5 @@ public class Application extends android.app.Application {
 
 		ImageLoader.getInstance().init(config);
 	}
+
 }

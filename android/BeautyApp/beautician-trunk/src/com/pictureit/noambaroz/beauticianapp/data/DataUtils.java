@@ -7,6 +7,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.pictureit.noambaroz.beauticianapp.MyPreference;
+
 public class DataUtils {
 
 	private static DataUtils dataUtils;
@@ -27,7 +29,7 @@ public class DataUtils {
 	public void refreshMapFragment(ArrayList<OrderAroundMe> array) {
 
 		mContext.getContentResolver().delete(DataProvider.CONTENT_URI_ORDERS_AROUND_ME,
-				DataProvider.COL_IS_DIRECTED_TO_ME + " NOT LIKE ?", new String[] { "'true'" });
+				DataProvider.COL_IS_DIRECTED_TO_ME + " NOT LIKE ?", new String[] { String.valueOf(true) });
 
 		for (int i = 0; i < array.size(); i++) {
 			if (array.get(i).isDirectedToMe() != null && array.get(i).isDirectedToMe().equalsIgnoreCase("true"))
@@ -39,13 +41,13 @@ public class DataUtils {
 
 	public void addOrderAroundMe(OrderAroundMe order, boolean checkDuplicates) {
 		if (checkDuplicates) {
-			Cursor c = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null,
+			Cursor c = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ORDERS_AROUND_ME, null,
 					DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { order.getOrderid() }, null);
 			if (c.getCount() > 0)
 				return;
 		}
 
-		ContentValues cv = new ContentValues();
+		ContentValues cv = new ContentValues(6);
 		cv.put(DataProvider.COL_FIRST_NAME, order.getPrivateName());
 		cv.put(DataProvider.COL_LAST_NAME, order.getFamilyName());
 		cv.put(DataProvider.COL_LATITUDE, order.getLatitude());
@@ -58,6 +60,20 @@ public class DataUtils {
 
 	public void deleteOrderAroundMe(String orderID) {
 		mContext.getContentResolver().delete(DataProvider.CONTENT_URI_ORDERS_AROUND_ME,
+				DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { orderID });
+	}
+
+	public void addTreatmentConfirmedRow(BeauticianOfferResponse offerResponse) {
+		ContentValues cv = new ContentValues(2);
+		cv.put(DataProvider.COL_CUSTOMER_TELEPHONE, offerResponse.telephone);
+		cv.put(DataProvider.COL_ORDER_ID, offerResponse.orderid);
+
+		mContext.getContentResolver().insert(DataProvider.CONTENT_CONFIRMED_TREATMENTS, cv);
+		MyPreference.setHasAlarmsDialogsToShow(true);
+	}
+
+	public void deleteTreatmentConfirmedRow(String orderID) {
+		mContext.getContentResolver().delete(DataProvider.CONTENT_CONFIRMED_TREATMENTS,
 				DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { orderID });
 	}
 }

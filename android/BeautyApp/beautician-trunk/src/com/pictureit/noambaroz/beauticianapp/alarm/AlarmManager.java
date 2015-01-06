@@ -117,4 +117,11 @@ public class AlarmManager {
 		Log.i("alarm", "alarm set to show dialog");
 	}
 
+	public void setAlertReminderWasShown(int orderID) {
+		ContentValues cv = new ContentValues(1);
+		cv.put(DataProvider.COL_IS_PLAYED, 1);
+		mContext.getContentResolver().update(DataProvider.CONTENT_URI_ALARMS, cv,
+				DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { String.valueOf(orderID) });
+	}
+
 }

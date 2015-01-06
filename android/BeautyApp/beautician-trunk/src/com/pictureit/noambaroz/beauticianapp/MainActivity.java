@@ -43,7 +43,6 @@ import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateAvailabilityTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdateLocationTask;
 import com.pictureit.noambaroz.beauticianapp.utilities.view.MySwitch;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public class MainActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 
@@ -91,6 +90,31 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 			initActivity();
 			GcmUtil.get(getApplicationContext()).registerToGcm();
 			resume();
+		}
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		checkIfNotificationWaiting(intent);
+	}
+
+	private void checkIfNotificationWaiting(Intent intent) {
+		if (intent == null || intent.getExtras() == null
+				|| intent.getExtras().containsKey(Constant.EXTRA_KEY_HAS_NOTIFICATION)
+				|| !intent.getBooleanExtra(Constant.EXTRA_KEY_HAS_NOTIFICATION, false))
+			return;
+
+		int classType = intent.getIntExtra(Constant.EXTRA_KEY_HAS_NOTIFICATION, 0);
+		switch (classType) {
+		case Constant.EXTRA_CLASS_TYPE_MESSAGES:
+			startActivity(new Intent(MainActivity.this, ActivityMessages.class));
+			break;
+		case Constant.EXTRA_CLASS_TYPE_NOTIFICATION:
+			startActivity(new Intent(MainActivity.this, ActivityNotificationsDialog.class));
+			break;
+		default:
+			return;
 		}
 	}
 
@@ -241,7 +265,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	private void resume() {
 		if (MyPreference.hasAlarmsDialogsToShow())
-			startActivity(new Intent(MainActivity.this, ActivityAlarm.class));
+			startActivity(new Intent(MainActivity.this, ActivityNotificationsDialog.class));
 		if (googlePlayServicesAvailable()) {
 			buildGoogleApiClient();
 		}

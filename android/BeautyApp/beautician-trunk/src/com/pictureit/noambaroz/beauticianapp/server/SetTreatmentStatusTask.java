@@ -35,6 +35,7 @@ public class SetTreatmentStatusTask extends BaseHttpPost {
 			temp.put(ServerUtil.UPCOMING_TREATMENT_ID, id);
 			temp.put(ServerUtil.IS_ACCEPTED, didWas);
 			temp.put(ServerUtil.REASON, reasonID);
+			mMainJson = temp;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

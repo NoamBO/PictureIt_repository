@@ -95,7 +95,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.pictureit.noambaroz.beauticianapp.ActivityAlarm"
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityNotificationsDialog"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Activity.Transparent" >
