@@ -42,7 +42,6 @@ import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.PostVerifyAddress;
 import com.pictureit.noambaroz.beauticianapp.utilities.MyBackPressedListener;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public class ActivityMessage extends ActivityWithFragment {
 
@@ -223,6 +222,7 @@ public class ActivityMessage extends ActivityWithFragment {
 			if (TextUtils.isEmpty((String) answer)) {
 				Dialogs.showServerFailedDialog(getActivity());
 			} else {
+				DataUtils.get(getActivity()).deleteOrderAroundMe(mMessage.getOrderid());
 				Dialogs.successToast(getApplicationContext());
 				onFinish();
 			}

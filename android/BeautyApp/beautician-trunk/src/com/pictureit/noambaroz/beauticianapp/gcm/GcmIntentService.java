@@ -2,9 +2,13 @@ package com.pictureit.noambaroz.beauticianapp.gcm;
 
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -23,22 +27,26 @@ import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MainActivity;
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
 import com.pictureit.noambaroz.beauticianapp.R;
-import com.pictureit.noambaroz.beauticianapp.alarm.Alarm;
 import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.data.BeauticianOfferResponse;
 import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
+import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
 
 	private static final String NOTIFICATION_TYPE_MESSAGE = "type_message";
+
+	// when customer reply to beautician offer
 	private static final String NOTIFICATION_TYPE_OFFER_RESPONSE = "type_message_response";
+
+	// if customer canceled his treatment request or if he accepted other
+	// beautician offer
+	private static final String NOTIFICATION_TYPE_OFFER_DECLINED = "type_message_canceled";
 	private static final String KEY_NOTIFICATION_TYPE = "type";
 	private static final String KEY_NOTIFICATION_DATA = "data";
 
-	// private NotificationManager mNotificationManager;
-	NotificationCompat.Builder builder;
 	private NotificationManager mNotificationManager;
 
 	public GcmIntentService() {
@@ -69,7 +77,9 @@ public class GcmIntentService extends IntentService {
 						if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_MESSAGE))
 							onMessageArrived(extras.get(KEY_NOTIFICATION_DATA).toString());
 						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_OFFER_RESPONSE))
-							onMessageResponse(extras.get(KEY_NOTIFICATION_DATA).toString());
+							onCustomerResponse(extras.get(KEY_NOTIFICATION_DATA).toString());
+						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_OFFER_DECLINED))
+							onOrderCanceled(extras.get(KEY_NOTIFICATION_DATA).toString());
 					}
 				}
 
@@ -81,41 +91,57 @@ public class GcmIntentService extends IntentService {
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
-	private void onMessageResponse(String beauticianOfferResponse) {
+	private void onOrderCanceled(String data) {
+		JSONObject j;
+		try {
+			j = new JSONObject(data);
+			if (j.has("orderid")) {
+				String orderid = j.getString("orderid");
+				DataUtils.get(getApplicationContext()).deleteOrderAroundMe(orderid);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void onCustomerResponse(String beauticianOfferResponse) {
 		BeauticianOfferResponse bor = new Gson().fromJson(beauticianOfferResponse, BeauticianOfferResponse.class);
 		if (bor == null || bor.orderid == null)
 			return;
 
 		if (bor.status.equalsIgnoreCase(BeauticianOfferResponse.RESPONSE_STATUS_CONFIRMED))
-			onMessageConfimed(bor);
+			onCustomerConfimedTheOffer(bor);
 		else if (bor.status.equalsIgnoreCase(BeauticianOfferResponse.RESPONSE_STATUS_DECLINED))
-			onMessageDeclined(bor.orderid);
+			onCustomerDeclinedTheOffer(bor);
 
 	}
 
-	private void onMessageDeclined(String orderID) {
-		DataUtils.get(getApplicationContext()).deleteOrderAroundMe(orderID);
+	private void onCustomerDeclinedTheOffer(BeauticianOfferResponse bro) {
+		if (!isAppRunningInForeground()) {
+			String title = getString(R.string.response_declined);
+			String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.customer_name + " "
+					+ getString(R.string.and_he_declined_your_offer);
+			sendNotification(0, null, message, title);
+		}
 	}
 
-	private void onMessageConfimed(BeauticianOfferResponse offerResponse) {
-		Alarm alarm = new Alarm();
-		alarm.address = "test address";
-		alarm.customer_name = "test customer name";
-		alarm.id = Integer.parseInt(offerResponse.orderid);
-		alarm.imageUrl = "";
-		alarm.treatment = "test treatment";
-		alarm.treatmentTime = Long.parseLong(offerResponse.treatment_time) * 1000;
-		AlarmManager.getInstance().setAlarm(alarm);
+	private void onCustomerConfimedTheOffer(BeauticianOfferResponse offerResponse) {
+		offerResponse.treatment = TreatmentsFormatter.getSelf(getApplicationContext()).getTreatmentName(
+				offerResponse.treatments);
+		offerResponse.treatmentTime = offerResponse.treatmentTime * 1000;
+		AlarmManager.getInstance().setAlarm(offerResponse);
 
 		DataUtils.get(getApplicationContext()).addTreatmentConfirmedRow(offerResponse);
 		if (!isAppRunningInForeground()) {
 			String title = getString(R.string.response_confirmed);
-			String message = getString(R.string.response_confirmed_message);
+			String message = offerResponse.customer_name + " " + getString(R.string.response_confirmed_message);
 			sendNotification(Constant.EXTRA_CLASS_TYPE_NOTIFICATION, null, message, title);
 		} else {
 			getApplication().startActivity(
 					new Intent(getBaseContext(), ActivityNotificationsDialog.class)
-							.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP
+									| Intent.FLAG_ACTIVITY_NEW_TASK));
 		}
 		MyPreference.setHasAlarmsDialogsToShow(true);
 	}
@@ -141,14 +167,19 @@ public class GcmIntentService extends IntentService {
 	private void sendNotification(int classTypeToLoad, Bundle data, String message, String title) {
 		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent notificationIntent = new Intent(this, MainActivity.class);
-		notificationIntent.putExtra(Constant.EXTRA_KEY_CLASS_TYPE, classTypeToLoad);
-
+		Intent notificationIntent;
+		if (classTypeToLoad != -1) {
+			notificationIntent = new Intent(this, MainActivity.class);
+			notificationIntent.putExtra(Constant.EXTRA_KEY_CLASS_TYPE, classTypeToLoad);
+		} else {
+			notificationIntent = new Intent();
+		}
 		if (data != null)
 			notificationIntent.putExtras(data);
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+				PendingIntent.FLAG_ONE_SHOT);
 
 		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
@@ -157,7 +188,9 @@ public class GcmIntentService extends IntentService {
 				.setAutoCancel(true).setSound(uri);
 
 		builder.setContentIntent(contentIntent);
-		mNotificationManager.notify(NOTIFICATION_ID, builder.build());
+		Notification notification = builder.build();
+		// notification.flags = Notification.FLAG_AUTO_CANCEL;
+		mNotificationManager.notify(NOTIFICATION_ID, notification);
 	}
 
 	private boolean isAppRunningInForeground() {

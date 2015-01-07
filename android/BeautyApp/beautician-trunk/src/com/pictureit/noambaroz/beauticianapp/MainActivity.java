@@ -35,8 +35,6 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.pictureit.noambaroz.beauticianapp.alarm.Alarm;
-import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.gcm.GcmUtil;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
@@ -91,6 +89,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 			GcmUtil.get(getApplicationContext()).registerToGcm();
 			resume();
 		}
+		checkIfNotificationWaiting(getIntent());
 	}
 
 	@Override
@@ -197,14 +196,15 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 			launchActivity(ActivityMessages.class);
 			break;
 		case R.id.action_explanation:
-			Alarm alarm = new Alarm();
-			alarm.customer_name = "name";
-			alarm.treatmentTime = System.currentTimeMillis() + MyPreference.getPreTreatmentAlertTimeInMillis() + 3000;
-			alarm.imageUrl = "imageurl";
-			alarm.treatment = "treatment";
-			alarm.id = 222;
-			alarm.address = "address";
-			AlarmManager.getInstance().setAlarm(alarm);
+			// Alarm alarm = new Alarm();
+			// alarm.customer_name = "name";
+			// alarm.treatmentTime = System.currentTimeMillis() +
+			// MyPreference.getPreTreatmentAlertTimeInMillis() + 3000;
+			// alarm.imageUrl = "imageurl";
+			// alarm.treatment = "treatment";
+			// alarm.treatment_id = 222;
+			// alarm.address = "address";
+			// AlarmManager.getInstance().setAlarm(alarm);
 			break;
 		default:
 			break;

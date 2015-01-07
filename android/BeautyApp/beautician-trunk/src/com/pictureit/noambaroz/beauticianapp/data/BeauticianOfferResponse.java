@@ -1,13 +1,17 @@
 package com.pictureit.noambaroz.beauticianapp.data;
 
-public class BeauticianOfferResponse {
+import java.util.ArrayList;
+
+import com.pictureit.noambaroz.beauticianapp.alarm.Alarm;
+
+public class BeauticianOfferResponse extends Alarm {
 
 	public static final String RESPONSE_STATUS_CONFIRMED = "confirmed";
 	public static final String RESPONSE_STATUS_DECLINED = "declined";
 
-	public String orderid;
-	public String telephone;
+	public String orderid;//
+	public String telephone;//
 	public String status;
-	public String treatment_time;
+	public ArrayList<TreatmentType> treatments;
 
 }

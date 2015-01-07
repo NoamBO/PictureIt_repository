@@ -37,7 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		MyPreference.setHasAlarmsDialogsToShow(true);
 
 		boolean isPlayed = (System.currentTimeMillis() - alarm.treatmentTime) > 0;
-		AlarmManager.getInstance().setRowToShowAnyDialogOnActivity(alarm.id);
+		AlarmManager.getInstance().setRowToShowAnyDialogOnActivity(alarm.treatment_id);
 		if (!isAppRunningInForeground()) {
 			setNotificationVariables(alarm, isPlayed);
 		} else {
@@ -102,7 +102,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 				.setAutoCancel(true).setSound(uri);
 
 		builder.setContentIntent(contentIntent);
-		fireNotification(alarm.id, builder.build());
+		fireNotification(alarm.treatment_id, builder.build());
 	}
 
 	private void fireNotification(int notificationID, Notification notification) {

@@ -20,8 +20,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
-import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.R;
+import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 
 //Written by @Noam Bar-Oz
 
@@ -73,7 +73,11 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	@Override
 	protected void onPostExecute(Object result) {
 		if (mProgressDialog != null)
-			mProgressDialog.dismiss();
+			try {
+				mProgressDialog.dismiss();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		if (result == null && showNoConnectionDialog)
 			showNoConnectionDialog();

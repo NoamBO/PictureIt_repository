@@ -39,7 +39,10 @@
     <string name="in_case_you_would_like_to_contact_the_customer_another_time">במידה ותרצי להתקשר במועד אחר תוכלי לעשות זאת דרך הטיפול שנקבע לך עם הלקוח, באיזור \"טיפולים\"</string>
 	<string name="no">לא</string>
 	<string name="response_confirmed">הצעתך התקבלה!</string>
-	<string name="response_confirmed_message">לקוח אישר את הצעתך! היכנסי לאפליקציה בכדי לראות את פרטי הטיפול</string>
+	<string name="response_confirmed_message">אישר את הצעתך! היכנסי לאפליקציה בכדי לראות את פרטי הטיפול</string>
+	<string name="response_declined">הזמנה בוטלה</string>
+	<string name="your_offer_didnt_fit_to">המכרז לא התאים ל</string>
+	<string name="and_he_declined_your_offer">והוא דחה את הצעתך.</string>
 	
     <!-- Main activity -->
     <string name="cant_load_map">לא ניתן לטעון מפה</string>

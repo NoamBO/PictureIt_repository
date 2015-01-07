@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_white"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -37,7 +36,7 @@
     <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_background"
+        android:background="@color/app_white"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/want_to_call_the_client"
         android:textColor="@color/text_color_gray"
@@ -46,7 +45,7 @@
     <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_background"
+        android:background="@color/app_white"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/in_case_you_would_like_to_contact_the_customer_another_time"
         android:textColor="@color/text_color_gray"
@@ -55,7 +54,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_background"
+        android:background="@color/app_white"
         android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin" >
 

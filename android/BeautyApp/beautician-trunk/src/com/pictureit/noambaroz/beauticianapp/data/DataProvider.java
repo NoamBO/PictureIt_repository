@@ -32,6 +32,7 @@ public class DataProvider extends ContentProvider {
 	public static final String COL_NEED_TO_SHOW_DIALOG = "is_alarm_fired";
 	public static final String COL_ADDRESS = "address";
 	public static final String COL_IS_PLAYED = "isplayed";
+	public static final String COL_TREATMENT_ID = "treatmentid";
 
 	public static final String TABLE_CONFIRMED_TREATMENTS = "tableconfirmedtreatments";
 	public static final String COL_CUSTOMER_TELEPHONE = "telephone";

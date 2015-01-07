@@ -43,11 +43,11 @@ public class AlarmManager {
 		cv.put(DataProvider.COL_TREATMENT_TIME, alarm.treatmentTime);
 		cv.put(DataProvider.COL_IMAGE_URL, alarm.imageUrl);
 		cv.put(DataProvider.COL_TREATMENT, alarm.treatment);
-		cv.put(DataProvider.COL_ORDER_ID, alarm.id);
+		cv.put(DataProvider.COL_TREATMENT_ID, alarm.treatment_id);
 		cv.put(DataProvider.COL_ADDRESS, alarm.address);
 		cv.put(DataProvider.COL_NEED_TO_SHOW_DIALOG, 0);
 		mContext.getContentResolver().insert(DataProvider.CONTENT_URI_ALARMS, cv);
-		Log.i("alarm", "new alarm set with id = " + alarm.id);
+		Log.i("alarm", "new alarm set with id = " + alarm.treatment_id);
 		resetAlarms();
 	}
 
@@ -80,7 +80,7 @@ public class AlarmManager {
 				Log.i("alarm", "new alarm set - currentTime  : " + currentTime);
 				alarm.treatmentTime = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME));
 				alarm.customer_name = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME));
-				alarm.id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_ORDER_ID));
+				alarm.treatment_id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
 				alarm.imageUrl = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
 				alarm.treatment = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT));
 				alarm.address = cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS));
@@ -95,7 +95,7 @@ public class AlarmManager {
 	}
 
 	public void deleteAlarmFromTable(int orderID) {
-		mContext.getContentResolver().delete(DataProvider.CONTENT_URI_ALARMS, DataProvider.COL_ORDER_ID + " = ?",
+		mContext.getContentResolver().delete(DataProvider.CONTENT_URI_ALARMS, DataProvider.COL_TREATMENT_ID + " = ?",
 				new String[] { String.valueOf(orderID) });
 		resetAlarms();
 		Log.i("alarm", "alarm deleted");
@@ -112,8 +112,8 @@ public class AlarmManager {
 	public void setRowToShowAnyDialogOnActivity(int orderID) {
 		ContentValues cv = new ContentValues(1);
 		cv.put(DataProvider.COL_NEED_TO_SHOW_DIALOG, 1);
-		mContext.getContentResolver().update(DataProvider.CONTENT_URI_ALARMS, cv, DataProvider.COL_ORDER_ID + " = ?",
-				new String[] { String.valueOf(orderID) });
+		mContext.getContentResolver().update(DataProvider.CONTENT_URI_ALARMS, cv,
+				DataProvider.COL_TREATMENT_ID + " = ?", new String[] { String.valueOf(orderID) });
 		Log.i("alarm", "alarm set to show dialog");
 	}
 
@@ -121,7 +121,7 @@ public class AlarmManager {
 		ContentValues cv = new ContentValues(1);
 		cv.put(DataProvider.COL_IS_PLAYED, 1);
 		mContext.getContentResolver().update(DataProvider.CONTENT_URI_ALARMS, cv,
-				DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { String.valueOf(orderID) });
+				DataProvider.COL_TREATMENT_ID + " LIKE ?", new String[] { String.valueOf(orderID) });
 	}
 
 }

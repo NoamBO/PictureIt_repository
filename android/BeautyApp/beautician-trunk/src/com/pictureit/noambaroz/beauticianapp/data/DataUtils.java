@@ -66,7 +66,7 @@ public class DataUtils {
 	public void addTreatmentConfirmedRow(BeauticianOfferResponse offerResponse) {
 		ContentValues cv = new ContentValues(2);
 		cv.put(DataProvider.COL_CUSTOMER_TELEPHONE, offerResponse.telephone);
-		cv.put(DataProvider.COL_ORDER_ID, offerResponse.orderid);
+		cv.put(DataProvider.COL_TREATMENT_ID, offerResponse.orderid);
 
 		mContext.getContentResolver().insert(DataProvider.CONTENT_CONFIRMED_TREATMENTS, cv);
 		MyPreference.setHasAlarmsDialogsToShow(true);
@@ -74,6 +74,6 @@ public class DataUtils {
 
 	public void deleteTreatmentConfirmedRow(String orderID) {
 		mContext.getContentResolver().delete(DataProvider.CONTENT_CONFIRMED_TREATMENTS,
-				DataProvider.COL_ORDER_ID + " LIKE ?", new String[] { orderID });
+				DataProvider.COL_TREATMENT_ID + " LIKE ?", new String[] { orderID });
 	}
 }

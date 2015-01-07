@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Alarm implements Parcelable {
 
-	public int id;
+	public int treatment_id;
 	public long treatmentTime;
 	public String customer_name;
 	public String treatment;
@@ -17,7 +17,7 @@ public class Alarm implements Parcelable {
 	}
 
 	private Alarm(Parcel in) {
-		id = in.readInt();
+		treatment_id = in.readInt();
 		treatmentTime = in.readLong();
 		customer_name = in.readString();
 		treatment = in.readString();
@@ -43,7 +43,7 @@ public class Alarm implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(id);
+		dest.writeInt(treatment_id);
 		dest.writeLong(treatmentTime);
 		dest.writeString(customer_name);
 		dest.writeString(treatment);

@@ -129,7 +129,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				AlarmManager.getInstance().setAlertReminderWasShown(alarm.id);
+				AlarmManager.getInstance().setAlertReminderWasShown(alarm.treatment_id);
 				mAlarmsArraylist.remove(alarm);
 				// checkStatusAndShowDialog();
 			}
@@ -163,7 +163,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 					Alarm a = new Alarm();
 					a.treatmentTime = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME));
 					a.customer_name = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME));
-					a.id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_ORDER_ID));
+					a.treatment_id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
 					a.imageUrl = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
 					a.treatment = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT));
 					a.address = cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS));
@@ -175,7 +175,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			if (cursor.moveToFirst()) {
 				do {
 					BeauticianOfferResponse rc = new BeauticianOfferResponse();
-					rc.orderid = cursor.getString(cursor.getColumnIndex(DataProvider.COL_ORDER_ID));
+					rc.orderid = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
 					rc.telephone = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_TELEPHONE));
 					mResponseConfirmedArraylist.add(rc);
 				} while (cursor.moveToNext());
@@ -234,7 +234,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 									.addToBackStack(null).commit();
 						}
 					}
-				}, String.valueOf(alarm.id));
+				}, String.valueOf(alarm.treatment_id));
 				task.execute();
 				break;
 
@@ -247,7 +247,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 
 			@Override
 			public void onTreatmentCanceled(UpcomingTreatment treatment) {
-				AlarmManager.getInstance().deleteAlarmFromTable(alarm.id);
+				AlarmManager.getInstance().deleteAlarmFromTable(alarm.treatment_id);
 				mAlarmsArraylist.remove(alarm);
 				// checkStatusAndShowDialog();
 			}
@@ -289,7 +289,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.b_dialog_treatment_begin_happen:
-				SetTreatmentStatusTask httpRequest = new SetTreatmentStatusTask(mContext, callback, true, alarm.id, -1);
+				SetTreatmentStatusTask httpRequest = new SetTreatmentStatusTask(mContext, callback, true, alarm.treatment_id, -1);
 				httpRequest.execute();
 				break;
 
@@ -315,7 +315,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 					if (!mCurrentDialog.isShowing())
 						mCurrentDialog.show();
 				} else {
-					AlarmManager.getInstance().deleteAlarmFromTable(alarm.id);
+					AlarmManager.getInstance().deleteAlarmFromTable(alarm.treatment_id);
 					mAlarmsArraylist.remove(alarm);
 					dismiss();
 					// checkStatusAndShowDialog();
@@ -332,7 +332,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					SetTreatmentStatusTask httpRequest = new SetTreatmentStatusTask(mContext, callback, false,
-							alarm.id, which);
+							alarm.treatment_id, which);
 					httpRequest.execute();
 				}
 			}, new OnClickListener() {
