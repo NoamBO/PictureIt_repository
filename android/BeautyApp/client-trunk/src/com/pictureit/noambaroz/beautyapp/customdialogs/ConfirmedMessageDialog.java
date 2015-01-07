@@ -43,7 +43,8 @@ public class ConfirmedMessageDialog extends BaseDialog {
 
 			@Override
 			public void onClick(View v) {
-				listener.onClick(ConfirmedMessageDialog.this, 0);
+				if (listener != null)
+					listener.onClick(ConfirmedMessageDialog.this, 0);
 				dismiss();
 			}
 		});
