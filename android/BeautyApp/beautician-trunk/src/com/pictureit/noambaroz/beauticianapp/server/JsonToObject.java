@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.pictureit.noambaroz.beauticianapp.data.History;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
@@ -141,12 +142,29 @@ public class JsonToObject {
 	public static ArrayList<Message> jsonToMessages(String json) {
 		ArrayList<Message> array = null;
 
-		Message.class.getClass();
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
 		try {
 			JSONArray j = new JSONObject(finalString).getJSONArray("messages");
 
 			Type arrayType = new TypeToken<List<Message>>() {
+			}.getType();
+
+			array = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), arrayType);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return array;
+	}
+
+	public static ArrayList<History> jsonToHistory(String json) {
+
+		ArrayList<History> array = new ArrayList<History>();
+
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		try {
+			JSONArray j = new JSONObject(finalString).getJSONArray("historytreatments");
+
+			Type arrayType = new TypeToken<List<History>>() {
 			}.getType();
 
 			array = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), arrayType);

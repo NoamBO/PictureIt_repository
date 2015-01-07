@@ -76,6 +76,15 @@
     <string name="invalid_filed">שדה לא תקין</string>
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
 
+    <!-- History -->
+    <string name="history">היסטורית טיפולים</string>
+    <string name="no_history">אין הסטוריה</string>
+    <string name="date">תאריך:</string>
+    <string name="client">מטופל:</string>
+    <string name="treatment">טיפול:</string>
+    <string name="history_address">כתובת:</string>
+    
+    
     <!-- Register screen -->
     <string name="register"><b>רישום</b></string>
     <string name="type_registration_code">הקלדת קוד שימוש</string>
@@ -90,6 +99,7 @@
 	<string name="no_treatments_change_status_to_available">אין טיפולים\n\nעל מנת לקבל הזמנות לטיפולים\nעלייך להיות במצב זמין</string>
 	
 	<!-- Messages -->
+	<string name="no_messages">אין הודעות</string>
 	<string name="messages">הודעות</string>
 	<string name="send">שלח</string>
 	<string name="cancel">בטל</string>

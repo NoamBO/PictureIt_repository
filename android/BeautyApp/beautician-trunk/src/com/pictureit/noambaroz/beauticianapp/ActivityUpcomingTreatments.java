@@ -29,7 +29,6 @@ import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.utilities.OutgoingCommunication;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
@@ -66,9 +65,10 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View view = inflater.inflate(R.layout.fragment_upcoming_treatments, container, false);
-			mListView = findView(view, R.id.lv_upcoming_treatments);
-			mEmptyListIndicator = findView(view, R.id.tv_upcoming_treatments_empty_list_indicator);
+			View view = inflater.inflate(R.layout.fragment_list_layout, container, false);
+			mListView = findView(view, R.id.lv_fragment_list_listview);
+			mEmptyListIndicator = findView(view, R.id.tv_fragment_list_empty_list_indicator);
+			mEmptyListIndicator.setText(R.string.no_treatments);
 			return view;
 		}
 

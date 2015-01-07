@@ -60,4 +60,7 @@ public class ServerUtil {
 	// Update treatment status
 	public static final String URL_REQUEST_UPDATE_TREATMENT_STATUS = URL_BASE + "statustreatment";
 	public static final String IS_ACCEPTED = "isaccepted";
+
+	// History
+	public static final String URL_REQUEST_GET_HISTORY = URL_BASE + "history";
 }

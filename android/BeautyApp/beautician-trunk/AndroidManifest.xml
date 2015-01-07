@@ -95,6 +95,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityHistory"
+            android:label="@string/history"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.pictureit.noambaroz.beauticianapp.ActivityNotificationsDialog"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

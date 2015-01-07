@@ -5,17 +5,16 @@
     android:padding="@dimen/fragment_padding" >
 
     <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-        android:id="@+id/tv_messages_empty_list_indicator"
+        android:id="@+id/tv_fragment_list_empty_list_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/no_results_indicator"
         android:gravity="center"
-        android:text="@string/no_treatments"
         android:textColor="@color/text_color_gray"
         android:visibility="gone" />
 
     <ListView
-        android:id="@+id/lv_fragment_messages_listview"
+        android:id="@+id/lv_fragment_list_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"

@@ -24,7 +24,6 @@ import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.server.GetMessages;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public class ActivityMessages extends ActivityWithFragment {
 
@@ -64,9 +63,10 @@ public class ActivityMessages extends ActivityWithFragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-			View v = inflater.inflate(R.layout.fragment_messages, container, false);
-			listView = findView(v, R.id.lv_fragment_messages_listview);
-			emptyListIndicator = findView(v, R.id.tv_messages_empty_list_indicator);
+			View v = inflater.inflate(R.layout.fragment_list_layout, container, false);
+			listView = findView(v, R.id.lv_fragment_list_listview);
+			emptyListIndicator = findView(v, R.id.tv_fragment_list_empty_list_indicator);
+			emptyListIndicator.setText(R.string.no_messages);
 			if (adapter == null)
 				new GetMessages(getActivity(), this).execute();
 
