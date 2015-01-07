@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 public class Alarm implements Parcelable {
 
-	public int treatment_id;
-	public long treatmentTime;
-	public String customer_name;
+	public int upcomingtreatment_id;
+	public long treatment_time;
+	public String full_name;
 	public String treatment;
-	public String imageUrl;
+	public String image_url;
 	public String address;
 	public int isPlayed = 0;
 
@@ -17,11 +17,11 @@ public class Alarm implements Parcelable {
 	}
 
 	private Alarm(Parcel in) {
-		treatment_id = in.readInt();
-		treatmentTime = in.readLong();
-		customer_name = in.readString();
+		upcomingtreatment_id = in.readInt();
+		treatment_time = in.readLong();
+		full_name = in.readString();
 		treatment = in.readString();
-		imageUrl = in.readString();
+		image_url = in.readString();
 		address = in.readString();
 		isPlayed = in.readInt();
 	}
@@ -43,11 +43,11 @@ public class Alarm implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(treatment_id);
-		dest.writeLong(treatmentTime);
-		dest.writeString(customer_name);
+		dest.writeInt(upcomingtreatment_id);
+		dest.writeLong(treatment_time);
+		dest.writeString(full_name);
 		dest.writeString(treatment);
-		dest.writeString(imageUrl);
+		dest.writeString(image_url);
 		dest.writeString(address);
 		dest.writeInt(isPlayed);
 	}

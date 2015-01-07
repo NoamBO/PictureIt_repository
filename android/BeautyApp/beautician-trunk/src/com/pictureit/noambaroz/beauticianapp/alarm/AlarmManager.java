@@ -39,15 +39,15 @@ public class AlarmManager {
 
 	public void setAlarm(Alarm alarm) {
 		ContentValues cv = new ContentValues(7);
-		cv.put(DataProvider.COL_CUSTOMER_NAME, alarm.customer_name);
-		cv.put(DataProvider.COL_TREATMENT_TIME, alarm.treatmentTime);
-		cv.put(DataProvider.COL_IMAGE_URL, alarm.imageUrl);
+		cv.put(DataProvider.COL_CUSTOMER_NAME, alarm.full_name);
+		cv.put(DataProvider.COL_TREATMENT_TIME, alarm.treatment_time);
+		cv.put(DataProvider.COL_IMAGE_URL, alarm.image_url);
 		cv.put(DataProvider.COL_TREATMENT, alarm.treatment);
-		cv.put(DataProvider.COL_TREATMENT_ID, alarm.treatment_id);
+		cv.put(DataProvider.COL_TREATMENT_ID, alarm.upcomingtreatment_id);
 		cv.put(DataProvider.COL_ADDRESS, alarm.address);
 		cv.put(DataProvider.COL_NEED_TO_SHOW_DIALOG, 0);
 		mContext.getContentResolver().insert(DataProvider.CONTENT_URI_ALARMS, cv);
-		Log.i("alarm", "new alarm set with id = " + alarm.treatment_id);
+		Log.i("alarm", "new alarm set with id = " + alarm.upcomingtreatment_id);
 		resetAlarms();
 	}
 
@@ -78,10 +78,10 @@ public class AlarmManager {
 				Log.i("alarm", "new alarm set - treatmentTime: " + treatmentTime);
 				Log.i("alarm", "new alarm set - alertTime    : " + alertTime);
 				Log.i("alarm", "new alarm set - currentTime  : " + currentTime);
-				alarm.treatmentTime = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME));
-				alarm.customer_name = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME));
-				alarm.treatment_id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
-				alarm.imageUrl = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
+				alarm.treatment_time = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME));
+				alarm.full_name = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME));
+				alarm.upcomingtreatment_id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
+				alarm.image_url = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
 				alarm.treatment = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT));
 				alarm.address = cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS));
 			} while (cursor.moveToNext());

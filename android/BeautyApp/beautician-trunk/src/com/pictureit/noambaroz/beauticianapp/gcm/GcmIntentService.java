@@ -120,7 +120,7 @@ public class GcmIntentService extends IntentService {
 	private void onCustomerDeclinedTheOffer(BeauticianOfferResponse bro) {
 		if (!isAppRunningInForeground()) {
 			String title = getString(R.string.response_declined);
-			String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.customer_name + " "
+			String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.full_name + " "
 					+ getString(R.string.and_he_declined_your_offer);
 			sendNotification(0, null, message, title);
 		}
@@ -129,13 +129,13 @@ public class GcmIntentService extends IntentService {
 	private void onCustomerConfimedTheOffer(BeauticianOfferResponse offerResponse) {
 		offerResponse.treatment = TreatmentsFormatter.getSelf(getApplicationContext()).getTreatmentName(
 				offerResponse.treatments);
-		offerResponse.treatmentTime = offerResponse.treatmentTime * 1000;
+		offerResponse.treatment_time = offerResponse.treatment_time * 1000;
 		AlarmManager.getInstance().setAlarm(offerResponse);
 
 		DataUtils.get(getApplicationContext()).addTreatmentConfirmedRow(offerResponse);
 		if (!isAppRunningInForeground()) {
 			String title = getString(R.string.response_confirmed);
-			String message = offerResponse.customer_name + " " + getString(R.string.response_confirmed_message);
+			String message = offerResponse.full_name + " " + getString(R.string.response_confirmed_message);
 			sendNotification(Constant.EXTRA_CLASS_TYPE_NOTIFICATION, null, message, title);
 		} else {
 			getApplication().startActivity(
