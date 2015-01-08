@@ -32,7 +32,7 @@
                 android:layout_margin="@dimen/fragment_padding"
                 android:background="@drawable/profile_avatar" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row1_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/title_medium_text_size" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row1_business_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/title_small_text_size" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row1_classification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 android:layout_toLeftOf="@+id/iv_my_profile_row1"
                 android:isIndicator="true" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row1_raters"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/profile_edit_btn" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_my_profile_row2_mail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/divider_color_gray" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_my_profile_row2_telephone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
                 android:layout_gravity="bottom"
                 android:background="@color/divider_color_gray" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row2_business_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                 android:layout_gravity="bottom"
                 android:background="@color/divider_color_gray" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row2_receipt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_my_profile_row2_mobility"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/divider_color_gray" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_my_profile_row2_area"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/profile_edit_btn" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
@@ -257,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_my_profile_row3_treatment_list1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -267,7 +267,7 @@
                     android:text="treatment1"
                     android:textColor="@color/text_color_gray" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:id="@+id/tv_my_profile_row3_treatment_list2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -297,7 +297,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/profile_edit_btn" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
@@ -315,7 +315,7 @@
                     android:background="@color/divider_color_gray" />
             </FrameLayout>
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row4_diplomas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -343,7 +343,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/profile_edit_btn" />
 
-                <TextView
+                <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
@@ -361,7 +361,7 @@
                     android:background="@color/divider_color_gray" />
             </FrameLayout>
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/fragment_padding"
@@ -371,7 +371,7 @@
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/title_medium_text_size" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row5_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -386,7 +386,7 @@
                 android:layout_gravity="bottom"
                 android:background="@color/divider_color_gray" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row5_experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -400,7 +400,7 @@
                 android:layout_gravity="bottom"
                 android:background="@color/divider_color_gray" />
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:id="@+id/tv_my_profile_row5_payment_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

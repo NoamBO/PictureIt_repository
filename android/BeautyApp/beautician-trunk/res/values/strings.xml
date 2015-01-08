@@ -131,6 +131,12 @@
 	<string name="classification">סיווג:</string>
 	<string name="bussiness_name">שם העסק</string>
 	<string name="full_name">שם מלא</string>
+	<string name="unedited">לא ניתן לעריכה</string>
+	<string name="email">אי מייל</string>
+	<string name="business_address">כתובת העסק</string>
+	<string name="billing_address">כתובת למשלוח חשבוניות</string>
+	<string name="yes">כן</string>
+	<string name="arrive_at_the_customer_house">הגעה לבית הלקוח</string>
 	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>
