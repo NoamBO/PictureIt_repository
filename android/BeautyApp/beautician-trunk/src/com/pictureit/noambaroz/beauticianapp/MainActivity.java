@@ -198,6 +198,9 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		case R.id.action_treatment_history:
 			launchActivity(ActivityHistory.class);
 			break;
+		case R.id.action_my_profile:
+			launchActivity(ActivityMyProfile.class);
+			break;
 		case R.id.action_explanation:
 			// Alarm alarm = new Alarm();
 			// alarm.customer_name = "name";

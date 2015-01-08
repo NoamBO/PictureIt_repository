@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/fragment_padding" >
+
+        <RelativeLayout
+            android:id="@+id/vg_my_profile_row1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_padding"
+            android:background="@drawable/card_shape"
+            android:paddingBottom="@dimen/fragment_padding" >
+
+            <ImageButton
+                android:id="@+id/ib_my_profile_row1_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/profile_edit_btn" />
+
+            <ImageView
+                android:id="@+id/iv_my_profile_row1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/fragment_padding"
+                android:background="@drawable/profile_avatar" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_my_profile_row1"
+                android:layout_toLeftOf="@+id/iv_my_profile_row1"
+                android:singleLine="true"
+                android:text="שם קוסמטיקאית"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/title_medium_text_size" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row1_business_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_my_profile_row1_name"
+                android:layout_toLeftOf="@+id/iv_my_profile_row1"
+                android:singleLine="true"
+                android:text="שם העסק"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/title_small_text_size" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row1_classification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_my_profile_row1_business_name"
+                android:layout_toLeftOf="@+id/iv_my_profile_row1"
+                android:singleLine="true"
+                android:text="סיווג"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
+
+            <RatingBar
+                android:id="@+id/rb_my_profile_row1"
+                style="@style/AppTheme.View.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_my_profile_row1_classification"
+                android:layout_toLeftOf="@+id/iv_my_profile_row1"
+                android:isIndicator="true" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row1_raters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_my_profile_row1_classification"
+                android:layout_marginTop="1dp"
+                android:layout_toLeftOf="@+id/rb_my_profile_row1"
+                android:singleLine="true"
+                android:text="(45 מדרגים)"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/raters_text_size" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/vg_my_profile_row2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_padding"
+            android:background="@drawable/card_shape"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageButton
+                    android:id="@+id/ib_my_profile_row2_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/profile_edit_btn" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/fragment_padding"
+                    android:drawableRight="@drawable/ic_individual"
+                    android:singleLine="true"
+                    android:text="@string/contact_options"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/title_large_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/divider_color_gray" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_my_profile_row2_mail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/fragment_padding"
+                    android:text="mail"
+                    android:textColor="@color/text_color_gray" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider_color_gray" />
+
+                <TextView
+                    android:id="@+id/tv_my_profile_row2_telephone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/fragment_padding"
+                    android:text="telephone"
+                    android:textColor="@color/text_color_gray" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/divider_color_gray" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row2_business_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fragment_padding"
+                android:text="address"
+                android:textColor="@color/text_color_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/divider_color_gray" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row2_receipt_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fragment_padding"
+                android:text="receipt address"
+                android:textColor="@color/text_color_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/divider_color_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_my_profile_row2_mobility"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/fragment_padding"
+                    android:text="arraived at the customer house"
+                    android:textColor="@color/text_color_gray" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider_color_gray" />
+
+                <TextView
+                    android:id="@+id/tv_my_profile_row2_area"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/fragment_padding"
+                    android:text="area"
+                    android:textColor="@color/text_color_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vg_my_profile_row3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_padding"
+            android:background="@drawable/card_shape"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageButton
+                    android:id="@+id/ib_my_profile_row3_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/profile_edit_btn" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/fragment_padding"
+                    android:drawableRight="@drawable/ic_treatment"
+                    android:singleLine="true"
+                    android:text="@string/treatments"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/title_large_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/divider_color_gray" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_my_profile_row3_treatment_list1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="3dp"
+                    android:padding="@dimen/fragment_padding"
+                    android:text="treatment1"
+                    android:textColor="@color/text_color_gray" />
+
+                <TextView
+                    android:id="@+id/tv_my_profile_row3_treatment_list2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="3dp"
+                    android:padding="@dimen/fragment_padding"
+                    android:text="treatment2"
+                    android:textColor="@color/text_color_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vg_my_profile_row4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_padding"
+            android:background="@drawable/card_shape"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageButton
+                    android:id="@+id/ib_my_profile_row4_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/profile_edit_btn" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/fragment_padding"
+                    android:drawableRight="@drawable/ic_remaks"
+                    android:singleLine="true"
+                    android:text="@string/diplomas"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/title_large_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/divider_color_gray" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_my_profile_row4_diplomas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
+                android:padding="@dimen/fragment_padding"
+                android:text="diploma1\ndiploma2"
+                android:textColor="@color/text_color_gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vg_my_profile_row5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_padding"
+            android:background="@drawable/card_shape"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageButton
+                    android:id="@+id/ib_my_profile_row5_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/profile_edit_btn" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/fragment_padding"
+                    android:drawableRight="@drawable/ic_beautician"
+                    android:singleLine="true"
+                    android:text="@string/personal_details"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/title_large_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/divider_color_gray" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/fragment_padding"
+                android:paddingRight="@dimen/fragment_padding"
+                android:paddingTop="@dimen/fragment_padding"
+                android:text="@string/about"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/title_medium_text_size" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row5_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
+                android:padding="@dimen/fragment_padding"
+                android:text="about"
+                android:textColor="@color/text_color_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/divider_color_gray" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row5_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fragment_padding"
+                android:text="experience"
+                android:textColor="@color/text_color_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/divider_color_gray" />
+
+            <TextView
+                android:id="@+id/tv_my_profile_row5_payment_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fragment_padding"
+                android:text="payment method"
+                android:textColor="@color/text_color_gray" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -43,6 +43,10 @@
         <item name="android:textColor">@color/text_color_gray</item>
     </style>
     
+    <style name="AppTheme.View.RatingBar" parent="@android:style/Widget.Holo.Light.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/rating_bar_progress</item>
+    </style>
+    
      <style name="AppTheme.Activity.Transparent" parent="android:Theme">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowBackground">@android:color/transparent</item>

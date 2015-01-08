@@ -502,22 +502,18 @@
     </string-array>
         <string-array name="classification_3">
         <item name="id">3</item>
-        <item name="title">מניקוריסטית</item>
+        <item name="title">מאפרת</item>
     </string-array>
         <string-array name="classification_4">
         <item name="id">4</item>
-        <item name="title">בונה ציפורניים</item>
+        <item name="title">רפואה אסטטית</item>
     </string-array>
-    <string-array name="classification_5">
-        <item name="id">5</item>
-        <item name="title">מטפלת</item>
-    </string-array>
+
     <array name="classification_list">
         <item>@array/classification_1</item>
         <item>@array/classification_2</item>
         <item>@array/classification_3</item>
         <item>@array/classification_4</item>
-        <item>@array/classification_5</item>
     </array>
     
     <string name="order_service">הזמן שירות</string>

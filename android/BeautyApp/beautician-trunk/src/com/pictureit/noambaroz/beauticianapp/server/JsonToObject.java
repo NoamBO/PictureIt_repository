@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.pictureit.noambaroz.beauticianapp.data.History;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
+import com.pictureit.noambaroz.beauticianapp.data.MyProfileDetails;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 
@@ -86,6 +87,18 @@ public class JsonToObject {
 		try {
 			JSONObject j = new JSONObject(finalString).getJSONObject("upcomingtreatment_status");
 			t = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), UpcomingTreatment.class);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return t;
+	}
+
+	public static MyProfileDetails jsonToPersonalDetails(String json) {
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		MyProfileDetails t = null;
+		try {
+			JSONObject j = new JSONObject(finalString).getJSONObject("beautician_details");
+			t = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), MyProfileDetails.class);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

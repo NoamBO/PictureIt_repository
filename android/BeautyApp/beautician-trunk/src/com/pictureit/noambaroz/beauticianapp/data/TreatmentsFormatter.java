@@ -20,16 +20,23 @@ public class TreatmentsFormatter {
 	private ArrayList<TreatmentType> mTreatmentsTypeArrayList;
 	private Context mContext;
 
-	// private ArrayList<ClassificationType> mClassificationArrayList;
+	private ArrayList<ClassificationType> mClassificationArrayList;
 
 	public List<TreatmentType> getAllTreatmentsType() {
 		return getTreatmentsArrayList();
 	}
 
-	// public static List<ClassificationType> getAllClassificationType(Context
-	// context) {
-	// return getInstance(context).getClassificationsArrayList();
-	// }
+	public List<ClassificationType> getAllClassificationType(Context context) {
+		return getSelf(context).getClassificationsArrayList();
+	}
+
+	public String getClassificationById(String classificationID) {
+		for (ClassificationType ct : mClassificationArrayList) {
+			if (ct.getId().equalsIgnoreCase(classificationID))
+				return ct.getTitle();
+		}
+		return "";
+	}
 
 	public TreatmentType getTreatmentType(String treatmentId) {
 		return getMap().get(treatmentId);
@@ -40,7 +47,7 @@ public class TreatmentsFormatter {
 			INSTANCE = new TreatmentsFormatter();
 			INSTANCE.setContext(context);
 			INSTANCE.setHash();
-			// INSTANCE.setClassificationArray(context);
+			INSTANCE.setClassificationArray(context);
 		}
 
 		return INSTANCE;
@@ -54,9 +61,9 @@ public class TreatmentsFormatter {
 		return mTreatmentsTypeArrayList;
 	}
 
-	// private ArrayList<ClassificationType> getClassificationsArrayList() {
-	// return mClassificationArrayList;
-	// }
+	private ArrayList<ClassificationType> getClassificationsArrayList() {
+		return mClassificationArrayList;
+	}
 
 	private void setHash() {
 		mHash = new HashMap<String, TreatmentType>();
@@ -70,24 +77,24 @@ public class TreatmentsFormatter {
 		return mHash;
 	}
 
-	// private void setClassificationArray(Context context) {
-	// mClassificationArrayList = new ArrayList<ClassificationType>();
-	// Resources res = context.getResources();
-	// TypedArray tar = res.obtainTypedArray(R.array.classification_list);
-	// for (int i = 0; i < tar.length(); ++i) {
-	// int id = tar.getResourceId(i, -1);
-	// if (id > -1) {
-	// String[] array = res.getStringArray(id);
-	// ClassificationType ct = new ClassificationType();
-	// ct.setTitle(array[1]);
-	// ct.setId(array[0]);
-	// mClassificationArrayList.add(ct);
-	// } else {
-	// // something wrong with the XML
-	// }
-	// }
-	// tar.recycle(); // Important
-	// }
+	private void setClassificationArray(Context context) {
+		mClassificationArrayList = new ArrayList<ClassificationType>();
+		Resources res = context.getResources();
+		TypedArray tar = res.obtainTypedArray(R.array.classification_list);
+		for (int i = 0; i < tar.length(); ++i) {
+			int id = tar.getResourceId(i, -1);
+			if (id > -1) {
+				String[] array = res.getStringArray(id);
+				ClassificationType ct = new ClassificationType();
+				ct.setTitle(array[1]);
+				ct.setId(array[0]);
+				mClassificationArrayList.add(ct);
+			} else {
+				// something wrong with the XML
+			}
+		}
+		tar.recycle(); // Important
+	}
 
 	public static class TreatmentList {
 
@@ -107,20 +114,10 @@ public class TreatmentsFormatter {
 					String[] array = res.getStringArray(id);
 					if (needToCompareWithBeauticianTretmantsList) {
 						if (temp.contains(array[0])) {
-							TreatmentType tt = new TreatmentType();
-							tt.setTreatmentId(array[0]);
-							tt.setName(array[1]);
-							tt.setDescription(array[2]);
-							tt.setPrice(array[3]);
-							treatmentsArray.add(tt);
+							treatmentsArray.add(getTreatmentTypeForArray(array));
 						}
 					} else {
-						TreatmentType tt = new TreatmentType();
-						tt.setTreatmentId(array[0]);
-						tt.setName(array[1]);
-						tt.setDescription(array[2]);
-						tt.setPrice(array[3]);
-						treatmentsArray.add(tt);
+						treatmentsArray.add(getTreatmentTypeForArray(array));
 					}
 				} else {
 					// something wrong with the XML
@@ -128,6 +125,15 @@ public class TreatmentsFormatter {
 			}
 			ta.recycle(); // Important
 			return treatmentsArray;
+		}
+
+		private static TreatmentType getTreatmentTypeForArray(String[] array) {
+			TreatmentType tt = new TreatmentType();
+			tt.setTreatmentId(array[0]);
+			tt.setName(array[1]);
+			tt.setDescription(array[2]);
+			tt.setPrice(array[3]);
+			return tt;
 		}
 	}
 

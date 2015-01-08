@@ -119,6 +119,18 @@
         <item>@string/at_my_place</item>
         <item>@string/else_</item>
     </string-array>
+    
+	<!-- My profile -->
+	<string name="profile">פרופיל</string>
+	<string name="contact_options">פרטי יצירת קשר</string>
+	<string name="diplomas">תעודות</string>
+	<string name="personal_details">פרטים אישיים</string>
+	<string name="about">אודות:</string>
+	<string name="raters">מדרגים</string>
+	<string name="finished">סיימתי</string>
+	<string name="classification">סיווג:</string>
+	<string name="bussiness_name">שם העסק</string>
+	<string name="full_name">שם מלא</string>
 	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>
@@ -154,7 +166,31 @@
 	<string name="hours">שעות</string>
 	
 	
-	<!-- Treatments List -->
+	<!-- Classification List -->
+    <string-array name="classification_1">
+        <item name="id">1</item>
+        <item name="title">קוסמטיקאית</item>
+    </string-array>
+    <string-array name="classification_2">
+        <item name="id">2</item>
+        <item name="title">פדיקוריסטית</item>
+    </string-array>
+    <string-array name="classification_3">
+        <item name="id">3</item>
+        <item name="title">מאפרת</item>
+    </string-array>
+    <string-array name="classification_4">
+        <item name="id">4</item>
+        <item name="title">רפואה אסטטית</item>
+    </string-array>
+
+    <array name="classification_list">
+        <item>@array/classification_1</item>
+        <item>@array/classification_2</item>
+        <item>@array/classification_3</item>
+        <item>@array/classification_4</item>
+    </array>
+<!-- Treatments List -->
     <string-array name="treatment_1">
         <item name="id">1</item>
         <item name="title">פדיקור</item>
