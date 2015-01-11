@@ -24,6 +24,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
@@ -146,7 +147,7 @@ public class TimePicker extends FrameLayout {
                 attrs, R.styleable.TimePicker, defStyle, 0);
         int layoutResourceId = attributesArray.getResourceId(
                 R.styleable.TimePicker_tp_internalLayout, R.layout.time_picker);
-        boolean is24HrFormat = attributesArray.getBoolean(R.styleable.TimePicker_is24HourView, false);
+        mIs24HourView = attributesArray.getBoolean(R.styleable.TimePicker_is24HourView, false);
         attributesArray.recycle();
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(
@@ -259,7 +260,6 @@ public class TimePicker extends FrameLayout {
 
         // set the content descriptions
         setContentDescriptions();
-        setIs24HourView(is24HrFormat);
     }
 
     @Override
@@ -363,6 +363,7 @@ public class TimePicker extends FrameLayout {
     protected void onRestoreInstanceState(Parcelable state) {
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
+
         setCurrentHour(ss.getHour());
         setCurrentMinute(ss.getMinute());
     }
@@ -395,7 +396,7 @@ public class TimePicker extends FrameLayout {
      */
     public void setCurrentHour(Integer currentHour) {
         // why was Integer used in the first place?
-        if (currentHour == null || currentHour == getCurrentHour()) {
+    	if (currentHour == null || currentHour == getCurrentHour()) {
             return;
         }
         if (!is24HourView()) {

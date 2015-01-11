@@ -100,13 +100,14 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 				@Override
 				public void onAnswerReturn(Object answer) {
-					mDetails = (MyProfileDetails) answer;
-					if (answer instanceof Integer || mDetails == null) {
+
+					if (answer instanceof Integer) {
 						Dialogs.showServerFailedDialog(getActivity());
 						return;
+					} else {
+						mDetails = (MyProfileDetails) answer;
+						setDetails(mDetails);
 					}
-
-					setDetails(mDetails);
 				}
 			}).execute();
 			return v;
