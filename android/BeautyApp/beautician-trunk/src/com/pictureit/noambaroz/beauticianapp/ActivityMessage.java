@@ -31,7 +31,7 @@ import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.MessageResponse;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
@@ -143,7 +143,7 @@ public class ActivityMessage extends ActivityWithFragment {
 			tvDate.setText(TimeUtils.timestampToDate(mMessage.getDate()));
 			ImageLoaderUtil.display(mMessage.getImageUrl(), image);
 
-			TreatmentsFormatter.getSelf(getActivity()).setTreatmentsList(tvWantedTreatment1, tvWantedTreatment2,
+			Formatter.getSelf(getActivity()).setTreatmentsList(tvWantedTreatment1, tvWantedTreatment2,
 					mMessage.getTreatments());
 			tvLocation.setText(mMessage.getLocation());
 			tvRemarks.setText(mMessage.getComments());
@@ -246,7 +246,7 @@ public class ActivityMessage extends ActivityWithFragment {
 			}
 			mMessageResponse.setTreatments(getReleventTreatmentList(arr));
 
-			TreatmentsFormatter.getSelf(getActivity()).setTreatmentsList(tvWantedTreatment1, tvWantedTreatment2,
+			Formatter.getSelf(getActivity()).setTreatmentsList(tvWantedTreatment1, tvWantedTreatment2,
 					getReleventTreatmentList(arr));
 		}
 

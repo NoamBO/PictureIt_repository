@@ -31,7 +31,7 @@ import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.data.BeauticianOfferResponse;
 import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
@@ -127,7 +127,7 @@ public class GcmIntentService extends IntentService {
 	}
 
 	private void onCustomerConfimedTheOffer(BeauticianOfferResponse offerResponse) {
-		offerResponse.treatment = TreatmentsFormatter.getSelf(getApplicationContext()).getTreatmentName(
+		offerResponse.treatment = Formatter.getSelf(getApplicationContext()).getTreatmentName(
 				offerResponse.treatments);
 		offerResponse.treatment_time = offerResponse.treatment_time * 1000;
 		AlarmManager.getInstance().setAlarm(offerResponse);

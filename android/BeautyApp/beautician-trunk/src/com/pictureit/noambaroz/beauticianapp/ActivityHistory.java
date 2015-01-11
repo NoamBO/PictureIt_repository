@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.History;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.server.GetHistoryTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
@@ -119,7 +119,7 @@ public class ActivityHistory extends ActivityWithFragment {
 
 				holder.date.setText(TimeUtils.timestampToDateWithHour(getItem(position).getDate()));
 				holder.name.setText(getItem(position).getClientName());
-				holder.treatment.setText(TreatmentsFormatter.getSelf(getActivity()).getTreatmentName(
+				holder.treatment.setText(Formatter.getSelf(getActivity()).getTreatmentName(
 						getItem(position).getTreatments()));
 				holder.address.setText(getItem(position).getAddress());
 				holder.price.setText(getItem(position).getPrice() + " " + getString(R.string.currency));

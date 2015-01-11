@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.pictureit.noambaroz.beauticianapp.ActivityUpcomingTreatments.OnTreatmentCanceledListener;
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
@@ -135,7 +135,7 @@ public class FragmentUnAvailable extends BaseFragment implements HttpCallback, O
 
 			holder.date.setText(TimeUtils.timestampToDate(getItem(position).getTreatmentDate()));
 			holder.name.setText(getItem(position).getClientName());
-			holder.treatment.setText(TreatmentsFormatter.getSelf(getActivity()).getTreatmentName(
+			holder.treatment.setText(Formatter.getSelf(getActivity()).getTreatmentName(
 					getItem(position).getTreatments()));
 
 			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);

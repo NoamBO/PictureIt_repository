@@ -121,22 +121,30 @@
     </string-array>
     
 	<!-- My profile -->
+	<string name="finished">סיימתי</string>
 	<string name="profile">פרופיל</string>
+	<string name="hint_bussiness_name">שם העסק</string>
+	<string name="hint_full_name">שם מלא</string>
+	<string name="raters">מדרגים</string>
+	<string name="classification">סיווג:</string>
+	<string name="hint_classification">סיווג</string>
+	<string name="yes">כן</string>
 	<string name="contact_options">פרטי יצירת קשר</string>
+	<string name="telephone">טלפון:</string>
+	<string name="email">מייל:</string>
+	<string name="business_address">כתובת העסק:</string>
+	<string name="billing_address">כתובת למשלוח חשבוניות:</string>
+	<string name="arrive_at_the_customer_house">הגעה לבית הלקוח:</string>
+	<string name="area">איזור:</string>
+	<string name="unedited">לא ניתן לעריכה</string>
+	<string name="hint_email">אי מייל</string>
+	<string name="hint_business_address">כתובת העסק</string>
+	<string name="hint_billing_address">כתובת למשלוח חשבוניות</string>
 	<string name="diplomas">תעודות</string>
 	<string name="personal_details">פרטים אישיים</string>
 	<string name="about">אודות:</string>
-	<string name="raters">מדרגים</string>
-	<string name="finished">סיימתי</string>
-	<string name="classification">סיווג:</string>
-	<string name="bussiness_name">שם העסק</string>
-	<string name="full_name">שם מלא</string>
-	<string name="unedited">לא ניתן לעריכה</string>
-	<string name="email">אי מייל</string>
-	<string name="business_address">כתובת העסק</string>
-	<string name="billing_address">כתובת למשלוח חשבוניות</string>
-	<string name="yes">כן</string>
-	<string name="arrive_at_the_customer_house">הגעה לבית הלקוח</string>
+	<string name="experience">שנות נסיון:</string>
+	<string name="payment_method">אמצעי תשלום:</string>
 	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>
@@ -171,6 +179,41 @@
 	<string name="minutes">דקות</string>
 	<string name="hours">שעות</string>
 	
+	
+	<!-- Areas List -->
+    <string-array name="area_1">
+        <item name="id">1</item>
+        <item name="title">צפון</item>
+    </string-array>
+    <string-array name="area_2">
+        <item name="id">2</item>
+        <item name="title">שרון</item>
+    </string-array>
+    <string-array name="area_3">
+        <item name="id">3</item>
+        <item name="title">מרכז</item>
+    </string-array>
+    <string-array name="area_4">
+        <item name="id">4</item>
+        <item name="title">ירושלים</item>
+    </string-array>
+    <string-array name="area_5">
+        <item name="id">5</item>
+        <item name="title">שפלה</item>
+    </string-array>
+    <string-array name="area_6">
+        <item name="id">6</item>
+        <item name="title">דרום</item>
+    </string-array>
+
+    <array name="areas_list">
+        <item>@array/area_1</item>
+        <item>@array/area_2</item>
+        <item>@array/area_3</item>
+        <item>@array/area_4</item>
+        <item>@array/area_5</item>
+        <item>@array/area_6</item>
+    </array>
 	
 	<!-- Classification List -->
     <string-array name="classification_1">

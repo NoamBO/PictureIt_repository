@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/unedited"
-                android:textColor="@color/divider_color_gray" />
+                android:textColor="#d4d5d6" />
         </FrameLayout>
 
         <View
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:hint="@string/email"
+            android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:textColor="@color/text_color_gray" />
 
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:hint="@string/business_address"
+            android:hint="@string/hint_business_address"
             android:inputType="text"
             android:textColor="@color/text_color_gray" />
 
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:hint="@string/billing_address"
+            android:hint="@string/hint_billing_address"
             android:inputType="text"
             android:textColor="@color/text_color_gray" />
 
@@ -143,31 +143,69 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:padding="@dimen/fragment_padding" >
 
                 <RadioButton
+                    android:id="@+id/rb_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:drawableRight="@android:drawable/btn_radio"
-                    android:text="@string/yes" />
+                    android:drawableRight="@drawable/btn_radio_holo_light"
+                    android:text="@string/yes"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/common_text_size" />
 
                 <RadioButton
+                    android:id="@+id/rb_not_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:drawableRight="@android:drawable/btn_radio"
-                    android:text="@string/no" />
+                    android:drawableRight="@drawable/btn_radio_holo_light"
+                    android:text="@string/no"
+                    android:textColor="@color/app_most_common_yellow_color"
+                    android:textSize="@dimen/common_text_size" />
             </RadioGroup>
-            
-             <TextView
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
                 android:text="@string/arrive_at_the_customer_house"
                 android:textColor="@color/text_color_gray" />
-            
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/divider_color_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fragment_padding" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fragment_padding"
+                android:text="@string/area"
+                android:textColor="@color/text_color_gray" />
+
+            <TextView
+                android:id="@+id/tv_dialog_my_profile_editing_contact_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/textView4"
+                android:background="@drawable/btn_select_shape"
+                android:gravity="center"
+                android:text="dddd"
+                android:textColor="@color/text_color_gray" />
+        </RelativeLayout>
     </LinearLayout>
 
 </FrameLayout>

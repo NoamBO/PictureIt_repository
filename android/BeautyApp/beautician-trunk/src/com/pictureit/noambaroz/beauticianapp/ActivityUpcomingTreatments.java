@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
@@ -164,7 +164,7 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 			tvPrice.setText(getString(R.string.price) + " " + mUpcomingTreatment.getPrice() + " "
 					+ getActivity().getString(R.string.currency));
 
-			TreatmentsFormatter.getSelf(getActivity()).setTreatmentsList(tvTreatment1, tvTreatment2,
+			Formatter.getSelf(getActivity()).setTreatmentsList(tvTreatment1, tvTreatment2,
 					mUpcomingTreatment.getTreatments());
 			ImageLoaderUtil.display(mUpcomingTreatment.getImageUrl(), image);
 
@@ -259,7 +259,7 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 			holder.date.setText(TimeUtils.timestampToDate(getItem(position).getTreatmentDate()));
 			holder.name.setText(getItem(position).getClientName());
 			holder.address.setText(getItem(position).getClientAddress());
-			holder.treatment.setText(TreatmentsFormatter.getSelf(getContext()).getTreatmentName(
+			holder.treatment.setText(Formatter.getSelf(getContext()).getTreatmentName(
 					getItem(position).getTreatments()));
 
 			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);

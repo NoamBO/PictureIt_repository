@@ -13,7 +13,7 @@ public class MyProfileDetails {
 	private String business_address;
 	private String billing_address;
 	private String area;
-	private String isarrivedhome;
+	private boolean isarrivedhome;
 	private String[] treatments;
 	private String[] degrees;
 	private String about;
@@ -108,11 +108,11 @@ public class MyProfileDetails {
 		this.area = area;
 	}
 
-	public String getIsArrivedHome() {
+	public boolean isArrivedHome() {
 		return isarrivedhome;
 	}
 
-	public void setArrivedHome(String isarrivedhome) {
+	public void setArrivedHome(boolean isarrivedhome) {
 		this.isarrivedhome = isarrivedhome;
 	}
 

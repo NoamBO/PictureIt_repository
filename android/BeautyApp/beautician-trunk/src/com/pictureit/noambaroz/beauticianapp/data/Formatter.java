@@ -13,14 +13,16 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.R;
 
-public class TreatmentsFormatter {
+public class Formatter {
 
-	private static TreatmentsFormatter INSTANCE;
+	private static Formatter INSTANCE;
 	private HashMap<String, TreatmentType> mHash;
 	private ArrayList<TreatmentType> mTreatmentsTypeArrayList;
 	private Context mContext;
 
 	private ArrayList<ClassificationType> mClassificationArrayList;
+
+	private ArrayList<AreaType> mAreaArray;
 
 	public List<TreatmentType> getAllTreatmentsType() {
 		return getTreatmentsArrayList();
@@ -42,12 +44,13 @@ public class TreatmentsFormatter {
 		return getMap().get(treatmentId);
 	}
 
-	public static TreatmentsFormatter getSelf(Context context) {
+	public static Formatter getSelf(Context context) {
 		if (INSTANCE == null) {
-			INSTANCE = new TreatmentsFormatter();
+			INSTANCE = new Formatter();
 			INSTANCE.setContext(context);
 			INSTANCE.setHash();
 			INSTANCE.setClassificationArray(context);
+			INSTANCE.setAreaArray(context);
 		}
 
 		return INSTANCE;
@@ -63,6 +66,10 @@ public class TreatmentsFormatter {
 
 	private ArrayList<ClassificationType> getClassificationsArrayList() {
 		return mClassificationArrayList;
+	}
+
+	private ArrayList<AreaType> getAreaArrayList() {
+		return mAreaArray;
 	}
 
 	private void setHash() {
@@ -94,6 +101,38 @@ public class TreatmentsFormatter {
 			}
 		}
 		tar.recycle(); // Important
+
+	}
+
+	private void setAreaArray(Context context) {
+		mAreaArray = new ArrayList<AreaType>();
+		Resources res = context.getResources();
+		TypedArray tar = res.obtainTypedArray(R.array.areas_list);
+		for (int i = 0; i < tar.length(); ++i) {
+			int id = tar.getResourceId(i, -1);
+			if (id > -1) {
+				String[] array = res.getStringArray(id);
+				AreaType at = new AreaType();
+				at.setTitle(array[1]);
+				at.setId(array[0]);
+				mAreaArray.add(at);
+			} else {
+				// something wrong with the XML
+			}
+		}
+		tar.recycle(); // Important
+	}
+
+	public String getAreaById(String areaCode) {
+		for (AreaType ct : mAreaArray) {
+			if (ct.getId().equalsIgnoreCase(areaCode))
+				return ct.getTitle();
+		}
+		return "";
+	}
+
+	public List<AreaType> getAllAreaType(Context context) {
+		return getSelf(context).getAreaArrayList();
 	}
 
 	public static class TreatmentList {

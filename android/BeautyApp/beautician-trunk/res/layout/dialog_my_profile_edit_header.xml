@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:hint="@string/full_name"
+                    android:hint="@string/hint_full_name"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
 
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:hint="@string/bussiness_name"
+                    android:hint="@string/hint_bussiness_name"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
 
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="@string/classification"
+                        android:text="@string/hint_classification"
                         android:textColor="@color/dark_gray" />
 
                     <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView

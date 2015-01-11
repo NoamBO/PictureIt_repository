@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.server.GetMessages;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
@@ -150,7 +150,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			holder.date.setText(TimeUtils.timestampToDateWithHour(getItem(position).getMessageSentTime()));
 			holder.name.setText(getItem(position).getClientName());
 			holder.address.setText(getItem(position).getClientAdress());
-			holder.treatment.setText(TreatmentsFormatter.getSelf(getContext()).getTreatmentName(
+			holder.treatment.setText(Formatter.getSelf(getContext()).getTreatmentName(
 					getItem(position).getTreatments()));
 
 			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);

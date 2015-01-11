@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.utilities.MyBackPressedListener;
@@ -50,7 +50,7 @@ public class FragmentTreatmentSelection extends Fragment implements MyBackPresse
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (treatmentsArrayList == null)
-			treatmentsArrayList = TreatmentsFormatter.TreatmentList.genarate(getActivity(), treatmentStringArray);
+			treatmentsArrayList = Formatter.TreatmentList.genarate(getActivity(), treatmentStringArray);
 
 		if (getActivity() instanceof ActivityMessage) {
 			isMessageActivity = true;
@@ -117,7 +117,7 @@ public class FragmentTreatmentSelection extends Fragment implements MyBackPresse
 			if (isMessageActivity)
 				holder.tvDescription.setVisibility(View.GONE);
 
-			String treatmentTitle = TextUtils.isEmpty(getItem(position).getName()) ? TreatmentsFormatter
+			String treatmentTitle = TextUtils.isEmpty(getItem(position).getName()) ? Formatter
 					.getSelf(getActivity()).getTreatmentType(getItem(position).getTreatmentId()).getName() : getItem(
 					position).getName();
 			holder.tvName.setText(treatmentTitle);

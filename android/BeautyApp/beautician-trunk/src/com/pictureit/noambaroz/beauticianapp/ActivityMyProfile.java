@@ -18,17 +18,20 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.noambaroz.crop_image.Crop;
+import com.pictureit.noambaroz.beauticianapp.data.AreaType;
 import com.pictureit.noambaroz.beauticianapp.data.ClassificationType;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.MyProfileDetails;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
-import com.pictureit.noambaroz.beauticianapp.data.TreatmentsFormatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.server.GetBeauticianDetailsTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
+import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalContactOptionsTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask.Builder;
 
@@ -36,8 +39,6 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -116,22 +117,30 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			tvBusiness.setText(TextUtils.isEmpty(d.getBusinessName()) ? "" : d.getBusinessName());
 
 			if (TextUtils.isEmpty(d.getClassification())) {
-				String classification = TreatmentsFormatter.getSelf(getActivity()).getClassificationById(
-						d.getClassification());
+				String classification = Formatter.getSelf(getActivity()).getClassificationById(d.getClassification());
 				tvClassification.setText(classification);
 			}
-			tvRaters.setText("( " + d.getRaters() + " ) " + getString(R.string.raters));
-			tvPhone.setText(TextUtils.isEmpty(d.getPhone()) ? "" : d.getPhone());
-			tvEmail.setText(TextUtils.isEmpty(d.getEmail()) ? "" : d.getEmail());
-			tvAddress.setText(TextUtils.isEmpty(d.getBusinessAddress()) ? "" : d.getBusinessAddress());
-			tvReceiptsAddress.setText(TextUtils.isEmpty(d.getBillingAddress()) ? "" : d.getBillingAddress());
-			tvArea.setText(TextUtils.isEmpty(d.getArea()) ? "" : d.getArea());
-			tvMobility.setText(TextUtils.isEmpty(d.getIsArrivedHome()) ? "" : d.getIsArrivedHome());
+			tvRaters.setText("( " + d.getRaters() + " " + getString(R.string.raters) + " ) ");
+			String telephone = getString(R.string.telephone) + " "
+					+ (TextUtils.isEmpty(d.getPhone()) ? "" : d.getPhone());
+			tvPhone.setText(telephone);
+			String email = getString(R.string.email) + " " + (TextUtils.isEmpty(d.getEmail()) ? "" : d.getEmail());
+			tvEmail.setText(email);
+			String address = getString(R.string.business_address) + " "
+					+ (TextUtils.isEmpty(d.getBusinessAddress()) ? "" : d.getBusinessAddress());
+			tvAddress.setText(address);
+			String billingAddress = getString(R.string.billing_address) + " "
+					+ (TextUtils.isEmpty(d.getBillingAddress()) ? "" : d.getBillingAddress());
+			tvReceiptsAddress.setText(billingAddress);
+			String area = getString(R.string.area) + " " + Formatter.getSelf(getActivity()).getAreaById(d.getArea());
+			tvArea.setText(area);
+			String mobility = getString(R.string.arrive_at_the_customer_house) + " "
+					+ (d.isArrivedHome() ? getString(R.string.yes) : getString(R.string.no));
+			tvMobility.setText(mobility);
 
-			ArrayList<TreatmentType> treatmentsArray = TreatmentsFormatter.TreatmentList.genarate(getActivity(),
+			ArrayList<TreatmentType> treatmentsArray = Formatter.TreatmentList.genarate(getActivity(),
 					d.getTreatments());
-			TreatmentsFormatter.getSelf(getActivity()).setTreatmentsList(tvTreatmentsList1, tvTreatmentsList2,
-					treatmentsArray);
+			Formatter.getSelf(getActivity()).setTreatmentsList(tvTreatmentsList1, tvTreatmentsList2, treatmentsArray);
 
 			String diplomas = "";
 			for (String s : d.getDegrees()) {
@@ -139,14 +148,20 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			}
 			tvDiplomas.setText(diplomas);
 			tvAbout.setText(TextUtils.isEmpty(d.getAbout()) ? "" : d.getAbout());
-			tvExperience.setText(TextUtils.isEmpty(d.getExperience()) ? "" : d.getExperience());
-			tvPaymentMethod.setText(TextUtils.isEmpty(d.getPayment()) ? "" : d.getPayment());
+			String experience = getString(R.string.experience) + " "
+					+ (TextUtils.isEmpty(d.getExperience()) ? "" : d.getExperience());
+			tvExperience.setText(experience);
+			String paymentMethod = getString(R.string.payment_method) + " "
+					+ (TextUtils.isEmpty(d.getPayment()) ? "" : d.getPayment());
+			tvPaymentMethod.setText(paymentMethod);
 
-			editHeader.setOnClickListener(this);
-			editContactOptions.setOnClickListener(this);
-			editTreatments.setOnClickListener(this);
-			editDiplomas.setOnClickListener(this);
-			editPersonalDetails.setOnClickListener(this);
+			if (!editHeader.hasOnClickListeners()) {
+				editHeader.setOnClickListener(this);
+				editContactOptions.setOnClickListener(this);
+				editTreatments.setOnClickListener(this);
+				editDiplomas.setOnClickListener(this);
+				editPersonalDetails.setOnClickListener(this);
+			}
 		}
 
 		@Override
@@ -157,7 +172,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 				showEditHeaderDialog();
 				break;
 			case R.id.ib_my_profile_row2_edit:
-
+				showEditContactOptionsDialog();
 				break;
 			case R.id.ib_my_profile_row3_edit:
 
@@ -171,6 +186,11 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			default:
 				break;
 			}
+		}
+
+		private void showEditContactOptionsDialog() {
+			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentEditContactOptions())
+					.addToBackStack(null).commit();
 		}
 
 		private void showEditHeaderDialog() {
@@ -223,8 +243,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 				etBusinessName.setText(mDetails.getBusinessName());
 				etPrivateName.setText(mDetails.getName());
-				tvClassification.setText(TreatmentsFormatter.getSelf(getActivity()).getClassificationById(
-						classificationId));
+				tvClassification.setText(Formatter.getSelf(getActivity()).getClassificationById(classificationId));
 
 				return v;
 			}
@@ -279,10 +298,10 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 			protected void onClassificationDialog() {
 				if (classificationDialog == null) {
-					String[] list = new String[TreatmentsFormatter.getSelf(getActivity())
-							.getAllClassificationType(getActivity()).size()];
+					String[] list = new String[Formatter.getSelf(getActivity()).getAllClassificationType(getActivity())
+							.size()];
 					int i = 0;
-					for (ClassificationType ct : TreatmentsFormatter.getSelf(getActivity()).getAllClassificationType(
+					for (ClassificationType ct : Formatter.getSelf(getActivity()).getAllClassificationType(
 							getActivity())) {
 						list[i] = ct.getTitle();
 						i++;
@@ -294,7 +313,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							classificationId = String.valueOf(which + 1);
-							tvClassification.setText(TreatmentsFormatter.getSelf(getActivity()).getClassificationById(
+							tvClassification.setText(Formatter.getSelf(getActivity()).getClassificationById(
 									classificationId));
 							dialog.dismiss();
 						}
@@ -314,6 +333,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					mDetails.setClassification(classificationId);
 					if (bitmap != null)
 						ivImage.setImageBitmap(bitmap);
+					setDetails(mDetails);
 					backPressed();
 				}
 			}
@@ -325,6 +345,111 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					image.setImageDrawable(getResources().getDrawable(R.drawable.profile_avatar));
 			}
 
+		}
+
+		private class FragmentEditContactOptions extends Fragment {
+
+			private ViewGroup bFinish;
+			private TextView phone;
+			private EditText mail, businessAddress, billingAddress;
+			private RadioButton arrived, noArrived;
+			private TextView tvArea;
+			private MySingleChoiseDialog areaDialog;
+			private int areaID;
+
+			@Override
+			public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+				View v = inflater.inflate(R.layout.dialog_my_profile_edit_personal_details, container, false);
+				bFinish = findView(v, R.id.dialog_my_profile_editing_contact_finish);
+				phone = findView(v, R.id.tv_dialog_my_profile_editing_contact_telephone);
+				mail = findView(v, R.id.et_dialog_my_profile_editing_contact_mail);
+				businessAddress = findView(v, R.id.et_dialog_my_profile_editing_contact_business_address);
+				billingAddress = findView(v, R.id.et_dialog_my_profile_editing_contact_billing_address);
+				arrived = findView(v, R.id.rb_mobile);
+				noArrived = findView(v, R.id.rb_not_mobile);
+				tvArea = findView(v, R.id.tv_dialog_my_profile_editing_contact_area);
+
+				tvArea.setText(Formatter.getSelf(getActivity()).getAreaById(mDetails.getArea()));
+				phone.setText(mDetails.getPhone());
+				mail.setText(mDetails.getEmail());
+				businessAddress.setText(mDetails.getBusinessAddress());
+				billingAddress.setText(mDetails.getBillingAddress());
+				boolean arrivedHome = mDetails.isArrivedHome();
+				arrived.setChecked(arrivedHome);
+				noArrived.setChecked(!arrivedHome);
+				return v;
+			}
+
+			@Override
+			public void onResume() {
+				super.onResume();
+				tvArea.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						showAreas();
+					}
+				});
+				bFinish.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						onFinish();
+					}
+				});
+			}
+
+			private void showAreas() {
+				if (areaDialog == null) {
+					String[] list = new String[Formatter.getSelf(getActivity()).getAllAreaType(getActivity()).size()];
+					int i = 0;
+					for (AreaType at : Formatter.getSelf(getActivity()).getAllAreaType(getActivity())) {
+						list[i] = at.getTitle();
+						i++;
+					}
+					areaDialog = new MySingleChoiseDialog(getActivity(), list);
+					int area = Integer.parseInt(mDetails.getArea()) - 1;
+					areaDialog.setChecked(area > -1 ? area : 0);
+					areaDialog.showButtons(new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int areaCode) {
+							areaID = areaCode + 1;
+							tvArea.setText(Formatter.getSelf(getActivity()).getAreaById(String.valueOf(areaCode)));
+						}
+					}, null);
+				}
+				areaDialog.show();
+			}
+
+			private void onFinish() {
+				UpdatePersonalContactOptionsTask.Builder b = new UpdatePersonalContactOptionsTask.Builder();
+				b.addAreaCode(areaID);
+				b.addArrivedHome(arrived.isChecked());
+				b.addBillingAddress(billingAddress.getText().toString());
+				b.addBusinessAddress(businessAddress.getText().toString());
+				b.addMail(mail.getText().toString());
+
+				UpdatePersonalContactOptionsTask task = b.build(getActivity(), new HttpCallback() {
+
+					@Override
+					public void onAnswerReturn(Object answer) {
+						if (answer instanceof Integer || !((Boolean) answer)) {
+							Dialogs.showServerFailedDialog(getActivity());
+						} else {
+							Dialogs.successToast(getActivity());
+							mDetails.setArea(String.valueOf(areaID));
+							mDetails.setArrivedHome(arrived.isChecked());
+							mDetails.setBillingAddress(billingAddress.getText().toString());
+							mDetails.setBusinessAddress(businessAddress.getText().toString());
+							mDetails.setEmail(mail.getText().toString());
+							setDetails(mDetails);
+							backPressed();
+						}
+					}
+				});
+				task.execute();
+			}
 		}
 	}
 
