@@ -1,6 +1,7 @@
 package com.pictureit.noambaroz.beauticianapp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
@@ -11,15 +12,21 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.noambaroz.crop_image.Crop;
 import com.pictureit.noambaroz.beauticianapp.data.AreaType;
@@ -27,6 +34,7 @@ import com.pictureit.noambaroz.beauticianapp.data.ClassificationType;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.MyProfileDetails;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
+import com.pictureit.noambaroz.beauticianapp.dialog.BaseDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.server.GetBeauticianDetailsTask;
@@ -34,8 +42,15 @@ import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalContactOptionsTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask.Builder;
+import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDiplomasTask;
+import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalTreatmentsTask;
+import com.pictureit.noambaroz.beauticianapp.utilities.view.MyEditText;
 
 public class ActivityMyProfile extends ActivityWithFragment {
+
+	public static interface GetStringsListener {
+		public void returnStrings(String[] strings);
+	}
 
 	@Override
 	protected void initActivity() {
@@ -63,6 +78,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 		private TextView tvTreatmentsList1, tvTreatmentsList2;
 		private TextView tvDiplomas;
 		private TextView tvAbout, tvExperience, tvPaymentMethod;
+		private RatingBar ratingBar;
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +91,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			tvBusiness = findView(v, R.id.tv_my_profile_row1_business_name);
 			tvClassification = findView(v, R.id.tv_my_profile_row1_classification);
 			tvRaters = findView(v, R.id.tv_my_profile_row1_raters);
+			ratingBar = findView(v, R.id.rb_my_profile_row1);
 
 			editContactOptions = findView(v, R.id.ib_my_profile_row2_edit);
 			tvPhone = findView(v, R.id.tv_my_profile_row2_telephone);
@@ -106,54 +123,77 @@ public class ActivityMyProfile extends ActivityWithFragment {
 						return;
 					} else {
 						mDetails = (MyProfileDetails) answer;
-						setDetails(mDetails);
+						setActivityMainScreenDetails();
 					}
 				}
 			}).execute();
 			return v;
 		}
 
-		protected void setDetails(MyProfileDetails d) {
-			tvName.setText(TextUtils.isEmpty(d.getName()) ? "" : d.getName());
-			tvBusiness.setText(TextUtils.isEmpty(d.getBusinessName()) ? "" : d.getBusinessName());
+		private void updateHeader() {
+			tvName.setText(TextUtils.isEmpty(mDetails.getName()) ? "" : mDetails.getName());
+			tvBusiness.setText(TextUtils.isEmpty(mDetails.getBusinessName()) ? "" : mDetails.getBusinessName());
 
-			if (TextUtils.isEmpty(d.getClassification())) {
-				String classification = Formatter.getSelf(getActivity()).getClassificationById(d.getClassification());
+			if (TextUtils.isEmpty(mDetails.getClassification())) {
+				String classification = Formatter.getSelf(getActivity()).getClassificationById(
+						mDetails.getClassification());
 				tvClassification.setText(classification);
 			}
-			tvRaters.setText("( " + d.getRaters() + " " + getString(R.string.raters) + " ) ");
+			tvRaters.setText("( " + mDetails.getRaters() + " " + getString(R.string.raters) + " ) ");
+			ratingBar.setRating((int) mDetails.getRate());
+		}
+
+		private void updateContactDetails() {
 			String telephone = getString(R.string.telephone) + " "
-					+ (TextUtils.isEmpty(d.getPhone()) ? "" : d.getPhone());
+					+ (TextUtils.isEmpty(mDetails.getPhone()) ? "" : mDetails.getPhone());
 			tvPhone.setText(telephone);
-			String email = getString(R.string.email) + " " + (TextUtils.isEmpty(d.getEmail()) ? "" : d.getEmail());
+			String email = getString(R.string.email) + " "
+					+ (TextUtils.isEmpty(mDetails.getEmail()) ? "" : mDetails.getEmail());
 			tvEmail.setText(email);
 			String address = getString(R.string.business_address) + " "
-					+ (TextUtils.isEmpty(d.getBusinessAddress()) ? "" : d.getBusinessAddress());
+					+ (TextUtils.isEmpty(mDetails.getBusinessAddress()) ? "" : mDetails.getBusinessAddress());
 			tvAddress.setText(address);
 			String billingAddress = getString(R.string.billing_address) + " "
-					+ (TextUtils.isEmpty(d.getBillingAddress()) ? "" : d.getBillingAddress());
+					+ (TextUtils.isEmpty(mDetails.getBillingAddress()) ? "" : mDetails.getBillingAddress());
 			tvReceiptsAddress.setText(billingAddress);
-			String area = getString(R.string.area) + " " + Formatter.getSelf(getActivity()).getAreaById(d.getArea());
+			String area = getString(R.string.area) + " "
+					+ Formatter.getSelf(getActivity()).getAreaById(mDetails.getArea());
 			tvArea.setText(area);
 			String mobility = getString(R.string.arrive_at_the_customer_house) + " "
-					+ (d.isArrivedHome() ? getString(R.string.yes) : getString(R.string.no));
+					+ (mDetails.isArrivedHome() ? getString(R.string.yes) : getString(R.string.no));
 			tvMobility.setText(mobility);
+		}
 
+		private void updateTreatments() {
 			ArrayList<TreatmentType> treatmentsArray = Formatter.TreatmentList.genarate(getActivity(),
-					d.getTreatments());
-			Formatter.getSelf(getActivity()).setTreatmentsList(tvTreatmentsList1, tvTreatmentsList2, treatmentsArray);
+					mDetails.getTreatments());
+			Formatter.getSelf(getActivity()).setTreatmentsList(tvTreatmentsList1, tvTreatmentsList2, treatmentsArray,
+					false);
+		}
 
+		private void updateDiplomas() {
 			String diplomas = "";
-			for (String s : d.getDegrees()) {
-				diplomas = diplomas + s + "\n";
+			for (int i = 0; i < mDetails.getDegrees().length; i++) {
+				diplomas = diplomas + getString(R.string.bullet) + mDetails.getDegrees()[i];
+				if (i < (mDetails.getDegrees().length - 1))
+					diplomas = diplomas + "\n";
 			}
+
 			tvDiplomas.setText(diplomas);
-			tvAbout.setText(TextUtils.isEmpty(d.getAbout()) ? "" : d.getAbout());
+		}
+
+		protected void setActivityMainScreenDetails() {
+			updateHeader();
+			updateContactDetails();
+			updateTreatments();
+			updateDiplomas();
+
+			tvAbout.setText(TextUtils.isEmpty(mDetails.getAbout()) ? "" : mDetails.getAbout());
 			String experience = getString(R.string.experience) + " "
-					+ (TextUtils.isEmpty(d.getExperience()) ? "" : d.getExperience());
+					+ (TextUtils.isEmpty(mDetails.getExperience()) ? "" : mDetails.getExperience());
 			tvExperience.setText(experience);
 			String paymentMethod = getString(R.string.payment_method) + " "
-					+ (TextUtils.isEmpty(d.getPayment()) ? "" : d.getPayment());
+					+ (TextUtils.isEmpty(mDetails.getPayment()) ? "" : mDetails.getPayment());
 			tvPaymentMethod.setText(paymentMethod);
 
 			if (!editHeader.hasOnClickListeners()) {
@@ -176,10 +216,10 @@ public class ActivityMyProfile extends ActivityWithFragment {
 				showEditContactOptionsDialog();
 				break;
 			case R.id.ib_my_profile_row3_edit:
-
+				showTreatmentSelectionDialog();
 				break;
 			case R.id.ib_my_profile_row4_edit:
-
+				showEditDiplomasDialog();
 				break;
 			case R.id.ib_my_profile_row5_edit:
 
@@ -187,6 +227,108 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			default:
 				break;
 			}
+		}
+
+		private void showEditDiplomasDialog() {
+			DialogEditDiplomas d = new DialogEditDiplomas(getActivity(), mDetails.getDegrees());
+			d.setOnFinishClickListener(new GetStringsListener() {
+
+				@Override
+				public void returnStrings(final String[] strings) {
+					if (strings == null)
+						return;
+					else {
+						new UpdatePersonalDiplomasTask(getActivity(), new HttpCallback() {
+
+							@Override
+							public void onAnswerReturn(Object answer) {
+								if (answer == null || answer instanceof Integer) {
+									Dialogs.showServerFailedDialog(getActivity());
+									return;
+								}
+
+								mDetails.setDegrees(strings);
+								updateDiplomas();
+							}
+						}, strings).execute();
+					}
+				}
+			});
+			d.show();
+		}
+
+		private void showTreatmentSelectionDialog() {
+			FragmentTreatmentSelection fragment = new FragmentTreatmentSelection();
+			ArrayList<TreatmentType> array = new ArrayList<TreatmentType>();
+			long time = System.currentTimeMillis();
+			for (TreatmentType tt : Formatter.getSelf(getActivity()).getAllTreatmentsType()) {
+				boolean wasAdded = false;
+				for (int i = 0; i < mDetails.getTreatments().length; i++) {
+					if (tt.getTreatmentId().equalsIgnoreCase(mDetails.getTreatments()[i])) {
+						TreatmentType t = new TreatmentType();
+						t.setAmount(1);
+						t.setDescription(tt.getDescription());
+						t.setName(tt.getName());
+						t.setPrice(tt.getPrice());
+						t.setTreatmentId(tt.getTreatmentId());
+						array.add(t);
+						wasAdded = true;
+					} else {
+						if (!wasAdded && i == (mDetails.getTreatments().length - 1))
+							array.add(tt);
+					}
+				}
+			}
+			Log.d("time", "getAllTreatmentsType time = " + (System.currentTimeMillis() - time) + " millis");
+			fragment.setTreatments(array);
+			fragment.setListener(new FragmentTreatmentSelection.OnTreatmentListChangeListener() {
+
+				@Override
+				public void onTreatmentListChange(ArrayList<TreatmentType> treatments) {
+					if (treatments == null)
+						return;
+
+					ArrayList<String> array = new ArrayList<String>();
+					for (TreatmentType tt : treatments) {
+						if (tt.getAmount() > 0)
+							array.add(tt.getTreatmentId());
+					}
+					final String[] strings = array.toArray(new String[array.size()]);
+					if (!isArraysTheSame(strings, mDetails.getTreatments()))
+						new UpdatePersonalTreatmentsTask(getActivity(), new HttpCallback() {
+
+							@Override
+							public void onAnswerReturn(Object answer) {
+								if (answer == null || answer instanceof Integer) {
+									Dialogs.showServerFailedDialog(getActivity());
+									return;
+								}
+
+								mDetails.setTreatments(strings);
+								updateTreatments();
+							}
+						}, strings).execute();
+				}
+			});
+			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, fragment).addToBackStack(null).commit();
+		}
+
+		private boolean isArraysTheSame(String[] array1, String[] array2) {
+			if (array1.length != array2.length)
+				return false;
+			int i = 0;
+			long time = System.currentTimeMillis();
+			for (String s1 : array1) {
+				for (String s2 : array2) {
+					if (s1.equalsIgnoreCase(s2))
+						i++;
+				}
+			}
+			Log.d("time", "isArraysTheSame time = " + (System.currentTimeMillis() - time) + " millis");
+			if (i == array1.length)
+				return true;
+			else
+				return false;
 		}
 
 		private void showEditContactOptionsDialog() {
@@ -334,7 +476,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					mDetails.setClassification(classificationId);
 					if (bitmap != null)
 						ivImage.setImageBitmap(bitmap);
-					setDetails(mDetails);
+					updateHeader();
 					backPressed();
 				}
 			}
@@ -360,7 +502,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 			@Override
 			public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-				View v = inflater.inflate(R.layout.dialog_my_profile_edit_personal_details, container, false);
+				View v = inflater.inflate(R.layout.dialog_my_profile_edit_contact_details, container, false);
 				bFinish = findView(v, R.id.dialog_my_profile_editing_contact_finish);
 				phone = findView(v, R.id.tv_dialog_my_profile_editing_contact_telephone);
 				mail = findView(v, R.id.et_dialog_my_profile_editing_contact_mail);
@@ -444,13 +586,82 @@ public class ActivityMyProfile extends ActivityWithFragment {
 							mDetails.setBillingAddress(billingAddress.getText().toString());
 							mDetails.setBusinessAddress(businessAddress.getText().toString());
 							mDetails.setEmail(mail.getText().toString());
-							setDetails(mDetails);
+							updateContactDetails();
 							backPressed();
 						}
 					}
 				});
 				task.execute();
 			}
+		}
+
+		private class DialogEditDiplomas extends BaseDialog {
+
+			private LinearLayout llList;
+			private ViewGroup bFinish;
+			private GetStringsListener mListener;
+
+			public DialogEditDiplomas(Context context, String[] diplomas) {
+				super(context);
+				llList = (LinearLayout) mView.findViewById(R.id.ll_dialog_my_profile_edit_diplomas_linear_layout);
+				bFinish = (ViewGroup) mView.findViewById(R.id.dialog_my_profile_edit_diplomas_finish);
+				if (diplomas.length > 0)
+					for (String string : diplomas)
+						addEditText(string);
+				else
+					addEditText("");
+
+				bFinish.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (mListener != null) {
+							List<String> list = new ArrayList<String>();
+							for (int i = 0; i < llList.getChildCount(); i++) {
+								MyEditText et = (MyEditText) llList.getChildAt(i);
+								if (!TextUtils.isEmpty(et.getText().toString()))
+									list.add(et.getText().toString());
+							}
+							mListener.returnStrings(list.toArray(new String[list.size()]));
+						}
+						dismiss();
+					}
+				});
+			}
+
+			public void setOnFinishClickListener(GetStringsListener listener) {
+				mListener = listener;
+			}
+
+			private void addEditText(String string) {
+				MyEditText et = new MyEditText(mContext);
+				et.setText(string);
+				et.setSingleLine(true);
+				et.setImeOptions(EditorInfo.IME_ACTION_DONE);
+				et.setOnEditorActionListener(new OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+						if (actionId == EditorInfo.IME_ACTION_DONE) {
+							if (v.getText().toString().equalsIgnoreCase("") && llList.getChildCount() > 1)
+								llList.removeView(v);
+							else if (!v.getText().toString().equalsIgnoreCase("") && llList.getChildCount() < 2)
+								addEditText("");
+						}
+						return false;
+					}
+				});
+				et.requestFocus();
+				llList.addView(et, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+						LinearLayout.LayoutParams.WRAP_CONTENT));
+
+			}
+
+			@Override
+			protected int getViewResourceId() {
+				return R.layout.dialog_my_profile_edit_diplomas;
+			}
+
 		}
 	}
 

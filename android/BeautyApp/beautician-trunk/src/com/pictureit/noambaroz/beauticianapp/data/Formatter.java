@@ -191,13 +191,18 @@ public class Formatter {
 	}
 
 	public void setTreatmentsList(TextView tv1, TextView tv2, ArrayList<TreatmentType> treatmentsList) {
+		setTreatmentsList(tv1, tv2, treatmentsList, true);
+	}
+
+	public void setTreatmentsList(TextView tv1, TextView tv2, ArrayList<TreatmentType> treatmentsList,
+			boolean considerAmount) {
 		tv1.setVisibility(View.VISIBLE);
 		tv2.setVisibility(View.VISIBLE);
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		int count = 0;
 		for (TreatmentType t : treatmentsList) {
-			if (Integer.valueOf(t.getAmount()) > 0) {
+			if (Integer.valueOf(t.getAmount()) > 0 || !considerAmount) {
 				String treatmentName = getTreatmentType(t.getTreatmentId()).getName();
 				String text = mContext.getString(R.string.bullet) + treatmentName
 						+ (t.getAmount() > 1 ? " (" + t.getAmount() + ")" : "") + "\n";

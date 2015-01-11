@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/fragment_padding"
+    android:background="@color/app_white"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/dialog_my_profile_edit_diplomas_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fragment_padding"
+                android:text="@string/finished"
+                android:textColor="@color/text_color_gray" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignRight="@+id/divider2"
+                android:layout_below="@+id/textView3"
+                android:background="@color/divider_color_gray" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/divider1"
+                android:layout_toRightOf="@+id/textView3"
+                android:background="@color/divider_color_gray" />
+        </RelativeLayout>
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:drawableRight="@drawable/ic_remaks"
+            android:paddingRight="@dimen/fragment_padding"
+            android:text="@string/diplomas"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/title_medium_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/divider_color_gray" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_my_profile_edit_diplomas_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</LinearLayout>
