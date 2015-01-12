@@ -141,10 +141,14 @@
 	<string name="hint_business_address">כתובת העסק</string>
 	<string name="hint_billing_address">כתובת למשלוח חשבוניות</string>
 	<string name="diplomas">תעודות</string>
+	<string name="no_diplomas">אין תעודות</string>
 	<string name="personal_details">פרטים אישיים</string>
 	<string name="about">אודות:</string>
-	<string name="experience">שנות נסיון:</string>
+	<string name="write_somthing_on_yourself">כתבי משהו על עצמך</string>
+	<string name="years_of_experience">שנות נסיון:</string>
+	<string name="title_years_of_experience">שנות נסיון</string>
 	<string name="payment_method">אמצעי תשלום:</string>
+	<string name="title_payment_method">אמצעי תשלום</string>
 	
 	<!-- Upcoming Treatments -->
 	<string name="treatments">טיפולים</string>
@@ -179,6 +183,26 @@
 	<string name="minutes">דקות</string>
 	<string name="hours">שעות</string>
 	
+	
+		<!-- Pyment method List -->
+    <string-array name="payment_1">
+        <item name="id">1</item>
+        <item name="title">אשראי או מזומן</item>
+    </string-array>
+    <string-array name="payment_2">
+        <item name="id">2</item>
+        <item name="title">אשראי</item>
+    </string-array>
+    <string-array name="payment_3">
+        <item name="id">3</item>
+        <item name="title">מזומן</item>
+    </string-array>
+
+    <array name="payment_method_list">
+        <item>@array/payment_1</item>
+        <item>@array/payment_2</item>
+        <item>@array/payment_3</item>
+    </array>
 	
 	<!-- Areas List -->
     <string-array name="area_1">

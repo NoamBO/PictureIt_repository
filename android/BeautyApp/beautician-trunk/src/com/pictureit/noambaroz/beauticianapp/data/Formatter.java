@@ -20,20 +20,22 @@ public class Formatter {
 	private ArrayList<TreatmentType> mTreatmentsTypeArrayList;
 	private Context mContext;
 
-	private ArrayList<ClassificationType> mClassificationArrayList;
+	private ArrayList<IntegerString> mClassificationArrayList;
 
-	private ArrayList<AreaType> mAreaArray;
+	private ArrayList<IntegerString> mAreaArray;
+
+	private ArrayList<IntegerString> mPaymentMethodArray;
 
 	public List<TreatmentType> getAllTreatmentsType() {
 		return getTreatmentsArrayList();
 	}
 
-	public List<ClassificationType> getAllClassificationType(Context context) {
+	public List<IntegerString> getAllClassificationType(Context context) {
 		return getSelf(context).getClassificationsArrayList();
 	}
 
 	public String getClassificationById(String classificationID) {
-		for (ClassificationType ct : mClassificationArrayList) {
+		for (IntegerString ct : mClassificationArrayList) {
 			if (ct.getId().equalsIgnoreCase(classificationID))
 				return ct.getTitle();
 		}
@@ -51,6 +53,7 @@ public class Formatter {
 			INSTANCE.setHash();
 			INSTANCE.setClassificationArray(context);
 			INSTANCE.setAreaArray(context);
+			INSTANCE.setPaymentMethodArray(context);
 		}
 
 		return INSTANCE;
@@ -64,12 +67,16 @@ public class Formatter {
 		return mTreatmentsTypeArrayList;
 	}
 
-	private ArrayList<ClassificationType> getClassificationsArrayList() {
+	private ArrayList<IntegerString> getClassificationsArrayList() {
 		return mClassificationArrayList;
 	}
 
-	private ArrayList<AreaType> getAreaArrayList() {
+	private ArrayList<IntegerString> getAreaArrayList() {
 		return mAreaArray;
+	}
+
+	private ArrayList<IntegerString> getPaymentMethodArrayList() {
+		return mPaymentMethodArray;
 	}
 
 	private void setHash() {
@@ -85,14 +92,14 @@ public class Formatter {
 	}
 
 	private void setClassificationArray(Context context) {
-		mClassificationArrayList = new ArrayList<ClassificationType>();
+		mClassificationArrayList = new ArrayList<IntegerString>();
 		Resources res = context.getResources();
 		TypedArray tar = res.obtainTypedArray(R.array.classification_list);
 		for (int i = 0; i < tar.length(); ++i) {
 			int id = tar.getResourceId(i, -1);
 			if (id > -1) {
 				String[] array = res.getStringArray(id);
-				ClassificationType ct = new ClassificationType();
+				IntegerString ct = new IntegerString();
 				ct.setTitle(array[1]);
 				ct.setId(array[0]);
 				mClassificationArrayList.add(ct);
@@ -105,14 +112,14 @@ public class Formatter {
 	}
 
 	private void setAreaArray(Context context) {
-		mAreaArray = new ArrayList<AreaType>();
+		mAreaArray = new ArrayList<IntegerString>();
 		Resources res = context.getResources();
 		TypedArray tar = res.obtainTypedArray(R.array.areas_list);
 		for (int i = 0; i < tar.length(); ++i) {
 			int id = tar.getResourceId(i, -1);
 			if (id > -1) {
 				String[] array = res.getStringArray(id);
-				AreaType at = new AreaType();
+				IntegerString at = new IntegerString();
 				at.setTitle(array[1]);
 				at.setId(array[0]);
 				mAreaArray.add(at);
@@ -123,16 +130,47 @@ public class Formatter {
 		tar.recycle(); // Important
 	}
 
+	private void setPaymentMethodArray(Context context) {
+		mPaymentMethodArray = new ArrayList<IntegerString>();
+		Resources res = context.getResources();
+		TypedArray tar = res.obtainTypedArray(R.array.payment_method_list);
+		for (int i = 0; i < tar.length(); ++i) {
+			int id = tar.getResourceId(i, -1);
+			if (id > -1) {
+				String[] array = res.getStringArray(id);
+				IntegerString at = new IntegerString();
+				at.setTitle(array[1]);
+				at.setId(array[0]);
+				mPaymentMethodArray.add(at);
+			} else {
+				// something wrong with the XML
+			}
+		}
+		tar.recycle(); // Important
+	}
+
 	public String getAreaById(String areaCode) {
-		for (AreaType ct : mAreaArray) {
+		for (IntegerString ct : mAreaArray) {
 			if (ct.getId().equalsIgnoreCase(areaCode))
 				return ct.getTitle();
 		}
 		return "";
 	}
 
-	public List<AreaType> getAllAreaType(Context context) {
+	public String getPaymentMethodById(String areaCode) {
+		for (IntegerString ct : mPaymentMethodArray) {
+			if (ct.getId().equalsIgnoreCase(areaCode))
+				return ct.getTitle();
+		}
+		return "";
+	}
+
+	public List<IntegerString> getAllAreaType(Context context) {
 		return getSelf(context).getAreaArrayList();
+	}
+
+	public List<IntegerString> getAllPaymentMethod(Context context) {
+		return getSelf(context).getPaymentMethodArrayList();
 	}
 
 	public static class TreatmentList {

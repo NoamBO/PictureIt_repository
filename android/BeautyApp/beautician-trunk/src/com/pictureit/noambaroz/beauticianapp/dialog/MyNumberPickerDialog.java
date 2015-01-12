@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beauticianapp.dialog;
 import net.simonvt.numberpicker.NumberPicker;
 import android.app.Activity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.R;
 
@@ -60,5 +61,18 @@ public class MyNumberPickerDialog extends BaseDialog implements android.view.Vie
 	public void setValue(int value) {
 		if (mNumberPicker != null)
 			mNumberPicker.setValue(value);
+	}
+
+	@Override
+	public void setTitle(int titleId) {
+		setTitle(mContext.getString(titleId));
+	}
+
+	@Override
+	public void setTitle(CharSequence title) {
+		TextView tvTitle = (TextView) mView.findViewById(R.id.number_picker_dialog_title);
+		if (tvTitle != null) {
+			tvTitle.setText(title);
+		}
 	}
 }

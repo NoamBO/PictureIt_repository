@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -29,13 +30,13 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.noambaroz.crop_image.Crop;
-import com.pictureit.noambaroz.beauticianapp.data.AreaType;
-import com.pictureit.noambaroz.beauticianapp.data.ClassificationType;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
+import com.pictureit.noambaroz.beauticianapp.data.IntegerString;
 import com.pictureit.noambaroz.beauticianapp.data.MyProfileDetails;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
 import com.pictureit.noambaroz.beauticianapp.dialog.BaseDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.dialog.MyNumberPickerDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.server.GetBeauticianDetailsTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
@@ -44,7 +45,9 @@ import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask.Builder;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDiplomasTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalTreatmentsTask;
+import com.pictureit.noambaroz.beauticianapp.server.UpdateProfileAboutSectionTask;
 import com.pictureit.noambaroz.beauticianapp.utilities.view.MyEditText;
+import com.pictureit.noambaroz.beauticianapp.utilities.view.SoftKeyboard;
 
 public class ActivityMyProfile extends ActivityWithFragment {
 
@@ -178,8 +181,20 @@ public class ActivityMyProfile extends ActivityWithFragment {
 				if (i < (mDetails.getDegrees().length - 1))
 					diplomas = diplomas + "\n";
 			}
-
+			diplomas = diplomas.length() > 0 ? diplomas : getString(R.string.no_diplomas);
 			tvDiplomas.setText(diplomas);
+		}
+
+		private void updatePersonalDetails() {
+			tvAbout.setText(TextUtils.isEmpty(mDetails.getAbout()) ? "" : mDetails.getAbout());
+			String experience = getString(R.string.years_of_experience) + " "
+					+ (TextUtils.isEmpty(mDetails.getExperience()) ? "" : mDetails.getExperience());
+			tvExperience.setText(experience);
+			String paymentMethod = getString(R.string.payment_method)
+					+ " "
+					+ (TextUtils.isEmpty(mDetails.getPayment()) ? "" : Formatter.getSelf(getActivity())
+							.getPaymentMethodById(mDetails.getPayment()));
+			tvPaymentMethod.setText(paymentMethod);
 		}
 
 		protected void setActivityMainScreenDetails() {
@@ -187,14 +202,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			updateContactDetails();
 			updateTreatments();
 			updateDiplomas();
-
-			tvAbout.setText(TextUtils.isEmpty(mDetails.getAbout()) ? "" : mDetails.getAbout());
-			String experience = getString(R.string.experience) + " "
-					+ (TextUtils.isEmpty(mDetails.getExperience()) ? "" : mDetails.getExperience());
-			tvExperience.setText(experience);
-			String paymentMethod = getString(R.string.payment_method) + " "
-					+ (TextUtils.isEmpty(mDetails.getPayment()) ? "" : mDetails.getPayment());
-			tvPaymentMethod.setText(paymentMethod);
+			updatePersonalDetails();
 
 			if (!editHeader.hasOnClickListeners()) {
 				editHeader.setOnClickListener(this);
@@ -222,11 +230,16 @@ public class ActivityMyProfile extends ActivityWithFragment {
 				showEditDiplomasDialog();
 				break;
 			case R.id.ib_my_profile_row5_edit:
-
+				showEditPersonalDetails();
 				break;
 			default:
 				break;
 			}
+		}
+
+		private void showEditPersonalDetails() {
+			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, new FragmentEditPrsonalDetails())
+					.addToBackStack(null).commit();
 		}
 
 		private void showEditDiplomasDialog() {
@@ -444,8 +457,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					String[] list = new String[Formatter.getSelf(getActivity()).getAllClassificationType(getActivity())
 							.size()];
 					int i = 0;
-					for (ClassificationType ct : Formatter.getSelf(getActivity()).getAllClassificationType(
-							getActivity())) {
+					for (IntegerString ct : Formatter.getSelf(getActivity()).getAllClassificationType(getActivity())) {
 						list[i] = ct.getTitle();
 						i++;
 					}
@@ -477,6 +489,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					if (bitmap != null)
 						ivImage.setImageBitmap(bitmap);
 					updateHeader();
+					SoftKeyboard.hide(getActivity());
 					backPressed();
 				}
 			}
@@ -546,7 +559,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 				if (areaDialog == null) {
 					String[] list = new String[Formatter.getSelf(getActivity()).getAllAreaType(getActivity()).size()];
 					int i = 0;
-					for (AreaType at : Formatter.getSelf(getActivity()).getAllAreaType(getActivity())) {
+					for (IntegerString at : Formatter.getSelf(getActivity()).getAllAreaType(getActivity())) {
 						list[i] = at.getTitle();
 						i++;
 					}
@@ -587,6 +600,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 							mDetails.setBusinessAddress(businessAddress.getText().toString());
 							mDetails.setEmail(mail.getText().toString());
 							updateContactDetails();
+							SoftKeyboard.hide(getActivity());
 							backPressed();
 						}
 					}
@@ -624,6 +638,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 							}
 							mListener.returnStrings(list.toArray(new String[list.size()]));
 						}
+						SoftKeyboard.hide(getActivity());
 						dismiss();
 					}
 				});
@@ -663,6 +678,139 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			}
 
 		}
-	}
 
+		private class FragmentEditPrsonalDetails extends Fragment {
+
+			private ViewGroup bFinish;
+			private TextView tvExperience;
+			private EditText about;
+			private TextView tvPaymentMethod;
+			private int paymentID, experience;
+
+			private MyNumberPickerDialog dialogExperience;
+			private MySingleChoiseDialog dialogPaymentMethod;
+
+			@Override
+			public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+				View v = inflater.inflate(R.layout.dialog_my_profile_edit_about_section, container, false);
+				experience = Integer.parseInt(mDetails.getExperience());
+				paymentID = Integer.parseInt(mDetails.getPayment());
+				bFinish = findView(v, R.id.dialog_my_profile_editing_personal_details_finish);
+				about = findView(v, R.id.et_dialog_my_profile_editing_about);
+				tvExperience = findView(v, R.id.tv_dialog_my_profile_editing_years_of_experience);
+				tvPaymentMethod = findView(v, R.id.tv_dialog_my_profile_editing_payment_method);
+
+				about.setText(mDetails.getAbout());
+
+				String experience = getString(R.string.years_of_experience) + " "
+						+ (TextUtils.isEmpty(mDetails.getExperience()) ? "" : mDetails.getExperience());
+				tvExperience.setText(experience);
+
+				String paymentId = String.valueOf(paymentID);
+				tvPaymentMethod.setText(Formatter.getSelf(getActivity()).getPaymentMethodById(paymentId));
+				return v;
+			}
+
+			@Override
+			public void onResume() {
+				super.onResume();
+				bFinish.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						onFinish();
+					}
+				});
+				tvExperience.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						onEditYearsOfExperience();
+					}
+				});
+				tvPaymentMethod.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						onEditPaymentMethod();
+					}
+				});
+			}
+
+			private void onEditYearsOfExperience() {
+				if (dialogExperience == null) {
+					dialogExperience = new MyNumberPickerDialog(getActivity());
+					dialogExperience.setTitle(R.string.title_years_of_experience);
+					dialogExperience.setValue(Integer.parseInt(mDetails.getExperience()));
+					dialogExperience.setPositiveButtonListener(new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							experience = which;
+							String experience = getString(R.string.years_of_experience) + " " + String.valueOf(which);
+							tvExperience.setText(experience);
+						}
+					});
+				}
+				dialogExperience.show();
+			}
+
+			private void onEditPaymentMethod() {
+				if (dialogPaymentMethod == null) {
+					String[] list = new String[Formatter.getSelf(getActivity()).getAllPaymentMethod(getActivity())
+							.size()];
+					int i = 0;
+					for (IntegerString ct : Formatter.getSelf(getActivity()).getAllPaymentMethod(getActivity())) {
+						list[i] = ct.getTitle();
+						i++;
+					}
+					dialogPaymentMethod = new MySingleChoiseDialog(getActivity(), list)
+							.setMyTitle(R.string.title_payment_method).setChecked(paymentID - 1)
+							.setOnItemClickListener(new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									paymentID = which + 1;
+									tvPaymentMethod.setText(Formatter.getSelf(getActivity()).getPaymentMethodById(
+											String.valueOf(paymentID)));
+									dialog.dismiss();
+								}
+							});
+				}
+				dialogPaymentMethod.show();
+			}
+
+			private synchronized void onFinish() {
+
+				SoftKeyboard.hide(getActivity());
+
+				final SpannableStringBuilder ssb = new SpannableStringBuilder(about.getText().toString());
+				for (int i = 0; i < ssb.length() - 1; i++) {
+					if (ssb.charAt(i) == '\n' && (ssb.charAt(i + 1) == ' ' || ssb.charAt(i + 1) == '\n')) {
+						ssb.replace(i + 1, i + 2, "");
+						i--;
+					}
+				}
+
+				new UpdateProfileAboutSectionTask.Builder().addAbout(ssb.toString())
+						.addExperience(String.valueOf(experience)).addPaymentMethod(String.valueOf(paymentID))
+						.build(getActivity(), new HttpCallback() {
+
+							@Override
+							public void onAnswerReturn(Object answer) {
+								if (answer instanceof Integer || !((Boolean) answer)) {
+									Dialogs.showServerFailedDialog(getActivity());
+								} else {
+									Dialogs.successToast(getActivity());
+									mDetails.setAbout(ssb.toString());
+									mDetails.setExperience(String.valueOf(experience));
+									mDetails.setPayment(String.valueOf(paymentID));
+									updatePersonalDetails();
+									backPressed();
+								}
+							}
+						}).execute();
+			}
+		}
+	}
 }

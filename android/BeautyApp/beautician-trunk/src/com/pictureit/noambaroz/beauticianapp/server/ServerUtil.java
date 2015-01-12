@@ -66,10 +66,11 @@ public class ServerUtil {
 
 	// Profile
 	public static final String URL_REQUEST_GET_BEAUTICIAN_DETAILS = URL_BASE + "beauticiandetails";
-	public static final String URL_REQUEST_UPDATE_PERSONAL_DETAILS = URL_BASE + "updatepersonaldetails";
+	public static final String URL_REQUEST_UPDATE_MY_DETAILS = URL_BASE + "updatepersonaldetails";
 	public static final String URL_REQUEST_UPDATE_CONTACT_DETAILS = URL_BASE + "updatecontactdetails";
 	public static final String URL_REQUEST_UPDATE_TREATMENTS = URL_BASE + "updatebeauticiantreatments";
 	public static final String URL_REQUEST_UPDATE_DIPLOMAS = URL_BASE + "updatebeauticiandegrees";
+	public static final String URL_REQUEST_UPDATE_PERSONAL_DETAILS = URL_BASE + "updateprivatedetails";
 	public static final String NAME = "name";
 	public static final String BUSINESS_NAME = "business_name";
 	public static final String CLASSIFICATION = "classification";
@@ -79,5 +80,8 @@ public class ServerUtil {
 	public static final String AREA = "area";
 	public static final String IS_ARRIVED_HOME = "isarrivedhome";
 	public static final String DEGREES = "degrees";
+	public static final String ABOUT = "about";
+	public static final String EXPERIENCE = "experience";
+	public static final String PAYMENT = "payment";
 
 }

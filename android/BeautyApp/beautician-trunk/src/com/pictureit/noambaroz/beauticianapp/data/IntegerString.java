@@ -1,6 +1,6 @@
 package com.pictureit.noambaroz.beauticianapp.data;
 
-public class ClassificationType {
+public class IntegerString {
 
 	private String title;
 	private String id;

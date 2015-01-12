@@ -34,7 +34,7 @@ public class UpdatePersonalDetailsTask extends BaseHttpPost {
 
 	@Override
 	protected void prepare(String request) {
-		setUrl(ServerUtil.URL_REQUEST_UPDATE_PERSONAL_DETAILS);
+		setUrl(ServerUtil.URL_REQUEST_UPDATE_MY_DETAILS);
 		try {
 			JSONObject temp = new JSONObject();
 			temp.put(ServerUtil.UID, getUid());
