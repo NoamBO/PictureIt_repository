@@ -20,7 +20,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
 import com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public abstract class ActivityWithFragment extends BaseActivity {
 
@@ -55,7 +54,7 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		params.gravity = Gravity.BOTTOM;
 		View customView = new View(context);
 		customView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, topViewHeightPix));
-		customView.setBackgroundColor(context.getResources().getColor(R.color.app_background));
+		customView.setBackgroundColor(context.getResources().getColor(R.color.app_white));
 		actionBarContainer.addView(customView);
 	}
 

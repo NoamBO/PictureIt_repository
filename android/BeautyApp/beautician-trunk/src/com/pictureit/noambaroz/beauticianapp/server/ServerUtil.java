@@ -84,4 +84,6 @@ public class ServerUtil {
 	public static final String EXPERIENCE = "experience";
 	public static final String PAYMENT = "payment";
 
+	// Statistics
+	public static final String URL_REQUEST_GET_STATISTICS = URL_BASE + "pricestatistics";
 }

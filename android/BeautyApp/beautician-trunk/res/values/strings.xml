@@ -76,6 +76,22 @@
     <string name="invalid_filed">שדה לא תקין</string>
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
 
+    <!-- Statistics -->
+    <string name="income">הכנסות</string>
+    <string name="january">ינואר</string>
+    <string name="february">פבואר</string>
+    <string name="march">מרץ</string>
+    <string name="april">אפריל</string>
+    <string name="may">מאי</string>
+    <string name="june">יוני</string>
+    <string name="july">יולי</string>
+    <string name="august">אוגוסט</string>
+    <string name="september">ספטמבר</string>
+    <string name="october">אוקטובר</string>
+    <string name="november">נובמבר</string>
+    <string name="december">דצמבר</string>
+    
+    
     <!-- History -->
     <string name="history">היסטורית טיפולים</string>
     <string name="no_history">אין הסטוריה</string>

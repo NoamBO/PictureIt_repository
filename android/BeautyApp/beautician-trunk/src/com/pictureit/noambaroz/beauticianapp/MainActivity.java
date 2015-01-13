@@ -201,16 +201,8 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		case R.id.action_my_profile:
 			launchActivity(ActivityMyProfile.class);
 			break;
-		case R.id.action_explanation:
-			// Alarm alarm = new Alarm();
-			// alarm.customer_name = "name";
-			// alarm.treatmentTime = System.currentTimeMillis() +
-			// MyPreference.getPreTreatmentAlertTimeInMillis() + 3000;
-			// alarm.imageUrl = "imageurl";
-			// alarm.treatment = "treatment";
-			// alarm.treatment_id = 222;
-			// alarm.address = "address";
-			// AlarmManager.getInstance().setAlarm(alarm);
+		case R.id.action_statistics:
+			launchActivity(ActivityStatistics.class);
 			break;
 		default:
 			break;

@@ -14,6 +14,7 @@ import com.pictureit.noambaroz.beauticianapp.data.History;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.MyProfileDetails;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
+import com.pictureit.noambaroz.beauticianapp.data.Staticsic;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 
 public class JsonToObject {
@@ -103,6 +104,18 @@ public class JsonToObject {
 			e.printStackTrace();
 		}
 		return t;
+	}
+
+	public static Staticsic jsonToStatistics(String json) {
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		Staticsic s = null;
+		try {
+			JSONObject j = new JSONObject(finalString).getJSONObject("beautician_details");
+			s = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), Staticsic.class);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return s;
 	}
 
 	public static String[] jsonToAddresses(String result) {

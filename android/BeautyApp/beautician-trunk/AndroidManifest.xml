@@ -107,6 +107,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityStatistics"
+            android:label="@string/title_statistics"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.pictureit.noambaroz.beauticianapp.ActivityNotificationsDialog"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
