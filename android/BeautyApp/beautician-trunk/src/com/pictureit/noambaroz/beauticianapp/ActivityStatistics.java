@@ -2,6 +2,7 @@ package com.pictureit.noambaroz.beauticianapp;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,14 +12,20 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beauticianapp.data.Staticsic;
-import com.pictureit.noambaroz.beauticianapp.data.Staticsic.MonthlyIncome;
+import com.pictureit.noambaroz.beauticianapp.data.Statistic;
+import com.pictureit.noambaroz.beauticianapp.data.Statistic.MonthlyIncome;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.server.GetStatistics;
+import com.pictureit.noambaroz.beauticianapp.server.GetStatistics.StatisticType;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.utilities.PixelsConverter;
 import com.pictureit.noambaroz.beauticianapp.utilities.view.HorizontalListView;
@@ -41,7 +48,7 @@ public class ActivityStatistics extends ActivityWithFragment {
 
 	private class FragmentStatistics extends Fragment {
 
-		private HttpCallback priceStatisticsCallback = new HttpCallback() {
+		private HttpCallback taskCallback = new HttpCallback() {
 
 			@Override
 			public void onAnswerReturn(Object answer) {
@@ -49,20 +56,25 @@ public class ActivityStatistics extends ActivityWithFragment {
 					Dialogs.showServerFailedDialog(getActivity());
 					return;
 				}
-				mStatistic = (Staticsic) answer;
+				mStatistic = (Statistic) answer;
 				updateUi();
 			}
 		};
 
-		private Staticsic mStatistic;
+		private Statistic mStatistic;
 
 		private HorizontalListView listview;
 		private TextView tvTotalSum;
 		private TextView tvMiddleSum;
 
+		private AutoCompleteTextView tvStatisticType;
+		private TextView tvGeneralDetails;
+
+		private boolean generalDetailsSet;
+
 		private double highest;
-		private int[] colHeight;
-		private Double[] prices;
+		private int[] columnHeight;
+		private Double[] columnValues;
 		private String[] datelabel;
 
 		@Override
@@ -71,36 +83,90 @@ public class ActivityStatistics extends ActivityWithFragment {
 			listview = findView(v, R.id.chart_listview);
 			tvTotalSum = findView(v, R.id.tv_statistics_max_value);
 			tvMiddleSum = findView(v, R.id.tv_statistics_medium_value);
-			new GetStatistics(getActivity(), priceStatisticsCallback).execute();
+			tvGeneralDetails = findView(v, R.id.tv_statistics_summary);
+			tvStatisticType = findView(v, R.id.tv_statistics_title);
+			setTitleClick();
+			new GetStatistics(getActivity(), taskCallback, StatisticType.PricesStatistics).execute();
 			return v;
 		}
 
+		private void setTitleClick() {
+			String[] s = new String[] { getString(R.string.income), getString(R.string.treatments) };
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_textview, s);
+			tvStatisticType.setAdapter(adapter);
+			tvStatisticType.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					tvStatisticType.showDropDown();
+				}
+			});
+			tvStatisticType.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					StatisticType st;
+					switch (position) {
+					case 0:
+						st = StatisticType.PricesStatistics;
+						break;
+					case 1:
+						st = StatisticType.TreatmentStatistics;
+						break;
+					default:
+						st = StatisticType.PricesStatistics;
+						break;
+					}
+					new GetStatistics(getActivity(), taskCallback, st).execute();
+				}
+			});
+		}
+
 		private void updateUi() {
-			prices = new Double[mStatistic.getPrices().size()];
-			datelabel = new String[mStatistic.getPrices().size()];
-			for (int i = 0; i < mStatistic.getPrices().size(); i++) {
-				MonthlyIncome m = mStatistic.getPrices().get(i);
-				prices[i] = m.getPrice();
+			columnValues = new Double[mStatistic.getMonthsValues().size()];
+			datelabel = new String[mStatistic.getMonthsValues().size()];
+			for (int i = 0; i < mStatistic.getMonthsValues().size(); i++) {
+				MonthlyIncome m = mStatistic.getMonthsValues().get(i);
+				columnValues[i] = m.getValue();
 				datelabel[i] = getMonthForInteger(m.getMonth());
 			}
 
-			List<Double> b = Arrays.asList(prices);
+			List<Double> b = Arrays.asList(columnValues);
 			highest = (Collections.max(b));
 			tvTotalSum.setText(String.valueOf(highest));
 			tvMiddleSum.setText(String.valueOf((int) highest / 2));
 
-			colHeight = new int[prices.length];
+			columnHeight = new int[columnValues.length];
 
 			updateSizeInfo();
+			setGeneralDetailsText();
+		}
+
+		private void setGeneralDetailsText() {
+			if (!generalDetailsSet) {
+				Calendar c = Calendar.getInstance();
+				int year = c.get(Calendar.YEAR);
+				StringBuilder sb = new StringBuilder();
+				sb.append(getString(R.string.total_income)).append(" ").append(mStatistic.getTotalMoney()).append(" ")
+						.append(getString(R.string.currency)).append("\n");
+
+				sb.append(getString(R.string.total_income_at_current_year)).append(" ").append(String.valueOf(year))
+						.append(": ").append(mStatistic.getCurrentYearTotalMoney()).append(" ")
+						.append(getString(R.string.currency)).append("\n");
+
+				sb.append(getString(R.string.total_treatments)).append(" ").append(mStatistic.getTotalTreatments())
+						.append("\n");
+
+				sb.append(getString(R.string.total_treatments_at_current_year)).append(" ")
+						.append(String.valueOf(year)).append(": ").append(mStatistic.getCurrentYearTotalTreatments());
+
+				tvGeneralDetails.setText(sb.toString());
+				generalDetailsSet = true;
+			}
 		}
 
 		private void updateSizeInfo() {
 
-			/**
-			 * This is onWindowFocusChanged method is used to allow the chart to
-			 * update the chart according to the orientation. Here h is the
-			 * integer value which can be updated with the orientation
-			 */
 			int h = 200;
 			if (getResources().getConfiguration().orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
 				h = (int) (listview.getHeight());
@@ -114,10 +180,10 @@ public class ActivityStatistics extends ActivityWithFragment {
 			// h = 130;
 			// }
 			// }
-			for (int i = 0; i < colHeight.length; i++) {
-				colHeight[i] = (int) ((h * prices[i]) / highest);
+			for (int i = 0; i < columnHeight.length; i++) {
+				columnHeight[i] = (int) ((h * columnValues[i]) / highest);
 			}
-			listview.setAdapter(new ChartAdapter(getActivity(), datelabel, prices, colHeight));
+			listview.setAdapter(new ChartAdapter(getActivity(), datelabel, columnValues, columnHeight));
 		}
 
 		private String getMonthForInteger(int num) {
@@ -166,13 +232,13 @@ public class ActivityStatistics extends ActivityWithFragment {
 		public class ChartAdapter extends BaseAdapter {
 			Activity activity;
 			private int[] colHeight;
-			private Double[] prices;
+			private Double[] values;
 			private String[] datelabel;
 
-			public ChartAdapter(Activity activity, String[] datelabel, Double[] prices, int[] colHeight) {
+			public ChartAdapter(Activity activity, String[] datelabel, Double[] values, int[] colHeight) {
 				this.activity = activity;
 				this.datelabel = datelabel;
-				this.prices = prices;
+				this.values = values;
 				this.colHeight = colHeight;
 			}
 
@@ -206,7 +272,7 @@ public class ActivityStatistics extends ActivityWithFragment {
 				int colHeight = (int) (this.colHeight[position] - PixelsConverter.convertDpToPixel(30, getActivity()));
 				holder.col.getLayoutParams().height = colHeight > 0 ? colHeight : 0;
 				holder.month.setText(this.datelabel[position]);
-				holder.income.setText(df.format(this.prices[position]));
+				holder.income.setText(df.format(this.values[position]));
 
 				return convertView;
 			}

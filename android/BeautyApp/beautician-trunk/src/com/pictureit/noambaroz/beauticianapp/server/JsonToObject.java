@@ -14,7 +14,7 @@ import com.pictureit.noambaroz.beauticianapp.data.History;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.MyProfileDetails;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
-import com.pictureit.noambaroz.beauticianapp.data.Staticsic;
+import com.pictureit.noambaroz.beauticianapp.data.Statistic;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 
 public class JsonToObject {
@@ -106,12 +106,12 @@ public class JsonToObject {
 		return t;
 	}
 
-	public static Staticsic jsonToStatistics(String json) {
+	public static Statistic jsonToStatistics(String json) {
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
-		Staticsic s = null;
+		Statistic s = null;
 		try {
-			JSONObject j = new JSONObject(finalString).getJSONObject("beautician_details");
-			s = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), Staticsic.class);
+			JSONObject j = new JSONObject(finalString).getJSONObject("beautician_statistics");
+			s = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), Statistic.class);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

@@ -78,6 +78,11 @@
 
     <!-- Statistics -->
     <string name="income">הכנסות</string>
+    <string name="general_details">נתונים כללים</string>
+    <string name="total_income">סה\"כ הכנסות:</string>
+    <string name="total_income_at_current_year">סה\"כ הכנסות לשנת</string>
+    <string name="total_treatments">סה\"כ טיפולים:</string>
+    <string name="total_treatments_at_current_year">סה\"כ טיפולים לשנת</string>
     <string name="january">ינואר</string>
     <string name="february">פבואר</string>
     <string name="march">מרץ</string>
@@ -178,7 +183,7 @@
 	<string name="location">מיקום:</string>
 	<string name="remarks">היערות:</string>
 	<string name="price">מחיר:</string>
-	<string name="currency">ש"ח</string>
+	<string name="currency">ש\"ח</string>
 	
 	<!-- Cancel treatment dialog -->
 	<string name="cause_to_cancel_treatment">סיבת ביטול הטיפול</string>

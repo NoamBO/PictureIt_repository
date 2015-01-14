@@ -115,9 +115,9 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			return "";
 		}
-		return "";
+		return null;
 	}
 
 	private String convertStreamToString(InputStream is) {
