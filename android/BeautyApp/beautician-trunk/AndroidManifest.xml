@@ -91,7 +91,6 @@
         <activity
             android:name="com.pictureit.noambaroz.beauticianapp.ActivityMessage"
             android:label="@string/messages"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -109,6 +108,12 @@
         <activity
             android:name="com.pictureit.noambaroz.beauticianapp.ActivityStatistics"
             android:label="@string/title_statistics"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.pictureit.noambaroz.beauticianapp.ActivityTermsOfUse"
+            android:label="@string/title_terms_of_use"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>

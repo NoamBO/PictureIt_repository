@@ -11,7 +11,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdate;
@@ -40,11 +42,14 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 
 	private HashMap<Marker, String> allMarkers;
 
+	private ImageButton ibCurrentLocation;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_map_container, container, false);
 		allMarkers = new HashMap<Marker, String>();
 		mLoadingMapCoverScreen = findView(v, R.id.myMap_fragment_loading_view);
+		ibCurrentLocation = findView(v, R.id.my_location_button);
 		initIndicator();
 		showMapLoadingIndicator();
 		return v;
@@ -99,6 +104,19 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 	@Override
 	public void onResume() {
 		initMapIfNeeded(((MainActivity) getActivity()).getLastLocation());
+		ibCurrentLocation.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (mMap != null && mCurrentLocationMarker != null) {
+					LatLng ll = mCurrentLocationMarker.getPosition();
+					if (ll != null) {
+						CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ll, INITIAL_ZOOM);
+						mMap.animateCamera(cameraUpdate);
+					}
+				}
+			}
+		});
 		super.onResume();
 	}
 

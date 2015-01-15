@@ -216,6 +216,8 @@ public class Formatter {
 
 	public String getTreatmentName(ArrayList<TreatmentType> arr) {
 		StringBuilder sb = new StringBuilder();
+		if (arr.size() == 0)
+			return "";
 		sb.append(getTreatmentType(arr.get(0).getTreatmentId()).getName());
 		if (arr.size() > 1) {
 			sb.append(" ");

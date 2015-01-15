@@ -36,8 +36,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 		Alarm alarm = intent.getParcelableExtra(AlarmManager.EXTRA_ALARM);
 		MyPreference.setHasAlarmsDialogsToShow(true);
 
-		boolean isPlayed = (System.currentTimeMillis() - alarm.treatment_time) > 0;
-		AlarmManager.getInstance().setRowToShowAnyDialogOnActivity(alarm.upcomingtreatment_id);
+		boolean isPlayed = (System.currentTimeMillis() - alarm.getTreatmentDate()) > 0;
+		AlarmManager.getInstance().setRowToShowAnyDialogOnActivity(alarm.getUpcomingtreatment_id());
 		if (!isAppRunningInForeground()) {
 			setNotificationVariables(alarm, isPlayed);
 		} else {
@@ -75,7 +75,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		String message = "";
 		String title = "";
 		if (!isAlarmPlayed) {
-			message = mContext.getString(R.string.treatment_of) + " " + alarm.full_name + " "
+			message = mContext.getString(R.string.treatment_of) + " " + alarm.getFullName() + " "
 					+ mContext.getString(R.string.start_soon);
 			title = mContext.getString(R.string.treatment_start_within) + " "
 					+ ActivitySettings.SettingsFragment.getPreTreatmentAlertTimeInString(mContext);
@@ -102,7 +102,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 				.setAutoCancel(true).setSound(uri);
 
 		builder.setContentIntent(contentIntent);
-		fireNotification(alarm.upcomingtreatment_id, builder.build());
+		fireNotification(alarm.getUpcomingtreatment_id(), builder.build());
 	}
 
 	private void fireNotification(int notificationID, Notification notification) {

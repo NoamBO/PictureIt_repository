@@ -18,9 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
-import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.server.GetMessages;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
@@ -44,6 +44,12 @@ public class ActivityMessages extends ActivityWithFragment {
 	@Override
 	public void onBackPressed() {
 		backPressed();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		((MessagesFragment) fragment).onMyActivityResult(requestCode, resultCode, data);
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private class MessagesFragment extends Fragment implements HttpCallback, OnItemClickListener {
@@ -102,19 +108,18 @@ public class ActivityMessages extends ActivityWithFragment {
 			Message m = adapter.getItem(position);
 			Intent intent = new Intent(getActivity(), ActivityMessage.class);
 			intent.putExtra(Constant.EXTRA_MESSAGE_OBJECT, m);
-			startActivityForResult(intent, Constant.REQUEST_CODE_SINGLE_MESSAGE);
+			getActivity().startActivityForResult(intent, Constant.REQUEST_CODE_SINGLE_MESSAGE);
 			overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}
 
-		@Override
-		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-			super.onActivityResult(requestCode, resultCode, data);
+		public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
 			if (requestCode == Constant.REQUEST_CODE_SINGLE_MESSAGE && resultCode == RESULT_OK
 					&& data.getExtras() != null)
 				for (Message m : arrayList) {
 					if (m.getOrderid().equalsIgnoreCase(data.getStringExtra(Constant.EXTRA_ORDER_ID))) {
 						arrayList.remove(m);
 						adapter.notifyDataSetChanged();
+						checkStatus();
 						return;
 					}
 				}
@@ -150,8 +155,8 @@ public class ActivityMessages extends ActivityWithFragment {
 			holder.date.setText(TimeUtils.timestampToDateWithHour(getItem(position).getMessageSentTime()));
 			holder.name.setText(getItem(position).getClientName());
 			holder.address.setText(getItem(position).getClientAdress());
-			holder.treatment.setText(Formatter.getSelf(getContext()).getTreatmentName(
-					getItem(position).getTreatments()));
+			holder.treatment.setText(Formatter.getSelf(getContext())
+					.getTreatmentName(getItem(position).getTreatments()));
 
 			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);
 

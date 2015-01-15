@@ -81,11 +81,12 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			if (mResponseConfirmedArraylist.size() > 0) {
 				showTreatmentConfirmedDialog(mResponseConfirmedArraylist.get(mResponseConfirmedArraylist.size() - 1));
 			} else if (mAlarmsArraylist.size() > 0) {
-				boolean isPlayed = (System.currentTimeMillis() - mAlarmsArraylist.get(mAlarmsArraylist.size() - 1).treatment_time) > 0;
+				boolean isPlayed = (System.currentTimeMillis() - mAlarmsArraylist.get(mAlarmsArraylist.size() - 1)
+						.getTreatmentDate()) > 0;
 				if (isPlayed)
 					showDialogTreatmentIsOver(mAlarmsArraylist.get(mAlarmsArraylist.size() - 1));
 				else {
-					if (mAlarmsArraylist.get(mAlarmsArraylist.size() - 1).isPlayed == 1) {
+					if (mAlarmsArraylist.get(mAlarmsArraylist.size() - 1).getIsPlayed() == 1) {
 						mAlarmsArraylist.remove(mAlarmsArraylist.size() - 1);
 						checkStatusAndShowDialog();
 					} else
@@ -129,7 +130,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				AlarmManager.getInstance().setAlertReminderWasShown(alarm.upcomingtreatment_id);
+				AlarmManager.getInstance().setAlertReminderWasShown(alarm.getUpcomingtreatment_id());
 				mAlarmsArraylist.remove(alarm);
 				// checkStatusAndShowDialog();
 			}
@@ -161,13 +162,13 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			if (cursor.moveToFirst())
 				do {
 					Alarm a = new Alarm();
-					a.treatment_time = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME));
-					a.full_name = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME));
-					a.upcomingtreatment_id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
-					a.image_url = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
-					a.treatment = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT));
-					a.address = cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS));
-					a.isPlayed = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_IS_PLAYED));
+					a.setTreatmentDate(cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME)));
+					a.setFullName(cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME)));
+					a.setUpcomingtreatment_id(cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID)));
+					a.setImageUrl(cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL)));
+					a.setTreatment(cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT)));
+					a.setAddress(cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS)));
+					a.setIsPlayed(cursor.getInt(cursor.getColumnIndex(DataProvider.COL_IS_PLAYED)));
 					mAlarmsArraylist.add(a);
 				} while (cursor.moveToNext());
 		} else if (loader.getId() == ID_RESPONSE_CONFIRMED_TABLE) {
@@ -205,10 +206,10 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			TextView treatment = (TextView) mView.findViewById(R.id.tv_row_dialog_reminder_type_name);
 			ImageView image = (ImageView) mView.findViewById(R.id.iv_row_dialog_reminder);
 
-			date.setText(TimeUtils.timestampToDateWithHour(String.valueOf(alarm.treatment_time / 1000)));
-			name.setText(alarm.full_name);
-			treatment.setText(alarm.treatment);
-			ImageLoaderUtil.display(alarm.image_url, image);
+			date.setText(TimeUtils.timestampToDateWithHour(String.valueOf(alarm.getTreatmentDate() / 1000)));
+			name.setText(alarm.getFullName());
+			treatment.setText(alarm.getTreatment());
+			ImageLoaderUtil.display(alarm.getImageUrl(), image);
 		}
 
 		@Override
@@ -234,7 +235,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 									.addToBackStack(null).commit();
 						}
 					}
-				}, String.valueOf(alarm.upcomingtreatment_id));
+				}, String.valueOf(alarm.getUpcomingtreatment_id()));
 				task.execute();
 				break;
 
@@ -247,7 +248,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 
 			@Override
 			public void onTreatmentCanceled(UpcomingTreatment treatment) {
-				AlarmManager.getInstance().deleteAlarmFromTable(alarm.upcomingtreatment_id);
+				AlarmManager.getInstance().deleteAlarmFromTable(alarm.getUpcomingtreatment_id());
 				mAlarmsArraylist.remove(alarm);
 				// checkStatusAndShowDialog();
 			}
@@ -271,10 +272,10 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			bHappened = (TextView) mView.findViewById(R.id.b_dialog_treatment_begin_happen);
 			bNotHappened = (TextView) mView.findViewById(R.id.b_dialog_treatment_begin_not_happen);
 
-			date.setText(TimeUtils.timestampToDateWithHour(String.valueOf(alarm.treatment_time / 1000)));
-			name.setText(alarm.full_name);
-			address.setText(alarm.address);
-			treatment.setText(alarm.treatment);
+			date.setText(TimeUtils.timestampToDateWithHour(String.valueOf(alarm.getTreatmentDate() / 1000)));
+			name.setText(alarm.getFullName());
+			address.setText(alarm.getAddress());
+			treatment.setText(alarm.getTreatment());
 
 			bHappened.setOnClickListener(this);
 			bNotHappened.setOnClickListener(this);
@@ -289,7 +290,8 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.b_dialog_treatment_begin_happen:
-				SetTreatmentStatusTask httpRequest = new SetTreatmentStatusTask(mContext, callback, true, alarm.upcomingtreatment_id, -1);
+				SetTreatmentStatusTask httpRequest = new SetTreatmentStatusTask(mContext, callback, true,
+						alarm.getUpcomingtreatment_id(), -1);
 				httpRequest.execute();
 				break;
 
@@ -315,7 +317,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 					if (!mCurrentDialog.isShowing())
 						mCurrentDialog.show();
 				} else {
-					AlarmManager.getInstance().deleteAlarmFromTable(alarm.upcomingtreatment_id);
+					AlarmManager.getInstance().deleteAlarmFromTable(alarm.getUpcomingtreatment_id());
 					mAlarmsArraylist.remove(alarm);
 					dismiss();
 					// checkStatusAndShowDialog();
@@ -331,8 +333,8 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					SetTreatmentStatusTask httpRequest = new SetTreatmentStatusTask(mContext, callback, false,
-							alarm.upcomingtreatment_id, which);
+					SetTreatmentStatusTask httpRequest = new SetTreatmentStatusTask(mContext, callback, false, alarm
+							.getUpcomingtreatment_id(), which);
 					httpRequest.execute();
 				}
 			}, new OnClickListener() {

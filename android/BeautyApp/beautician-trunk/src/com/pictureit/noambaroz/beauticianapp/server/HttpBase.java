@@ -67,6 +67,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 
 	protected void showProgressDialog() {
 		mProgressDialog = new MyProgressDialog();
+		mProgressDialog.setCancelable(false);
 		mProgressDialog.show(((Activity) ctx).getFragmentManager(), "progressDialog");
 	}
 

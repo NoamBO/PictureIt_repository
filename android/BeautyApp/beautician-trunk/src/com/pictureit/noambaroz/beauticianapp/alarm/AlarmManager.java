@@ -39,15 +39,15 @@ public class AlarmManager {
 
 	public void setAlarm(Alarm alarm) {
 		ContentValues cv = new ContentValues(7);
-		cv.put(DataProvider.COL_CUSTOMER_NAME, alarm.full_name);
-		cv.put(DataProvider.COL_TREATMENT_TIME, alarm.treatment_time);
-		cv.put(DataProvider.COL_IMAGE_URL, alarm.image_url);
-		cv.put(DataProvider.COL_TREATMENT, alarm.treatment);
-		cv.put(DataProvider.COL_TREATMENT_ID, alarm.upcomingtreatment_id);
-		cv.put(DataProvider.COL_ADDRESS, alarm.address);
+		cv.put(DataProvider.COL_CUSTOMER_NAME, alarm.getFullName());
+		cv.put(DataProvider.COL_TREATMENT_TIME, alarm.getTreatmentDate());
+		cv.put(DataProvider.COL_IMAGE_URL, alarm.getImageUrl());
+		cv.put(DataProvider.COL_TREATMENT, alarm.getTreatment());
+		cv.put(DataProvider.COL_TREATMENT_ID, alarm.getUpcomingtreatment_id());
+		cv.put(DataProvider.COL_ADDRESS, alarm.getAddress());
 		cv.put(DataProvider.COL_NEED_TO_SHOW_DIALOG, 0);
 		mContext.getContentResolver().insert(DataProvider.CONTENT_URI_ALARMS, cv);
-		Log.i("alarm", "new alarm set with id = " + alarm.upcomingtreatment_id);
+		Log.i("alarm", "new alarm set with id = " + alarm.getUpcomingtreatment_id());
 		resetAlarms();
 	}
 
@@ -78,12 +78,12 @@ public class AlarmManager {
 				Log.i("alarm", "new alarm set - treatmentTime: " + treatmentTime);
 				Log.i("alarm", "new alarm set - alertTime    : " + alertTime);
 				Log.i("alarm", "new alarm set - currentTime  : " + currentTime);
-				alarm.treatment_time = cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME));
-				alarm.full_name = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME));
-				alarm.upcomingtreatment_id = cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
-				alarm.image_url = cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL));
-				alarm.treatment = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT));
-				alarm.address = cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS));
+				alarm.setTreatmentDate(cursor.getLong(cursor.getColumnIndex(DataProvider.COL_TREATMENT_TIME)));
+				alarm.setFullName(cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_NAME)));
+				alarm.setUpcomingtreatment_id(cursor.getInt(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID)));
+				alarm.setImageUrl(cursor.getString(cursor.getColumnIndex(DataProvider.COL_IMAGE_URL)));
+				alarm.setTreatment(cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT)));
+				alarm.setAddress(cursor.getString(cursor.getColumnIndex(DataProvider.COL_ADDRESS)));
 			} while (cursor.moveToNext());
 			updateAlarmTime(alarm, alertTime);
 		}

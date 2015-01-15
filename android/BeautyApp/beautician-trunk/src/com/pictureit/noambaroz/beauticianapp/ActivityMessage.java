@@ -27,11 +27,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pictureit.noambaroz.beauticianapp.FragmentTreatmentSelection.OnTreatmentListChangeListener;
 import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.MessageResponse;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.TreatmentType;
-import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
@@ -222,7 +222,6 @@ public class ActivityMessage extends ActivityWithFragment {
 			if (TextUtils.isEmpty((String) answer)) {
 				Dialogs.showServerFailedDialog(getActivity());
 			} else {
-				DataUtils.get(getActivity()).deleteOrderAroundMe(mMessage.getOrderid());
 				Dialogs.successToast(getApplicationContext());
 				onFinish();
 			}

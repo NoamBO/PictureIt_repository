@@ -13,7 +13,7 @@ public class UpcomingTreatment {
 	private ArrayList<TreatmentType> treatments;
 	private String location;
 	private String treatment_date;
-	private String price;
+	private String treatment_price;
 
 	public UpcomingTreatment() {
 	}
@@ -91,10 +91,10 @@ public class UpcomingTreatment {
 	}
 
 	public String getPrice() {
-		return price;
+		return treatment_price;
 	}
 
 	public void setPrice(String price) {
-		this.price = price;
+		this.treatment_price = price;
 	}
 }

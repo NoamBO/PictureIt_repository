@@ -204,6 +204,9 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		case R.id.action_statistics:
 			launchActivity(ActivityStatistics.class);
 			break;
+		case R.id.action_terms_of_use:
+			launchActivity(ActivityTermsOfUse.class);
+			break;
 		default:
 			break;
 		}
