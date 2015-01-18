@@ -106,7 +106,11 @@ public class GcmIntentService extends IntentService {
 	}
 
 	private void onCustomerResponse(String beauticianOfferResponse) {
-		BeauticianOfferResponse bor = new Gson().fromJson(beauticianOfferResponse, BeauticianOfferResponse.class);
+		BeauticianOfferResponse bor = null;
+		try {
+			bor = new Gson().fromJson(beauticianOfferResponse, BeauticianOfferResponse.class);
+		} catch (Exception e) {
+		}
 		if (bor == null || bor.orderid == null)
 			return;
 
@@ -147,7 +151,12 @@ public class GcmIntentService extends IntentService {
 	}
 
 	private void onMessageArrived(String orderAroundMe) {
-		OrderAroundMe oam = new Gson().fromJson(orderAroundMe, OrderAroundMe.class);
+		OrderAroundMe oam = null;
+		try {
+			oam = new Gson().fromJson(orderAroundMe, OrderAroundMe.class);
+		} catch (Exception e) {
+		}
+
 		if (oam == null || oam.getOrderid() == null)
 			return;
 

@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -301,25 +302,8 @@ public class ServiceOrderManager {
 		mTreatment = treatment;
 	}
 
-	public void placeOrder(String beauticianId) {
-		PostOrderTreatment httpPost = new PostOrderTreatment(activity, placeOrderHttpCallback, mTreatment.forwho,
-				mTreatment.date, mTreatment.comments, mTreatment.location, mTreatment.treatments);
-		if (beauticianId == null)
-			placeOrderByLocation(httpPost);
-		else
-			placeOrderByBeauticianId(httpPost, beauticianId);
-	}
+	public void placeOrder(final String beauticianId) {
 
-	private void placeOrderByBeauticianId(PostOrderTreatment httpPost, String beauticianId) {
-		try {
-			httpPost.forSpecificBeautician(beauticianId);
-		} catch (Exception e) {
-			Log.i("failed while building the request to the server");
-			e.printStackTrace();
-		}
-	}
-
-	private void placeOrderByLocation(final PostOrderTreatment httpPost) {
 		final ProgressDialog pd = new ProgressDialog(activity);
 		pd.setCanceledOnTouchOutside(false);
 		pd.show();
@@ -333,7 +317,13 @@ public class ServiceOrderManager {
 					return;
 				}
 				try {
-					httpPost.byLocation(location);
+					PostOrderTreatment httpPost = new PostOrderTreatment(activity, placeOrderHttpCallback,
+							mTreatment.forwho, mTreatment.date, mTreatment.comments, mTreatment.location,
+							mTreatment.treatments).withLocation(location);
+					if (TextUtils.isEmpty(beauticianId))
+						httpPost.forAllBeauticians();
+					else
+						httpPost.forSpecificBeautician(beauticianId);
 				} catch (Exception e) {
 					Log.i("failed while building the request to the server");
 					e.printStackTrace();
@@ -345,6 +335,7 @@ public class ServiceOrderManager {
 			pd.cancel();
 			Dialogs.showErrorDialog(activity, R.string.dialog_messege_no_location);
 		}
+
 	}
 
 	public static void setPending(Context context, boolean isPending) {

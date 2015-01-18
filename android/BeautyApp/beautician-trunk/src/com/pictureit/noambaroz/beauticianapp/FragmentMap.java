@@ -84,6 +84,7 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 
 				@Override
 				public void onCancel() {
+					Log.i("map", "cant animate camera");
 				}
 			});
 		}

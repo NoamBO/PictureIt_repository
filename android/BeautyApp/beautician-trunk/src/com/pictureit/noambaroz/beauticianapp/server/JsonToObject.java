@@ -153,7 +153,7 @@ public class JsonToObject {
 
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
 		try {
-			JSONArray j = new JSONObject(finalString).getJSONArray("beauticians_around");
+			JSONArray j = new JSONObject(finalString).getJSONArray("clients_around");
 
 			Type arrayType = new TypeToken<List<OrderAroundMe>>() {
 			}.getType();

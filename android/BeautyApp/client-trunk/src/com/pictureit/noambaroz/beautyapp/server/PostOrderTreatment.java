@@ -34,17 +34,25 @@ public class PostOrderTreatment extends BaseHttpPost {
 		this.treatments = treatments;
 	}
 
-	public void byLocation(Location location) throws Exception {
-		mMainJson = new JSONObject();
+	public PostOrderTreatment withLocation(Location location) throws Exception {
+		if (mMainJson == null)
+			mMainJson = new JSONObject();
 		mMainJson.put(ServerUtil.LATITUDE, location.getLatitude());
 		mMainJson.put(ServerUtil.LONGITUDE, location.getLongitude());
+		return this;
+	}
+
+	public void forAllBeauticians() throws Exception {
+		if (mMainJson == null)
+			mMainJson = new JSONObject();
 		mMainJson.put(ServerUtil.UID, getUid());
 		prepare(ServerUtil.URL_REQUEST_ORDER_TREATMENT_BY_LOCATION);
 		start();
 	}
 
 	public void forSpecificBeautician(String beauticianId) throws Exception {
-		mMainJson = new JSONObject();
+		if (mMainJson == null)
+			mMainJson = new JSONObject();
 		mMainJson.put(ServerUtil.BEAUTICIAN_UID, beauticianId);
 		mMainJson.put(ServerUtil.CUSTOMER_UID, getUid());
 		prepare(ServerUtil.URL_REQUEST_ORDER_TREATMENT);
