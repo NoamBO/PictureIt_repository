@@ -18,10 +18,27 @@ public class TimeUtils {
 	 *            in format of "dd/MM/yyyy"
 	 * @return timestamp (seconds)
 	 */
-	public static long dateToTimestamp(String date) {
+	public static long dateToGMTTimestamp(String date) {
+		return dateToTimestamp(date, true);
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * @param isGMT
+	 *            to return gmt time stamp( +0 ) in format of "dd/MM/yyyy"
+	 * @return timestamp (seconds)
+	 */
+	public static long dateToLocalTimestamp(String date) {
+		return dateToTimestamp(date, false);
+	}
+
+	private static long dateToTimestamp(String date, boolean isGMT) {
 		Calendar calendar = Calendar.getInstance();
 
 		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+		if (isGMT)
+			parser.setTimeZone(TimeZone.getTimeZone("GMT"));
 		Date yourDate = null;
 		try {
 			yourDate = parser.parse(date);
@@ -40,10 +57,33 @@ public class TimeUtils {
 	 *            in format of "dd/MM/yyyy HH:mm"
 	 * @return timestamp (second)
 	 */
-	public static long dateAndTimeToTimestamp(String date) {
+	public static long dateAndTimeToGMTTimestamp(String date) {
+		return dateAndTimeToTimestamp(date, true);
+	}
+
+	/**
+	 * 
+	 * @param date
+	 *            in format of "dd/MM/yyyy HH:mm"
+	 * @return timestamp (second)
+	 */
+	public static long dateAndTimeToLocalTimestamp(String date) {
+		return dateAndTimeToTimestamp(date, false);
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * @param isGMT
+	 *            to return gmt time stamp( +0 ) in format of "dd/MM/yyyy HH:mm"
+	 * @return timestamp (second)
+	 */
+	private static long dateAndTimeToTimestamp(String date, boolean isGMT) {
 		Calendar calendar = Calendar.getInstance();
 
 		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+		if (isGMT)
+			parser.setTimeZone(TimeZone.getTimeZone("GMT"));
 		Date yourDate = null;
 		try {
 			yourDate = parser.parse(date);
@@ -66,10 +106,11 @@ public class TimeUtils {
 	public static String timestampToDateWithHour(String timestamp) {
 		if (TextUtils.isEmpty(timestamp))
 			return "";
-		Calendar cal = Calendar.getInstance(Locale.getDefault());
-		cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
-		cal.setTimeZone(TimeZone.getTimeZone("UTC"));
-		String date = DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
+		// Calendar cal = Calendar.getInstance(Locale.getDefault());
+		// cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
+		// cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+		// String date = DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
+		String date = DateFormat.format("dd/MM/yyyy HH:mm", Long.parseLong(timestamp) * 1000).toString();
 		return date;
 	}
 
@@ -83,10 +124,8 @@ public class TimeUtils {
 	public static String timestampToDate(String timestamp) {
 		if (TextUtils.isEmpty(timestamp))
 			return "";
-		Calendar cal = Calendar.getInstance(Locale.getDefault());
-		cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
-		cal.setTimeZone(TimeZone.getTimeZone("UTC"));
-		String date = DateFormat.format("dd/MM/yyyy", cal).toString();
+
+		String date = DateFormat.format("dd/MM/yyyy", Long.parseLong(timestamp) * 1000).toString();
 		return date;
 	}
 }

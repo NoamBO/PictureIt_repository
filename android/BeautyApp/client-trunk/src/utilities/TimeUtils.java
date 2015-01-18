@@ -21,6 +21,7 @@ public class TimeUtils {
 		Calendar calendar = Calendar.getInstance();
 
 		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+		parser.setTimeZone(TimeZone.getTimeZone("GMT"));
 		Date yourDate = null;
 		try {
 			yourDate = parser.parse(date);
@@ -43,6 +44,7 @@ public class TimeUtils {
 		Calendar calendar = Calendar.getInstance();
 
 		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+		parser.setTimeZone(TimeZone.getTimeZone("GMT"));
 		Date yourDate = null;
 		try {
 			yourDate = parser.parse(date);
@@ -63,10 +65,10 @@ public class TimeUtils {
 	 * 
 	 */
 	public static String timestampToDate(String timestamp) {
-		Calendar cal = Calendar.getInstance(Locale.getDefault());
-		cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
-		cal.setTimeZone(TimeZone.getTimeZone("UTC"));
-		String date = DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
+		// Calendar cal = Calendar.getInstance(Locale.getDefault());
+		// cal.setTimeInMillis(Long.parseLong(timestamp) * 1000);
+		// cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+		String date = DateFormat.format("dd/MM/yyyy HH:mm", Long.parseLong(timestamp) * 1000).toString();
 		return date;
 	}
 }

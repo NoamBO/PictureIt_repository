@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import utilities.Log;
 import android.content.ContentValues;
-import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -166,9 +165,8 @@ public class JsonToObject {
 		values.put(DataProvider.COL_PRICE, price);
 		values.put(DataProvider.COL_REMARKS, nots);
 		values.put(DataProvider.COL_PHONE, phone);
-		if (!TextUtils.isEmpty(convertedTreatments)) {
-			values.put(DataProvider.COL_TREATMENTS, convertedTreatments);
-		}
+		values.put(DataProvider.COL_TREATMENTS, convertedTreatments);
+
 		return values;
 	}
 

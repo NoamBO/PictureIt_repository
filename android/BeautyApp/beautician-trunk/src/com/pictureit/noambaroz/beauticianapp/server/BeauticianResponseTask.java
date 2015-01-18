@@ -52,7 +52,7 @@ public class BeauticianResponseTask extends BaseHttpPost {
 		sb.append(mMessageResponse.getDate());
 		sb.append(" ");
 		sb.append(mMessageResponse.getHour());
-		long date = TimeUtils.dateAndTimeToTimestamp(sb.toString());
+		long date = TimeUtils.dateAndTimeToLocalTimestamp(sb.toString());
 		return date;
 	}
 

@@ -134,6 +134,7 @@ public class GcmIntentService extends IntentService {
 		offerResponse.setTreatment(Formatter.getSelf(getApplicationContext())
 				.getTreatmentName(offerResponse.treatments));
 
+		offerResponse.setTreatmentDate(offerResponse.getTreatmentDate() * 1000);
 		AlarmManager.getInstance().setAlarm(offerResponse);
 
 		DataUtils.get(getApplicationContext()).addTreatmentConfirmedRow(offerResponse);
