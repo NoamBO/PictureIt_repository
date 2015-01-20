@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <permission
         android:name="com.pictureit.noambaroz.beauticianapp.permission.C2D_MESSAGE"
@@ -123,13 +124,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Activity.Transparent" >
         </activity>
-
         <activity
             android:name="com.noambaroz.crop_image.Crop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" >
         </activity>
-        
+
         <receiver
             android:name="com.pictureit.noambaroz.beauticianapp.gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
@@ -139,11 +139,16 @@
                 <category android:name="com.pictureit.noambaroz.beauticianapp" />
             </intent-filter>
         </receiver>
-        
         <receiver android:name="com.pictureit.noambaroz.beauticianapp.alarm.AlarmReceiver" >
         </receiver>
 
         <service android:name="com.pictureit.noambaroz.beauticianapp.gcm.GcmIntentService" />
+
+        <receiver android:name="com.pictureit.noambaroz.beauticianapp.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="com.pictureit.noambaroz.beauticianapp.data.DataProvider"

@@ -8,6 +8,7 @@
         android:title="@string/title_future_treatments"/>
     <item
         android:id="@+id/action_messages"
+        android:actionLayout="@layout/action_layout_messages"
         android:icon="@drawable/ic_messages"
         android:showAsAction="always"
         android:title="@string/title_messages"/>

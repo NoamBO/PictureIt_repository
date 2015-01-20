@@ -183,7 +183,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		private void onReject() {
 			if (isDeleted)
 				return;
-
+			bConfirm.setEnabled(false);
+			bReject.setEnabled(false);
 			MyCustomDialog dialog = new MyCustomDialog(getActivity());
 			dialog.setPositiveButton(getString(R.string.dialog_ok_text), new DialogInterface.OnClickListener() {
 				@Override
@@ -197,6 +198,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 								backPressed();
 							} else {
 								Dialogs.showServerFailedDialog(getActivity());
+								bConfirm.setEnabled(true);
+								bReject.setEnabled(true);
 							}
 						}
 					};
@@ -213,7 +216,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		private void onButtonConfirm() {
 			if (isDeleted)
 				return;
-
+			bConfirm.setEnabled(false);
+			bReject.setEnabled(false);
 			PostConfirmBeauticianOffer httpRequest = new PostConfirmBeauticianOffer(getActivity(), new HttpCallback() {
 
 				@Override
@@ -222,6 +226,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 						onConfirmed();
 					} else {
 						Dialogs.showServerFailedDialog(getActivity());
+						bConfirm.setEnabled(true);
+						bReject.setEnabled(true);
 					}
 				}
 			}, messageId, "true");

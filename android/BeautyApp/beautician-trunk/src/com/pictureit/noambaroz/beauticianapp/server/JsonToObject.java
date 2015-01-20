@@ -85,12 +85,7 @@ public class JsonToObject {
 	public static UpcomingTreatment jsonGetUpcomingTretment(String json) {
 		String finalString = getJson(json, JsonType.TYPE_OBJECT);
 		UpcomingTreatment t = null;
-		try {
-			JSONObject j = new JSONObject(finalString).getJSONObject("upcomingtreatment_status");
-			t = new GsonBuilder().serializeNulls().create().fromJson(j.toString(), UpcomingTreatment.class);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		t = new GsonBuilder().serializeNulls().create().fromJson(finalString, UpcomingTreatment.class);
 		return t;
 	}
 
@@ -115,6 +110,13 @@ public class JsonToObject {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return s;
+	}
+
+	public static Message jsonToMessage(String json) {
+		String finalString = getJson(json, JsonType.TYPE_OBJECT);
+		Message s = null;
+		s = new GsonBuilder().serializeNulls().create().fromJson(finalString, Message.class);
 		return s;
 	}
 

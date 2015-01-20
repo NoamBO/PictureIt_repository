@@ -21,6 +21,7 @@ import android.text.TextUtils;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
+import com.pictureit.noambaroz.beauticianapp.ActivityMessages;
 import com.pictureit.noambaroz.beauticianapp.ActivityNotificationsDialog;
 import com.pictureit.noambaroz.beauticianapp.Constant;
 import com.pictureit.noambaroz.beauticianapp.Log;
@@ -43,7 +44,7 @@ public class GcmIntentService extends IntentService {
 
 	// if customer canceled his treatment request or if he accepted other
 	// beautician offer
-	private static final String NOTIFICATION_TYPE_OFFER_DECLINED = "type_message_canceled";
+	private static final String NOTIFICATION_TYPE_ORDER_CANCELED = "type_message_canceled";
 	private static final String KEY_NOTIFICATION_TYPE = "type";
 	private static final String KEY_NOTIFICATION_DATA = "data";
 
@@ -74,12 +75,13 @@ public class GcmIntentService extends IntentService {
 				if (extras.containsKey(KEY_NOTIFICATION_TYPE) && extras.containsKey(KEY_NOTIFICATION_DATA)) {
 					notificationType = extras.getString(KEY_NOTIFICATION_TYPE);
 					if (!TextUtils.isEmpty(notificationType)) {
+						String data = extras.get(KEY_NOTIFICATION_DATA).toString();
 						if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_MESSAGE))
-							onMessageArrived(extras.get(KEY_NOTIFICATION_DATA).toString());
+							onMessageArrived(data);
 						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_OFFER_RESPONSE))
-							onCustomerResponse(extras.get(KEY_NOTIFICATION_DATA).toString());
-						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_OFFER_DECLINED))
-							onOrderCanceled(extras.get(KEY_NOTIFICATION_DATA).toString());
+							onCustomerResponse(data);
+						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_ORDER_CANCELED))
+							onOrderCanceled(data);
 					}
 				}
 
@@ -122,12 +124,12 @@ public class GcmIntentService extends IntentService {
 	}
 
 	private void onCustomerDeclinedTheOffer(BeauticianOfferResponse bro) {
-		if (!isAppRunningInForeground()) {
-			String title = getString(R.string.response_declined);
-			String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.getFullName() + " "
-					+ getString(R.string.and_he_declined_your_offer);
-			sendNotification(0, null, message, title);
-		}
+
+		String title = getString(R.string.response_declined);
+		String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.getFullName() + " "
+				+ getString(R.string.and_he_declined_your_offer);
+		sendNotification(0, null, message, title);
+
 	}
 
 	private void onCustomerConfimedTheOffer(BeauticianOfferResponse offerResponse) {
@@ -162,13 +164,15 @@ public class GcmIntentService extends IntentService {
 			return;
 
 		DataUtils.get(getApplicationContext()).addOrderAroundMe(oam, true);
-		// if (!isAppRunningInForeground()) {
-		String title = getString(R.string.request_received);
-		String message = getString(R.string.new_request_is_waiting_for_you_inside_the_app);
-		sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
-		// } else {
-		// TODO
-		// }
+		if (!isAppRunningInForeground()) {
+			String title = getString(R.string.request_received);
+			String message = getString(R.string.new_request_is_waiting_for_you_inside_the_app);
+			sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
+		} else {
+			getApplication().startActivity(
+					new Intent(getBaseContext(), ActivityMessages.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+							| Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+		}
 	}
 
 	// Put the message into a notification and post it.

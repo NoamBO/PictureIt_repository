@@ -91,12 +91,17 @@
             android:clickable="true"
             android:visibility="gone" >
 
-            <ListView
-                android:id="@+id/lv_main_providers_list"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:footerDividersEnabled="true" >
-            </ListView>
+                android:layout_height="wrap_content" >
+
+                <ListView
+                    android:id="@+id/lv_main_providers_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:footerDividersEnabled="true" >
+                </ListView>
+            </ScrollView>
         </FrameLayout>
     </LinearLayout>
 

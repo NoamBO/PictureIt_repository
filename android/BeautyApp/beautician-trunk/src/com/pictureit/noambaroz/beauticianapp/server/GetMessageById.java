@@ -14,8 +14,11 @@ public class GetMessageById extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		// TODO Auto-generated method stub
-		return null;
+		if (!JsonToObject.isResponseOk(result)) {
+			return -1;
+		} else {
+			return JsonToObject.jsonToMessage(result);
+		}
 	}
 
 	@Override

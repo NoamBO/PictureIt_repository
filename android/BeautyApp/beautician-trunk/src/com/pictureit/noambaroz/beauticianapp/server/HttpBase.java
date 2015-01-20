@@ -148,28 +148,38 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 		return sb.toString();
 	}
 
-	public String getUrl() {
+	protected String getUrl() {
 		return url;
 	}
 
-	public void setUrl(String url) {
+	protected void setUrl(String url) {
 		this.url = url.toLowerCase(Locale.ENGLISH);
 	}
 
-	public HttpResponse getResponse() {
+	protected HttpResponse getResponse() {
 		return response;
 	}
 
-	public void setResponse(HttpResponse response) {
+	protected void setResponse(HttpResponse response) {
 		this.response = response;
 	}
 
-	public int getStatusCode() {
+	protected int getStatusCode() {
 		return statusCode;
 	}
 
-	public void setStatusCode(int statusCode) {
+	protected void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
+	}
+
+	public HttpBase setIsWithProgressDialog(boolean showProgressDialog) {
+		this.showProgressDialog = showProgressDialog;
+		return this;
+	}
+
+	public HttpBase setIsWithNoConnectionDialog(boolean showNoConnectionDialog) {
+		this.showNoConnectionDialog = showNoConnectionDialog;
+		return this;
 	}
 
 	public interface HttpCallback {
@@ -191,7 +201,7 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 		return MyPreference.getUID();
 	}
 
-	public static void showErrorDialog(Activity activity) {
+	protected static void showErrorDialog(Activity activity) {
 		Dialogs.showErrorDialog(activity, R.string.dialog_messege_server_error);
 	}
 }

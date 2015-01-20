@@ -37,6 +37,7 @@ import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.SetTreatmentStatusTask;
+import com.pictureit.noambaroz.beauticianapp.utilities.OnFragmentDetachListener;
 import com.pictureit.noambaroz.beauticianapp.utilities.OutgoingCommunication;
 
 public class ActivityNotificationsDialog extends Activity implements LoaderCallbacks<Cursor> {
@@ -228,10 +229,21 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 						if (answer == null || answer instanceof Integer)
 							Dialogs.showServerFailedDialog(mContext);
 						else {
+							mCurrentDialog.setOnDismissListener(null);
+							mCurrentDialog.dismiss();
 							ActivityUpcomingTreatments.FragmentUpcomingTreatment fragment = new ActivityUpcomingTreatments.FragmentUpcomingTreatment();
 							fragment.setUpcomingTreatment((UpcomingTreatment) answer);
 							fragment.setOnTreatmentCanceledListener(onTreatmentCanceledListener);
-							getFragmentManager().beginTransaction().replace(android.R.id.content, fragment)
+							fragment.setOnDetachListener(new OnFragmentDetachListener() {
+
+								@Override
+								public void onDetach() {
+									AlarmManager.getInstance()
+											.setAlertReminderWasShown(alarm.getUpcomingtreatment_id());
+									mAlarmsArraylist.remove(alarm);
+								}
+							});
+							getFragmentManager().beginTransaction().add(android.R.id.content, fragment)
 									.addToBackStack(null).commit();
 						}
 					}

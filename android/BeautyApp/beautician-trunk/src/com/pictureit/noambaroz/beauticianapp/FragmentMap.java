@@ -5,10 +5,12 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +29,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
+import com.pictureit.noambaroz.beauticianapp.data.Message;
+import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.server.GetMessageById;
+import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 
 public class FragmentMap extends MapFragmentBase implements OnMarkerClickListener, LocationListener,
 		LoaderCallbacks<Cursor> {
@@ -93,12 +99,14 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		android.util.Log.i("fragment_map", "onAttach");
 		((MainActivity) activity).setMapFragmentLocationListener(this);
 	}
 
 	@Override
 	public void onDetach() {
 		super.onDetach();
+		android.util.Log.i("fragment_map", "onDetach");
 		((MainActivity) getActivity()).setMapFragmentLocationListener(null);
 	}
 
@@ -123,7 +131,9 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 
 	@Override
 	public void onPause() {
+		android.util.Log.i("fragment_map", "onPause");
 		if (mMap != null && getActivity().isFinishing()) {
+			android.util.Log.i("fragment_map", "onPause: Activity isFinishing");
 			MainActivity.fragmentManager.beginTransaction()
 					.remove(MainActivity.fragmentManager.findFragmentById(R.id.location_map)).commit();
 			mMap = null;
@@ -134,7 +144,9 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+		android.util.Log.i("fragment_map", "onDestroyView");
 		if (mMap != null && !getActivity().isFinishing()) {
+			android.util.Log.i("fragment_map", "onDestroyView: Activity is not Finishing");
 			MainActivity.fragmentManager.beginTransaction()
 					.remove(MainActivity.fragmentManager.findFragmentById(R.id.location_map)).commit();
 			mMap = null;
@@ -200,6 +212,25 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		String orderID = allMarkers.get(marker);
+		new GetMessageById(getActivity(), new HttpCallback() {
+
+			@Override
+			public void onAnswerReturn(Object answer) {
+				if (answer instanceof Message) {
+					Message m = (Message) answer;
+					if (m != null && !TextUtils.isEmpty(m.getOrderid())) {
+						Intent intent = new Intent(getActivity(), ActivityMessage.class);
+						intent.putExtra(Constant.EXTRA_MESSAGE_OBJECT, m);
+						getActivity().startActivity(intent);
+						getActivity().overridePendingTransition(R.anim.activity_enter_slidein_anim,
+								R.anim.activity_exit_shrink_anim);
+					}
+				} else {
+					Dialogs.showServerFailedDialog(getActivity());
+					return;
+				}
+			}
+		}, orderID);
 		return false;
 	}
 

@@ -28,6 +28,7 @@ import com.pictureit.noambaroz.beauticianapp.server.DeleteUpcomingTreatmentTask;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
+import com.pictureit.noambaroz.beauticianapp.utilities.OnFragmentDetachListener;
 import com.pictureit.noambaroz.beauticianapp.utilities.OutgoingCommunication;
 
 public class ActivityUpcomingTreatments extends ActivityWithFragment {
@@ -124,6 +125,8 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 		private OnTreatmentCanceledListener onTreatmentCanceledListener;
 
+		private OnFragmentDetachListener mDetachListener;
+
 		private UpcomingTreatment mUpcomingTreatment;
 
 		private ViewGroup bCall, bDelete;
@@ -136,6 +139,17 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 		public void setUpcomingTreatment(UpcomingTreatment upcomingTreatment) {
 			mUpcomingTreatment = upcomingTreatment;
+		}
+
+		public void setOnDetachListener(OnFragmentDetachListener l) {
+			mDetachListener = l;
+		}
+
+		@Override
+		public void onDetach() {
+			if (mDetachListener != null)
+				mDetachListener.onDetach();
+			super.onDetach();
 		}
 
 		@Override
