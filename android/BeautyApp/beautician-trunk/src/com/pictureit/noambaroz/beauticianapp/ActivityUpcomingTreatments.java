@@ -106,6 +106,9 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			if (!mAdapter.isClickEnable(position))
+				return;
+
 			FragmentUpcomingTreatment fragment = new FragmentUpcomingTreatment();
 			fragment.setOnTreatmentCanceledListener(this);
 			fragment.setUpcomingTreatment(mAdapter.getItem(position));
@@ -250,6 +253,10 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 			super(context, resource, objects);
 		}
 
+		public boolean isClickEnable(int itemPosition) {
+			return !getItem(itemPosition).isTreatmentCanceled();
+		}
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final ViewHolder holder;
@@ -277,6 +284,18 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 					.getTreatmentName(getItem(position).getTreatments()));
 
 			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);
+			if (getItem(position).isTreatmentCanceled()) {
+				holder.disableContainer.setVisibility(View.VISIBLE);
+				holder.statusDisableTitle.setText(R.string.treatment_canceled);
+				holder.statusDisableRemove.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+			}
 
 			return convertView;
 		}
@@ -284,6 +303,8 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 		private class ViewHolder {
 			ImageView image;
 			TextView date, name, address, treatment;
+			ViewGroup disableContainer;
+			TextView statusDisableTitle, statusDisableRemove;
 		}
 
 	}

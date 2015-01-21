@@ -1,80 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/card_shape"
-    android:orientation="horizontal" >
+    android:layout_height="wrap_content" >
 
     <LinearLayout
-        android:id="@+id/linearLayoutRowUpcoming"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/fragment_padding"
-        android:orientation="horizontal" >
-
-        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/fragment_padding"
-            android:gravity="center"
-            android:text="@string/character_next"
-            android:textColor="@color/text_color_gray"
-            android:textSize="20sp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/divider_color_gray" />
-    </LinearLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/fragment_padding" >
+        android:background="@drawable/card_shape"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutRowUpcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/fragment_padding"
+            android:orientation="horizontal" >
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/fragment_padding"
+                android:gravity="center"
+                android:text="@string/character_next"
+                android:textColor="@color/text_color_gray"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color_gray" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fragment_padding" >
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:id="@+id/tv_row_upcoming_treatments_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
+
+            <ImageView
+                android:id="@+id/iv_row_upcoming_treatments"
+                android:layout_width="@dimen/beautician_picture_width"
+                android:layout_height="@dimen/beautician_picture_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fragment_padding"
+                android:background="@drawable/profile_avatar" />
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:id="@+id/tv_row_upcoming_treatments_customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_row_upcoming_treatments_date"
+                android:layout_toLeftOf="@+id/iv_row_upcoming_treatments"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/common_text_size" />
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:id="@+id/tv_row_upcoming_treatments_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_row_upcoming_treatments_customer_name"
+                android:layout_toLeftOf="@+id/iv_row_upcoming_treatments"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:id="@+id/tv_row_upcoming_treatments_type_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_row_upcoming_treatments_address"
+                android:layout_toLeftOf="@+id/iv_row_upcoming_treatments"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/common_text_size" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_row_upcoming_treatments_disabled_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#bfffffff"
+        android:visibility="gone" >
 
         <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-            android:id="@+id/tv_row_upcoming_treatments_date"
+            android:id="@+id/tv_row_upcoming_treatments_disabled_container_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/common_text_size" />
-
-        <ImageView
-            android:id="@+id/iv_row_upcoming_treatments"
-            android:layout_width="@dimen/beautician_picture_width"
-            android:layout_height="@dimen/beautician_picture_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/fragment_padding"
-            android:background="@drawable/profile_avatar" />
+            android:layout_gravity="center"
+            android:background="@drawable/btn_select_shape"
+            android:padding="@dimen/fragment_padding"
+            android:textColor="@color/app_white"
+            android:textSize="@dimen/title_large_text_size" />
 
         <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-            android:id="@+id/tv_row_upcoming_treatments_customer_name"
+            android:id="@+id/tv_row_upcoming_treatments_disabled_container_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_row_upcoming_treatments_date"
-            android:layout_toLeftOf="@+id/iv_row_upcoming_treatments"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/common_text_size" />
+            android:layout_gravity="bottom|left"
+            android:layout_margin="@dimen/fragment_padding"
+            android:text="@string/remove"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/title_medium_text_size"
+            android:textStyle="bold" />
+    </FrameLayout>
 
-        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-            android:id="@+id/tv_row_upcoming_treatments_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_row_upcoming_treatments_customer_name"
-            android:layout_toLeftOf="@+id/iv_row_upcoming_treatments"
-            android:textColor="@color/text_color_gray"
-            android:textSize="@dimen/common_text_size" />
-
-        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
-            android:id="@+id/tv_row_upcoming_treatments_type_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_row_upcoming_treatments_address"
-            android:layout_toLeftOf="@+id/iv_row_upcoming_treatments"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/common_text_size" />
-    </RelativeLayout>
-
-</LinearLayout>
+</FrameLayout>

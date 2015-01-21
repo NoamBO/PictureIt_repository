@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,6 +22,7 @@ import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
+import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.server.GetMessages;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
@@ -82,8 +84,10 @@ public class ActivityMessages extends ActivityWithFragment {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void onAnswerReturn(Object answer) {
-			if (answer instanceof Integer)
+			if (answer instanceof Integer) {
+				Dialogs.showServerFailedDialog(getActivity());
 				return;
+			}
 
 			arrayList = (ArrayList<Message>) answer;
 			if (checkStatus()) {
@@ -105,6 +109,9 @@ public class ActivityMessages extends ActivityWithFragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			if (!adapter.isClickEnable(position))
+				return;
+
 			Message m = adapter.getItem(position);
 			Intent intent = new Intent(getActivity(), ActivityMessage.class);
 			intent.putExtra(Constant.EXTRA_MESSAGE_OBJECT, m);
@@ -132,6 +139,10 @@ public class ActivityMessages extends ActivityWithFragment {
 			super(context, resource, objects);
 		}
 
+		public boolean isClickEnable(int itemPosition) {
+			return !getItem(itemPosition).isMessageDisabled();
+		}
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final ViewHolder holder;
@@ -147,6 +158,12 @@ public class ActivityMessages extends ActivityWithFragment {
 				holder.name = findView(convertView, R.id.tv_row_upcoming_treatments_customer_name);
 				holder.treatment = findView(convertView, R.id.tv_row_upcoming_treatments_type_name);
 
+				holder.disableContainer = findView(convertView, R.id.fl_row_upcoming_treatments_disabled_container);
+				holder.statusDisableTitle = findView(convertView,
+						R.id.tv_row_upcoming_treatments_disabled_container_title);
+				holder.statusDisableRemove = findView(convertView,
+						R.id.tv_row_upcoming_treatments_disabled_container_remove);
+
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -160,12 +177,27 @@ public class ActivityMessages extends ActivityWithFragment {
 
 			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);
 
+			if (getItem(position).isMessageDisabled()) {
+				holder.disableContainer.setVisibility(View.VISIBLE);
+				holder.statusDisableTitle.setText(R.string.message_declined);
+				holder.statusDisableRemove.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+			}
+
 			return convertView;
 		}
 
 		private class ViewHolder {
 			ImageView image;
 			TextView date, name, address, treatment;
+			ViewGroup disableContainer;
+			TextView statusDisableTitle, statusDisableRemove;
 		}
 
 	}

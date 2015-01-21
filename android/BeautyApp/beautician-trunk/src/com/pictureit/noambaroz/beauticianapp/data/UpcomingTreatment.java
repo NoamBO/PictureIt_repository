@@ -14,6 +14,7 @@ public class UpcomingTreatment {
 	private String location;
 	private String treatment_date;
 	private String treatment_price;
+	private boolean isclientdeclined;
 
 	public UpcomingTreatment() {
 	}
@@ -96,5 +97,13 @@ public class UpcomingTreatment {
 
 	public void setPrice(String price) {
 		this.treatment_price = price;
+	}
+
+	public boolean isTreatmentCanceled() {
+		return isclientdeclined;
+	}
+
+	public void setTreatmentCanceled(boolean isclientdeclined) {
+		this.isclientdeclined = isclientdeclined;
 	}
 }

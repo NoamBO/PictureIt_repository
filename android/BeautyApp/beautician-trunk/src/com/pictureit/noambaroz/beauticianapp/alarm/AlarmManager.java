@@ -5,6 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 
 import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
@@ -122,6 +125,12 @@ public class AlarmManager {
 		cv.put(DataProvider.COL_IS_PLAYED, 1);
 		mContext.getContentResolver().update(DataProvider.CONTENT_URI_ALARMS, cv,
 				DataProvider.COL_TREATMENT_ID + " LIKE ?", new String[] { String.valueOf(orderID) });
+	}
+
+	public static void playNotificationSound(Context ctx) {
+		Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		Ringtone r = RingtoneManager.getRingtone(ctx, notification);
+		r.play();
 	}
 
 }

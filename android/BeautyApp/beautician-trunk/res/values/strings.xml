@@ -75,6 +75,7 @@
     <!-- General strings -->
     <string name="invalid_filed">שדה לא תקין</string>
     <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
+    <string name="remove">הסר</string>
 
     <!-- Statistics -->
     <string name="income">הכנסות</string>
@@ -120,6 +121,7 @@
 	<string name="no_treatments_change_status_to_available">אין טיפולים\n\nעל מנת לקבל הזמנות לטיפולים\nעלייך להיות במצב זמין</string>
 	
 	<!-- Messages -->
+	<string name="message_declined">הצעה נדחתה</string>
 	<string name="no_messages">אין הודעות</string>
 	<string name="messages">הודעות</string>
 	<string name="send">שלח</string>
@@ -172,6 +174,7 @@
 	<string name="title_payment_method">אמצעי תשלום</string>
 	
 	<!-- Upcoming Treatments -->
+	<string name="treatment_canceled">טיפול בוטל</string>
 	<string name="treatments">טיפולים</string>
 	<string name="and_more">ועוד</string>
 	<string name="additional">נוספים</string>

@@ -18,6 +18,7 @@ public class Message implements Parcelable {
 	private String location;
 	private String comments;
 	private ArrayList<TreatmentType> treatments;
+	private boolean isclientdeclined;
 
 	public String getCustomeruid() {
 		return customeruid;
@@ -107,6 +108,14 @@ public class Message implements Parcelable {
 		this.treatments = treatments;
 	}
 
+	public boolean isMessageDisabled() {
+		return isclientdeclined;
+	}
+
+	public void setMessageDisabled(boolean isclientdeclined) {
+		this.isclientdeclined = isclientdeclined;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -125,6 +134,7 @@ public class Message implements Parcelable {
 		dest.writeString(location);
 		dest.writeString(comments);
 		dest.writeTypedList(treatments);
+		dest.writeInt(isclientdeclined ? 1 : 0);
 	}
 
 	public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
@@ -151,5 +161,7 @@ public class Message implements Parcelable {
 
 		treatments = new ArrayList<TreatmentType>();
 		in.readTypedList(treatments, TreatmentType.CREATOR);
+
+		isclientdeclined = in.readInt() == 1;
 	}
 }

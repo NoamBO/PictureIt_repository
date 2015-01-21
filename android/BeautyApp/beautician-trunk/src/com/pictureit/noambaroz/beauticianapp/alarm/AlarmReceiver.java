@@ -43,6 +43,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		} else {
 			mContext.startActivity(new Intent(mContext, ActivityNotificationsDialog.class)
 					.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+			AlarmManager.playNotificationSound(mContext);
 		}
 
 		new Handler().postDelayed(new Runnable() {

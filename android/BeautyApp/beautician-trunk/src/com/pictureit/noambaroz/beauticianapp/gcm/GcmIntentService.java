@@ -149,6 +149,7 @@ public class GcmIntentService extends IntentService {
 					new Intent(getBaseContext(), ActivityNotificationsDialog.class)
 							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP
 									| Intent.FLAG_ACTIVITY_NEW_TASK));
+			AlarmManager.playNotificationSound(getApplication());
 		}
 		MyPreference.setHasAlarmsDialogsToShow(true);
 	}
@@ -172,6 +173,7 @@ public class GcmIntentService extends IntentService {
 			getApplication().startActivity(
 					new Intent(getBaseContext(), ActivityMessages.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 							| Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+			AlarmManager.playNotificationSound(getApplication());
 		}
 	}
 

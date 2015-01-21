@@ -5,8 +5,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
-
 public class GetMessages extends BaseHttpPost {
 
 	public GetMessages(Context ctx, HttpCallback callback) {
@@ -17,7 +15,6 @@ public class GetMessages extends BaseHttpPost {
 	@Override
 	protected Object continueInBackground(String result) {
 		if (!JsonToObject.isResponseOk(result)) {
-			Dialogs.showServerFailedDialog(ctx);
 			return -1;
 		} else {
 			return JsonToObject.jsonToMessages(result);
