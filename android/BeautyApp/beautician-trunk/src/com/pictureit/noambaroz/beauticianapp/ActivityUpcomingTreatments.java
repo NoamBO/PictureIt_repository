@@ -28,6 +28,7 @@ import com.pictureit.noambaroz.beauticianapp.server.DeleteUpcomingTreatmentTask;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
+import com.pictureit.noambaroz.beauticianapp.server.RemoveUpcomingTreatmentFromListTask;
 import com.pictureit.noambaroz.beauticianapp.utilities.OnFragmentDetachListener;
 import com.pictureit.noambaroz.beauticianapp.utilities.OutgoingCommunication;
 
@@ -272,6 +273,12 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 				holder.name = findView(convertView, R.id.tv_row_upcoming_treatments_customer_name);
 				holder.treatment = findView(convertView, R.id.tv_row_upcoming_treatments_type_name);
 
+				holder.disableContainer = findView(convertView, R.id.fl_row_upcoming_treatments_disabled_container);
+				holder.statusDisableTitle = findView(convertView,
+						R.id.tv_row_upcoming_treatments_disabled_container_title);
+				holder.statusDisableRemove = findView(convertView,
+						R.id.tv_row_upcoming_treatments_disabled_container_remove);
+
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -287,14 +294,28 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 			if (getItem(position).isTreatmentCanceled()) {
 				holder.disableContainer.setVisibility(View.VISIBLE);
 				holder.statusDisableTitle.setText(R.string.treatment_canceled);
+				holder.statusDisableRemove.setTag(position);
 				holder.statusDisableRemove.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
+						final int position = (Integer) v.getTag();
+						new RemoveUpcomingTreatmentFromListTask(getContext(), new HttpCallback() {
 
+							@Override
+							public void onAnswerReturn(Object answer) {
+								if (answer instanceof Integer) {
+									Dialogs.showServerFailedDialog(getContext());
+									return;
+								}
+								remove(getItem(position));
+							}
+						}, getItem(position).getUpcomingtreatmentId()).execute();
 					}
 				});
+			} else {
+				holder.disableContainer.setVisibility(View.GONE);
+				holder.statusDisableRemove.setOnClickListener(null);
 			}
 
 			return convertView;

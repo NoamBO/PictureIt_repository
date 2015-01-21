@@ -180,14 +180,18 @@ public class ActivityMessages extends ActivityWithFragment {
 			if (getItem(position).isMessageDisabled()) {
 				holder.disableContainer.setVisibility(View.VISIBLE);
 				holder.statusDisableTitle.setText(R.string.message_declined);
+				holder.statusDisableRemove.setTag(position);
 				holder.statusDisableRemove.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
-
+						final int position = (Integer) v.getTag();
+						// TODO
 					}
 				});
+			} else {
+				holder.disableContainer.setVisibility(View.GONE);
+				holder.statusDisableRemove.setOnClickListener(null);
 			}
 
 			return convertView;

@@ -29,7 +29,7 @@ public class ServerUtil {
 	public static final String URL_REQUEST_GET_UPCOMING_TREATMENT_BY_ID = URL_BASE + "getupcomingtreatment";
 
 	// Cancel treatment
-	public static final String URL_REQUEST_DELETE_UPCOMING_TREATMENT = URL_BASE + "cancelupcomingtreatment";
+	public static final String URL_REQUEST_CANCEL_UPCOMING_TREATMENT = URL_BASE + "cancelupcomingtreatment";
 	public static final String UPCOMING_TREATMENT_ID = "upcomingtreatmentid";
 	public static final String REASON = "reason";
 
@@ -56,6 +56,7 @@ public class ServerUtil {
 
 	// Cancel treatment request
 	public static final String URL_REQUEST_CANCEL_CUSTOMER_REQUEST = URL_BASE + "canceltreatmentrequest";
+	public static final String URL_REQUEST_REMOVE_CANCELED_TREATMENT_FROM_LIST = URL_BASE + "removeupcomingtreatment";
 
 	// Update treatment status
 	public static final String URL_REQUEST_UPDATE_TREATMENT_STATUS = URL_BASE + "statustreatment";

@@ -26,7 +26,7 @@ public class DeleteUpcomingTreatmentTask extends BaseHttpPost {
 
 	@Override
 	protected void prepare(String request) {
-		setUrl(ServerUtil.URL_REQUEST_DELETE_UPCOMING_TREATMENT);
+		setUrl(ServerUtil.URL_REQUEST_CANCEL_UPCOMING_TREATMENT);
 
 		try {
 			JSONObject temp = new JSONObject();
