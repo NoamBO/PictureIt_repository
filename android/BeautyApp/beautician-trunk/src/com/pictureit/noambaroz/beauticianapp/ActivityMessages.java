@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
@@ -90,21 +89,12 @@ public class ActivityMessages extends ActivityWithFragment {
 			}
 
 			arrayList = (ArrayList<Message>) answer;
-			if (checkStatus()) {
-				adapter = new MyAdapter(ActivityMessages.this, android.R.layout.simple_list_item_2, arrayList);
-				listView.setAdapter(adapter);
-				listView.setOnItemClickListener(this);
-			}
-		}
 
-		private boolean checkStatus() {
-			if (arrayList.size() > 0) {
-				if (emptyListIndicator.getVisibility() == View.VISIBLE)
-					AnimationManager.fadeOut(getActivity(), emptyListIndicator);
-				return true;
-			} else if (emptyListIndicator.getVisibility() != View.VISIBLE)
-				AnimationManager.fadeIn(getActivity(), emptyListIndicator);
-			return false;
+			adapter = new MyAdapter(ActivityMessages.this, android.R.layout.simple_list_item_2, arrayList);
+			listView.setAdapter(adapter);
+			listView.setOnItemClickListener(this);
+			listView.setEmptyView(emptyListIndicator);
+
 		}
 
 		@Override
@@ -126,7 +116,6 @@ public class ActivityMessages extends ActivityWithFragment {
 					if (m.getOrderid().equalsIgnoreCase(data.getStringExtra(Constant.EXTRA_ORDER_ID))) {
 						arrayList.remove(m);
 						adapter.notifyDataSetChanged();
-						checkStatus();
 						return;
 					}
 				}

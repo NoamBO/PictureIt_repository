@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
@@ -92,17 +91,14 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 			}
 
 			ArrayList<UpcomingTreatment> arrayList = (ArrayList<UpcomingTreatment>) answer;
-			if (arrayList.size() == 0)
-				AnimationManager.fadeIn(getActivity(), mEmptyListIndicator);
-			else {
-				mAdapter = new AdapterUpcomingTreatments(getActivity(), R.layout.actionbar_title_view, arrayList);
-				setListView();
-			}
+			mAdapter = new AdapterUpcomingTreatments(getActivity(), R.layout.actionbar_title_view, arrayList);
+			setListView();
 		}
 
 		private void setListView() {
 			mListView.setAdapter(mAdapter);
 			mListView.setOnItemClickListener(this);
+			mListView.setEmptyView(mEmptyListIndicator);
 		}
 
 		@Override

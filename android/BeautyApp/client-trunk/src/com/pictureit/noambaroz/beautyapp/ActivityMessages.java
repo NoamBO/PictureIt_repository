@@ -25,7 +25,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beautyapp.animation.AnimationManager;
 import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.server.GetOrderNotification;
@@ -94,6 +93,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			super.onViewCreated(view, savedInstanceState);
 			initListview(mListView);
 			mListView.setAdapter(adapter);
+			mListView.setEmptyView(emptyListIndicator);
 		}
 
 		protected void getOrderInBackgroundByNotificationId(String row_id, HttpCallback callback) {
@@ -144,12 +144,6 @@ public class ActivityMessages extends ActivityWithFragment {
 				mRowViewToRemove.requestLayout();
 				mRowViewInitialHeight = 0;
 				mRowViewToRemove = null;
-			}
-
-			if (data.getCount() == 0) {
-				AnimationManager.fadeIn(getActivity(), emptyListIndicator);
-			} else {
-				AnimationManager.fadeOut(getActivity(), emptyListIndicator);
 			}
 		}
 
