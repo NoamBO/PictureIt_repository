@@ -60,4 +60,34 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/fl_row_upcoming_treatments_disabled_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:background="#bfffffff"
+        android:visibility="gone" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_upcoming_treatments_disabled_container_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" android:text="@string/treatment_canceled"
+            android:background="@drawable/btn_select_shape"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textColor="@color/app_background"
+            android:textSize="@dimen/activity_horizontal_margin" />
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_row_upcoming_treatments_disabled_container_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="@string/remove"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/activity_horizontal_margin"
+            android:textStyle="bold" />
+    </FrameLayout>
+
 </RelativeLayout>

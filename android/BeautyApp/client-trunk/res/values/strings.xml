@@ -121,6 +121,8 @@
     <string name="no_messages">אין הודעות</string>
 	
 	<!-- Upcoming Treatments Screens -->
+	<string name="treatment_canceled">טיפול בוטל</string>
+	<string name="remove">הסר</string>
 	<string name="no_treatments">לא הוזמנו טיפולים</string>
 	<string name="and_more">ועוד</string>
 	<string name="additional">נוספים</string>

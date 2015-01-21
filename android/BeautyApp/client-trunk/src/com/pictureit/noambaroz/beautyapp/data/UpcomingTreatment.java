@@ -25,6 +25,15 @@ public class UpcomingTreatment implements Parcelable {
 	private String beautician_phone;
 	// private String unFormattedTreatments;
 	private ArrayList<TreatmentType> treatments;
+	private boolean isbeauticiandeclined;
+
+	public boolean isTreatmentCanceled() {
+		return isbeauticiandeclined;
+	}
+
+	public void setTreatmentCanceled(boolean isCanceled) {
+		isbeauticiandeclined = isCanceled;
+	}
 
 	public String getPic() {
 		return image_url;
@@ -154,6 +163,7 @@ public class UpcomingTreatment implements Parcelable {
 		out.writeString(beautician_phone);
 
 		out.writeTypedList(treatments);
+		out.writeInt(isbeauticiandeclined ? 1 : 0);
 	}
 
 	private UpcomingTreatment(Parcel in) {
@@ -175,6 +185,8 @@ public class UpcomingTreatment implements Parcelable {
 
 		treatments = new ArrayList<TreatmentType>();
 		in.readTypedList(treatments, TreatmentType.CREATOR);
+
+		isbeauticiandeclined = in.readInt() == 1;
 	}
 
 	public String getUpcomingTreatmentId() {

@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.Dialogs;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Fragment;
@@ -29,6 +30,7 @@ import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.GetUpcomingTreatments;
+import com.pictureit.noambaroz.beautyapp.server.PostRemoveCanceledTreatment;
 
 public class ActivityTreatments extends ActivityWithFragment {
 
@@ -107,6 +109,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 			super.onViewCreated(view, savedInstanceState);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onAnswerReturn(Object answer) {
 			ArrayList<UpcomingTreatment> arr = (ArrayList<UpcomingTreatment>) answer;
@@ -174,6 +177,13 @@ public class ActivityTreatments extends ActivityWithFragment {
 				holder.address = findView(convertView, R.id.tv_row_upcoming_treatment_address);
 				holder.date = findView(convertView, R.id.tv_row_upcoming_treatment_date);
 				holder.treatmentName = findView(convertView, R.id.tv_row_upcoming_treatment_name);
+
+				holder.disableContainer = findView(convertView, R.id.fl_row_upcoming_treatments_disabled_container);
+				holder.statusDisableTitle = findView(convertView,
+						R.id.tv_row_upcoming_treatments_disabled_container_title);
+				holder.statusDisableRemove = findView(convertView,
+						R.id.tv_row_upcoming_treatments_disabled_container_remove);
+
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -184,10 +194,37 @@ public class ActivityTreatments extends ActivityWithFragment {
 			holder.treatmentName.setText(getTreatmentName(t));
 			holder.date.setText(TimeUtils.timestampToDate(t.getTreatment_date()));
 
+			if (getItem(position).isTreatmentCanceled()) {
+				holder.disableContainer.setVisibility(View.VISIBLE);
+				holder.statusDisableRemove.setTag(position);
+				holder.statusDisableRemove.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						final int position = (Integer) v.getTag();
+						new PostRemoveCanceledTreatment(getContext(), new HttpCallback() {
+
+							@Override
+							public void onAnswerReturn(Object answer) {
+								if (answer instanceof Integer)
+									Dialogs.showServerFailedDialog(getContext());
+								else
+									remove(getItem(position));
+							}
+						}, getItem(position).getUpcomingTreatmentId());
+					}
+				});
+			} else {
+				holder.disableContainer.setVisibility(View.GONE);
+				holder.statusDisableRemove.setOnClickListener(null);
+			}
+
 			return convertView;
 		}
 
 		private String getTreatmentName(UpcomingTreatment t) {
+			if (t.getTreatmentsArray() == null || t.getTreatmentsArray().size() == 0)
+				return "";
 			StringBuilder sb = new StringBuilder();
 			sb.append(StringArrays.getTreatmentType(getContext(), t.getTreatmentsArray().get(0).getTreatments_id())
 					.getName());
@@ -208,6 +245,8 @@ public class ActivityTreatments extends ActivityWithFragment {
 		TextView address;
 		TextView date;
 		TextView treatmentName;
+		ViewGroup disableContainer;
+		TextView statusDisableTitle, statusDisableRemove;
 	}
 
 }
