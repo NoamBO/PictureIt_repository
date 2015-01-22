@@ -79,6 +79,7 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 			mMap.getUiSettings().setRotateGesturesEnabled(false);
 			mMap.getUiSettings().setTiltGesturesEnabled(false);
 			mMap.getUiSettings().setZoomControlsEnabled(false);
+			mMap.setOnMarkerClickListener(this);
 			MapsInitializer.initialize(this.getActivity());
 			CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ll, INITIAL_ZOOM);
 			mMap.animateCamera(cameraUpdate, new CancelableCallback() {
@@ -211,6 +212,8 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
+		if (mCurrentLocationMarker.equals(marker))
+			return false;
 		String orderID = allMarkers.get(marker);
 		new GetMessageById(getActivity(), new HttpCallback() {
 
@@ -230,7 +233,7 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 					return;
 				}
 			}
-		}, orderID);
+		}, orderID).execute();
 		return false;
 	}
 

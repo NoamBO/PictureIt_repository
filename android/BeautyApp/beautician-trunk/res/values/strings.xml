@@ -32,6 +32,7 @@
     <string name="new_request_is_waiting_for_you_inside_the_app">בקשה חדשה ממתינה עבורך באפליקציה</string>
     <string name="watch">צפה</string>
     <string name="deny">דחה</string>
+    <string name="has_canceled_the_treatment">ביטל את הפגישה שתוכננה ל</string>
     
     <!-- Treatment confirmed notification and dialog -->
     <string name="treatment_successfully_confirmed">הטיפול הוזמן בהצלחה!</string>

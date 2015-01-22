@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
 import com.pictureit.noambaroz.beauticianapp.data.Message;
 import com.pictureit.noambaroz.beauticianapp.server.GetMessages;
@@ -34,6 +35,7 @@ public class Splash extends Activity implements Runnable {
 		setContentView(imageView, params);
 		if (!TextUtils.isEmpty(MyPreference.getUID())) {
 			checkMessagesAndOrderAroundMe();
+			AlarmManager.getInstance().syncAlarmsInBackground();
 		}
 	}
 

@@ -24,4 +24,6 @@ public class Constant {
 
 	public static final int EXTRA_CLASS_TYPE_MESSAGES = 1;
 
+	public static final int EXTRA_CLASS_TYPE_TREATMENTS = 3;
+
 }

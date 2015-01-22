@@ -1,5 +1,7 @@
 package com.pictureit.noambaroz.beauticianapp.alarm;
 
+import java.util.ArrayList;
+
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,6 +14,10 @@ import android.net.Uri;
 import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
+import com.pictureit.noambaroz.beauticianapp.data.Formatter;
+import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
+import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
+import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 
 public class AlarmManager {
 
@@ -131,6 +137,58 @@ public class AlarmManager {
 		Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		Ringtone r = RingtoneManager.getRingtone(ctx, notification);
 		r.play();
+	}
+
+	public void syncAlarmsInBackground() {
+		GetUpcomingTreatments task = new GetUpcomingTreatments(mContext, new HttpCallback() {
+
+			@Override
+			public void onAnswerReturn(Object answer) {
+				if (answer instanceof Integer)
+					return;
+				else {
+					@SuppressWarnings("unchecked")
+					ArrayList<UpcomingTreatment> arr = (ArrayList<UpcomingTreatment>) answer;
+					checkAlarmsTable(arr);
+				}
+			}
+		});
+		task.setIsWithNoConnectionDialog(false).setIsWithProgressDialog(false);
+		task.execute();
+	}
+
+	private void checkAlarmsTable(ArrayList<UpcomingTreatment> arr) {
+		for (int i = 0; i < arr.size(); i++) {
+			Cursor c = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null,
+					DataProvider.COL_TREATMENT_ID + " = ?", new String[] { arr.get(i).getUpcomingtreatmentId() }, null);
+			if (c.getColumnCount() == 0) {
+				Alarm alarm = new Alarm();
+				alarm.setAddress(arr.get(i).getClientAddress());
+				alarm.setFullName(arr.get(i).getClientName());
+				alarm.setImageUrl(arr.get(i).getImageUrl());
+				alarm.setTreatment(Formatter.getSelf(mContext).getTreatmentName(arr.get(i).getTreatments()));
+				alarm.setTreatmentDate(Integer.parseInt(arr.get(i).getTreatmentDate()) * 1000);
+				alarm.setUpcomingtreatment_id(Integer.parseInt(arr.get(i).getUpcomingtreatmentId()));
+				setAlarm(alarm);
+			}
+		}
+		Cursor c = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null, null, null, null);
+		if (c.getCount() > 0) {
+			c.moveToFirst();
+			do {
+				int treatmentID = c.getInt(c.getColumnIndex(DataProvider.COL_TREATMENT_ID));
+				boolean isOk = false;
+				for (UpcomingTreatment ut : arr) {
+					if (ut.getUpcomingtreatmentId().equalsIgnoreCase(String.valueOf(treatmentID))) {
+						isOk = true;
+						break;
+					}
+				}
+				if (!isOk)
+					deleteAlarmFromTable(treatmentID);
+			} while (c.moveToNext());
+		}
+
 	}
 
 }

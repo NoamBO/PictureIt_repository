@@ -88,7 +88,7 @@ public class ActivityMessage extends ActivityWithFragment {
 
 		private MessageResponse mMessageResponse;
 
-		private TextView tvPatient, tvHour, tvWantedTreatment1, tvWantedTreatment2, tvLocation, tvRemarks, tvPrice;
+		private TextView tvHour, tvWantedTreatment1, tvWantedTreatment2, tvLocation, tvRemarks, tvPrice;
 		private TextView tvSend, tvCancel;
 		private TextView editLocation, editTreatments, editRemarks, editPrice;;
 

@@ -89,7 +89,6 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, C
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		fragmentManager = getFragmentManager();
 		mResolvingError = savedInstanceState != null && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
@@ -120,6 +119,9 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, C
 			break;
 		case Constant.EXTRA_CLASS_TYPE_NOTIFICATION:
 			startActivity(new Intent(MainActivity.this, ActivityNotificationsDialog.class));
+			break;
+		case Constant.EXTRA_CLASS_TYPE_TREATMENTS:
+			startActivity(new Intent(MainActivity.this, ActivityUpcomingTreatments.class));
 			break;
 		default:
 			return;
@@ -447,7 +449,8 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, C
 			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 			mRequestingLocationUpdates = true;
 		}
-		mMapFragmentLocationListener.onLocationChanged(getLastLocation());
+		if (mMapFragmentLocationListener != null)
+			mMapFragmentLocationListener.onLocationChanged(getLastLocation());
 	}
 
 	@Override

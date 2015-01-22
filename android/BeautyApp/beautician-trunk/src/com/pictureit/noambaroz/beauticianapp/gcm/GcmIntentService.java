@@ -23,6 +23,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 import com.pictureit.noambaroz.beauticianapp.ActivityMessages;
 import com.pictureit.noambaroz.beauticianapp.ActivityNotificationsDialog;
+import com.pictureit.noambaroz.beauticianapp.ActivityUpcomingTreatments;
 import com.pictureit.noambaroz.beauticianapp.Constant;
 import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MainActivity;
@@ -33,6 +34,8 @@ import com.pictureit.noambaroz.beauticianapp.data.BeauticianOfferResponse;
 import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
+import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
+import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
@@ -47,6 +50,9 @@ public class GcmIntentService extends IntentService {
 	private static final String NOTIFICATION_TYPE_ORDER_CANCELED = "type_message_canceled";
 	private static final String KEY_NOTIFICATION_TYPE = "type";
 	private static final String KEY_NOTIFICATION_DATA = "data";
+
+	// when the customer cancel upcoming treatment
+	private static final String NOTIFICATION_TYPE_TREATMENT_CANCELED = "type_treatment_canceled";
 
 	private NotificationManager mNotificationManager;
 
@@ -82,6 +88,8 @@ public class GcmIntentService extends IntentService {
 							onCustomerResponse(data);
 						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_ORDER_CANCELED))
 							onOrderCanceled(data);
+						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_TREATMENT_CANCELED))
+							onTreatmentCanceled(data);
 					}
 				}
 
@@ -91,6 +99,23 @@ public class GcmIntentService extends IntentService {
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
+	}
+
+	private void onTreatmentCanceled(String data) {
+		UpcomingTreatment ut = null;
+		try {
+			ut = new Gson().fromJson(data, UpcomingTreatment.class);
+		} catch (Exception e) {
+		}
+		if (ut == null)
+			return;
+
+		String title = getString(R.string.treatment_canceled);
+		String message = ut.getClientName() + " " + getString(R.string.has_canceled_the_treatment) + " "
+				+ TimeUtils.timestampToDateWithHour(ut.getTreatmentDate());
+		sendNotification(Constant.EXTRA_CLASS_TYPE_TREATMENTS, null, message, title);
+		if (isAppRunningInForeground())
+			startActivity(ActivityUpcomingTreatments.class);
 	}
 
 	private void onOrderCanceled(String data) {
@@ -113,7 +138,7 @@ public class GcmIntentService extends IntentService {
 			bor = new Gson().fromJson(beauticianOfferResponse, BeauticianOfferResponse.class);
 		} catch (Exception e) {
 		}
-		if (bor == null || bor.orderid == null)
+		if (bor == null)
 			return;
 
 		if (bor.status.equalsIgnoreCase(BeauticianOfferResponse.RESPONSE_STATUS_CONFIRMED))
@@ -128,7 +153,9 @@ public class GcmIntentService extends IntentService {
 		String title = getString(R.string.response_declined);
 		String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.getFullName() + " "
 				+ getString(R.string.and_he_declined_your_offer);
-		sendNotification(0, null, message, title);
+		sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
+		if (isAppRunningInForeground())
+			startActivity(ActivityMessages.class);
 
 	}
 
@@ -145,11 +172,7 @@ public class GcmIntentService extends IntentService {
 			String message = offerResponse.getFullName() + " " + getString(R.string.response_confirmed_message);
 			sendNotification(Constant.EXTRA_CLASS_TYPE_NOTIFICATION, null, message, title);
 		} else {
-			getApplication().startActivity(
-					new Intent(getBaseContext(), ActivityNotificationsDialog.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP
-									| Intent.FLAG_ACTIVITY_NEW_TASK));
-			AlarmManager.playNotificationSound(getApplication());
+			startActivity(ActivityNotificationsDialog.class);
 		}
 		MyPreference.setHasAlarmsDialogsToShow(true);
 	}
@@ -170,10 +193,7 @@ public class GcmIntentService extends IntentService {
 			String message = getString(R.string.new_request_is_waiting_for_you_inside_the_app);
 			sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
 		} else {
-			getApplication().startActivity(
-					new Intent(getBaseContext(), ActivityMessages.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-							| Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-			AlarmManager.playNotificationSound(getApplication());
+			startActivity(ActivityMessages.class);
 		}
 	}
 
@@ -205,7 +225,6 @@ public class GcmIntentService extends IntentService {
 
 		builder.setContentIntent(contentIntent);
 		Notification notification = builder.build();
-		// notification.flags = Notification.FLAG_AUTO_CANCEL;
 		mNotificationManager.notify(NOTIFICATION_ID, notification);
 	}
 
@@ -220,5 +239,12 @@ public class GcmIntentService extends IntentService {
 		}
 
 		return isActivityFound;
+	}
+
+	private void startActivity(Class<?> class1) {
+		getApplication().startActivity(
+				new Intent(getBaseContext(), class1).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+		AlarmManager.playNotificationSound(getApplication());
 	}
 }

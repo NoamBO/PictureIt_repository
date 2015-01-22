@@ -41,7 +41,9 @@ public class ServerUtil {
 	// Messages
 	public static final String URL_REQUEST_GET_MESSAGES = URL_BASE + "checkmessages";
 	public static final String URL_REQUEST_GET_MESSAGE_BY_ID = URL_BASE + "orderdetails";
+	public static final String URL_REQUEST_REMOVE_MESSAGE_FROM_LIST = URL_BASE + "removemessage";
 	public static final String ORDER_ID = "order_id";
+	public static final String MESSAGE_ID = "message_id";
 
 	// Verify address
 	public static final String URL_REQUEST_VERIFY_ADDRESS = "http://pictureit.co.il/beautyapp/BeautyUpService.asmx/getvalidaddress";

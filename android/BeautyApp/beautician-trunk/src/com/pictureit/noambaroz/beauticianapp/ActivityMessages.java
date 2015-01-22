@@ -25,6 +25,7 @@ import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.server.GetMessages;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
+import com.pictureit.noambaroz.beauticianapp.server.RemoveMessageFromListTask;
 
 public class ActivityMessages extends ActivityWithFragment {
 
@@ -74,9 +75,9 @@ public class ActivityMessages extends ActivityWithFragment {
 			listView = findView(v, R.id.lv_fragment_list_listview);
 			emptyListIndicator = findView(v, R.id.tv_fragment_list_empty_list_indicator);
 			emptyListIndicator.setText(R.string.no_messages);
-			if (adapter == null)
+			if (adapter == null) {
 				new GetMessages(getActivity(), this).execute();
-
+			}
 			return v;
 		}
 
@@ -175,7 +176,16 @@ public class ActivityMessages extends ActivityWithFragment {
 					@Override
 					public void onClick(View v) {
 						final int position = (Integer) v.getTag();
-						// TODO
+						new RemoveMessageFromListTask(getContext(), new HttpCallback() {
+
+							@Override
+							public void onAnswerReturn(Object answer) {
+								if (answer instanceof Integer)
+									Dialogs.showServerFailedDialog(getContext());
+								else
+									remove(getItem(position));
+							}
+						}, getItem(position).getOrderid()).execute();
 					}
 				});
 			} else {
