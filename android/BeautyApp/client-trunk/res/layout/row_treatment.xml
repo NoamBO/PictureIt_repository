@@ -76,7 +76,7 @@
             android:background="@drawable/btn_select_shape"
             android:padding="@dimen/activity_horizontal_margin"
             android:textColor="@color/app_background"
-            android:textSize="@dimen/activity_horizontal_margin" />
+            android:textSize="@dimen/common_title_text_size" />
 
         <utilities.view.MyFontTextView
             android:id="@+id/tv_row_upcoming_treatments_disabled_container_remove"
@@ -86,7 +86,7 @@
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:text="@string/remove"
             android:textColor="@color/app_most_common_yellow_color"
-            android:textSize="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/common_text_size"
             android:textStyle="bold" />
     </FrameLayout>
 
