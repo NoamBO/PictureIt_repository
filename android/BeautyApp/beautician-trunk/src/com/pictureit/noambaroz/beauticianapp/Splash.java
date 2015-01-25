@@ -58,7 +58,7 @@ public class Splash extends Activity implements Runnable {
 					if (c.moveToFirst())
 						do {
 							for (Message m : arrayList) {
-								String rowOrderId = c.getString(c.getColumnIndex(DataProvider.COL_ID));
+								String rowOrderId = c.getString(c.getColumnIndex(DataProvider.COL_ORDER_ID));
 								if (rowOrderId.equalsIgnoreCase(m.getOrderid())) {
 									break;
 								}

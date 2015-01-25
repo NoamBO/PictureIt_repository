@@ -111,14 +111,16 @@ public class GcmIntentService extends IntentService {
 		if (ut == null)
 			return;
 
-		String title = getString(R.string.treatment_canceled);
-		String message = ut.getClientName() + " " + getString(R.string.has_canceled_the_treatment) + " "
-				+ TimeUtils.timestampToDateWithHour(ut.getTreatmentDate());
-		sendNotification(Constant.EXTRA_CLASS_TYPE_TREATMENTS, null, message, title);
-		if (isAppRunningInForeground()) {
+		if (!isAppRunningInForeground()) {
+			String title = getString(R.string.treatment_canceled);
+			String message = ut.getClientName() + " " + getString(R.string.has_canceled_the_treatment) + " "
+					+ TimeUtils.timestampToDateWithHour(ut.getTreatmentDate());
+			sendNotification(Constant.EXTRA_CLASS_TYPE_TREATMENTS, null, message, title);
+		} else {
 			if (ActivityUpcomingTreatments.active) {
 				sendBroadcast(new Intent(Constant.INTENT_FILTER_UPCOMING_TREATMENT_STATUS_CHANGED).putExtra(
 						Constant.EXTRA_UPCOMING_TREATMENT_ID, ut.getUpcomingtreatmentId()));
+				AlarmManager.playNotificationSound(getApplication());
 			} else {
 				startActivity(ActivityUpcomingTreatments.class);
 			}
@@ -161,14 +163,15 @@ public class GcmIntentService extends IntentService {
 	}
 
 	private void onCustomerDeclinedTheOffer(BeauticianOfferResponse bro) {
-
-		String title = getString(R.string.response_declined);
-		String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.getFullName() + " "
-				+ getString(R.string.and_he_declined_your_offer);
-		sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
-		if (isAppRunningInForeground()) {
+		if (!isAppRunningInForeground()) {
+			String title = getString(R.string.response_declined);
+			String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.getFullName() + " "
+					+ getString(R.string.and_he_declined_your_offer);
+			sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
+		} else {
 			if (ActivityMessages.active) {
 				sendBroadcast(new Intent(Constant.INTENT_FILTER_MESSAGE_DELETED));
+				AlarmManager.playNotificationSound(getApplication());
 			} else {
 				startActivity(ActivityMessages.class);
 			}
@@ -214,6 +217,7 @@ public class GcmIntentService extends IntentService {
 		} else {
 			if (ActivityMessages.active) {
 				sendBroadcast(new Intent(Constant.INTENT_FILTER_MESSAGE_DELETED));
+				AlarmManager.playNotificationSound(getApplication());
 			} else {
 				startActivity(ActivityMessages.class);
 			}

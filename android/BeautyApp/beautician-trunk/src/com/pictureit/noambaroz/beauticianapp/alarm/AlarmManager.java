@@ -2,14 +2,15 @@ package com.pictureit.noambaroz.beauticianapp.alarm;
 
 import java.util.ArrayList;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 
 import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
@@ -134,9 +135,12 @@ public class AlarmManager {
 	}
 
 	public static void playNotificationSound(Context ctx) {
-		Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		Ringtone r = RingtoneManager.getRingtone(ctx, notification);
-		r.play();
+		Uri notificationUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+		NotificationCompat.Builder b = new NotificationCompat.Builder(ctx);
+		b.setSound(notificationUri);
+		NotificationManager notificationManager = (NotificationManager) ctx
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(0, b.build());
 	}
 
 	public void syncAlarmsInBackground() {
