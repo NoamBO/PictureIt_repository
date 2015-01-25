@@ -143,6 +143,7 @@ public class SearchProviderFragment extends BaseFragment {
 						setRowOrder(tvName, editText.getText().toString(), bName);
 					}
 				});
+
 		return dialogName;
 	}
 

@@ -40,6 +40,7 @@ import com.pictureit.noambaroz.beauticianapp.dialog.MyNumberPickerDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.server.GetBeauticianDetailsTask;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
+import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalContactOptionsTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask;
 import com.pictureit.noambaroz.beauticianapp.server.UpdatePersonalDetailsTask.Builder;
@@ -127,6 +128,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					} else {
 						mDetails = (MyProfileDetails) answer;
 						setActivityMainScreenDetails();
+						ImageLoaderUtil.display(mDetails.getImage_url(), ivImage);
 					}
 				}
 			}).execute();

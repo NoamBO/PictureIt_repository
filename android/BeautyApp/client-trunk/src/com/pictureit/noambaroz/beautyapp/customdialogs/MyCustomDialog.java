@@ -2,6 +2,7 @@ package com.pictureit.noambaroz.beautyapp.customdialogs;
 
 import android.content.Context;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ public class MyCustomDialog extends BaseDialog {
 	public EditText getEditText() {
 		mEditText = (EditText) mView.findViewById(R.id.my_custom_dialog_edittext);
 		mEditText.setVisibility(View.VISIBLE);
+		getWindow().clearFlags(
+				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		return mEditText;
 	}
 
@@ -125,6 +129,15 @@ public class MyCustomDialog extends BaseDialog {
 			icon.setBackgroundResource(resId);
 		}
 		return this;
+	}
+
+	@Override
+	public void show() {
+		if (mEditText != null && mEditText.getVisibility() == View.VISIBLE) {
+
+		}
+		super.show();
+
 	}
 
 }

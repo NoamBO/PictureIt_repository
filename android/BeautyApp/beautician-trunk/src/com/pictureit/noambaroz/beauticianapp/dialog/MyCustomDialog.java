@@ -2,6 +2,7 @@ package com.pictureit.noambaroz.beauticianapp.dialog;
 
 import android.content.Context;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,9 @@ public class MyCustomDialog extends BaseDialog {
 		mEditText.setVisibility(View.VISIBLE);
 		if (mMessageTextView != null)
 			mView.findViewById(R.id.my_custom_dialog_edittext_textview_divider).setVisibility(View.VISIBLE);
+		getWindow().clearFlags(
+				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		return mEditText;
 	}
 
