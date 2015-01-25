@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +50,20 @@ public class ActivityMessages extends ActivityWithFragment {
 		backPressed();
 	}
 
+	public static boolean active = false;
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		active = true;
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		active = false;
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		((MessagesFragment) fragment).onMyActivityResult(requestCode, resultCode, data);
@@ -60,12 +76,35 @@ public class ActivityMessages extends ActivityWithFragment {
 		private TextView emptyListIndicator;
 
 		private MyAdapter adapter;
-		private ArrayList<Message> arrayList;
+
+		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.hasExtra(Constant.EXTRA_ORDER_ID)) {
+					String orderId = intent.getStringExtra(Constant.EXTRA_ORDER_ID);
+					for (int i = 0; i < adapter.getCount(); i++) {
+						if (adapter.getItem(i).getOrderid().equalsIgnoreCase(orderId)) {
+							adapter.remove(adapter.getItem(i));
+							adapter.notifyDataSetChanged();
+						}
+					}
+				} else {
+					new GetMessages(getActivity(), MessagesFragment.this).execute();
+				}
+			}
+		};
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
-			arrayList = new ArrayList<Message>();
 			super.onCreate(savedInstanceState);
+			registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_MESSAGE_DELETED));
+		}
+
+		@Override
+		public void onDestroy() {
+			unregisterReceiver(mReceiver);
+			super.onDestroy();
 		}
 
 		@Override
@@ -89,7 +128,7 @@ public class ActivityMessages extends ActivityWithFragment {
 				return;
 			}
 
-			arrayList = (ArrayList<Message>) answer;
+			ArrayList<Message> arrayList = (ArrayList<Message>) answer;
 
 			adapter = new MyAdapter(ActivityMessages.this, android.R.layout.simple_list_item_2, arrayList);
 			listView.setAdapter(adapter);
@@ -113,11 +152,11 @@ public class ActivityMessages extends ActivityWithFragment {
 		public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
 			if (requestCode == Constant.REQUEST_CODE_SINGLE_MESSAGE && resultCode == RESULT_OK
 					&& data.getExtras() != null)
-				for (Message m : arrayList) {
-					if (m.getOrderid().equalsIgnoreCase(data.getStringExtra(Constant.EXTRA_ORDER_ID))) {
-						arrayList.remove(m);
+
+				for (int i = 0; i < adapter.getCount(); i++) {
+					if (adapter.getItem(i).getOrderid().equalsIgnoreCase(data.getStringExtra(Constant.EXTRA_ORDER_ID))) {
+						adapter.remove(adapter.getItem(i));
 						adapter.notifyDataSetChanged();
-						return;
 					}
 				}
 		}

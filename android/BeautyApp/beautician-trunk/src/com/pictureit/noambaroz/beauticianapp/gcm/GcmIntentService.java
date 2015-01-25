@@ -31,6 +31,7 @@ import com.pictureit.noambaroz.beauticianapp.MyPreference;
 import com.pictureit.noambaroz.beauticianapp.R;
 import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
 import com.pictureit.noambaroz.beauticianapp.data.BeauticianOfferResponse;
+import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
 import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.OrderAroundMe;
@@ -114,8 +115,17 @@ public class GcmIntentService extends IntentService {
 		String message = ut.getClientName() + " " + getString(R.string.has_canceled_the_treatment) + " "
 				+ TimeUtils.timestampToDateWithHour(ut.getTreatmentDate());
 		sendNotification(Constant.EXTRA_CLASS_TYPE_TREATMENTS, null, message, title);
-		if (isAppRunningInForeground())
-			startActivity(ActivityUpcomingTreatments.class);
+		if (isAppRunningInForeground()) {
+			if (ActivityUpcomingTreatments.active) {
+				sendBroadcast(new Intent(Constant.INTENT_FILTER_UPCOMING_TREATMENT_STATUS_CHANGED).putExtra(
+						Constant.EXTRA_UPCOMING_TREATMENT_ID, ut.getUpcomingtreatmentId()));
+			} else {
+				startActivity(ActivityUpcomingTreatments.class);
+			}
+		}
+
+		getContentResolver().delete(DataProvider.CONTENT_URI_ALARMS, DataProvider.COL_TREATMENT_ID + " = ?",
+				new String[] { ut.getUpcomingtreatmentId() });
 	}
 
 	private void onOrderCanceled(String data) {
@@ -125,6 +135,8 @@ public class GcmIntentService extends IntentService {
 			if (j.has("orderid")) {
 				String orderid = j.getString("orderid");
 				DataUtils.get(getApplicationContext()).deleteOrderAroundMe(orderid);
+				sendBroadcast(new Intent(Constant.INTENT_FILTER_MESSAGE_DELETED).putExtra(Constant.EXTRA_ORDER_ID,
+						orderid));
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -154,9 +166,13 @@ public class GcmIntentService extends IntentService {
 		String message = getString(R.string.your_offer_didnt_fit_to) + " " + bro.getFullName() + " "
 				+ getString(R.string.and_he_declined_your_offer);
 		sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
-		if (isAppRunningInForeground())
-			startActivity(ActivityMessages.class);
-
+		if (isAppRunningInForeground()) {
+			if (ActivityMessages.active) {
+				sendBroadcast(new Intent(Constant.INTENT_FILTER_MESSAGE_DELETED));
+			} else {
+				startActivity(ActivityMessages.class);
+			}
+		}
 	}
 
 	private void onCustomerConfimedTheOffer(BeauticianOfferResponse offerResponse) {
@@ -172,6 +188,9 @@ public class GcmIntentService extends IntentService {
 			String message = offerResponse.getFullName() + " " + getString(R.string.response_confirmed_message);
 			sendNotification(Constant.EXTRA_CLASS_TYPE_NOTIFICATION, null, message, title);
 		} else {
+			if (ActivityUpcomingTreatments.active) {
+				sendBroadcast(new Intent(Constant.INTENT_FILTER_UPCOMING_TREATMENT_STATUS_CHANGED));
+			}
 			startActivity(ActivityNotificationsDialog.class);
 		}
 		MyPreference.setHasAlarmsDialogsToShow(true);
@@ -193,7 +212,11 @@ public class GcmIntentService extends IntentService {
 			String message = getString(R.string.new_request_is_waiting_for_you_inside_the_app);
 			sendNotification(Constant.EXTRA_CLASS_TYPE_MESSAGES, null, message, title);
 		} else {
-			startActivity(ActivityMessages.class);
+			if (ActivityMessages.active) {
+				sendBroadcast(new Intent(Constant.INTENT_FILTER_MESSAGE_DELETED));
+			} else {
+				startActivity(ActivityMessages.class);
+			}
 		}
 	}
 

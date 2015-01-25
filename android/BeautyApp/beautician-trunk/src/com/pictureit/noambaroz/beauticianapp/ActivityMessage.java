@@ -9,9 +9,11 @@ import noam.baroz.timepicker.OnTimeSetListener;
 import noam.baroz.timepicker.TimePicker;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -47,7 +49,7 @@ public class ActivityMessage extends ActivityWithFragment {
 
 	private Message mMessage;
 
-	private MyBackPressedListener mBackPressedListener;;
+	private MyBackPressedListener mBackPressedListener;
 
 	@Override
 	public void onBackPressed() {
@@ -101,6 +103,32 @@ public class ActivityMessage extends ActivityWithFragment {
 
 		private String mTreatmentsArrayInString;
 
+		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.hasExtra(Constant.EXTRA_ORDER_ID)) {
+					String orderId = intent.getStringExtra(Constant.EXTRA_ORDER_ID);
+					if (!TextUtils.isEmpty(orderId)) {
+						if (orderId.equalsIgnoreCase(mMessage.getOrderid())) {
+							MyCustomDialog d = new MyCustomDialog(getActivity());
+							d.setMessage(R.string.message_deleted);
+							d.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.dismiss();
+									getActivity().finish();
+								}
+							});
+							d.setCanceledOnTouchOutside(false);
+							d.show();
+						}
+					}
+				}
+			}
+		};
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -111,6 +139,13 @@ public class ActivityMessage extends ActivityWithFragment {
 			mTreatmentsArrayInString = new Gson().toJson(mMessage.getTreatments());
 			mMessageResponse.setTreatments(mMessage.getTreatments());
 			mMessageResponse.setDate(TimeUtils.timestampToDate(mMessage.getDate()));
+			registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_MESSAGE_DELETED));
+		}
+
+		@Override
+		public void onDestroy() {
+			unregisterReceiver(mReceiver);
+			super.onDestroy();
 		}
 
 		@Override

@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +26,7 @@ import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
+import com.pictureit.noambaroz.beauticianapp.dialog.MyCustomDialog;
 import com.pictureit.noambaroz.beauticianapp.dialog.MySingleChoiseDialog;
 import com.pictureit.noambaroz.beauticianapp.server.DeleteUpcomingTreatmentTask;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
@@ -34,6 +39,20 @@ import com.pictureit.noambaroz.beauticianapp.utilities.OutgoingCommunication;
 public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 	private AdapterUpcomingTreatments mAdapter;
+
+	public static boolean active = false;
+
+	@Override
+	protected void onStart() {
+		active = true;
+		super.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		active = false;
+		super.onStop();
+	}
 
 	@Override
 	protected void initActivity() {
@@ -63,6 +82,29 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 		private ListView mListView;
 		private TextView mEmptyListIndicator;
+
+		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.hasExtra(Constant.EXTRA_UPCOMING_TREATMENT_ID)) {
+					String treatmentID = intent.getStringExtra(Constant.EXTRA_UPCOMING_TREATMENT_ID);
+					if (!TextUtils.isEmpty(treatmentID))
+						new GetUpcomingTreatments(getActivity(), UpcomingTreatmentsFragment.this).execute();
+				}
+			}
+		};
+
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_UPCOMING_TREATMENT_STATUS_CHANGED));
+		};
+
+		@Override
+		public void onDestroy() {
+			unregisterReceiver(mReceiver);
+			super.onDestroy();
+		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -150,6 +192,44 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 			if (mDetachListener != null)
 				mDetachListener.onDetach();
 			super.onDetach();
+		}
+
+		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.hasExtra(Constant.EXTRA_UPCOMING_TREATMENT_ID)) {
+					String treatmentID = intent.getStringExtra(Constant.EXTRA_UPCOMING_TREATMENT_ID);
+					if (!TextUtils.isEmpty(treatmentID)) {
+						if (treatmentID.equalsIgnoreCase(mUpcomingTreatment.getUpcomingtreatmentId())) {
+							MyCustomDialog d = new MyCustomDialog(getActivity());
+							d.setMessage(R.string.treatment_canceled);
+							d.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.dismiss();
+									getActivity().getFragmentManager().popBackStack();
+								}
+							});
+							d.setCanceledOnTouchOutside(false);
+							d.show();
+						}
+					}
+				}
+			}
+		};
+
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			getActivity().registerReceiver(mReceiver,
+					new IntentFilter(Constant.INTENT_FILTER_UPCOMING_TREATMENT_STATUS_CHANGED));
+		};
+
+		@Override
+		public void onDestroy() {
+			getActivity().unregisterReceiver(mReceiver);
+			super.onDestroy();
 		}
 
 		@Override

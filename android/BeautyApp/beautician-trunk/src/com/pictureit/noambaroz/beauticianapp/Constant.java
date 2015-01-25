@@ -12,6 +12,8 @@ public class Constant {
 
 	public static final String EXTRA_ORDER_ID = "order_id";
 
+	public static final String EXTRA_UPCOMING_TREATMENT_ID = "upcomingtreatment_id";
+
 	public static final String EXTRA_MESSAGE_OBJECT = Message.class.getName();
 
 	public static final int REQUEST_CODE_SINGLE_MESSAGE = 20;
@@ -25,5 +27,9 @@ public class Constant {
 	public static final int EXTRA_CLASS_TYPE_MESSAGES = 1;
 
 	public static final int EXTRA_CLASS_TYPE_TREATMENTS = 3;
+
+	public static final String INTENT_FILTER_MESSAGE_DELETED = "message.deleted.broadcast.receiver.intent.filter";
+
+	public static final String INTENT_FILTER_UPCOMING_TREATMENT_STATUS_CHANGED = "upcoming.treatment.status.broadcast.receiver.intent.filter";
 
 }
