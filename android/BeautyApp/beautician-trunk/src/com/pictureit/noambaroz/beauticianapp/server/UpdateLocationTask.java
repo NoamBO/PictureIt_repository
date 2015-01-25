@@ -26,11 +26,8 @@ public class UpdateLocationTask extends BaseHttpPost {
 
 	@Override
 	protected Object continueInBackground(String result) {
-		if (!JsonToObject.isResponseOk(result)) {
-			Log.i("Failed..");
-		} else {
-			Log.i("Success!");
-		}
+		if (!JsonToObject.isResponseOk(result))
+			return "";
 		ArrayList<OrderAroundMe> array = JsonToObject.jsonToOrdersAroundMe(result);
 		if (array == null || array.size() == 0)
 			return "";
