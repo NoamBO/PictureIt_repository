@@ -88,8 +88,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		setListView();
 	}
 
+	ListView listView;
+
 	private void setListView() {
-		ListView listView = findView(R.id.lv_main_providers_list);
+		listView = findView(R.id.lv_main_providers_list);
 		mAdapter = new MainProviderListAdapter(MainActivity.this, android.R.layout.simple_list_item_1,
 				new ArrayList<Beautician>());
 		listView.setAdapter(mAdapter);
@@ -132,7 +134,6 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 					sliderArrowDown.setVisibility(View.INVISIBLE);
 					sliderArrowUp.setVisibility(View.VISIBLE);
 				} else {
-
 					sliderArrowDown.setVisibility(View.VISIBLE);
 					sliderArrowUp.setVisibility(View.INVISIBLE);
 				}

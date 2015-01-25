@@ -273,7 +273,7 @@ public class AnimationManager {
 			// MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 			// int touchToSlideButtonHeight =
 			// touchToSlideButton.getMeasuredHeight();
-			int sliderHeight = getHeightToExpand(100, activity, null);
+			int sliderHeight = getHeightToExpand(80, activity, null);
 			// int i = sliderHeight - (actionBarHeight * 2 +
 			// touchToSlideButtonHeight);
 			int i = sliderHeight;
