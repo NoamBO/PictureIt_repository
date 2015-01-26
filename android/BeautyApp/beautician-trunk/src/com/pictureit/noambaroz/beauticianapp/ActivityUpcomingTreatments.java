@@ -264,7 +264,12 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 			Formatter.getSelf(getActivity()).setTreatmentsList(tvTreatment1, tvTreatment2,
 					mUpcomingTreatment.getTreatments());
-			ImageLoaderUtil.display(mUpcomingTreatment.getImageUrl(), image);
+
+			{
+				int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
+				int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+				ImageLoaderUtil.display(mUpcomingTreatment.getImageUrl(), image, -1, w, h);
+			}
 
 			return v;
 		}
@@ -370,7 +375,11 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 			holder.treatment.setText(Formatter.getSelf(getContext())
 					.getTreatmentName(getItem(position).getTreatments()));
 
-			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);
+			{
+				int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
+				int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+				ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image, -1, w, h);
+			}
 			if (getItem(position).isTreatmentCanceled()) {
 				holder.disableContainer.setVisibility(View.VISIBLE);
 				holder.statusDisableTitle.setText(R.string.treatment_canceled);

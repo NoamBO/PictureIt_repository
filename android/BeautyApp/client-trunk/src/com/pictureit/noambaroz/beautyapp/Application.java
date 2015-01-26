@@ -22,7 +22,7 @@ public class Application extends android.app.Application {
 	private void initImageLoader() {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
 
-		.threadPoolSize(3)
+		.threadPoolSize(10)
 		// default
 				.threadPriority(Thread.NORM_PRIORITY - 1)
 				// default

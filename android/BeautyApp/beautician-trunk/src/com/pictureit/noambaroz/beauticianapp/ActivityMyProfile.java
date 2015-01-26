@@ -9,13 +9,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,7 +128,11 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					} else {
 						mDetails = (MyProfileDetails) answer;
 						setActivityMainScreenDetails();
-						ImageLoaderUtil.display(mDetails.getImage_url(), ivImage);
+						{
+							int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
+							int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+							ImageLoaderUtil.display(mDetails.getImage_url(), ivImage, -1, w, h);
+						}
 					}
 				}
 			}).execute();
@@ -491,12 +493,9 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					mDetails.setBusiness_name(etBusinessName.getText().toString());
 					mDetails.setClassification(classificationId);
 					if (bitmap != null) {
+						int h = ivImage.getLayoutParams().height;
+						int w = ivImage.getLayoutParams().width;
 						ivImage.setImageBitmap(bitmap);
-						Resources r = getResources();
-						int h = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-								r.getDimension(R.dimen.beautician_picture_height), r.getDisplayMetrics());
-						int w = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-								r.getDimension(R.dimen.beautician_picture_height), r.getDisplayMetrics());
 						ivImage.getLayoutParams().height = h;
 						ivImage.getLayoutParams().width = w;
 					}

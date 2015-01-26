@@ -17,14 +17,13 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beauticianapp.ActivityUpcomingTreatments.OnTreatmentCanceledListener;
 import com.pictureit.noambaroz.beauticianapp.animation.AnimationManager;
-import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
+import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.dialog.Dialogs;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
 import com.pictureit.noambaroz.beauticianapp.server.HttpBase.HttpCallback;
 import com.pictureit.noambaroz.beauticianapp.server.ImageLoaderUtil;
-import com.pictureit.noambaroz.beauticianapp.R;
 
 public class FragmentUnAvailable extends BaseFragment implements HttpCallback, OnItemClickListener {
 
@@ -138,7 +137,11 @@ public class FragmentUnAvailable extends BaseFragment implements HttpCallback, O
 			holder.treatment.setText(Formatter.getSelf(getActivity()).getTreatmentName(
 					getItem(position).getTreatments()));
 
-			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);
+			{
+				int w = (int) getResources().getDimension(R.dimen.small_image_width);
+				int h = (int) getResources().getDimension(R.dimen.small_image_height);
+				ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image, -1, w, h);
+			}
 
 			return convertView;
 		}

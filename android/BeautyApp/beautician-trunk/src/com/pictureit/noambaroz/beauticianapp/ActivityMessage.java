@@ -176,8 +176,11 @@ public class ActivityMessage extends ActivityWithFragment {
 			tvName.setText(mMessage.getClientName());
 			tvAddress.setText(mMessage.getClientAdress());
 			tvDate.setText(TimeUtils.timestampToDate(mMessage.getDate()));
-			ImageLoaderUtil.display(mMessage.getImageUrl(), image);
-
+			{
+				int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
+				int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+				ImageLoaderUtil.display(mMessage.getImageUrl(), image, -1, w, h);
+			}
 			Formatter.getSelf(getActivity()).setTreatmentsList(tvWantedTreatment1, tvWantedTreatment2,
 					mMessage.getTreatments());
 			tvLocation.setText(mMessage.getLocation());

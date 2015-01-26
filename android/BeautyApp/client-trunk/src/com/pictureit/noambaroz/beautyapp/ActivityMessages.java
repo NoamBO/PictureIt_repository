@@ -173,7 +173,9 @@ public class ActivityMessages extends ActivityWithFragment {
 			public void setViewImage(ImageView v, String value) {
 				super.setViewImage(v, value);
 				if (v.getId() == R.id.iv_base_beautician_row_pic) {
-					ImageLoaderUtil.display(value, v, R.drawable.row_avatar);
+					int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
+					int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+					ImageLoaderUtil.display(value, v, R.drawable.row_avatar, w, h);
 				}
 			}
 

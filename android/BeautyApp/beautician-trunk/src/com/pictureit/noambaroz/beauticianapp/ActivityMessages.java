@@ -204,7 +204,11 @@ public class ActivityMessages extends ActivityWithFragment {
 			holder.treatment.setText(Formatter.getSelf(getContext())
 					.getTreatmentName(getItem(position).getTreatments()));
 
-			ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image);
+			{
+				int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
+				int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+				ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image, -1, w, h);
+			}
 
 			if (getItem(position).isMessageDisabled()) {
 				holder.disableContainer.setVisibility(View.VISIBLE);

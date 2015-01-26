@@ -212,7 +212,11 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			date.setText(TimeUtils.timestampToDateWithHour(String.valueOf(alarm.getTreatmentDate() / 1000)));
 			name.setText(alarm.getFullName());
 			treatment.setText(alarm.getTreatment());
-			ImageLoaderUtil.display(alarm.getImageUrl(), image);
+			{
+				int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
+				int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+				ImageLoaderUtil.display(alarm.getImageUrl(), image, -1, w, h);
+			}
 		}
 
 		@Override

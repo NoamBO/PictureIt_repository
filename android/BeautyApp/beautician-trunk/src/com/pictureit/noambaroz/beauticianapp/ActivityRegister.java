@@ -5,12 +5,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -143,12 +141,9 @@ public class ActivityRegister extends Activity {
 
 	private void setImage() {
 		if (mBitmap != null) {
+			int h = ivProfilePic.getLayoutParams().height;
+			int w = ivProfilePic.getLayoutParams().width;
 			ivProfilePic.setImageBitmap(mBitmap);
-			Resources r = getResources();
-			int h = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-					r.getDimension(R.dimen.beautician_picture_height), r.getDisplayMetrics());
-			int w = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-					r.getDimension(R.dimen.beautician_picture_height), r.getDisplayMetrics());
 			ivProfilePic.getLayoutParams().height = h;
 			ivProfilePic.getLayoutParams().width = w;
 		} else

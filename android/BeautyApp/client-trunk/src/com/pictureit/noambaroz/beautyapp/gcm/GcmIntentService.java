@@ -105,7 +105,7 @@ public class GcmIntentService extends IntentService {
 			String title = getString(R.string.treatment_canceled);
 			String message = from + " " + getString(R.string.has_canceled_the_treatment) + " "
 					+ TimeUtils.timestampToDate(date);
-			sendNotification(ActivityTreatments.class, null, message, title);
+			sendNotification(ActivityTreatments.class, message, title);
 		} else {
 			if (ActivityTreatments.isRunning) {
 				sendBroadcast(new Intent(Constant.INTENT_FILTER_UPCOMING_TREATMENTS));
@@ -132,7 +132,7 @@ public class GcmIntentService extends IntentService {
 				String title = getString(R.string.push_notification_messages_message_from)
 						+ (from != null ? from : getString(R.string.beautician));
 				String message = getString(R.string.push_notification_messages_message);
-				sendNotification(ActivityMessages.class, null, message, title);
+				sendNotification(ActivityMessages.class, message, title);
 			} else {
 				startActivity(ActivityMessages.class);
 			}
@@ -142,13 +142,12 @@ public class GcmIntentService extends IntentService {
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
-	private void sendNotification(Class<?> class1, Bundle data, String message, String title) {
+	private void sendNotification(Class<?> class1, String message, String title) {
 		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		Intent notificationIntent = new Intent(this, class1);
 		// notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 		// Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		notificationIntent.putExtras(data);
 
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 		// Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR);

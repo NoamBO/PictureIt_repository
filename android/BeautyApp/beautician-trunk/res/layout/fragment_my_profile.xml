@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/iv_my_profile_row1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/beautician_picture_width"
+                android:layout_height="@dimen/beautician_picture_height"
                 android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/fragment_padding"
                 android:background="@drawable/profile_avatar" />

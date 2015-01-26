@@ -53,8 +53,11 @@ public class MainProviderListAdapter extends ArrayAdapter<Beautician> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
-		ImageLoaderUtil.display(getItem(position).getPhoto(), holder.pic, R.drawable.row_avatar);
+		{
+			int w = (int) getContext().getResources().getDimension(R.dimen.beautician_picture_width);
+			int h = (int) getContext().getResources().getDimension(R.dimen.beautician_picture_height);
+			ImageLoaderUtil.display(getItem(position).getPhoto(), holder.pic, R.drawable.row_avatar, w, h);
+		}
 		holder.name.setText(getItem(position).getName());
 		if (getItem(position).getAddress() != null)
 			holder.address.setText(BeauticianUtil.formatAddress(ctx, getItem(position).getAddress()));

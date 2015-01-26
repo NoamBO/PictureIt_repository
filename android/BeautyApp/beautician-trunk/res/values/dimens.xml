@@ -6,6 +6,8 @@
     <dimen name="activity_vertical_margin">7dp</dimen>
     <dimen name="beautician_picture_width">75dp</dimen>
     <dimen name="beautician_picture_height">75dp</dimen>
+    <dimen name="small_image_width">65dp</dimen>
+    <dimen name="small_image_height">65dp</dimen>
     <dimen name="button_height">65dp</dimen>
     <dimen name="upcoming_list_card_height">130dp</dimen>
     <dimen name="beauticion_name_text_size">20sp</dimen>
