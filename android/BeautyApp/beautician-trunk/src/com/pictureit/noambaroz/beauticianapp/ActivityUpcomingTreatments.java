@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pictureit.noambaroz.beauticianapp.alarm.AlarmManager;
+import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.TimeUtils;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
@@ -158,6 +160,8 @@ public class ActivityUpcomingTreatments extends ActivityWithFragment {
 
 		@Override
 		public void onTreatmentCanceled(UpcomingTreatment treatment) {
+			DataUtils.get(getActivity()).deleteTreatmentConfirmedRow(treatment.getUpcomingtreatmentId());
+			AlarmManager.getInstance().deleteAlarmFromTable(Integer.parseInt(treatment.getUpcomingtreatmentId()));
 			mAdapter.remove(treatment);
 			mAdapter.notifyDataSetChanged();
 		}
