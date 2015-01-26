@@ -56,10 +56,9 @@ public class CropMenager {
 						e.printStackTrace();
 					}
 				} else { // pick from file
-					Intent intent = new Intent();
+					Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
 					intent.setType("image/*");
-					intent.setAction(Intent.ACTION_GET_CONTENT);
 
 					activity.startActivityForResult(Intent.createChooser(intent, "Complete action using"),
 							PICK_FROM_FILE);
