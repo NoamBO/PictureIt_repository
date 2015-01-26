@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utilities.Log;
+import utilities.TimeUtils;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.IntentService;
@@ -13,16 +14,18 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.pictureit.noambaroz.beautyapp.ActivityMessages;
+import com.pictureit.noambaroz.beautyapp.ActivityTreatments;
 import com.pictureit.noambaroz.beautyapp.R;
+import com.pictureit.noambaroz.beautyapp.data.Constant;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 
 public class GcmIntentService extends IntentService {
@@ -32,6 +35,8 @@ public class GcmIntentService extends IntentService {
 	private static final String KEY_NOTIFICATION_DATA = "data";
 
 	private static final String NOTIFICATION_TYPE_MESSAGE = "message";
+
+	private static final String NOTIFICATION_TYPE_TREATMENT_CANCELED = "type_treatment_canceled";
 
 	private static final String FROM = "from";
 	private static final String ORDER_ID = "response_id";
@@ -74,6 +79,8 @@ public class GcmIntentService extends IntentService {
 					if (!TextUtils.isEmpty(notificationType)) {
 						if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_MESSAGE))
 							onMessageArrived(jo);
+						else if (notificationType.equalsIgnoreCase(NOTIFICATION_TYPE_TREATMENT_CANCELED))
+							onTreatmentCanceled(jo);
 					}
 				}
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
@@ -82,6 +89,31 @@ public class GcmIntentService extends IntentService {
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
+	}
+
+	private void onTreatmentCanceled(JSONObject jo) {
+		if (!isAppRunningInForeground()) {
+			String from = "";
+			String date = "";
+			try {
+				from = jo.getString(FROM);
+				date = jo.getString("date");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String title = getString(R.string.treatment_canceled);
+			String message = from + " " + getString(R.string.has_canceled_the_treatment) + " "
+					+ TimeUtils.timestampToDate(date);
+			sendNotification(ActivityTreatments.class, null, message, title);
+		} else {
+			if (ActivityTreatments.isRunning) {
+				sendBroadcast(new Intent(Constant.INTENT_FILTER_UPCOMING_TREATMENTS));
+				playNotificationSound();
+			} else {
+				startActivity(ActivityTreatments.class);
+			}
+		}
 	}
 
 	private void onMessageArrived(JSONObject data) {
@@ -100,7 +132,7 @@ public class GcmIntentService extends IntentService {
 				String title = getString(R.string.push_notification_messages_message_from)
 						+ (from != null ? from : getString(R.string.beautician));
 				String message = getString(R.string.push_notification_messages_message);
-				sendNotification(null, message, title);
+				sendNotification(ActivityMessages.class, null, message, title);
 			} else {
 				startActivity(ActivityMessages.class);
 			}
@@ -110,10 +142,10 @@ public class GcmIntentService extends IntentService {
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
-	private void sendNotification(Bundle data, String message, String title) {
+	private void sendNotification(Class<?> class1, Bundle data, String message, String title) {
 		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent notificationIntent = new Intent(this, ActivityMessages.class);
+		Intent notificationIntent = new Intent(this, class1);
 		// notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 		// Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		notificationIntent.putExtras(data);
@@ -160,8 +192,15 @@ public class GcmIntentService extends IntentService {
 		getApplication().startActivity(
 				new Intent(getBaseContext(), class1).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 						| Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-		Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		Ringtone r = RingtoneManager.getRingtone(this, notification);
-		r.play();
+		playNotificationSound();
+	}
+
+	private void playNotificationSound() {
+		Uri notificationUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+		NotificationCompat.Builder b = new NotificationCompat.Builder(this);
+		b.setSound(notificationUri);
+		NotificationManager notificationManager = (NotificationManager) this
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(0, b.build());
 	}
 }

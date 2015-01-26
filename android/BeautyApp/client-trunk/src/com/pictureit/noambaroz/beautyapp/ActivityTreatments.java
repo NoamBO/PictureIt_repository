@@ -7,8 +7,10 @@ import utilities.Dialogs;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +36,20 @@ import com.pictureit.noambaroz.beautyapp.server.PostRemoveCanceledTreatment;
 public class ActivityTreatments extends ActivityWithFragment {
 
 	public static int RESULT_CODE_TREATMENT_CANCELED = 052605;
+
+	public static boolean isRunning = false;
+
+	@Override
+	protected void onStart() {
+		isRunning = true;
+		super.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		isRunning = false;
+		super.onStop();
+	}
 
 	@Override
 	public void onBackPressed() {
@@ -89,6 +105,14 @@ public class ActivityTreatments extends ActivityWithFragment {
 		private LinearLayout mNoTreatmentsIndicator;
 		private UpcomingTreatment mTempTreatment;
 
+		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				new GetUpcomingTreatments(getActivity(), FragmentTreatments.this).execute();
+			}
+		};
+
 		public FragmentTreatments() {
 		}
 
@@ -105,7 +129,18 @@ public class ActivityTreatments extends ActivityWithFragment {
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			GetUpcomingTreatments httpPost = new GetUpcomingTreatments(getActivity(), this);
 			httpPost.execute();
+			registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_UPCOMING_TREATMENTS));
 			super.onViewCreated(view, savedInstanceState);
+		}
+
+		@Override
+		public void onDestroy() {
+			unregisterReceiver(mReceiver);
+			Intent i = new Intent(getActivity(), MainActivity.class);
+			i.putExtra("exit", true);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(i);
+			super.onDestroy();
 		}
 
 		@SuppressWarnings("unchecked")

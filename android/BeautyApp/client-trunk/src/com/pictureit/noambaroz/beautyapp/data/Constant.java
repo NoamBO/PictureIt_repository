@@ -28,4 +28,6 @@ public class Constant {
 
 	public static final String PREFS_KEY_IS_APP_WAITING = "is_treatment_response_needed";
 
+	public static final String INTENT_FILTER_UPCOMING_TREATMENTS = "upcoming.treatments.status.changed.filter";
+
 }

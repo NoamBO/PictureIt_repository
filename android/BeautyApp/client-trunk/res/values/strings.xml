@@ -9,8 +9,7 @@
     <string name="preference_key_my_profile_address">PREF_PROFILE_ADDRESS</string>
 	<string name="preference_key_my_profile_phone_number">PREF_PROFILE_PHONE_NUMBER</string>
 
-	<string name="push_notification_messages_message_from">הודעה מ </string>
-	<string name="push_notification_messages_message">"היי, מחכה לך הצעה ממני בתוך האפליקציה. כנס כדי להגיב"</string>
+
     <string name="question_mark">"?"</string>
     <string name="press_again_to_exit">לחץ פעם נוספת ליציאה</string>
     <string name="loading">טוען..</string>
@@ -48,6 +47,11 @@
     <string name="action_ask_for_service">הזמן טיפול</string>
     <string name="action_search_providers">חפש קוסמטיקאית</string>
     <string name="action_future_treatments">הטיפולים הבאים</string>
+    
+    <!-- Notifications -->
+    <string name="push_notification_messages_message_from">הודעה מ </string>
+	<string name="push_notification_messages_message">"היי, מחכה לך הצעה ממני בתוך האפליקציה. כנס כדי להגיב"</string>
+    <string name="has_canceled_the_treatment">ביטל את הפגישה שתוכננה ל</string>
     
     <!-- Pending Order Dialog -->
     <string name="pending_order_dialog_message">בקשה נשלחה</string>
