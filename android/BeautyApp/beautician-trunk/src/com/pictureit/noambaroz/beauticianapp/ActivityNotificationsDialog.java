@@ -110,7 +110,8 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				DataUtils.get(getApplicationContext()).deleteTreatmentConfirmedRow(responseConfirmed.orderid);
+				DataUtils.get(getApplicationContext()).deleteTreatmentConfirmedRow(
+						String.valueOf(responseConfirmed.getUpcomingtreatment_id()));
 				mResponseConfirmedArraylist.remove(responseConfirmed);
 				// checkStatusAndShowDialog();
 			}
@@ -177,7 +178,8 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			if (cursor.moveToFirst()) {
 				do {
 					BeauticianOfferResponse rc = new BeauticianOfferResponse();
-					rc.orderid = cursor.getString(cursor.getColumnIndex(DataProvider.COL_TREATMENT_ID));
+					rc.setUpcomingtreatment_id(Integer.parseInt(cursor.getString(cursor
+							.getColumnIndex(DataProvider.COL_TREATMENT_ID))));
 					rc.phone_number = cursor.getString(cursor.getColumnIndex(DataProvider.COL_CUSTOMER_TELEPHONE));
 					mResponseConfirmedArraylist.add(rc);
 				} while (cursor.moveToNext());

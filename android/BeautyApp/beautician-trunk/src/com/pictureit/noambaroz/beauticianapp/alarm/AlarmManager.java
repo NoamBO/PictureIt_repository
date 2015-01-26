@@ -14,7 +14,9 @@ import android.support.v4.app.NotificationCompat;
 
 import com.pictureit.noambaroz.beauticianapp.Log;
 import com.pictureit.noambaroz.beauticianapp.MyPreference;
+import com.pictureit.noambaroz.beauticianapp.data.BeauticianOfferResponse;
 import com.pictureit.noambaroz.beauticianapp.data.DataProvider;
+import com.pictureit.noambaroz.beauticianapp.data.DataUtils;
 import com.pictureit.noambaroz.beauticianapp.data.Formatter;
 import com.pictureit.noambaroz.beauticianapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beauticianapp.server.GetUpcomingTreatments;
@@ -163,17 +165,21 @@ public class AlarmManager {
 
 	private void checkAlarmsTable(ArrayList<UpcomingTreatment> arr) {
 		for (int i = 0; i < arr.size(); i++) {
+			if (arr.get(i).isTreatmentCanceled())
+				continue;
 			Cursor c = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null,
 					DataProvider.COL_TREATMENT_ID + " = ?", new String[] { arr.get(i).getUpcomingtreatmentId() }, null);
 			if (c.getColumnCount() == 0) {
-				Alarm alarm = new Alarm();
-				alarm.setAddress(arr.get(i).getClientAddress());
-				alarm.setFullName(arr.get(i).getClientName());
-				alarm.setImageUrl(arr.get(i).getImageUrl());
-				alarm.setTreatment(Formatter.getSelf(mContext).getTreatmentName(arr.get(i).getTreatments()));
-				alarm.setTreatmentDate(Integer.parseInt(arr.get(i).getTreatmentDate()) * 1000);
-				alarm.setUpcomingtreatment_id(Integer.parseInt(arr.get(i).getUpcomingtreatmentId()));
-				setAlarm(alarm);
+				BeauticianOfferResponse bor = new BeauticianOfferResponse();
+				bor.setAddress(arr.get(i).getClientAddress());
+				bor.setFullName(arr.get(i).getClientName());
+				bor.setImageUrl(arr.get(i).getImageUrl());
+				bor.setTreatment(Formatter.getSelf(mContext).getTreatmentName(arr.get(i).getTreatments()));
+				bor.setTreatmentDate(Integer.parseInt(arr.get(i).getTreatmentDate()) * 1000);
+				bor.setUpcomingtreatment_id(Integer.parseInt(arr.get(i).getUpcomingtreatmentId()));
+				bor.phone_number = arr.get(i).getClientPhone();
+				setAlarm(bor);
+				DataUtils.get(mContext).addTreatmentConfirmedRow(bor);
 			}
 		}
 		Cursor c = mContext.getContentResolver().query(DataProvider.CONTENT_URI_ALARMS, null, null, null, null);
@@ -183,13 +189,16 @@ public class AlarmManager {
 				int treatmentID = c.getInt(c.getColumnIndex(DataProvider.COL_TREATMENT_ID));
 				boolean isOk = false;
 				for (UpcomingTreatment ut : arr) {
-					if (ut.getUpcomingtreatmentId().equalsIgnoreCase(String.valueOf(treatmentID))) {
+					if (ut.getUpcomingtreatmentId().equalsIgnoreCase(String.valueOf(treatmentID))
+							&& !ut.isTreatmentCanceled()) {
 						isOk = true;
 						break;
 					}
 				}
-				if (!isOk)
+				if (!isOk) {
 					deleteAlarmFromTable(treatmentID);
+					DataUtils.get(mContext).deleteTreatmentConfirmedRow(String.valueOf(treatmentID));
+				}
 			} while (c.moveToNext());
 		}
 

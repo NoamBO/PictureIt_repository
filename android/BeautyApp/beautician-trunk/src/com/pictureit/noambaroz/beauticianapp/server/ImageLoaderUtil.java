@@ -13,8 +13,8 @@ public class ImageLoaderUtil {
 		int avatarResId = onFailImageResId == -1 ? R.drawable.profile_avatar : onFailImageResId;
 		return new DisplayImageOptions.Builder().resetViewBeforeLoading(false).cacheInMemory(true).cacheOnDisc(true)
 				.considerExifParams(false).displayer(new RoundedBitmapDisplayer(0)).showImageForEmptyUri(avatarResId)
-				.showImageOnFail(avatarResId).showImageOnLoading(avatarResId).imageScaleType(ImageScaleType.EXACTLY)
-				.build();
+				.showImageOnFail(avatarResId).showImageOnLoading(avatarResId)
+				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
 	}
 
 	public static void display(String uri, ImageView imageView) {

@@ -66,7 +66,7 @@ public class DataUtils {
 	public void addTreatmentConfirmedRow(BeauticianOfferResponse offerResponse) {
 		ContentValues cv = new ContentValues(2);
 		cv.put(DataProvider.COL_CUSTOMER_TELEPHONE, offerResponse.phone_number);
-		cv.put(DataProvider.COL_TREATMENT_ID, offerResponse.orderid);
+		cv.put(DataProvider.COL_TREATMENT_ID, offerResponse.getUpcomingtreatment_id());
 
 		mContext.getContentResolver().insert(DataProvider.CONTENT_CONFIRMED_TREATMENTS, cv);
 		MyPreference.setHasAlarmsDialogsToShow(true);

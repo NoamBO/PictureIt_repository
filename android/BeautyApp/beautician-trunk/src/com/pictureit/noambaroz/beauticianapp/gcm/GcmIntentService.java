@@ -128,6 +128,7 @@ public class GcmIntentService extends IntentService {
 
 		getContentResolver().delete(DataProvider.CONTENT_URI_ALARMS, DataProvider.COL_TREATMENT_ID + " = ?",
 				new String[] { ut.getUpcomingtreatmentId() });
+		DataUtils.get(getApplication()).deleteTreatmentConfirmedRow(ut.getUpcomingtreatmentId());
 	}
 
 	private void onOrderCanceled(String data) {
