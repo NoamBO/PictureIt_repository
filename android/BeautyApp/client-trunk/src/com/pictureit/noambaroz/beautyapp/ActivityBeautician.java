@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp;
 import utilities.BaseFragment;
 import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,12 +31,17 @@ public class ActivityBeautician extends ActivityWithFragment {
 
 	@Override
 	protected void initActivity() {
-		isTitleVisible = false;
 	}
 
 	@Override
 	protected void setFragment() {
 		fragment = new FragmentBeautician();
+	}
+
+	@Override
+	protected void initActionBar(ActionBar actionBar) {
+		super.initActionBar(actionBar);
+		actionBar.setTitle("");
 	}
 
 	@Override

@@ -9,8 +9,10 @@ import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -41,7 +43,11 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	}
 
 	public static void addViewToTopOfActionBar(Activity context) {
-		int topViewHeightPix = 10;
+		Resources r = context.getResources();
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+				r.getDimension(R.dimen.actionbar_top_line_height), r.getDisplayMetrics());
+
+		int topViewHeightPix = (int) px;
 		int abContainerViewID = context.getResources().getIdentifier("action_bar_container", "id", "android");
 		FrameLayout actionBarContainer = (FrameLayout) context.findViewById(abContainerViewID);
 		final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
