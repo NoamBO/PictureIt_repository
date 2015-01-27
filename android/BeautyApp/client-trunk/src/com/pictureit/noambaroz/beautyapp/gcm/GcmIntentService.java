@@ -41,7 +41,6 @@ public class GcmIntentService extends IntentService {
 	private static final String FROM = "from";
 	private static final String ORDER_ID = "response_id";
 
-	// private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
 	private NotificationManager mNotificationManager;
 
@@ -130,7 +129,7 @@ public class GcmIntentService extends IntentService {
 					}
 
 				String title = getString(R.string.push_notification_messages_message_from)
-						+ (from != null ? from : getString(R.string.beautician));
+						+ (!TextUtils.isEmpty(from) ? from : getString(R.string.beautician));
 				String message = getString(R.string.push_notification_messages_message);
 				sendNotification(ActivityMessages.class, message, title);
 			} else {

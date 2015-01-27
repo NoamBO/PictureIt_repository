@@ -162,12 +162,14 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					UpcomingTreatment t = (UpcomingTreatment) parent.getAdapter().getItem(position);
-					Intent intent = new Intent(getActivity(), ActivitySingleTreatment.class);
-					intent.putExtra(Constant.EXTRA_UPCOMING_TREATMENT, t);
-					mTempTreatment = t;
-					startActivityForResult(intent, 0);
-					overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+					if (((UpcomingTreatmentsListViewAdapter) parent.getAdapter()).isItemClickable(position)) {
+						UpcomingTreatment t = (UpcomingTreatment) parent.getAdapter().getItem(position);
+						Intent intent = new Intent(getActivity(), ActivitySingleTreatment.class);
+						intent.putExtra(Constant.EXTRA_UPCOMING_TREATMENT, t);
+						mTempTreatment = t;
+						startActivityForResult(intent, 0);
+						overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+					}
 				}
 			});
 		}
@@ -190,6 +192,10 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 		public UpcomingTreatmentsListViewAdapter(Context context, int resource, List<UpcomingTreatment> objects) {
 			super(context, resource, objects);
+		}
+
+		public boolean isItemClickable(int position) {
+			return !getItem(position).isTreatmentCanceled();
 		}
 
 		@Override
@@ -239,7 +245,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 								else
 									remove(getItem(position));
 							}
-						}, getItem(position).getUpcomingTreatmentId());
+						}, getItem(position).getUpcomingTreatmentId()).execute();
 					}
 				});
 			} else {
