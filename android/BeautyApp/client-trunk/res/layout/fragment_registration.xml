@@ -5,7 +5,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="@dimen/actionbar_top_line_height"
         android:background="@color/app_most_common_yellow_color" />
 
     <utilities.view.MyFontTextView
@@ -62,6 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
+                android:textColor="@color/registrations_title_text_color"
                 android:textSize="22sp" />
         </LinearLayout>
 

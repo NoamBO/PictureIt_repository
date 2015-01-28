@@ -12,7 +12,6 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
 import android.util.LruCache;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.pictureit.noambaroz.beautyapp.R;
@@ -34,12 +33,14 @@ public class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SpannableString s = new SpannableString(getTitle());
-		s.setSpan(new TypefaceSpan(this, "FbExtrim-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-		// Update the action bar title with the TypefaceSpan instance
 		ActionBar actionBar = getActionBar();
-		actionBar.setTitle(s);
+		if (actionBar != null) {
+			SpannableString s = new SpannableString(getTitle());
+			s.setSpan(new TypefaceSpan(this, "FbExtrim-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+			// Update the action bar title with the TypefaceSpan instance
+			actionBar.setTitle(s);
+		}
 	}
 
 	public static class TypefaceSpan extends MetricAffectingSpan {
@@ -72,6 +73,8 @@ public class BaseActivity extends Activity {
 
 			// Note: This flag is required for proper typeface rendering
 			p.setFlags(p.getFlags() | Paint.SUBPIXEL_TEXT_FLAG);
+			Resources r = mContext.getResources();
+			p.setTextSize(r.getDimension(R.dimen.actionbar_title_text_size));
 		}
 
 		@Override
@@ -81,9 +84,7 @@ public class BaseActivity extends Activity {
 			// Note: This flag is required for proper typeface rendering
 			tp.setFlags(tp.getFlags() | Paint.SUBPIXEL_TEXT_FLAG);
 			Resources r = mContext.getResources();
-			float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-					r.getDimension(R.dimen.actionbar_title_text_size), r.getDisplayMetrics());
-			tp.setTextSize(px);
+			tp.setTextSize(r.getDimension(R.dimen.actionbar_title_text_size));
 		}
 	}
 

@@ -14,6 +14,6 @@
     <dimen name="dialog_row_height">60dp</dimen>
     
     <dimen name="actionbar_top_line_height">4dp</dimen>
-    <dimen name="actionbar_title_text_size">22sp</dimen>
+    <dimen name="actionbar_title_text_size">25dp</dimen>
 
 </resources>

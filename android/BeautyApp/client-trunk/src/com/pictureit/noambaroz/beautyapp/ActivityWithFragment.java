@@ -35,7 +35,7 @@ public abstract class ActivityWithFragment extends BaseActivity {
 
 	public static void addViewToTopOfActionBar(Activity context) {
 		Resources r = context.getResources();
-		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
 				r.getDimension(R.dimen.actionbar_top_line_height), r.getDisplayMetrics());
 
 		int topViewHeightPix = (int) px;

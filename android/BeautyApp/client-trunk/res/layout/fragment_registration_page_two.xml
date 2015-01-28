@@ -3,6 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_top_line_height"
+        android:background="@color/app_most_common_yellow_color" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,15 +46,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
+                android:textColor="@color/registrations_title_text_color"
                 android:textSize="22sp" />
         </LinearLayout>
 
         <utilities.view.MyEditText
             android:id="@+id/et_registration_telephone_number"
+            style="@style/EditTextCustomHolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            style="@style/EditTextCustomHolo"
             android:hint="@string/telephone_number"
             android:inputType="numberSigned"
             android:textSize="22sp" />

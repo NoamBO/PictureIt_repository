@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/first_name"
+                    android:text="@string/first_name_"
                     android:textColor="@color/text_color_gray" />
 
                 <utilities.view.MyEditText
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/last_name"
+                    android:text="@string/last_name_"
                     android:textColor="@color/text_color_gray" />
 
                 <utilities.view.MyEditText
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/email"
+                    android:text="@string/email_"
                     android:textColor="@color/text_color_gray" />
 
                 <utilities.view.MyEditText
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/address"
+                    android:text="@string/address_"
                     android:textColor="@color/text_color_gray" />
 
                 <utilities.view.MyEditText
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/telephone_number"
+                    android:text="@string/telephone_number_"
                     android:textColor="@color/text_color_gray" />
 
                 <utilities.view.MyEditText
@@ -221,7 +221,7 @@
                     android:inputType="textCapWords"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="10dp"
-                    android:textColor="@color/text_color_gray" />
+                    android:textColor="@color/light_gray" />
 
                 <View
                     android:layout_width="match_parent"

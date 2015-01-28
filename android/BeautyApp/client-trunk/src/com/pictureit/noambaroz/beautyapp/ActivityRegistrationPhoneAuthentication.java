@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -47,7 +46,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 		private EditText editText;
 		private TextView tvCounter;
 		private ViewGroup bProceed;
-		private Button bReSendCode;
+		private TextView bReSendCode;
 
 		private CountDownTimer mTimer;
 		private boolean isCounting;
@@ -58,7 +57,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 
 			editText = findView(v, R.id.et_registration_page_three);
 			bProceed = findView(v, R.id.rl_registration_page_three_proceed);
-			bReSendCode = findView(v, R.id.b_registration_page_three_resend);
+			bReSendCode = findView(v, R.id.tv_registration_page_three_resend);
 			tvCounter = findView(v, R.id.tv_registration_page_three_counter);
 
 			return v;

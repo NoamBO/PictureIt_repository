@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="registrations_title_text_color">#6d6e71</color>
     <color name="action_bar_color">#ff0000</color>
     <color name="treatment_selection_dialog_title_background">#d1d3d4</color>
     <color name="text_color_un_filled">#ff0000</color>
@@ -14,5 +15,6 @@
 	<color name="text_color_gray">#6d6e71</color>
 	<color name="dialog_theme_color">#eddb58</color>
 	<color name="my_number_picker_button_color">#6d6e71</color>
+	<color name="light_gray">#bcbec0</color>
     
 </resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Preference framework strings. -->
+    <string name="cancel">ביטול</string>
+
+    <!-- The title of the date picker dialog. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_dialog_title">קבע תאריך</string>
+    <!-- Name of the button in the date/time picker to accept the date/time change -->
+    <string name="date_time_set">קבע</string>
+    <!-- Name of the button in the date/time picker to accept the date/time change -->
+    <string name="date_time_done">סיום</string>
+
+    <!-- DatePicker - accessibility support -->
+    <!-- Description of the button to increment the DatePicker's month value. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_increment_month_button">חודש קדימה</string>
+    <!-- Description of the button to decrement the DatePicker's month value. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_decrement_month_button">חודש אחורה</string>
+    <!-- Description of the button to increment the DatePicker's day value. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_increment_day_button">יום אחורה</string>
+    <!-- Description of the button to decrement the DatePicker's day value. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_decrement_day_button">יום אחורה</string>
+    <!-- Description of the button to increment the DatePicker's year value. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_increment_year_button">שנה קדימה</string>
+    <!-- Description of the button to decrement the DatePicker's year value. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_decrement_year_button">שנה אחורה</string>
+</resources>
