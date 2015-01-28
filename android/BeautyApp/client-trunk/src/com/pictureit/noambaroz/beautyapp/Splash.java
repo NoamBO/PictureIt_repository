@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.pictureit.noambaroz.beautyapp.data.Constants;
+import com.pictureit.noambaroz.beautyapp.server.PostCheckMessages;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
 
 public class Splash extends Activity {
@@ -21,9 +22,10 @@ public class Splash extends Activity {
 			utilities.Log.i("answer = " + answer);
 			if (answer != null) {
 				String result = (String) answer;
-				if (result.equalsIgnoreCase(PostVerifyUser.VERIFY_USER_RESULT_ACTIVE))
+				if (result.equalsIgnoreCase(PostVerifyUser.VERIFY_USER_RESULT_ACTIVE)) {
 					launchActivity(MainActivity.class);
-				else if (result.equalsIgnoreCase(PostVerifyUser.VERIFY_USER_RESULT_NOT_ACTIVE)) {
+					new PostCheckMessages(getApplicationContext(), null).execute();
+				} else if (result.equalsIgnoreCase(PostVerifyUser.VERIFY_USER_RESULT_NOT_ACTIVE)) {
 					launchActivity(ActivityRegistrationPersonalData.class);
 				}
 			} else {

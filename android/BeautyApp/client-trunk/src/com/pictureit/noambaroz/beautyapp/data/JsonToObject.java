@@ -19,12 +19,12 @@ import com.pictureit.noambaroz.beautyapp.server.ServerUtil;
 
 public class JsonToObject {
 
-	private interface JsonType {
+	public interface JsonType {
 		String TYPE_ARRAY = "JSONArray";
 		String TYPE_OBJECT = "JSONObject";
 	}
 
-	private static String getJson(String json, String type) {
+	public static String getJson(String json, String type) {
 		String s = "";
 		if (type.equals(JsonType.TYPE_ARRAY)) {
 
