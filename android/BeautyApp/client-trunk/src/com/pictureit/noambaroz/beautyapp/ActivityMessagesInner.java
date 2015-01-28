@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.customdialogs.ConfirmedMessageDialog;
 import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
@@ -37,7 +37,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 	protected void initActivity() {
 		Bundle data = getIntent().getExtras();
 		if (data != null)
-			messageId = data.getString(Constant.EXTRA_MESSAGE_ID, "");
+			messageId = data.getString(Constants.EXTRA_MESSAGE_ID, "");
 	}
 
 	@Override

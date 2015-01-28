@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.R.anim;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.server.GetBeauticianById;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 
@@ -75,11 +75,11 @@ public class ActivityBeautician extends ActivityWithFragment {
 			Bundle extras = getActivity().getIntent().getExtras();
 			if (extras == null)
 				return;
-			if (extras.containsKey(Constant.EXTRA_BEAUTICIAN_ID))
-				beautycianId = extras.getString(Constant.EXTRA_BEAUTICIAN_ID, "");
+			if (extras.containsKey(Constants.EXTRA_BEAUTICIAN_ID))
+				beautycianId = extras.getString(Constants.EXTRA_BEAUTICIAN_ID, "");
 
 			if (beautycianId == null || beautycianId.equalsIgnoreCase(""))
-				mBeautician = getActivity().getIntent().getExtras().getParcelable(Constant.EXTRA_BEAUTICIAN_OBJECT);
+				mBeautician = getActivity().getIntent().getExtras().getParcelable(Constants.EXTRA_BEAUTICIAN_OBJECT);
 		}
 
 		@Override
@@ -151,9 +151,9 @@ public class ActivityBeautician extends ActivityWithFragment {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(getActivity(), ServiceOrder.class);
-					intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mBeautician.getId());
-					intent.putExtra(Constant.EXTRA_BEAUTICIAN_NAME, mBeautician.getName());
-					intent.putExtra(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY, mBeautician.getTreatments());
+					intent.putExtra(Constants.EXTRA_BEAUTICIAN_ID, mBeautician.getId());
+					intent.putExtra(Constants.EXTRA_BEAUTICIAN_NAME, mBeautician.getName());
+					intent.putExtra(Constants.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY, mBeautician.getTreatments());
 					startActivity(intent);
 					overridePendingTransition(anim.activity_enter_slidein_anim, anim.activity_exit_shrink_anim);
 				}

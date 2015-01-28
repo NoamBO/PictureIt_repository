@@ -27,7 +27,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.GetUpcomingTreatments;
@@ -129,7 +129,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			GetUpcomingTreatments httpPost = new GetUpcomingTreatments(getActivity(), this);
 			httpPost.execute();
-			registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_UPCOMING_TREATMENTS));
+			registerReceiver(mReceiver, new IntentFilter(Constants.INTENT_FILTER_UPCOMING_TREATMENTS));
 			super.onViewCreated(view, savedInstanceState);
 		}
 
@@ -165,7 +165,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 					if (((UpcomingTreatmentsListViewAdapter) parent.getAdapter()).isItemClickable(position)) {
 						UpcomingTreatment t = (UpcomingTreatment) parent.getAdapter().getItem(position);
 						Intent intent = new Intent(getActivity(), ActivitySingleTreatment.class);
-						intent.putExtra(Constant.EXTRA_UPCOMING_TREATMENT, t);
+						intent.putExtra(Constants.EXTRA_UPCOMING_TREATMENT, t);
 						mTempTreatment = t;
 						startActivityForResult(intent, 0);
 						overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);

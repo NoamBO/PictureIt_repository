@@ -3,7 +3,7 @@ package com.pictureit.noambaroz.beautyapp;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 
 public class ServiceOrder extends ActivityWithFragment {
@@ -31,9 +31,9 @@ public class ServiceOrder extends ActivityWithFragment {
 		super.onResume();
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null && !bundle.isEmpty()) {
-			String beauticianId = bundle.getString(Constant.EXTRA_BEAUTICIAN_ID, null);
-			String beauticianName = bundle.getString(Constant.EXTRA_BEAUTICIAN_NAME, "");
-			String[] treatmentStringArray = bundle.getStringArray(Constant.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY);
+			String beauticianId = bundle.getString(Constants.EXTRA_BEAUTICIAN_ID, null);
+			String beauticianName = bundle.getString(Constants.EXTRA_BEAUTICIAN_NAME, "");
+			String[] treatmentStringArray = bundle.getStringArray(Constants.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY);
 			((FragmentServiceOrder) fragment).setBeauticianIdNameAndTreatments(beauticianId, beauticianName,
 					treatmentStringArray);
 		}

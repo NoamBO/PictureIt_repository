@@ -17,7 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.UpcomingTreatment;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
 import com.pictureit.noambaroz.beautyapp.server.PostCancelTreatment;
@@ -39,7 +39,7 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 
 		Bundle b = getIntent().getExtras();
 		if (!b.isEmpty()) {
-			ut = b.getParcelable(Constant.EXTRA_UPCOMING_TREATMENT);
+			ut = b.getParcelable(Constants.EXTRA_UPCOMING_TREATMENT);
 		}
 		if (ut == null) {
 			Dialogs.makeToastThatCloseActivity(ActivitySingleTreatment.this, R.string.dialog_title_error);

@@ -38,7 +38,7 @@ import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.ServiceOrder.OnFieldChangeListener;
 import com.pictureit.noambaroz.beautyapp.customdialogs.MyCustomDialog;
 import com.pictureit.noambaroz.beautyapp.customdialogs.MySingleChoiseDialog;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentSummary;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation;
@@ -339,13 +339,13 @@ public class ServiceOrderManager {
 	}
 
 	public static void setPending(Context context, boolean isPending) {
-		context.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE).edit()
-				.putBoolean(Constant.PREFS_KEY_IS_APP_WAITING, isPending).commit();
+		context.getSharedPreferences(Constants.APP_PREFS_NAME, Context.MODE_PRIVATE).edit()
+				.putBoolean(Constants.PREFS_KEY_IS_APP_WAITING, isPending).commit();
 	}
 
 	public static boolean isPending(Context context) {
-		return context.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE).getBoolean(
-				Constant.PREFS_KEY_IS_APP_WAITING, false);
+		return context.getSharedPreferences(Constants.APP_PREFS_NAME, Context.MODE_PRIVATE).getBoolean(
+				Constants.PREFS_KEY_IS_APP_WAITING, false);
 	}
 
 	public static void cancelRequest(final Context ctx, final OnOrderStatusChangeListener callback) {

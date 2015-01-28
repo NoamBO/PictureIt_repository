@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.pictureit.noambaroz.beautyapp.data.Beautician;
 import com.pictureit.noambaroz.beautyapp.data.Beautician.Address;
 import com.pictureit.noambaroz.beautyapp.data.ClassificationType;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.StringArrays;
 import com.pictureit.noambaroz.beautyapp.data.TreatmentType;
 
@@ -19,7 +19,7 @@ public class BeauticianUtil {
 
 	public static void openBeauticianInNewActivity(Activity activity, Beautician beautician) {
 		Intent intent = new Intent(activity, ActivityBeautician.class);
-		intent.putExtra(Constant.EXTRA_BEAUTICIAN_OBJECT, beautician);
+		intent.putExtra(Constants.EXTRA_BEAUTICIAN_OBJECT, beautician);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 	}

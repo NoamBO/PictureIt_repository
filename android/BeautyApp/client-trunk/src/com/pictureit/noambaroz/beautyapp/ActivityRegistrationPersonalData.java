@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 import com.pictureit.noambaroz.beautyapp.server.PostRegister;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
@@ -183,10 +183,10 @@ public class ActivityRegistrationPersonalData extends Activity {
 						}
 
 						private void storeUidOnPreference(Object uid) {
-							SharedPreferences prefs = getSharedPreferences(Constant.APP_PREFS_NAME,
+							SharedPreferences prefs = getSharedPreferences(Constants.APP_PREFS_NAME,
 									Context.MODE_PRIVATE);
 							SharedPreferences.Editor editor = prefs.edit();
-							editor.putString(Constant.PREFS_KEY_UID, (String) uid);
+							editor.putString(Constants.PREFS_KEY_UID, (String) uid);
 							editor.commit();
 						}
 					}, prefs.getString(getString(R.string.preference_key_my_profile_first_name), ""), prefs.getString(

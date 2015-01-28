@@ -39,7 +39,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pictureit.noambaroz.beautyapp.ActivityBeautician;
 import com.pictureit.noambaroz.beautyapp.R;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.MarkerData;
 import com.pictureit.noambaroz.beautyapp.location.MyLocation.LocationResult;
 import com.pictureit.noambaroz.beautyapp.server.GetMarkers;
@@ -233,7 +233,7 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 	public void onInfoWindowClick(Marker marker) {
 		if (mVisibleMarkers.containsKey(marker)) {
 			Intent intent = new Intent(mActivity, ActivityBeautician.class);
-			intent.putExtra(Constant.EXTRA_BEAUTICIAN_ID, mVisibleMarkers.get(marker));
+			intent.putExtra(Constants.EXTRA_BEAUTICIAN_ID, mVisibleMarkers.get(marker));
 			mActivity.startActivity(intent);
 			mActivity.overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}

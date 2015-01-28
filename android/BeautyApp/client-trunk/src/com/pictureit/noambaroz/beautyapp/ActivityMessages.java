@@ -25,7 +25,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.DataProvider;
 import com.pictureit.noambaroz.beautyapp.server.GetOrderNotification;
 import com.pictureit.noambaroz.beautyapp.server.ImageLoaderUtil;
@@ -237,7 +237,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			boolean everythingOk = !TextUtils.isEmpty(beauticianName) && !TextUtils.isEmpty(messageId);
 			if (everythingOk) {
 				Intent intent = new Intent(getActivity(), ActivityMessagesInner.class);
-				intent.putExtra(Constant.EXTRA_MESSAGE_ID, messageId);
+				intent.putExtra(Constants.EXTRA_MESSAGE_ID, messageId);
 				startActivity(intent);
 				overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 			}

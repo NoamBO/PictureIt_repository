@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.server.PostVerifyUser;
 
 public class Splash extends Activity {
@@ -44,7 +44,7 @@ public class Splash extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
 		Log.i("uid",
-				getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE).getString(Constant.PREFS_KEY_UID,
+				getSharedPreferences(Constants.APP_PREFS_NAME, Context.MODE_PRIVATE).getString(Constants.PREFS_KEY_UID,
 						""));
 
 		new Handler().postDelayed(new Runnable() {

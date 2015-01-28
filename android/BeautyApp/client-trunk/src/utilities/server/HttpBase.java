@@ -23,7 +23,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.pictureit.noambaroz.beautyapp.R;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 
 //Written by @Noam Bar-Oz
 
@@ -176,8 +176,8 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 	}
 
 	protected String getUid() {
-		SharedPreferences pref = ctx.getSharedPreferences(Constant.APP_PREFS_NAME, Context.MODE_PRIVATE);
-		return pref.getString(Constant.PREFS_KEY_UID, "");
+		SharedPreferences pref = ctx.getSharedPreferences(Constants.APP_PREFS_NAME, Context.MODE_PRIVATE);
+		return pref.getString(Constants.PREFS_KEY_UID, "");
 		// return Secure.getString(ctx.getContentResolver(), Secure.ANDROID_ID);
 	}
 

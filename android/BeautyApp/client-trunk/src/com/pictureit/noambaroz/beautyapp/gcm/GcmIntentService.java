@@ -25,7 +25,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.pictureit.noambaroz.beautyapp.ActivityMessages;
 import com.pictureit.noambaroz.beautyapp.ActivityTreatments;
 import com.pictureit.noambaroz.beautyapp.R;
-import com.pictureit.noambaroz.beautyapp.data.Constant;
+import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
 
 public class GcmIntentService extends IntentService {
@@ -107,7 +107,7 @@ public class GcmIntentService extends IntentService {
 			sendNotification(ActivityTreatments.class, message, title);
 		} else {
 			if (ActivityTreatments.isRunning) {
-				sendBroadcast(new Intent(Constant.INTENT_FILTER_UPCOMING_TREATMENTS));
+				sendBroadcast(new Intent(Constants.INTENT_FILTER_UPCOMING_TREATMENTS));
 				playNotificationSound();
 			} else {
 				startActivity(ActivityTreatments.class);
