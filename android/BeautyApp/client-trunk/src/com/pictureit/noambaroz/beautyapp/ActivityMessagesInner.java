@@ -155,7 +155,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 			remarks.setText(this.remarks);
 			price.setText(getString(R.string.price) + " " + this.price + " "
 					+ getActivity().getString(R.string.currency));
-			ImageLoaderUtil.display(picUrl, pic);
+			ImageLoaderUtil.display(picUrl, pic, getActivity());
 			setTreatmentsList(treatments1, treatments2);
 			return v;
 		}

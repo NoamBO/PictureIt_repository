@@ -1,5 +1,6 @@
 package com.pictureit.noambaroz.beautyapp.server;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
@@ -17,11 +18,11 @@ public class ImageLoaderUtil {
 				.showImageForEmptyUri(avatarResId).showImageOnFail(avatarResId).showImageOnLoading(avatarResId);
 	}
 
-	public static void display(String uri, ImageView imageView) {
-		display(uri, imageView, -1, 0, 0);
+	public static void display(String uri, ImageView imageView, Context ctx) {
+		display(uri, imageView, -1, ctx);
 	}
 
-	public static void display(String uri, ImageView imageView, int onFailImageResId, final int width, final int height) {
+	public static void display(String uri, ImageView imageView, int onFailImageResId, final Context context) {
 		com.nostra13.universalimageloader.core.ImageLoader imageLoader = com.nostra13.universalimageloader.core.ImageLoader
 				.getInstance();
 		imageLoader.displayImage(uri, imageView,
@@ -29,8 +30,12 @@ public class ImageLoaderUtil {
 
 					@Override
 					public Bitmap process(Bitmap bitmap) {
-						if (width > 0 && height > 0)
-							return Bitmap.createScaledBitmap(bitmap, width, height, false);
+
+						int w = (int) context.getResources().getDimension(R.dimen.beautician_picture_width);
+						int h = (int) context.getResources().getDimension(R.dimen.beautician_picture_height);
+
+						if (w > 0 && h > 0)
+							return Bitmap.createScaledBitmap(bitmap, w, h, false);
 						else
 							return bitmap;
 					}

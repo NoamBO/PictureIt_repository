@@ -126,7 +126,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 		}
 
 		protected void initPage() {
-			ImageLoaderUtil.display(mBeautician.getPhoto(), ivPic);
+			ImageLoaderUtil.display(mBeautician.getPhoto(), ivPic, getActivity());
 			tvName.setText(mBeautician.getName());
 			tvAddress.setText(BeauticianUtil.formatAddress(getActivity(), mBeautician.getAddress()));
 			tvClassification.setText(BeauticianUtil.getClassificationTypeById(getActivity(),
