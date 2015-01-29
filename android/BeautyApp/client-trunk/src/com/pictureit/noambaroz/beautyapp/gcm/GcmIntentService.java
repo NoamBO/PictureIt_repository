@@ -27,6 +27,7 @@ import com.pictureit.noambaroz.beautyapp.ActivityTreatments;
 import com.pictureit.noambaroz.beautyapp.R;
 import com.pictureit.noambaroz.beautyapp.data.Constants;
 import com.pictureit.noambaroz.beautyapp.data.DataUtil;
+import com.pictureit.noambaroz.beautyapp.helper.ServiceOrderManager;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
@@ -40,6 +41,7 @@ public class GcmIntentService extends IntentService {
 
 	private static final String FROM = "from";
 	private static final String ORDER_ID = "response_id";
+	private static final String IS_LAST_NOTIFICATION = "is_last_beautician";
 
 	NotificationCompat.Builder builder;
 	private NotificationManager mNotificationManager;
@@ -163,14 +165,20 @@ public class GcmIntentService extends IntentService {
 
 	private void onMessageNotification(JSONObject data) {
 		String notificationId = null;
+		String isLast = null;
 		try {
 			notificationId = data.getString(ORDER_ID);
+			isLast = data.getString(IS_LAST_NOTIFICATION);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (notificationId != null)
 			DataUtil.pushOrderNotificationIdToTable(getApplicationContext(), notificationId);
+
+		if (!TextUtils.isEmpty(isLast) && isLast.equalsIgnoreCase(String.valueOf(true))) {
+			ServiceOrderManager.setPending(getApplication(), false);
+		}
 	}
 
 	private boolean isAppRunningInForeground() {
