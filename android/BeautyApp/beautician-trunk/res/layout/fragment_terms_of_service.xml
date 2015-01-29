@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <TextView
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -31,10 +31,11 @@
                 android:layout_height="1dp"
                 android:background="@color/divider_color_gray" />
 
-            <TextView android:text="@string/terms_of_use"
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_horizontal_margin"
+                android:text="@string/terms_of_use"
                 android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/common_text_size" />
         </LinearLayout>
