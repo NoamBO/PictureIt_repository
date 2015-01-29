@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,15 +51,27 @@ public class FragmentMap extends MapFragmentBase implements OnMarkerClickListene
 
 	private ImageButton ibCurrentLocation;
 
+	private static View view;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_map_container, container, false);
+		if (view != null) {
+			ViewGroup parent = (ViewGroup) view.getParent();
+			if (parent != null)
+				parent.removeView(view);
+		}
+		try {
+			view = inflater.inflate(R.layout.fragment_map_container, container, false);
+		} catch (InflateException e) {
+			/* map is already there, just return view as it is */
+		}
+
 		allMarkers = new HashMap<Marker, String>();
-		mLoadingMapCoverScreen = findView(v, R.id.myMap_fragment_loading_view);
-		ibCurrentLocation = findView(v, R.id.my_location_button);
+		mLoadingMapCoverScreen = findView(view, R.id.myMap_fragment_loading_view);
+		ibCurrentLocation = findView(view, R.id.my_location_button);
 		initIndicator();
 		showMapLoadingIndicator();
-		return v;
+		return view;
 	}
 
 	private synchronized void initMapIfNeeded(Location location) {
