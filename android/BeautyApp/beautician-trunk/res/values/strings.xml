@@ -4,7 +4,7 @@
     <string name="google_maps_v2_api_key">AIzaSyC-St58T3_nmyQCkkS9NfPX0sGaUEV10yM</string>
 
     <!-- App's general -->
-    <string name="app_name">BeautycianApp</string>
+    <string name="app_name">BeautyApp+</string>
     <string name="character_next">&lt;</string>
     <string name="empty_text">""</string>
     <string name="bullet"><b>&#183;</b></string>

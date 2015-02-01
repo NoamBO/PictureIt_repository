@@ -27,10 +27,12 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -692,6 +694,24 @@ public class NumberPicker extends LinearLayout {
         mInputText.setFilters(new InputFilter[] {
                 new InputTextFilter()
         });
+        mInputText.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (String.valueOf(s).matches("[0-9]+") && s.length() > 0) {
+					int current = Integer.parseInt(String.valueOf(s));
+					setValueInternal(current, true);
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+		});
 
         mInputText.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         mInputText.setImeOptions(EditorInfo.IME_ACTION_DONE);

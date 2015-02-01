@@ -18,7 +18,7 @@
     <string name="character_next">&lt;</string>
     <string name="beautician_around_you">קוסמטיקאיות בסביבתך</string>
     
-    <string name="app_name">Beauty App</string>
+    <string name="app_name">BeautyApp</string>
     <string name="title_settings">הגדרות</string>
     <string name="title_history">היסטוריית טיפולים</string>
     <string name="title_future_treatments">טיפולים</string>
@@ -522,12 +522,17 @@
         <item name="id">4</item>
         <item name="title">רפואה אסטטית</item>
     </string-array>
+    <string-array name="classification_5">
+        <item name="id">5</item>
+        <item name="title">בית עסק</item>
+    </string-array>
 
     <array name="classification_list">
         <item>@array/classification_1</item>
         <item>@array/classification_2</item>
         <item>@array/classification_3</item>
         <item>@array/classification_4</item>
+        <item>@array/classification_5</item>
     </array>
     
     <string name="order_service">הזמן שירות</string>

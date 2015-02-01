@@ -225,6 +225,9 @@ public class MapManager implements OnCameraChangeListener, ConnectionCallbacks, 
 		case MarkerData.TYPE_AESTHETIC_MEDICINE:
 			resId = R.drawable.location_ic_red;
 			break;
+		case MarkerData.TYPE_BUSSINESS:
+			resId = R.drawable.location_ic_bussiness;
+			break;
 		}
 		return resId;
 	}

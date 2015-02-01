@@ -6,6 +6,7 @@ public class MarkerData {
 	public static final int TYPE_PEDICURE = 2;
 	public static final int TYPE_MAKEUP = 3;
 	public static final int TYPE_AESTHETIC_MEDICINE = 4;
+	public static final int TYPE_BUSSINESS = 5;
 
 	private String beautician_id;
 	private double latitude;
