@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="ClickableViewAccessibility">
+        <ignore path="src/com/pictureit/noambaroz/beautyapp/ActivityBeautician.java" />
+        <ignore path="src/com/pictureit/noambaroz/beautyapp/helper/MainProviderListAdapter.java" />
+    </issue>
+</lint>

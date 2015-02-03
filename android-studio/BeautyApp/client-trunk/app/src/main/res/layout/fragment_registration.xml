@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_top_line_height"
+        android:background="@color/app_most_common_yellow_color" />
+
+    <utilities.view.MyFontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/one_of_three"
+        android:textColor="#6d6e71"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp" >
+
+        <ImageView
+            android:id="@+id/imageViewFirstRegistrationScreenAppLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/beautyapp_reg_logo" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutFirstRegistrationScreenTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageViewFirstRegistrationScreenAppLogo"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tell_us_who_you_are"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/black" />
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:textColor="@color/registrations_title_text_color"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <utilities.view.MyEditText
+            android:id="@+id/et_registration_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayoutFirstRegistrationScreenTitle"
+            android:layout_marginBottom="10dp"
+            style="@style/EditTextCustomHolo"
+            android:hint="@string/first_name"
+            android:nextFocusDown="@+id/et_registration_last_name"
+            android:singleLine="true" >
+
+            <requestFocus />
+        </utilities.view.MyEditText>
+
+        <utilities.view.MyEditText
+            android:id="@+id/et_registration_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_registration_first_name"
+            android:layout_marginBottom="10dp"
+            style="@style/EditTextCustomHolo"
+            android:hint="@string/last_name"
+            android:nextFocusDown="@+id/et_registration_email"
+            android:singleLine="true" />
+
+        <utilities.view.MyEditText
+            android:id="@+id/et_registration_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_registration_last_name"
+            style="@style/EditTextCustomHolo"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:nextFocusDown="@+id/et_registration_address"
+            android:singleLine="true" />
+
+        <FrameLayout
+            android:id="@+id/fl_first_registration_screen_invalid_email_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_registration_email"
+            android:visibility="gone" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_red_alert" />
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/invalid_email"
+                android:textColor="@color/app_most_common_yellow_color" />
+        </FrameLayout>
+
+        <utilities.view.MyEditText
+            android:id="@+id/et_registration_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_registration_email"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            style="@style/EditTextCustomHolo"
+            android:hint="@string/address"
+            android:singleLine="true" />
+
+        <RelativeLayout
+            android:id="@+id/rl_registration_page_one_proceed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_registration_address"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/registration_btn_shape" >
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="15dp"
+                android:text="@string/proceed"
+                android:textColor="@color/button_text_color"
+                android:textSize="17sp" />
+
+            <utilities.view.MyFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="@string/character_next"
+                android:textColor="@color/button_text_color"
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+        <utilities.view.MyFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_registration_page_one_proceed"
+            android:layout_centerHorizontal="true"
+            android:text="@string/you_must_fill_all_fields"
+            android:textColor="#6d6e71" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_most_common_yellow_color"
+    android:padding="@dimen/activity_horizontal_margin" >
+
+    <ListView
+        android:id="@+id/lv_upcoming_treatments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/vg_upcoming_treatments_empty_list_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_treatments" />
+
+        <utilities.view.MyFontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/no_treatments"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/common_title_text_size" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_upcoming_treatments_loading_indicator"
+        style="@android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

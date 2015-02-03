@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_most_common_yellow_color"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin" >
+
+    <RelativeLayout
+        android:id="@+id/searchProviderCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/search_provider_card_shape" >
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/searchProviderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_most_common_yellow_color"
+            android:padding="7dp"
+            android:text="@string/search_provider_search_by"
+            android:textColor="@color/app_background"
+            android:textSize="@dimen/common_title_text_size" />
+
+        <utilities.view.MyFontTextView
+            android:id="@+id/tv_search_provider_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/registration_btn_shape"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/search_provider_search"
+            android:textColor="@color/app_background"
+            android:textSize="@dimen/common_title_text_size" />
+
+        <ScrollView
+            android:id="@+id/searchProviderScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tv_search_provider_search"
+            android:layout_below="@+id/searchProviderTitle" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/activity_horizontal_margin" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" >
+
+                    <utilities.view.MyFontTextView
+                        android:id="@+id/tvSearchByName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:drawablePadding="8dp"
+                        android:drawableRight="@drawable/ic_individual"
+                        android:gravity="center_vertical"
+                        android:text="@string/search_provider_search_by_name"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/common_title_text_size" />
+
+                    <LinearLayout
+                        android:id="@+id/llSearchByName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/tvSearchByName"
+                        android:orientation="horizontal" >
+
+                        <utilities.view.MyFontTextView
+                            android:id="@+id/b_search_provider_by_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_edit"
+                            android:gravity="center"
+                            android:textColor="@color/button_text_color"
+                            android:textSize="@dimen/common_title_text_size" />
+
+                        <utilities.view.MyFontTextView
+                            android:id="@+id/tv_search_provider_by_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toRightOf="@+id/b_search_provider_by_name"
+                            android:gravity="center"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignBottom="@+id/llSearchByName"
+                        android:background="@color/app_most_common_yellow_color" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp" >
+
+                    <utilities.view.MyFontTextView
+                        android:id="@+id/tvSearchByLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:drawablePadding="8dp"
+                        android:drawableRight="@drawable/ic_location"
+                        android:gravity="center_vertical"
+                        android:text="@string/service_location"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/common_title_text_size" />
+
+                    <LinearLayout
+                        android:id="@+id/llSearchByLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/tvSearchByLocation"
+                        android:orientation="horizontal" >
+
+                        <utilities.view.MyFontTextView
+                            android:id="@+id/b_search_provider_by_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_edit"
+                            android:gravity="center"
+                            android:textColor="@color/button_text_color"
+                            android:textSize="@dimen/common_title_text_size" />
+
+                        <utilities.view.MyFontTextView
+                            android:id="@+id/tv_search_provider_by_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/app_most_common_yellow_color" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+
+                    <utilities.view.MyFontTextView
+                        android:id="@+id/tvSearchProviderSelectTreatment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:drawablePadding="2dp"
+                        android:drawableRight="@drawable/ic_treatment"
+                        android:gravity="center_vertical"
+                        android:text="@string/service_select_treatment"
+                        android:textColor="@color/app_most_common_yellow_color"
+                        android:textSize="@dimen/common_title_text_size" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toLeftOf="@id/tvSearchProviderSelectTreatment" >
+
+                        <utilities.view.MyFontTextView
+                            android:id="@+id/b_search_provider_search_by_treatment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:background="@drawable/btn_select_shape"
+                            android:gravity="center"
+                            android:text="@string/select_treatment"
+                            android:textColor="@color/button_text_color"
+                            android:textSize="@dimen/common_title_text_size" />
+                    </FrameLayout>
+
+                    <View
+                        android:id="@+id/dividerSearchProviderSelectTreatment"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/app_most_common_yellow_color"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvSearchProviderSelectTreatment"
+                        android:orientation="horizontal"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="20dp" >
+
+                        <utilities.view.MyFontTextView
+                            android:id="@+id/tv_search_provider_treatment_list1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
+
+                        <utilities.view.MyFontTextView
+                            android:id="@+id/tv_search_provider_treatment_list2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            android:textSize="@dimen/common_text_size"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</FrameLayout>

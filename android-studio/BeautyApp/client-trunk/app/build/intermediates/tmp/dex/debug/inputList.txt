@@ -1,0 +1,12 @@
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\classes\debug
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\classes-8b72b219d4d4969237a3bde6bfb85cd85d71d0b9.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\classes-f674992734af2c7f8cc69e35724ab92950dfaeec.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.4-ae4924fb916c14a2eb2e63ac23bcec867f381161.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\classes-43cb9f065fec03f095f4327623f467d74f36ccc2.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\classes-5e897de76e46c2f1b28d095ed5a0eaf8cf36b005.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\ParseCrashReporting-1.8.0-a33b03183e3dd63868726e921e9a99d53a088b6d.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\gson-2.2.4-638dc86c58a101b5f4182ac80140d1d0cec9f422.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.1-with-sources-ca0cb929cb7ec765aae57cb592e792d48726dd42.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\android-support-v13-32d34afa69e13e75b279f806a528ab55107621cf.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\Parse-1.8.0-549db3f164a840d6059ed90f6831fc742753e820.jar
+C:\Users\user\Android\PictureIt_repository\android-studio\BeautyApp\client-trunk\app\build\intermediates\pre-dexed\debug\classes-01a95e5f6a261e020f1e77af01c5200e3f5d1de5.jar
