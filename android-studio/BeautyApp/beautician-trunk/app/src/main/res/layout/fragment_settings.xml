@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_shape"
+        android:orientation="vertical" >
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_settings"
+            android:gravity="center_vertical"
+            android:padding="@dimen/fragment_padding"
+            android:text="@string/settings"
+            android:textColor="@color/app_most_common_yellow_color"
+            android:textSize="@dimen/title_medium_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color_gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_fragment_setting_pre_tretment_alesrt_time_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fragment_padding"
+                android:text="@string/time_before_treatment_to_alert"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/common_text_size" />
+
+            <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+                android:id="@+id/tv_settings_alert_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/fragment_padding"
+                android:paddingRight="@dimen/fragment_padding"
+                android:paddingLeft="@dimen/fragment_padding"
+                android:textColor="@color/app_most_common_yellow_color"
+                android:textSize="@dimen/common_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="120dp"
+            android:background="@color/divider_color_gray" />
+    </LinearLayout>
+
+</LinearLayout>

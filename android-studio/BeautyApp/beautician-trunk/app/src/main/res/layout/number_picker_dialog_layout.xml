@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+        android:id="@+id/number_picker_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_row_height"
+        android:background="@color/dialog_theme_color"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/ic_nis"
+        android:gravity="center"
+        android:text="@string/set_price"
+        android:textColor="@color/app_white"
+        android:textSize="@dimen/title_large_text_size" />
+
+    <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/common_text_size" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <net.simonvt.numberpicker.NumberPicker
+            android:id="@+id/number_picker_dialog_wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/number_picker_dialog_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/number_picker_dialog_wheel"
+            android:text="@string/currency"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/title_large_text_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_horizontal_margin" >
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/number_picker_dialog_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:background="@drawable/btn_shape"
+            android:gravity="center"
+            android:text="@string/dialog_cancel_text"
+            android:textColor="@color/button_text_color" />
+
+        <com.pictureit.noambaroz.beauticianapp.utilities.view.MyFontTextView
+            android:id="@+id/number_picker_dialog_ok"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:background="@drawable/btn_shape"
+            android:gravity="center"
+            android:text="@string/dialog_ok_text"
+            android:textColor="@color/button_text_color" />
+    </LinearLayout>
+
+</LinearLayout>

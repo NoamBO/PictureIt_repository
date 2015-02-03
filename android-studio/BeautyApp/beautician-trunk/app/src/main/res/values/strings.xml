@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="google_maps_v2_api_key">AIzaSyC-St58T3_nmyQCkkS9NfPX0sGaUEV10yM</string>
+
+    <!-- App's general -->
+    <string name="app_name">BeautyApp+</string>
+    <string name="character_next">&lt;</string>
+    <string name="empty_text">""</string>
+    <string name="bullet"><b>&#183;</b></string>
+    <string name="question_mark">"?"</string>
+    
+    <!-- Alarms text -->
+    <string name="treatment_of">הטיפול של</string>
+    <string name="start_soon">מתחיל בקרוב..</string>
+    <string name="treatment_start_within">הטיפול יתחיל בעוד</string>
+    <string name="treatment_just_started">טיפול החל</string>
+    <string name="enter_to_set_treatment_status">היכנסי על מנת לעדכן אותנו באם הטיפול התבצע</string>
+    <string name="reminder">תזכורת:</string>
+    <string name="treatment_happen_confirmation">אישור על ביצוע טיפול</string>
+    <string name="happen">בוצע</string>
+    <string name="not_happen">לא בוצע</string>
+    <string name="why_treatment_canceled">מדוע לא התבצע טיפול</string>
+    <string-array name="dialog_treatment_not_happend_reasons">
+        <item>הלקוח לא הגיע</item>
+        <item>לא התאפשר לקוסמטיקאית</item>
+        <item>נדחה ליום אחר</item>
+    </string-array>
+    
+    <!-- Push notification -->
+    <string name="request_received">התקבלה בקשה</string>
+    <string name="new_request_is_waiting_for_you_inside_the_app">בקשה חדשה ממתינה עבורך באפליקציה</string>
+    <string name="watch">צפה</string>
+    <string name="deny">דחה</string>
+    <string name="has_canceled_the_treatment">ביטל את הפגישה שתוכננה ל</string>
+    
+    <!-- Treatment confirmed notification and dialog -->
+    <string name="treatment_successfully_confirmed">הטיפול הוזמן בהצלחה!</string>
+    <string name="want_to_call_the_client">מעוניינת ליצור קשר עם הלקוח?</string>
+    <string name="in_case_you_would_like_to_contact_the_customer_another_time">במידה ותרצי להתקשר במועד אחר תוכלי לעשות זאת דרך הטיפול שנקבע לך עם הלקוח, באיזור \"טיפולים\"</string>
+	<string name="no">לא</string>
+	<string name="response_confirmed">הצעתך התקבלה!</string>
+	<string name="response_confirmed_message">אישר את הצעתך! היכנסי לאפליקציה בכדי לראות את פרטי הטיפול</string>
+	<string name="response_declined">הזמנה בוטלה</string>
+	<string name="your_offer_didnt_fit_to">המכרז לא התאים ל</string>
+	<string name="and_he_declined_your_offer">והוא דחה את הצעתך.</string>
+	
+    <!-- Main activity -->
+    <string name="cant_load_map">לא ניתן לטעון מפה</string>
+    <string name="loading">טוען..</string>
+    <string name="available">זמין</string>
+    <string name="unavailable">לא זמין</string>
+    
+    <!-- Action bar -->
+    <string name="title_future_treatments">הטיפולים הקרובים</string>
+    <string name="title_messages">מכרזים פתוחים</string>
+    <string name="title_statistics">סטטיסטיקות</string>
+    <string name="title_my_profile">פרופיל אישי</string>
+    <string name="title_treatments_history">היסטוריית טיפולים</string>
+    <string name="title_explanation">הסבר</string>
+    <string name="title_settings">הגדרות</string>
+    <string name="title_support">שירות לקוחות</string>
+    <string name="title_terms_of_use">תקנון</string>
+
+    <!-- Dialogs text -->
+    <string name="dialog_ok_text">OK</string>
+    <string name="dialog_cancel_text">Cancel</string>
+    <string name="dialog_messege_server_error">יש לנו בעית התקשרות.. אנו עובדים על פתרון</string>
+    <string name="success">הצליח!</string>
+    <string name="no_internet_connection">אין חיבור אינטרנט פעיל, בדוק את החיבור לאינטרנט ונסה שנית</string>
+    <string name="dialog_messege_please_wait">אנא המתן..</string>
+    <string name="press_again_to_exit">לחץ שוב ליציאה</string>
+    <string name="select_address">בחרי כתובת</string>
+	<string name="you_must_provide_at_least_one_treatment">עלייך לספק לפחות טיפול אחד</string>
+	
+    <!-- General strings -->
+    <string name="invalid_filed">שדה לא תקין</string>
+    <string name="you_must_fill_all_fields">חובה למלא את כל השדות</string>
+    <string name="remove">הסר</string>
+
+    <!-- Statistics -->
+    <string name="income">הכנסות</string>
+    <string name="general_details">נתונים כללים</string>
+    <string name="total_income">סה\"כ הכנסות:</string>
+    <string name="total_income_at_current_year">סה\"כ הכנסות לשנת</string>
+    <string name="total_treatments">סה\"כ טיפולים:</string>
+    <string name="total_treatments_at_current_year">סה\"כ טיפולים לשנת</string>
+    <string name="january">ינואר</string>
+    <string name="february">פבואר</string>
+    <string name="march">מרץ</string>
+    <string name="april">אפריל</string>
+    <string name="may">מאי</string>
+    <string name="june">יוני</string>
+    <string name="july">יולי</string>
+    <string name="august">אוגוסט</string>
+    <string name="september">ספטמבר</string>
+    <string name="october">אוקטובר</string>
+    <string name="november">נובמבר</string>
+    <string name="december">דצמבר</string>
+    
+    
+    <!-- History -->
+    <string name="history">היסטורית טיפולים</string>
+    <string name="no_history">אין הסטוריה</string>
+    <string name="date">תאריך:</string>
+    <string name="client">מטופל:</string>
+    <string name="treatment">טיפול:</string>
+    <string name="history_address">כתובת:</string>
+    
+    
+    <!-- Register screen -->
+    <string name="register"><b>רישום</b></string>
+    <string name="type_registration_code">הקלדת קוד שימוש</string>
+    <string name="press_to_change_profile_pic"><b>לחצו על מנת לשנות תמונת פרופיל</b></string>
+    <string name="password_that_sent_to_you_by_mail">סיסמא שנשלחה אליכם במייל/טלפון</string>
+    <string name="if_your_password_got_lost">במידה ואבדה לכם הסיסמא או שטרם נרשמתם, אנא כנסו לאתר:</string>
+    <string name="proceed">המשך</string>
+    <string name="invalid_registration_code">הקוד שהוקש שגוי!</string>
+    
+    <!-- Unavailable screen -->
+	<string name="upcoming_treatments">טיפולים קרובים</string>
+	<string name="no_treatments_change_status_to_available">אין טיפולים\n\nעל מנת לקבל הזמנות לטיפולים\nעלייך להיות במצב זמין</string>
+	
+	<!-- Messages -->
+	<string name="message_deleted">הודעה נמחקה</string>
+	<string name="message_declined">הצעה נדחתה</string>
+	<string name="no_messages">אין הודעות</string>
+	<string name="messages">הודעות</string>
+	<string name="send">שלח</string>
+	<string name="cancel">בטל</string>
+	<string name="set_hour">הגדרי שעה</string>
+	<string name="hour">שעה</string>
+	<string name="set_price">הגדרי מחיר</string>
+	<string name="confirm_treatment_dialog_title">אישור טיפול</string>
+	<string name="confirm_treatment_dialog_subtitle">במידה ויש טיפול שאינך יכולה לספק, אנא הסירי אותו מהרשימה</string>
+	
+	 <!-- Dialog Location text -->
+	<string name="address">כתובת</string>
+	<string name="at_costumer_house">בבית הלקוח</string>
+	<string name="at_my_place">אצל הקוסמטיקאית</string>
+	<string name="else_">אחר</string>
+	    <string-array name="dialog_location_array">
+        <item>@string/at_costumer_house</item>
+        <item>@string/at_my_place</item>
+        <item>@string/else_</item>
+    </string-array>
+    
+	<!-- My profile -->
+	<string name="finished">סיימתי</string>
+	<string name="profile">פרופיל</string>
+	<string name="hint_bussiness_name">שם העסק</string>
+	<string name="hint_full_name">שם מלא</string>
+	<string name="raters">מדרגים</string>
+	<string name="classification">סיווג:</string>
+	<string name="hint_classification">סיווג</string>
+	<string name="yes">כן</string>
+	<string name="contact_options">פרטי יצירת קשר</string>
+	<string name="telephone">טלפון:</string>
+	<string name="email">מייל:</string>
+	<string name="business_address">כתובת העסק:</string>
+	<string name="billing_address">כתובת למשלוח חשבוניות:</string>
+	<string name="arrive_at_the_customer_house">הגעה לבית הלקוח:</string>
+	<string name="area">איזור:</string>
+	<string name="unedited">לא ניתן לעריכה</string>
+	<string name="hint_email">אי מייל</string>
+	<string name="hint_business_address">כתובת העסק</string>
+	<string name="hint_billing_address">כתובת למשלוח חשבוניות</string>
+	<string name="diplomas">תעודות</string>
+	<string name="no_diplomas">אין תעודות</string>
+	<string name="personal_details">פרטים אישיים</string>
+	<string name="about">אודות:</string>
+	<string name="write_somthing_on_yourself">כתבי משהו על עצמך</string>
+	<string name="years_of_experience">שנות נסיון:</string>
+	<string name="title_years_of_experience">שנות נסיון</string>
+	<string name="payment_method">אמצעי תשלום:</string>
+	<string name="title_payment_method">אמצעי תשלום</string>
+	
+	<!-- Upcoming Treatments -->
+	<string name="treatment_canceled">טיפול בוטל</string>
+	<string name="treatments">טיפולים</string>
+	<string name="and_more">ועוד</string>
+	<string name="additional">נוספים</string>
+	<string name="no_treatments">לא הוזמנו טיפולים</string>
+	
+	<!-- Upcoming treatment -->
+	<string name="when">מתי:</string>
+	<string name="wanted_treatment">טיפול מבוקש:</string>
+	<string name="location">מיקום:</string>
+	<string name="remarks">היערות:</string>
+	<string name="price">מחיר:</string>
+	<string name="currency">ש\"ח</string>
+	
+	<!-- Cancel treatment dialog -->
+	<string name="cause_to_cancel_treatment">סיבת ביטול הטיפול</string>
+	<string name="canceling_time_after_time_will_cause_your_account_to_be_closed">ביטולים חוזרים ונשנים יגרמו לחשבונך להיסגר</string>
+	
+	<string name="go_back">חזור</string>
+	<array name="cancel_request_dialog_list">
+	    <item>לא פנויה</item>
+	    <item>סיבות אישיות</item>
+	    <item>חולה</item>
+	</array>
+	
+	<!-- Settings activity -->
+	<string name="settings">הגדרות</string>
+	<string name="time_before_treatment_to_alert">פרק זמן להתראה לפני טיפול:</string>
+	<string name="pre_treatment_alert">התראה לפני טיפול</string>
+	<string name="close">סגור</string>
+	<string name="minutes">דקות</string>
+	<string name="hours">שעות</string>
+	
+	
+		<!-- Pyment method List -->
+    <string-array name="payment_1">
+        <item name="id">1</item>
+        <item name="title">אשראי או מזומן</item>
+    </string-array>
+    <string-array name="payment_2">
+        <item name="id">2</item>
+        <item name="title">אשראי</item>
+    </string-array>
+    <string-array name="payment_3">
+        <item name="id">3</item>
+        <item name="title">מזומן</item>
+    </string-array>
+
+    <array name="payment_method_list">
+        <item>@array/payment_1</item>
+        <item>@array/payment_2</item>
+        <item>@array/payment_3</item>
+    </array>
+	
+	<!-- Areas List -->
+    <string-array name="area_1">
+        <item name="id">1</item>
+        <item name="title">צפון</item>
+    </string-array>
+    <string-array name="area_2">
+        <item name="id">2</item>
+        <item name="title">שרון</item>
+    </string-array>
+    <string-array name="area_3">
+        <item name="id">3</item>
+        <item name="title">מרכז</item>
+    </string-array>
+    <string-array name="area_4">
+        <item name="id">4</item>
+        <item name="title">ירושלים</item>
+    </string-array>
+    <string-array name="area_5">
+        <item name="id">5</item>
+        <item name="title">שפלה</item>
+    </string-array>
+    <string-array name="area_6">
+        <item name="id">6</item>
+        <item name="title">דרום</item>
+    </string-array>
+
+    <array name="areas_list">
+        <item>@array/area_1</item>
+        <item>@array/area_2</item>
+        <item>@array/area_3</item>
+        <item>@array/area_4</item>
+        <item>@array/area_5</item>
+        <item>@array/area_6</item>
+    </array>
+	
+	<!-- Classification List -->
+    <string-array name="classification_1">
+        <item name="id">1</item>
+        <item name="title">קוסמטיקאית</item>
+    </string-array>
+    <string-array name="classification_2">
+        <item name="id">2</item>
+        <item name="title">פדיקוריסטית</item>
+    </string-array>
+    <string-array name="classification_3">
+        <item name="id">3</item>
+        <item name="title">מאפרת</item>
+    </string-array>
+    <string-array name="classification_4">
+        <item name="id">4</item>
+        <item name="title">רפואה אסטטית</item>
+    </string-array>
+
+    <array name="classification_list">
+        <item>@array/classification_1</item>
+        <item>@array/classification_2</item>
+        <item>@array/classification_3</item>
+        <item>@array/classification_4</item>
+    </array>
+<!-- Treatments List -->
+    <string-array name="treatment_1">
+        <item name="id">1</item>
+        <item name="title">פדיקור</item>
+        <item name="description">טיפול בכפות הרגליים. הטיפול בדרך כלל כולל השריית הרגליים
+במים, הסרת עור יבש מכף הרגל, גזירת ציפורניים והעור מסביב 
+לציפורניים, עיסוי פילינג לכפות הרגליים, עיסוי כפות הרגליים 
+בקרם רגליים מזין ומריחת לק לפי בקשת לקוחה. הטיפול כולל 
+גם טיפול בבעיות כף הרגל השונות כגון טיפול ביבלות, ציפורן 
+חודרנית, פטרת, יבלות, עור סדוק וכיו"ב. אוכלוסיות מסויימות 
+זקוקות לטיפול באופן תכוף יותר כגון סכרתיים.</item>
+        <item name="price">80&#8211;180</item>
+    </string-array>
+    <string-array name="treatment_2">
+        <item name="id">2</item>
+        <item name="title">מניקור</item>
+        <item name="description">טיפול אסטטי לציפורניים בידיים. לרוב כולל הטיפול גם פילינג
+ועיסוי לכף היד. כולל מריחת לק לפי בקשת הלקוחה.</item>
+        <item name="price">45&#8211;100</item>
+    </string-array>
+    <string-array name="treatment_3">
+        <item name="id">3</item>
+        <item name="title">בניית ציפורניים</item>
+        <item name="description">"מספר שיטות: אקריל (בניית ציפורן באמצעות אבקת ונוזל אקריל בעזרת מכחול), טבילה (לאחר סידור הציפורן ומריחת שכבת דבק נטבלת הציפורן באבקת משי אקריל), ג'ל (מריחת ג'ל על הציפורן בעזרת מכחול וייבוש במנורת אולטרא ויולט). אחת ל-3 שבועות יש לתחזק את הבנייה באמצעות מילוי אצל בונת הציפורניים"</item>
+        <item name="price">180&#8211;230</item>
+    </string-array>
+    <string-array name="treatment_4">
+        <item name="id">4</item>
+        <item name="title">מילוי בנייה</item>
+        <item name="description">תהליך תחזוקת בניית הציפורניים. יש לבצע מילוי הציפורניים
+אחת ל-2&#8211;3 שבועות אצל בונות הציפורניים.</item>
+        <item name="price">&#8211;</item>
+    </string-array>
+    <string-array name="treatment_5">
+        <item name="id">5</item>
+        <item name="title">"לק ג'ל"</item>
+        <item name="description">"מריחת לק עשוי מג'ל אשר מחזיק מעמד כ&#8211;3 שבועות."</item>
+        <item name="price">90&#8211;170</item>
+    </string-array>
+    <string-array name="treatment_6">
+        <item name="id">6</item>
+        <item name="title">טיפול יופי</item>
+        <item name="description">טיפול פנים קצר. אינו כולל ניקוי עמוק של הפנים. משך הטיפול
+כחצי שעה.</item>
+        <item name="price">120&#8211;220</item>
+    </string-array>
+    <string-array name="treatment_7">
+        <item name="id">7</item>
+        <item name="title">טיפול פנים</item>
+        <item name="description">טיפול פנים סטנדרטי כולל ניקוי עדין של הפנים באמצעות
+התכשירים המתאימים, ריכוך עור הפנים, ניקוי עור הפנים 
+בפילינג, עיסוי קל של הפנים ולבסוף מסיכה להזנת העור. משך 
+טיפול פנים סטנדרטי שעה&#8211;שעה וחצי.</item>
+        <item name="price">200&#8211;400</item>
+    </string-array>
+    <string-array name="treatment_8">
+        <item name="id">8</item>
+        <item name="title">שעוות רגל שלמה</item>
+        <item name="description"></item>
+        <item name="price">70&#8211;150</item>
+    </string-array>
+    <string-array name="treatment_9">
+        <item name="id">9</item>
+        <item name="title">שעוות חצי רגל</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;90</item>
+    </string-array>
+    <string-array name="treatment_10">
+        <item name="id">10</item>
+        <item name="title">שעוות ידיים</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;100</item>
+    </string-array>
+    <string-array name="treatment_11">
+        <item name="id">11</item>
+        <item name="title">שעוות חצי יד</item>
+        <item name="description"></item>
+        <item name="price">30&#8211;70</item>
+    </string-array>
+    <string-array name="treatment_12">
+        <item name="id">12</item>
+        <item name="title">שעוות בית שחי</item>
+        <item name="description"></item>
+        <item name="price">30&#8211;60</item>
+    </string-array>
+    <string-array name="treatment_13">
+        <item name="id">13</item>
+        <item name="title">שעוות קו ביקיני</item>
+        <item name="description"></item>
+        <item name="price">30&#8211;50</item>
+    </string-array>
+    <string-array name="treatment_14">
+        <item name="id">14</item>
+        <item name="title">שעוות מפשעה (׳׳ברזילאי׳׳)</item>
+        <item name="description">מתבצע בדרך כלל באמצעות שעווה מיוחדת עדינה</item>
+        <item name="price">60&#8211;130</item>
+    </string-array>
+    <string-array name="treatment_15">
+        <item name="id">15</item>
+        <item name="title">שעוות בטן (נשים)</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;80</item>
+    </string-array>
+    <string-array name="treatment_16">
+        <item name="id">16</item>
+        <item name="title">שעוות גב (נשים)</item>
+        <item name="description"></item>
+        <item name="price">40&#8211;80</item>
+    </string-array>
+    <string-array name="treatment_17">
+        <item name="id">17</item>
+        <item name="title">שעוות בטן (גברים)</item>
+        <item name="description"></item>
+        <item name="price">80&#8211;120</item>
+    </string-array>
+    <string-array name="treatment_18">
+        <item name="id">18</item>
+        <item name="title">שעוות גב (גברים)</item>
+        <item name="description"></item>
+        <item name="price">80&#8211;120</item>
+    </string-array>
+    <string-array name="treatment_19">
+        <item name="id">19</item>
+        <item name="title">עיצוב גבות</item>
+        <item name="description">מתבצע בדרך כלל באמצעות שעווה מיוחדת עדינה או בעזרת חוט</item>
+        <item name="price">40&#8211;90</item>
+   </string-array>
+   <string-array name="treatment_20">
+        <item name="id">20</item>
+        <item name="title">ניקוי שפם</item>
+        <item name="description">מתבצע בדרך כלל באמצעות שעווה מיוחדת עדינה או בעזרת חוט</item>
+        <item name="price">15&#8211;40</item>
+    </string-array>
+    <string-array name="treatment_21">
+        <item name="id">21</item>
+        <item name="title">איפור קבוע</item>
+        <item name="description">הדגשת קווי פנים באמצעות החדרת פיגמנט לעור. האזורים השכיחים לביצוע הטיפול הם: גבות, עפעפיים ושפתיים. הטיפול אורך בדרך כלל 2 פגישות. האיפור הקבוע מחזיק מספר שנים לפני שיש לחדשו שוב.</item>
+        <item name="price">1000&#8211;2000</item>
+    </string-array>
+    <string-array name="treatment_22">
+        <item name="id">22</item>
+        <item name="title">מיני פדיקור</item>
+        <item name="description">סידור ציפורניי הרגלים, כולל לק</item>
+        <item name="price">50&#8211;140</item>
+    </string-array>
+    <string-array name="treatment_23">
+        <item name="id">23</item>
+        <item name="title">מיני מניקור</item>
+        <item name="description">סידור ציפורניי הידיים, כולל לק</item>
+        <item name="price">40&#8211;60</item>
+    </string-array>
+    <string-array name="treatment_24">
+        <item name="id">24</item>
+        <item name="title">"מריחת לק פרנץ'"</item>
+        <item name="description"></item>
+        <item name="price">20&#8211;40</item>
+    </string-array>
+    <string-array name="treatment_25">
+        <item name="id">25</item>
+        <item name="title">מריחת לק</item>
+        <item name="description"></item>
+        <item name="price">20&#8211;35</item>
+    </string-array>
+    <string-array name="treatment_26">
+        <item name="id">26</item>
+        <item name="title">קישוטי ציפורניים </item>
+        <item name="description">שילוב אבנים, ציורים, מדבקות ודוגמאות באמצעות חותמת על גבי הציפורניים המלכותיות או האמיתיות.</item>
+        <item name="price">מחיר לאצבע אחת: 5&#8211;10 שקלים</item>
+    </string-array>
+    <string-array name="treatment_27">
+        <item name="id">27</item>
+        <item name="title">איפור לארוע</item>
+        <item name="description"></item>
+        <item name="price">250&#8211;450</item>
+    </string-array>
+    <string-array name="treatment_28">
+        <item name="id">28</item>
+        <item name="title">הדבקת ציפורניים</item>
+        <item name="description">הדבקה של ציפורניים מלאכותיות. מחזיק מעמד בין שבוע לחודש. </item>
+        <item name="price">80&#8211;160</item>
+    </string-array>
+    <string-array name="treatment_29">
+        <item name="id">29</item>
+        <item name="title">בוטוקס</item>
+        <item name="description">שיטה להעלמת וטשטוש קמטים בעיקר בפנים. האזורים הנפוצים להזרקת בוטוקס הם: שריר ההבעה בין הגבות, הקמטים במצח (׳׳קמטי המחשבה׳׳) ובקמטים שבצידי העיניים. האפקט הטיפולי נמשך כ&#8211;3&#8211;6 חודשים.</item>
+        <item name="price">1000&#8211;2500</item>
+    </string-array>
+	<string-array name="treatment_30">
+        <item name="id">30</item>
+        <item name="title">מילוי קמטים</item>
+        <item name="description">שיטה להעלמת קמטים בפנים. מילוי קמטים באמצעות חומצה היאלורונית מתבצעת באזור הפה (לרבות לשם עיבוי שפתיים) והאף, אך גם באזורים נוספים.  האפקט הטיפולי נמשך 3&#8211;6 חודשים.</item>
+        <item name="price">1500&#8211;2500</item>
+    </string-array>
+    <string-array name="treatment_31">
+        <item name="id">31</item>
+        <item name="title">צביעת גבות</item>
+        <item name="description">פעולה שמבצעות בדרך כלל בעלות גבות בהירות. הצביעה מחזיקה מעמד כשבועיים ואפשרית במספר גוונים.</item>
+        <item name="price">25&#8211;50</item>
+    </string-array>
+    <string-array name="treatment_32">
+        <item name="id">32</item>
+        <item name="title">צביעת ריסים</item>
+        <item name="description">פעולה שמבצעות בדרך כלל בעלות ריסים בהירים. הצביעה מחזיקה מעמד עד חודש.</item>
+        <item name="price">30&#8211;70</item>
+    </string-array>
+    <string-array name="treatment_33">
+        <item name="id">33</item>
+        <item name="title">הלחמת ריסים</item>
+        <item name="description">הדבקת ריסים על הריסים הטבעיים. יש להגיע למילוי ריסים כל כ-3 שבועות.</item>
+        <item name="price">350&#8211;460</item>
+    </string-array>
+    <string-array name="treatment_34">
+        <item name="id">34</item>
+        <item name="title">מילוי ריסים</item>
+        <item name="description">טיפול תחזוקתי של הלחמת ריסים. יש להגיע למילוי ריסים כל כ-3 שבועות.</item>
+        <item name="price">150&#8211;200</item>
+    </string-array>
+    <string-array name="treatment_35">
+        <item name="id">35</item>
+        <item name="title">הסרת בניית ציפורניים</item>
+        <item name="description">תהליך המסת הציפורניים המלאכותיות שנבנו על ידי בונת הציפורניים</item>
+        <item name="price">40&#8211;80</item>
+    </string-array>
+    <string-array name="treatment_36">
+        <item name="id">36</item>
+        <item name="title">אפילציה</item>
+        <item name="description">הסרת שיער הגוף או הפנים לצמיתות באמצעות מחט חשמלית</item>
+        <item name="price">70&#8211;120 שקלים ל&#8211;15 דקות טיפול</item>
+    </string-array>
+    <string-array name="treatment_37">
+        <item name="id">37</item>
+        <item name="title">הסרת שיער בלייזר</item>
+        <item name="description">הסרת שיער הגוף או הפנים לצמיתות באמצעות לייזר</item>
+        <item name="price">700 (לאיזור קטן) &#8211; 15000 (לכל הגוף)</item>
+    </string-array>
+    <string-array name="treatment_38">
+        <item name="id">38</item>
+        <item name="title">הסרת שיער - אינפרא אדום</item>
+        <item name="description">הסרת שיער הגוף או הפנים לצמיתות באמצעות קרני אינפרא אדום</item>
+        <item name="price"> 500&#8211;2500 (תלוי באזור בגוף)</item>
+    </string-array>
+    <string-array name="treatment_39">
+        <item name="id">39</item>
+        <item name="title">תיקון ציפורן שבורה (בבניית ציפורניים)</item>
+        <item name="description"></item>
+        <item name="price">10&#8211;30</item>
+    </string-array>
+    <array name="treatments_list">
+        <item>@array/treatment_1</item>
+        <item>@array/treatment_2</item>
+        <item>@array/treatment_3</item>
+        <item>@array/treatment_4</item>
+        <item>@array/treatment_5</item>
+        <item>@array/treatment_6</item>
+        <item>@array/treatment_7</item>
+        <item>@array/treatment_8</item>
+        <item>@array/treatment_9</item>
+        <item>@array/treatment_10</item>
+        <item>@array/treatment_11</item>
+        <item>@array/treatment_12</item>
+        <item>@array/treatment_13</item>
+        <item>@array/treatment_14</item>
+        <item>@array/treatment_15</item>
+        <item>@array/treatment_16</item>
+        <item>@array/treatment_17</item>
+        <item>@array/treatment_18</item>
+        <item>@array/treatment_19</item>
+        <item>@array/treatment_20</item>
+        <item>@array/treatment_21</item>
+        <item>@array/treatment_22</item>
+        <item>@array/treatment_23</item>
+        <item>@array/treatment_24</item>
+        <item>@array/treatment_25</item>
+        <item>@array/treatment_26</item>
+        <item>@array/treatment_27</item>
+        <item>@array/treatment_28</item>
+        <item>@array/treatment_29</item>
+        <item>@array/treatment_30</item>
+        <item>@array/treatment_31</item>
+        <item>@array/treatment_32</item>
+        <item>@array/treatment_33</item>
+        <item>@array/treatment_34</item>
+        <item>@array/treatment_35</item>
+        <item>@array/treatment_36</item>
+        <item>@array/treatment_37</item>
+        <item>@array/treatment_38</item>
+        <item>@array/treatment_39</item>
+    </array>
+	
+    <string name="terms_of_use">השימוש והגלישה באפליקציית ביוטי אפ כפופים להוראות תקנון זה. אנא קראו את התקנון בקפידה. אם אינכם מסכימים לכל התנאים המפורטים בתקנון זה ו/או אינכם מאשרים אותם, אנא הימנעו מהורדה 
+
+ו/או שימוש באפליקציה, שכן בעצם הורדת האפליקציה ו/או ביצוע הרישום ו/או השימוש בה, בהתאם להוראות תקנון זה, הינכם מסכימים לתנאיו במלואם. החברה שומרת לעצמה את הזכות לשנות את 
+
+הוראות תקנון זה, מעת לעת, בהתאם לשיקול דעתה הבלעדי, ומבלי שתינתן על כך הודעה מפורשת, ולמשתמשים או מי מטעמם לא תהיה כל זכות תביעה ו/או דרישה ו/או טענה כלפי החברה בגין כך.
+
+\nהתקנון המעודכן יפורסם בדף אינטרנט זה. לכן, אנא הקפידו לחזור לדף זה מעת לעת בכדי לבדוק את הגרסה העדכנית ביותר של התקנון.\n\n<u>הגדרות</u>\nבתקנון זה יהא למונחים הבאים הפירוש המופיע לצדם, היינו:\n\n\"אפליקציה\" - אפליקציית ביוטי אפ.\"החברה\" - החברה המפעילה את האפליקציה, ביוטי אפ בע\"מ.\n\n
+\"פרטים אישיים\" - פרטיו האישיים של הספק, מדוייקים, מלאים ונכונים,  הכוללים שם פרטי ושם משפחה, גיל, מספר טלפון ו/או מספר טלפון סלולארי, כתובת מגורים וכתובת דואר אלקטרוני, וכן כל פרט
+
+נוסף ו/או אחר שיידרש המשתתף לספק בהתאם להוראות תקנון זה, והכל בהתאם לשיקול דעתה של החברה.\n\n
+\"הספק\" - בעלי/ות המקצוע הרשומים לאפליקציה כנותני שירותים.\n\n<u>פרשנות</u>\n
+	1.	המבוא לתקנון מהווה חלק בלתי נפרד הימנו.\n\n
+	2.	כותרות הסעיפים בתקנון הינן למטרת נוחות הקריאה בלבד, ואין ליתן להן כל משמעות לצורך הבנתו ו/או פרשנותו.\n\n
+	3.	כל האמור בתקנון בלשון יחיד, אף רבים במשמע, וכן להפך, וכל האמור בו בלשון זכר, אף מין נקבה במשמע.\n\n<u>כללי</u>\n
+	4.	השימוש באפליקציה כרוך בתשלום אלא אם כן החברה הודיעה במפורש אחרת. יתכן והתשלום ישונה על ידי החברה מפעם לפעם.\n\n
+	5.	הספק מצהיר כי כל הפרטים האישיים שסיפק לאפליקציה אודותיו הם נכונים. כל המידע שבוחר הספק לפרסם באמצעות האפליקציה הוא על אחריותו בלבד.\n\n
+	6. 	הספק מתחייב שלא לעשות שימוש לרעה לרבות לא למטרות שאינן חוקיות או 	אינן מוסריות, באפליקציה וכן לעשות בה שימוש אך ורק לצורך אספקת השירות לשמו היא 
+
+הוקמה, דהיינו להוות פלטפורמה פרסומית תחרותית לנותני שירותים שונים בתחום היופי והאסטטיקה.\n\n<u>הרישום לאפליקציה</u>\n
+	5.	עבור השתתפות בחלק מן השירותים המוצעים באפליקציה, יידרש הספק להירשם לאפליקציה באמצעות אחת מן הדרכים המפורטות להלן:\n\n
+-הזנת שם המשתמש והסיסמא של הספק בפייסבוק (להלן – \"פרופיל הספק בפייסבוק\") וכל פרט נוסף ו/או אחר שיידרש למלא באתר האינטרנט ו/או בפייסבוק בהתאם לשיקול דעתה הבלעדי של 
+
+החברה ו/או של פייסבוק, לפי העניין. מובהר בזאת, כי הרישום לאתר האינטרנט באמצעות פרופיל הספק בפייסבוק, כפוף גם לתנאים המפורטים בפייסבוק.\nבנוסף יידרש הספק לאשר את קריאת 
+
+התקנון ולהסכים לתנאיו, והכל בהתאם להוראות אשר יפורטו בתקנון זה ו/או באפליקציה ו/או באתר החברה  (להלן - \"הרישום לאפליקציה\").\n\n
+	6.	הספק  מצהיר, מסכים ומאשר בזאת כי ידוע לו שלא מוטלת עליו כל חובה להוריד האפליקציה ו/או לעשות שימוש באפליקציה והוא עושה כן מרצונו החופשי.\n
+
+\n<u>תנאים נוספים ואחריות</u>\n
+	7.	בכל פנייה, בקשה, שאלה והבהרה לגבי האפליקציה ו/או פעילותה ובכלל זה שאלות הנוגעות למידע על אופן המשחק  ניתן לפנות למוקד שירות הלקוחות בכתובת הדואר 
+
+האלקטרוני: Info@pictureit.co.il.\n\n
+	8.	כל אייקון (icon), וכן כל מידע ו/או תצוגה המופיעים באפליקציה, לרבות גרפיקה, עיצוב, הצגה מילולית, סימני מסחר, וכן אופן עריכתם והצגתם, הינם בבעלותה 
+
+הבלעדית של החברה. אין לצלם, להעתיק, לשכפל, להפיץ או לעשות כל שימוש בכל דרך שהיא בתכנים האמורים בסעיף זה לעיל, אלא אם ניתנה הסכמתה של החברה לכך מראש ובכתב.\n\n
+	9.	החברה שומרת לעצמה את הזכות להפסיק בכל עת שתראה לנכון, בהתאם לשיקול דעתה הבלעדי, באופן חד צדדי וללא כל הודעה, מראש או לאחר מעשה, את פעילות 
+
+האפליקציה, כולה או חלקה. כן רשאית החברה לשנות מעת לעת את מבנה ו/או מראה האפליקציה ו/או את היקף הפעולות באתר, ולספק ו/או למי מטעמו לא תקום כל זכות תביעה ו/או דרישה ו/או טענה 
+
+כלפי רשת בגין כך.\n\n
+	10.	החברה תהא רשאית למנוע או להפסיק השתתפות ספק בפעילויות באפליקציה מכל סיבה שהיא, לרבות פעילות או התנהלות הספק שתהיה לפי שיקול דעתה הבלעדי של 
+
+החברה לא נאותה, ולספק ו/או למי מטעמו לא תקום כל זכות תביעה ו/או דרישה ו/או טענה כלפי החברה בגין כך.\n\n
+	11.הספק פוטר את החברה ו/או מי מטעמה מכל טענה ו/או תביעה ו/או דרישה לגבי כל נזק, הפסד מכל מין או סוג שהוא, שיבוש ו/או איחור ו/או כל פגם אחר שנגרם להם בין אם על ידי 
+
+לקוחות או משתמשי האפליקציה ובין אם על ידי צדדים אחרים לרבות ספקים אחרים המפרסמים מידע באפליקציה.\n\n
+	12.	החברה אינה אחראית בשום מקרה לטיב השירות שינתן על ידי הספקים המפורסמים דרכה, או לנכונות המידע שבוחרים הספקים לפרסם באמצעותה אודותיהם.\n\n
+	13.	הספק מצהיר כי ידוע לו כי האפליקציה מהווה פלטפורמה תחרותית ואין בשימוש באפליקציה כדי להשית כל אחריות ו/או התחייבות על החברה לספק עבודה לספקים 
+
+המופיעים בה. כמו כן המחירים שיוצעו באפליקציה הינם על אחריות הספקים בלבד והחברה לא תישא בכל אחריות בהקשר לכך.</string>
+	
+</resources>
