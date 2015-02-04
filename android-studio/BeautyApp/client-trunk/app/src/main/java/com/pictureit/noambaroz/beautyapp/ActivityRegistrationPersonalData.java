@@ -25,7 +25,7 @@ import com.pictureit.noambaroz.beautyapp.server.PostVerifyAddress;
 
 public class ActivityRegistrationPersonalData extends Activity {
 
-	protected final int FRAGMENT_CONTAINER = R.id.fragment_container;
+	protected static final int FRAGMENT_CONTAINER = R.id.fragment_container;
 	Fragment fragment1 = new FragmentRegistrationPersonalData();
 
 	@Override
@@ -36,7 +36,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 			getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, fragment1).commit();
 	}
 
-	private class FragmentRegistrationPersonalData extends BaseFragment {
+	public static class FragmentRegistrationPersonalData extends BaseFragment {
 
 		private ViewGroup bProceed;
 		private EditText etFirstName, etLastName, etEmail, etAddress;
@@ -101,19 +101,19 @@ public class ActivityRegistrationPersonalData extends Activity {
 		protected boolean verifyFeilds() {
 			boolean isOk = true;
 			if (etFirstName.getText().toString().equalsIgnoreCase("")) {
-				etFirstName.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
+				etFirstName.setHintTextColor(getActivity().getResources().getColor(android.R.color.holo_red_light));
 				isOk = false;
 			}
 			if (etLastName.getText().toString().equalsIgnoreCase("")) {
-				etLastName.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
+				etLastName.setHintTextColor(getActivity().getResources().getColor(android.R.color.holo_red_light));
 				isOk = false;
 			}
 			if (etAddress.getText().toString().equalsIgnoreCase("")) {
-				etAddress.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
+				etAddress.setHintTextColor(getActivity().getResources().getColor(android.R.color.holo_red_light));
 				isOk = false;
 			}
 			if (etEmail.getText().toString().equalsIgnoreCase("")) {
-				etEmail.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
+				etEmail.setHintTextColor(getActivity().getResources().getColor(android.R.color.holo_red_light));
 				isOk = false;
 			}
 			if (!isOk) {
@@ -132,7 +132,7 @@ public class ActivityRegistrationPersonalData extends Activity {
 		}
 	}
 
-	private class FragmentRegistrationPhoneField extends BaseFragment {
+	public static class FragmentRegistrationPhoneField extends BaseFragment {
 
 		private String phoneNumber;
 		private EditText etTelephoneNum;
@@ -161,14 +161,14 @@ public class ActivityRegistrationPersonalData extends Activity {
 				@Override
 				public void onClick(View v) {
 					phoneNumber = etTelephoneNum.getText().toString();
-					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
 					PostRegister httpPost = new PostRegister(getActivity(), new HttpCallback() {
 
 						@Override
 						public void onAnswerReturn(Object uid) {
 							if (uid == null || ((String) uid).equalsIgnoreCase("")) {
-								Toast t = Toast.makeText(getApplicationContext(), R.string.dialog_messege_server_error,
+								Toast t = Toast.makeText(getActivity().getApplicationContext(), R.string.dialog_messege_server_error,
 										Toast.LENGTH_LONG);
 								t.setGravity(Gravity.CENTER, 0, 0);
 								t.show();
@@ -177,13 +177,13 @@ public class ActivityRegistrationPersonalData extends Activity {
 							storeUidOnPreference(uid);
 							DataUtil.storePhoneNumberOnPreference(getActivity(), phoneNumber);
 							Intent intent = new Intent(getActivity(), ActivityRegistrationPhoneAuthentication.class);
-							startActivity(intent);
-							overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-							finish();
+                            getActivity().startActivity(intent);
+                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            getActivity().finish();
 						}
 
 						private void storeUidOnPreference(Object uid) {
-							SharedPreferences prefs = getSharedPreferences(Constants.APP_PREFS_NAME,
+							SharedPreferences prefs = getActivity().getSharedPreferences(Constants.APP_PREFS_NAME,
 									Context.MODE_PRIVATE);
 							SharedPreferences.Editor editor = prefs.edit();
 							editor.putString(Constants.PREFS_KEY_UID, (String) uid);

@@ -164,11 +164,11 @@ public abstract class HttpBase extends AsyncTask<String, String, Object> {
 		public void onAnswerReturn(Object answer);
 	}
 
-	private class MyProgressDialog extends DialogFragment {
+	public static class MyProgressDialog extends DialogFragment {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			ProgressDialog p = new ProgressDialog(ctx);
-			p.setMessage(ctx.getString(R.string.dialog_messege_please_wait));
+			ProgressDialog p = new ProgressDialog(getActivity());
+			p.setMessage(getActivity().getString(R.string.dialog_messege_please_wait));
 			p.setCancelable(false);
 			p.setCanceledOnTouchOutside(false);
 			return p;

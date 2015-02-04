@@ -2,6 +2,7 @@ package com.pictureit.noambaroz.beautyapp;
 
 import java.io.File;
 
+import utilities.BaseFragment;
 import utilities.Dialogs;
 import utilities.server.HttpBase.HttpCallback;
 import utilities.view.MyBitmapHelper;
@@ -79,7 +80,7 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 		backPressed();
 	}
 
-	class FragmentMyProfileEdit extends Fragment {
+	public static class FragmentMyProfileEdit extends BaseFragment {
 
 		private EditText etFirstName, etLastName, etPhone, etEmail, etAddress;
 		private ImageView ivImage;
@@ -97,7 +98,7 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 			cropUtil = new CropMenager();
 		}
 
@@ -228,7 +229,7 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 				sendImageToBackEnd();
 			}
 			if (!saving)
-				backPressed();
+                ((ActivityWithFragment)getActivity()).backPressed();
 		}
 
 		private boolean isEmailOk() {
@@ -285,7 +286,7 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 					if (answer != null) {
 						saveData();
 						if (!isImageChanged && !isDataChanged())
-							backPressed();
+                            ((ActivityWithFragment)getActivity()).backPressed();
 					} else
 						Dialogs.makeToastThatCloseActivity(getActivity(), R.string.dialog_messege_server_error);
 				}
@@ -303,7 +304,7 @@ public class ActivityMyProfileEdit extends ActivityWithFragment {
 						saveImage();
 						isImageChanged = false;
 						if (!isDataChanged())
-							backPressed();
+                            ((ActivityWithFragment)getActivity()).backPressed();
 					} else
 						Dialogs.makeToastThatCloseActivity(getActivity(), R.string.dialog_messege_server_error);
 				}

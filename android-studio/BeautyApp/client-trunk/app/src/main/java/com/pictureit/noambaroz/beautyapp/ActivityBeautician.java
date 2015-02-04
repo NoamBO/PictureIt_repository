@@ -49,7 +49,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 		FRAGMENT_TAG = "single_beautician_screen";
 	}
 
-	private class FragmentBeautician extends BaseFragment {
+	public static class FragmentBeautician extends BaseFragment {
 
 		private String beautycianId;
 		private Beautician mBeautician;
@@ -154,8 +154,8 @@ public class ActivityBeautician extends ActivityWithFragment {
 					intent.putExtra(Constants.EXTRA_BEAUTICIAN_ID, mBeautician.getId());
 					intent.putExtra(Constants.EXTRA_BEAUTICIAN_NAME, mBeautician.getName());
 					intent.putExtra(Constants.EXTRA_BEAUTICIAN_TREATMENT_STRING_ARRAY, mBeautician.getTreatments());
-					startActivity(intent);
-					overridePendingTransition(anim.activity_enter_slidein_anim, anim.activity_exit_shrink_anim);
+                    getActivity().startActivity(intent);
+					getActivity().overridePendingTransition(anim.activity_enter_slidein_anim, anim.activity_exit_shrink_anim);
 				}
 			});
 		}

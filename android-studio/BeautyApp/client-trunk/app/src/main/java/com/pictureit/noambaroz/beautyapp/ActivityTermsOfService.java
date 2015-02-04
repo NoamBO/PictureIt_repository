@@ -27,7 +27,7 @@ public class ActivityTermsOfService extends ActivityWithFragment {
 		FRAGMENT_TAG = "terms_of_service";
 	}
 
-	private class FragmentTermsOfService extends Fragment {
+	public static class FragmentTermsOfService extends Fragment {
 
 		public FragmentTermsOfService() {
 		}

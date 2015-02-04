@@ -144,7 +144,7 @@ public class ActivityTutorial extends FragmentActivity {
 		}
 	}
 
-	public class ScreenSlidePageFragment extends Fragment {
+	public static class ScreenSlidePageFragment extends Fragment {
 
 		private ImageView image;
 		private Drawable png;

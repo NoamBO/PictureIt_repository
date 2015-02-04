@@ -252,7 +252,7 @@ public class ServiceOrderManager {
 			}
 		};
 
-		dDate = new DatePickerFragment(l);
+		dDate = new DatePickerFragment().setDate(mTreatment.date).setSelectionListener(l);
 		dDate.show(activity.getFragmentManager(), "timePicker");
 	}
 
@@ -372,16 +372,26 @@ public class ServiceOrderManager {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(Application.PENDING_TREATMENT_ID, "");
 	}
 
-	private class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 		private OnItemSelectedListener mListener;
 		private boolean toReshow;
 
 		private int mYear, mMonth, mDay;
 
-		public DatePickerFragment(OnItemSelectedListener l) {
-			mListener = l;
-		}
+        private String date;
+
+		public DatePickerFragment() {}
+
+        public DatePickerFragment setSelectionListener(OnItemSelectedListener l) {
+            mListener = l;
+            return this;
+        }
+
+        public DatePickerFragment setDate(String date) {
+            this.date = date;
+            return this;
+        }
 
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -389,13 +399,12 @@ public class ServiceOrderManager {
 			mYear = calendar.get(Calendar.YEAR);
 			mMonth = calendar.get(Calendar.MONTH);
 			mDay = calendar.get(Calendar.DAY_OF_MONTH);
-			if (mTreatment.date != null) {
+			if (date != null) {
 				SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 				Date yourDate = null;
 				try {
-					yourDate = parser.parse(mTreatment.date);
+					yourDate = parser.parse(date);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				calendar.setTime(yourDate);
@@ -410,9 +419,8 @@ public class ServiceOrderManager {
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			if (mYear > year || (mYear == year && mMonth > month) || (mYear == year && mMonth == month && mDay > day)) {
-				Toast.makeText(activity, "invalid date", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "invalid date", Toast.LENGTH_SHORT).show();
 				toReshow = true;
-				// dDate.show(activity.getFragmentManager(), "timePicker");
 				return;
 			}
 
@@ -427,7 +435,7 @@ public class ServiceOrderManager {
 			super.onDetach();
 			if (toReshow) {
 				toReshow = false;
-				dDate.show(activity.getFragmentManager(), "timePicker");
+				this.show(getActivity().getFragmentManager(), "timePicker");
 			}
 		}
 

@@ -2,6 +2,7 @@ package com.pictureit.noambaroz.beautyapp;
 
 import java.util.ArrayList;
 
+import utilities.BaseFragment;
 import utilities.Dialogs;
 import utilities.OutgoingCommunication;
 import utilities.TimeUtils;
@@ -42,7 +43,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 	@Override
 	protected void setFragment() {
-		fragment = new FragmentInnerMessage();
+		fragment = new FragmentInnerMessage().setMessageId(messageId);
 	}
 
 	@Override
@@ -55,7 +56,9 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		backPressed();
 	}
 
-	class FragmentInnerMessage extends Fragment {
+	public static class FragmentInnerMessage extends BaseFragment {
+
+        private String messageID;
 
 		private boolean isDeleted;
 
@@ -78,6 +81,11 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		public FragmentInnerMessage() {
 		}
 
+        public FragmentInnerMessage setMessageId(String messageID) {
+            this.messageID = messageID;
+            return this;
+        }
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -85,8 +93,8 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 		}
 
 		private boolean getMessageData() {
-			Cursor c = getContentResolver().query(DataProvider.CONTENT_URI_MESSAGES, null,
-					DataProvider.COL_NOTIFICATION_ID + " = ?", new String[] { messageId }, null);
+			Cursor c = getActivity().getContentResolver().query(DataProvider.CONTENT_URI_MESSAGES, null,
+					DataProvider.COL_NOTIFICATION_ID + " = ?", new String[] { messageID }, null);
 			if (c.moveToFirst()) {
 				picUrl = c.getString(c.getColumnIndex(DataProvider.COL_PIC));
 				beauticianName = c.getString(c.getColumnIndex(DataProvider.COL_NAME));
@@ -195,7 +203,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 						public void onAnswerReturn(Object answer) {
 							if ((Boolean) answer) {
 								isDeleted = true;
-								backPressed();
+                                ((ActivityWithFragment)getActivity()).backPressed();
 							} else {
 								Dialogs.showServerFailedDialog(getActivity());
 								bConfirm.setEnabled(true);
@@ -204,7 +212,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 						}
 					};
 					PostConfirmBeauticianOffer httpRequest = new PostConfirmBeauticianOffer(getActivity(), callback,
-							messageId, "false");
+							messageID, "false");
 					httpRequest.execute();
 				}
 			});
@@ -230,7 +238,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 						bReject.setEnabled(true);
 					}
 				}
-			}, messageId, "true");
+			}, messageID, "true");
 			httpRequest.execute();
 		}
 
@@ -247,20 +255,20 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					backPressed();
+                    ((ActivityWithFragment)getActivity()).backPressed();
 				}
 			});
 			dialog.show();
 			ServiceOrderManager.setPending(getActivity(), false);
-			getContentResolver().delete(DataProvider.CONTENT_URI_MESSAGES, null, null);
+			getActivity().getContentResolver().delete(DataProvider.CONTENT_URI_MESSAGES, null, null);
 		}
 
 		@Override
 		public void onDestroy() {
 			super.onDestroy();
 			if (isDeleted)
-				getContentResolver().delete(DataProvider.CONTENT_URI_MESSAGES,
-						DataProvider.COL_NOTIFICATION_ID + " = ?", new String[] { messageId });
+				getActivity().getContentResolver().delete(DataProvider.CONTENT_URI_MESSAGES,
+						DataProvider.COL_NOTIFICATION_ID + " = ?", new String[] { messageID });
 		}
 	}
 }

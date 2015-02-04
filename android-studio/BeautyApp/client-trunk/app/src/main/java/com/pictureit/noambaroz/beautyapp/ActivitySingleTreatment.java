@@ -1,5 +1,6 @@
 package com.pictureit.noambaroz.beautyapp;
 
+import utilities.BaseFragment;
 import utilities.Dialogs;
 import utilities.OutgoingCommunication;
 import utilities.TimeUtils;
@@ -45,7 +46,7 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 			Dialogs.makeToastThatCloseActivity(ActivitySingleTreatment.this, R.string.dialog_title_error);
 			return;
 		}
-		fragment = new FragmentSingleTreatment(ut);
+		fragment = new FragmentSingleTreatment().setUpcomingTreatment(ut);
 	}
 
 	@Override
@@ -53,15 +54,16 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 		FRAGMENT_TAG = "single_treatment_screen";
 	}
 
-	class FragmentSingleTreatment extends Fragment {
+	public static class FragmentSingleTreatment extends BaseFragment {
 
 		UpcomingTreatment mUpcomingTreatment;
 
 		private FrameLayout bCall;
 		private FrameLayout bDelete;
 
-		public FragmentSingleTreatment(UpcomingTreatment upcomingTreatment) {
+		public FragmentSingleTreatment setUpcomingTreatment(UpcomingTreatment upcomingTreatment) {
 			mUpcomingTreatment = upcomingTreatment;
+            return this;
 		}
 
 		public FragmentSingleTreatment() {
@@ -145,8 +147,8 @@ public class ActivitySingleTreatment extends ActivityWithFragment {
 						Dialogs.showServerFailedDialog(getActivity());
 					} else {
 						Dialogs.successToast(getActivity());
-						setResult(ActivityTreatments.RESULT_CODE_TREATMENT_CANCELED);
-						finish();
+						getActivity().setResult(ActivityTreatments.RESULT_CODE_TREATMENT_CANCELED);
+                        getActivity().finish();
 					}
 				}
 			}, mUpcomingTreatment.getUpcomingTreatmentId());

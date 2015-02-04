@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.BaseFragment;
 import utilities.Dialogs;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -98,7 +100,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class FragmentTreatments extends Fragment implements HttpCallback {
+	public static class FragmentTreatments extends BaseFragment implements HttpCallback {
 
 		private ListView mListView;
 		private ProgressBar mProgressBar;
@@ -129,13 +131,13 @@ public class ActivityTreatments extends ActivityWithFragment {
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			GetUpcomingTreatments httpPost = new GetUpcomingTreatments(getActivity(), this);
 			httpPost.execute();
-			registerReceiver(mReceiver, new IntentFilter(Constants.INTENT_FILTER_UPCOMING_TREATMENTS));
+			getActivity().registerReceiver(mReceiver, new IntentFilter(Constants.INTENT_FILTER_UPCOMING_TREATMENTS));
 			super.onViewCreated(view, savedInstanceState);
 		}
 
 		@Override
 		public void onDestroy() {
-			unregisterReceiver(mReceiver);
+			getActivity().unregisterReceiver(mReceiver);
 			Intent i = new Intent(getActivity(), MainActivity.class);
 			i.putExtra("exit", true);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -167,8 +169,8 @@ public class ActivityTreatments extends ActivityWithFragment {
 						Intent intent = new Intent(getActivity(), ActivitySingleTreatment.class);
 						intent.putExtra(Constants.EXTRA_UPCOMING_TREATMENT, t);
 						mTempTreatment = t;
-						startActivityForResult(intent, 0);
-						overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+                        getActivity().startActivityForResult(intent, 0);
+						getActivity().overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 					}
 				}
 			});
@@ -188,7 +190,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 
 	}
 
-	private class UpcomingTreatmentsListViewAdapter extends ArrayAdapter<UpcomingTreatment> {
+	public static class UpcomingTreatmentsListViewAdapter extends ArrayAdapter<UpcomingTreatment> {
 
 		public UpcomingTreatmentsListViewAdapter(Context context, int resource, List<UpcomingTreatment> objects) {
 			super(context, resource, objects);
@@ -207,16 +209,14 @@ public class ActivityTreatments extends ActivityWithFragment {
 				LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
 						Context.LAYOUT_INFLATER_SERVICE);
 				convertView = inflater.inflate(R.layout.row_treatment, parent, false);
-				holder.name = findView(convertView, R.id.tv_row_upcoming_treatment_beautician_name);
-				holder.address = findView(convertView, R.id.tv_row_upcoming_treatment_address);
-				holder.date = findView(convertView, R.id.tv_row_upcoming_treatment_date);
-				holder.treatmentName = findView(convertView, R.id.tv_row_upcoming_treatment_name);
+				holder.name = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatment_beautician_name);
+				holder.address = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatment_address);
+				holder.date = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatment_date);
+				holder.treatmentName =(TextView)  convertView.findViewById(R.id.tv_row_upcoming_treatment_name);
 
-				holder.disableContainer = findView(convertView, R.id.fl_row_upcoming_treatments_disabled_container);
-				holder.statusDisableTitle = findView(convertView,
-						R.id.tv_row_upcoming_treatments_disabled_container_title);
-				holder.statusDisableRemove = findView(convertView,
-						R.id.tv_row_upcoming_treatments_disabled_container_remove);
+				holder.disableContainer = (FrameLayout) convertView.findViewById(R.id.fl_row_upcoming_treatments_disabled_container);
+				holder.statusDisableTitle = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_disabled_container_title);
+				holder.statusDisableRemove = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_disabled_container_remove);
 
 				convertView.setTag(holder);
 			} else {
@@ -264,11 +264,11 @@ public class ActivityTreatments extends ActivityWithFragment {
 					.getName());
 			if (t.getTreatmentsArray().size() > 1) {
 				sb.append(" ");
-				sb.append(getString(R.string.and_more));
+				sb.append(getContext().getString(R.string.and_more));
 				sb.append(" ");
 				sb.append(t.getTreatmentsArray().size() - 1);
 				sb.append(" ");
-				sb.append(getString(R.string.additional));
+				sb.append(getContext().getString(R.string.additional));
 			}
 			return sb.toString();
 		}
@@ -279,7 +279,7 @@ public class ActivityTreatments extends ActivityWithFragment {
 		TextView address;
 		TextView date;
 		TextView treatmentName;
-		ViewGroup disableContainer;
+        FrameLayout disableContainer;
 		TextView statusDisableTitle, statusDisableRemove;
 	}
 

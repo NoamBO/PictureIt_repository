@@ -2,6 +2,7 @@ package com.pictureit.noambaroz.beautyapp;
 
 import java.util.HashMap;
 
+import utilities.BaseFragment;
 import utilities.Log;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
@@ -54,7 +55,7 @@ public class ActivityMessages extends ActivityWithFragment {
 		backPressed();
 	}
 
-	private class FragmentMessages extends Fragment implements LoaderCallbacks<Cursor>, OnItemClickListener {
+	public static class FragmentMessages extends BaseFragment implements LoaderCallbacks<Cursor>, OnItemClickListener {
 
 		int mRowViewInitialHeight;
 		View mRowViewToRemove;
@@ -236,8 +237,8 @@ public class ActivityMessages extends ActivityWithFragment {
 			if (everythingOk) {
 				Intent intent = new Intent(getActivity(), ActivityMessagesInner.class);
 				intent.putExtra(Constants.EXTRA_MESSAGE_ID, messageId);
-				startActivity(intent);
-				overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+                getActivity().startActivity(intent);
+				getActivity().overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 			}
 			// getActivity().getContentResolver().delete(
 			// Uri.withAppendedPath(DataProvider.CONTENT_URI_MESSAGES,

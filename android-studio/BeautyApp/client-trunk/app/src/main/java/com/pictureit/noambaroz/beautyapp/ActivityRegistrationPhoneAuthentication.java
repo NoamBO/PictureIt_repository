@@ -1,5 +1,6 @@
 package com.pictureit.noambaroz.beautyapp;
 
+import utilities.BaseFragment;
 import utilities.Dialogs;
 import utilities.server.HttpBase;
 import utilities.server.HttpBase.HttpCallback;
@@ -35,7 +36,7 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 		FRAGMENT_TAG = "phone_authentication_fragment";
 	}
 
-	private class FragmentRegistrationPhoneAuthentication extends Fragment {
+	public static class FragmentRegistrationPhoneAuthentication extends BaseFragment {
 
 		private final long TIMER_INTERVAL = 1000; // 1 seconds
 		private final long TIMER_TOTAL_TIME = 1000 * 60 * 2; // 2 minutes
@@ -109,9 +110,9 @@ public class ActivityRegistrationPhoneAuthentication extends ActivityWithFragmen
 								String result = (String) answer;
 								if (result.equalsIgnoreCase(CODE_VALID)) {
 									Intent intent = new Intent(getActivity(), MainActivity.class);
-									startActivity(intent);
-									overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-									finish();
+									getActivity().startActivity(intent);
+                                    getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                    getActivity().finish();
 								} else {
 									onIncorrectCodeTyped(result);
 								}

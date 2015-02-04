@@ -1,5 +1,6 @@
 package com.pictureit.noambaroz.beautyapp;
 
+import utilities.BaseFragment;
 import utilities.view.MyBitmapHelper;
 import android.app.Fragment;
 import android.content.Intent;
@@ -72,7 +73,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 		FRAGMENT_TAG = "my_profile_activity";
 	}
 
-	class FragmentMyProfile extends Fragment {
+	public static class FragmentMyProfile extends BaseFragment {
 
 		private TextView tvName, tvPhone, tvEmail, tvAddress;
 		private ImageView ivImage;
@@ -84,7 +85,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 		}
 
 		@Override

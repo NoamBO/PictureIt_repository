@@ -19,17 +19,17 @@ public abstract class ActivityWithFragment extends BaseActivity {
 	protected String FRAGMENT_TAG = "";
 	protected Fragment fragment;
 	// protected final int FRAGMENT_CONTAINER = R.id.fragment_container;
-	protected final int FRAGMENT_CONTAINER = android.R.id.content;
+	protected static final int FRAGMENT_CONTAINER = android.R.id.content;
 	protected boolean initActionBar = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_container);
-		setFragment();
+        initActivity();
+        setFragment();
 		setFragmentTag();
 
-		initActivity();
 		initActionBar(getActionBar());
 	}
 

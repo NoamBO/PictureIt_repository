@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beautyapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.BaseFragment;
 import utilities.Dialogs;
 import utilities.OutgoingCommunication;
 import utilities.TimeUtils;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,7 +49,7 @@ public class ActivityHistory extends ActivityWithFragment {
 		FRAGMENT_TAG = "FragmentHistory";
 	}
 
-	private class FragmentHistory extends Fragment {
+	public static class FragmentHistory extends BaseFragment {
 
 		private ListView mListView;
 		private HistoryListAdapter mAdapter;
@@ -95,7 +97,7 @@ public class ActivityHistory extends ActivityWithFragment {
 
 	}
 
-	private class HistoryListAdapter extends ArrayAdapter<HistoryObject> {
+	private static class HistoryListAdapter extends ArrayAdapter<HistoryObject> {
 
 		public HistoryListAdapter(Context context, int resource, List<HistoryObject> objects) {
 			super(context, resource, objects);
@@ -106,15 +108,15 @@ public class ActivityHistory extends ActivityWithFragment {
 			final ViewHolder holder;
 			if (convertView == null) {
 				holder = new ViewHolder();
-				convertView = getLayoutInflater().inflate(R.layout.row_history, parent, false);
-				holder.bCall = findView(convertView, R.id.fl_row_history_call);
-				holder.bRate = findView(convertView, R.id.fl_row_history_rate);
-				holder.bReorder = findView(convertView, R.id.tv_row_history_reorder);
-				holder.tvDate = findView(convertView, R.id.tv_row_history_date);
-				holder.tvBeauticianName = findView(convertView, R.id.tv_row_history_beautician);
-				holder.tvTreatments = findView(convertView, R.id.tv_row_history_treatment);
-				holder.tvAddress = findView(convertView, R.id.tv_row_history_address);
-				holder.tvPrice = findView(convertView, R.id.tv_row_history_price);
+				convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_history, parent, false);
+				holder.bCall = (FrameLayout) convertView.findViewById(R.id.fl_row_history_call);
+				holder.bRate = (FrameLayout) convertView.findViewById(R.id.fl_row_history_rate);
+				holder.bReorder = (TextView)convertView.findViewById(R.id.tv_row_history_reorder);
+				holder.tvDate = (TextView) convertView.findViewById(R.id.tv_row_history_date);
+				holder.tvBeauticianName = (TextView) convertView.findViewById(R.id.tv_row_history_beautician);
+				holder.tvTreatments = (TextView) convertView.findViewById(R.id.tv_row_history_treatment);
+				holder.tvAddress = (TextView) convertView.findViewById(R.id.tv_row_history_address);
+				holder.tvPrice = (TextView) convertView.findViewById(R.id.tv_row_history_price);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -124,7 +126,7 @@ public class ActivityHistory extends ActivityWithFragment {
 			holder.tvBeauticianName.setText(getItem(position).getBeautician_name());
 			holder.tvTreatments.setText(getTreatmentName(getItem(position)));
 			holder.tvAddress.setText(getItem(position).getTreatment_location());
-			holder.tvPrice.setText(getItem(position).getPrice() + getString(R.string.currency));
+			holder.tvPrice.setText(getItem(position).getPrice() + getContext().getString(R.string.currency));
 
 			holder.bCall.setOnClickListener(new OnClickListener() {
 
@@ -170,9 +172,9 @@ public class ActivityHistory extends ActivityWithFragment {
 						Dialogs.showServerFailedDialog(getContext());
 					} else {
 						ReorderObject o = (ReorderObject) answer;
-						FragmentReorder fragment = new FragmentReorder(ActivityHistory.this, o.getBeauticianID(),
+						FragmentReorder fragment = new FragmentReorder().setFragment(((Activity) getContext()), o.getBeauticianID(),
 								o.getForWho(), o.getWhen(), o.getWhare(), o.getRemarks(), o.getTretments());
-						ActivityHistory.this.getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, fragment)
+                        ((Activity) getContext()).getFragmentManager().beginTransaction().add(FRAGMENT_CONTAINER, fragment)
 								.addToBackStack(null).commit();
 					}
 				}
@@ -209,11 +211,11 @@ public class ActivityHistory extends ActivityWithFragment {
 					.getName());
 			if (t.getTreatmentsArray().size() > 1) {
 				sb.append(" ");
-				sb.append(getString(R.string.and_more));
+				sb.append(getContext().getString(R.string.and_more));
 				sb.append(" ");
 				sb.append(t.getTreatmentsArray().size() - 1);
 				sb.append(" ");
-				sb.append(getString(R.string.additional));
+				sb.append(getContext().getString(R.string.additional));
 			}
 			return sb.toString();
 		}
