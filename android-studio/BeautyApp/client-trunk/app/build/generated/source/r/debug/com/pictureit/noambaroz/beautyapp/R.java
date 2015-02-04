@@ -1137,15 +1137,14 @@ containing a value of this type.
         public static final int vpi__tab_unselected_pressed_holo=0x7f020084;
     }
     public static final class id {
-        public static final int action_ask_for_service=0x7f0a00f5;
-        public static final int action_explanation=0x7f0a00f3;
+        public static final int action_ask_for_service=0x7f0a00f4;
         public static final int action_future_treatments=0x7f0a00ee;
         public static final int action_history=0x7f0a00f2;
         public static final int action_layout_order_treatment_button=0x7f0a001f;
         public static final int action_my_profile=0x7f0a00f1;
         public static final int action_pending_orders=0x7f0a00f0;
         public static final int action_search_providers=0x7f0a00ef;
-        public static final int action_terms_of_service=0x7f0a00f4;
+        public static final int action_terms_of_service=0x7f0a00f3;
         public static final int adjust_height=0x7f0a0002;
         public static final int adjust_width=0x7f0a0003;
         public static final int amPm=0x7f0a00eb;

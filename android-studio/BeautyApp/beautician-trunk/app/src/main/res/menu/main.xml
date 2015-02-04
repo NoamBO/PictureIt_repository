@@ -25,18 +25,18 @@
         android:id="@+id/action_treatment_history"
         android:showAsAction="never"
         android:title="@string/title_treatments_history"/>
-    <item
-        android:id="@+id/action_explanation"
-        android:showAsAction="never"
-        android:title="@string/title_explanation"/>
+    <!--<item-->
+    <!--android:id="@+id/action_explanation"-->
+    <!--android:showAsAction="never"-->
+    <!--android:title="@string/title_explanation"/>-->
     <item
         android:id="@+id/action_settings"
         android:showAsAction="never"
         android:title="@string/title_settings"/>
-    <item
-        android:id="@+id/action_customer_help"
-        android:showAsAction="never"
-        android:title="@string/title_support"/>
+    <!--<item-->
+        <!--android:id="@+id/action_customer_help"-->
+        <!--android:showAsAction="never"-->
+        <!--android:title="@string/title_support"/>-->
     <item
         android:id="@+id/action_terms_of_use"
         android:showAsAction="never"

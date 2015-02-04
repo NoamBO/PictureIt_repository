@@ -24,7 +24,7 @@ public class GcmUtil {
 	private final String PROPERTY_APP_VERSION = "appVersion";
 	public final String PROPERTY_REG_ID = "gcm_registration_id";
 
-	private final String SENDER_ID = "564652940367";
+	private final String SENDER_ID = "519158675413";
 
 	private final String PREF_GCM_KEY = "com.pictureit.noambaroz.beautyapp.gcm.GcmUtil";
 

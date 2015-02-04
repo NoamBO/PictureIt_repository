@@ -192,9 +192,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_explanation) {
-
-		} else if (id == R.id.action_future_treatments) {
+//		if (id == R.id.action_explanation) {
+//
+//		} else
+        if (id == R.id.action_future_treatments) {
 			launchActivity(ActivityTreatments.class);
 		} else if (id == R.id.action_pending_orders) {
 			launchActivity(ActivityMessages.class);
