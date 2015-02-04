@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -70,7 +71,9 @@ public class ActivityMessages extends ActivityWithFragment {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	private class MessagesFragment extends Fragment implements HttpCallback, OnItemClickListener {
+	public static class MessagesFragment extends BaseFragment implements HttpCallback, OnItemClickListener {
+
+        public MessagesFragment(){}
 
 		private ListView listView;
 		private TextView emptyListIndicator;
@@ -98,12 +101,12 @@ public class ActivityMessages extends ActivityWithFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_MESSAGE_DELETED));
+			getActivity().registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_MESSAGE_DELETED));
 		}
 
 		@Override
 		public void onDestroy() {
-			unregisterReceiver(mReceiver);
+            getActivity().unregisterReceiver(mReceiver);
 			super.onDestroy();
 		}
 
@@ -130,7 +133,7 @@ public class ActivityMessages extends ActivityWithFragment {
 
 			ArrayList<Message> arrayList = (ArrayList<Message>) answer;
 
-			adapter = new MyAdapter(ActivityMessages.this, android.R.layout.simple_list_item_2, arrayList);
+			adapter = new ActivityMessages.MyAdapter(getActivity(), android.R.layout.simple_list_item_2, arrayList);
 			listView.setAdapter(adapter);
 			listView.setOnItemClickListener(this);
 			listView.setEmptyView(emptyListIndicator);
@@ -146,7 +149,7 @@ public class ActivityMessages extends ActivityWithFragment {
 			Intent intent = new Intent(getActivity(), ActivityMessage.class);
 			intent.putExtra(Constant.EXTRA_MESSAGE_OBJECT, m);
 			getActivity().startActivityForResult(intent, Constant.REQUEST_CODE_SINGLE_MESSAGE);
-			overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
+            getActivity().overridePendingTransition(R.anim.activity_enter_slidein_anim, R.anim.activity_exit_shrink_anim);
 		}
 
 		public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
@@ -162,7 +165,7 @@ public class ActivityMessages extends ActivityWithFragment {
 		}
 	}
 
-	private class MyAdapter extends ArrayAdapter<Message> {
+	private static class MyAdapter extends ArrayAdapter<Message> {
 
 		public MyAdapter(Context context, int resource, List<Message> objects) {
 			super(context, resource, objects);
@@ -181,17 +184,15 @@ public class ActivityMessages extends ActivityWithFragment {
 				LayoutInflater inflater = LayoutInflater.from(getContext());
 				convertView = inflater.inflate(R.layout.row_upcoming_treatments, parent, false);
 
-				holder.image = findView(convertView, R.id.iv_row_upcoming_treatments);
-				holder.date = findView(convertView, R.id.tv_row_upcoming_treatments_date);
-				holder.address = findView(convertView, R.id.tv_row_upcoming_treatments_address);
-				holder.name = findView(convertView, R.id.tv_row_upcoming_treatments_customer_name);
-				holder.treatment = findView(convertView, R.id.tv_row_upcoming_treatments_type_name);
+				holder.image = (ImageView) convertView.findViewById(R.id.iv_row_upcoming_treatments);
+				holder.date = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_date);
+				holder.address = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_address);
+				holder.name = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_customer_name);
+				holder.treatment = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_type_name);
 
-				holder.disableContainer = findView(convertView, R.id.fl_row_upcoming_treatments_disabled_container);
-				holder.statusDisableTitle = findView(convertView,
-						R.id.tv_row_upcoming_treatments_disabled_container_title);
-				holder.statusDisableRemove = findView(convertView,
-						R.id.tv_row_upcoming_treatments_disabled_container_remove);
+				holder.disableContainer = (FrameLayout) convertView.findViewById(R.id.fl_row_upcoming_treatments_disabled_container);
+				holder.statusDisableTitle = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_disabled_container_title);
+				holder.statusDisableRemove = (TextView) convertView.findViewById(R.id.tv_row_upcoming_treatments_disabled_container_remove);
 
 				convertView.setTag(holder);
 			} else {
@@ -205,8 +206,8 @@ public class ActivityMessages extends ActivityWithFragment {
 					.getTreatmentName(getItem(position).getTreatments()));
 
 			{
-				int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
-				int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
+				int w = (int) getContext().getResources().getDimension(R.dimen.beautician_picture_width);
+				int h = (int) getContext().getResources().getDimension(R.dimen.beautician_picture_height);
 				ImageLoaderUtil.display(getItem(position).getImageUrl(), holder.image, -1, w, h);
 			}
 
@@ -242,7 +243,7 @@ public class ActivityMessages extends ActivityWithFragment {
 		private class ViewHolder {
 			ImageView image;
 			TextView date, name, address, treatment;
-			ViewGroup disableContainer;
+			FrameLayout disableContainer;
 			TextView statusDisableTitle, statusDisableRemove;
 		}
 

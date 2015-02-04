@@ -245,4 +245,5 @@ public class ActivityMessages extends ActivityWithFragment {
 			// null, null);
 		}
 	}
+
 }
