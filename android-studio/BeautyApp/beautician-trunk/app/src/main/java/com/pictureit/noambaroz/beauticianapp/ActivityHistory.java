@@ -35,7 +35,7 @@ public class ActivityHistory extends ActivityWithFragment {
 		FRAGMENT_TAG = "treatments_history";
 	}
 
-	private class FragmentHistory extends Fragment implements HttpCallback {
+	public static class FragmentHistory extends BaseFragment implements HttpCallback {
 
 		private ArrayList<History> mArrayList;
 		private ListView mListView;

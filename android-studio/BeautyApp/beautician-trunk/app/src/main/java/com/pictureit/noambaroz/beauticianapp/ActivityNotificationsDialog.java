@@ -207,7 +207,7 @@ public class ActivityNotificationsDialog extends Activity implements LoaderCallb
 			TextView date = (TextView) mView.findViewById(R.id.tv_row_dialog_reminder_date);
 			TextView name = (TextView) mView.findViewById(R.id.tv_row_dialog_reminder_customer_name);
 			TextView treatment = (TextView) mView.findViewById(R.id.tv_row_dialog_reminder_type_name);
-			ImageView image = (ImageView) mView.findViewById(R.id.iv_row_dialog_reminder);
+			ImageView image = (ImageView) mView.findViewById(R.id.iv_dialog_reminder);
 
 			date.setText(TimeUtils.timestampToDateWithHour(String.valueOf(alarm.getTreatmentDate() / 1000)));
 			name.setText(alarm.getFullName());

@@ -133,6 +133,7 @@
 	<string name="set_price">הגדרי מחיר</string>
 	<string name="confirm_treatment_dialog_title">אישור טיפול</string>
 	<string name="confirm_treatment_dialog_subtitle">במידה ויש טיפול שאינך יכולה לספק, אנא הסירי אותו מהרשימה</string>
+    <string name="error_loading_message">תקלה בטעינת ההודעה</string>
 	
 	 <!-- Dialog Location text -->
 	<string name="address">כתובת</string>

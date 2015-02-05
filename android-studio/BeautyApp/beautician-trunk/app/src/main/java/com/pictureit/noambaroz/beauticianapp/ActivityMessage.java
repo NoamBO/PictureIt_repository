@@ -8,7 +8,6 @@ import net.simonvt.numberpicker.NumberPicker;
 import noam.baroz.timepicker.OnTimeSetListener;
 import noam.baroz.timepicker.TimePicker;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -53,7 +52,7 @@ public class ActivityMessage extends ActivityWithFragment {
 
 	@Override
 	public void onBackPressed() {
-		if (mBackPressedListener == null || (mBackPressedListener != null && mBackPressedListener.onBackPressed()))
+		if (mBackPressedListener == null || mBackPressedListener.onBackPressed())
 			backPressed();
 	}
 
@@ -72,12 +71,16 @@ public class ActivityMessage extends ActivityWithFragment {
 	private void stopLoadingActivity() {
 		Dialogs.generalDialog(ActivityMessage.this, Dialogs.somthing_went_wrong);
 		finish();
-		return;
 	}
+
+    public void setBackPressedListener(MyBackPressedListener l) {
+        mBackPressedListener = l;
+    }
 
 	@Override
 	protected void setFragment() {
-		fragment = new FragmentMessage();
+        fragment = new FragmentMessage();
+        ((FragmentMessage) fragment).setMessage(mMessage);
 	}
 
 	@Override
@@ -85,23 +88,28 @@ public class ActivityMessage extends ActivityWithFragment {
 		FRAGMENT_TAG = "single_message_fragment";
 	}
 
-	private class FragmentMessage extends Fragment implements OnTimeSetListener, OnTreatmentListChangeListener,
+	public static class FragmentMessage extends BaseFragment implements OnTimeSetListener, OnTreatmentListChangeListener,
 			HttpCallback {
 
-		private MessageResponse mMessageResponse;
+        private Message message;
+		private MessageResponse messageResponse;
 
 		private TextView tvHour, tvWantedTreatment1, tvWantedTreatment2, tvLocation, tvRemarks, tvPrice;
 		private TextView tvSend, tvCancel;
-		private TextView editLocation, editTreatments, editRemarks, editPrice;;
+		private TextView editLocation, editTreatments, editRemarks, editPrice;
 
 		private View priceDivider, timeDivider;
 
 		private TimePickerDialog timePikerDialog;
 		private Dialog priceDialog;
-		private MyCustomDialog customAddressDialog, remarksDialog;;
+		private MyCustomDialog customAddressDialog, remarksDialog;
 		private MySingleChoiseDialog locationDialog;
 
 		private String mTreatmentsArrayInString;
+
+        public void setMessage(Message m) {
+            message = m;
+        }
 
 		private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
@@ -110,7 +118,7 @@ public class ActivityMessage extends ActivityWithFragment {
 				if (intent.hasExtra(Constant.EXTRA_ORDER_ID)) {
 					String orderId = intent.getStringExtra(Constant.EXTRA_ORDER_ID);
 					if (!TextUtils.isEmpty(orderId)) {
-						if (orderId.equalsIgnoreCase(mMessage.getOrderid())) {
+						if (orderId.equalsIgnoreCase(message.getOrderid())) {
 							MyCustomDialog d = new MyCustomDialog(getActivity());
 							d.setMessage(R.string.message_deleted);
 							d.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
@@ -130,27 +138,24 @@ public class ActivityMessage extends ActivityWithFragment {
 		};
 
 		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			mMessageResponse = new MessageResponse();
-			mMessageResponse.setComments("");
-			mMessageResponse.setOrderid(mMessage.getOrderid());
-			mMessageResponse.setPlace(mMessage.getLocation());
-			mTreatmentsArrayInString = new Gson().toJson(mMessage.getTreatments());
-			mMessageResponse.setTreatments(mMessage.getTreatments());
-			mMessageResponse.setDate(TimeUtils.timestampToDate(mMessage.getDate()));
-			registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_MESSAGE_DELETED));
-		}
-
-		@Override
 		public void onDestroy() {
-			unregisterReceiver(mReceiver);
+            getActivity().unregisterReceiver(mReceiver);
 			super.onDestroy();
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View v = inflater.inflate(R.layout.fragment_message, container, false);
+
+            messageResponse = new MessageResponse();
+            messageResponse.setComments("");
+            messageResponse.setOrderid(message.getOrderid());
+            messageResponse.setPlace(message.getLocation());
+            mTreatmentsArrayInString = new Gson().toJson(message.getTreatments());
+            messageResponse.setTreatments(message.getTreatments());
+            messageResponse.setDate(TimeUtils.timestampToDate(message.getDate()));
+            getActivity().registerReceiver(mReceiver, new IntentFilter(Constant.INTENT_FILTER_MESSAGE_DELETED));
+
+            View v = inflater.inflate(R.layout.fragment_message, container, false);
 
 			ImageView image = findView(v, R.id.iv_message);
 			TextView tvName = findView(v, R.id.tv_message_name);
@@ -173,18 +178,18 @@ public class ActivityMessage extends ActivityWithFragment {
 			editRemarks = findView(v, R.id.b_message_remarks);
 			editPrice = findView(v, R.id.b_message_set_price);
 
-			tvName.setText(mMessage.getClientName());
-			tvAddress.setText(mMessage.getClientAdress());
-			tvDate.setText(TimeUtils.timestampToDate(mMessage.getDate()));
+			tvName.setText(message.getClientName());
+			tvAddress.setText(message.getClientAdress());
+			tvDate.setText(TimeUtils.timestampToDate(message.getDate()));
 			{
 				int w = (int) getResources().getDimension(R.dimen.beautician_picture_width);
 				int h = (int) getResources().getDimension(R.dimen.beautician_picture_height);
-				ImageLoaderUtil.display(mMessage.getImageUrl(), image, -1, w, h);
+				ImageLoaderUtil.display(message.getImageUrl(), image, -1, w, h);
 			}
 			Formatter.getSelf(getActivity()).setTreatmentsList(tvWantedTreatment1, tvWantedTreatment2,
-					mMessage.getTreatments());
-			tvLocation.setText(mMessage.getLocation());
-			tvRemarks.setText(mMessage.getComments());
+					message.getTreatments());
+			tvLocation.setText(message.getLocation());
+			tvRemarks.setText(message.getComments());
 			return v;
 		}
 
@@ -210,8 +215,9 @@ public class ActivityMessage extends ActivityWithFragment {
 				@Override
 				public void onClick(View v) {
 					FragmentTreatmentSelection fragment = new FragmentTreatmentSelection();
-					mBackPressedListener = (MyBackPressedListener) fragment;
-					fragment.setTreatments(mMessage.getTreatments());
+					MyBackPressedListener backPressedListener = (MyBackPressedListener) fragment;
+                    ((ActivityMessage)getActivity()).setBackPressedListener(backPressedListener);
+                    fragment.setTreatments(message.getTreatments());
 					fragment.setListener(FragmentMessage.this);
 					getActivity().getFragmentManager().beginTransaction().add(android.R.id.content, fragment)
 							.addToBackStack(null).commit();
@@ -237,7 +243,7 @@ public class ActivityMessage extends ActivityWithFragment {
 				public void onClick(View v) {
 					if (isMessageResponseOk()) {
 						BeauticianResponseTask httpRequest = new BeauticianResponseTask(getActivity(),
-								FragmentMessage.this, mMessageResponse);
+								FragmentMessage.this, messageResponse);
 						httpRequest.execute();
 					} else {
 						// TODO
@@ -248,7 +254,7 @@ public class ActivityMessage extends ActivityWithFragment {
 
 				@Override
 				public void onClick(View v) {
-					CancelRequestTask httpRequest = new CancelRequestTask(getActivity(), FragmentMessage.this, mMessage
+					CancelRequestTask httpRequest = new CancelRequestTask(getActivity(), FragmentMessage.this, message
 							.getOrderid());
 					httpRequest.execute();
 				}
@@ -260,28 +266,25 @@ public class ActivityMessage extends ActivityWithFragment {
 			if (TextUtils.isEmpty((String) answer)) {
 				Dialogs.showServerFailedDialog(getActivity());
 			} else {
-				Dialogs.successToast(getApplicationContext());
+				Dialogs.successToast(getActivity().getApplicationContext());
 				onFinish();
 			}
 		}
 
 		protected boolean isMessageResponseOk() {
-			if (!TextUtils.isEmpty(mMessageResponse.getPrice()) && !TextUtils.isEmpty(mMessageResponse.getHour()))
-				return true;
-			else
-				return false;
+			return (!TextUtils.isEmpty(messageResponse.getPrice()) && !TextUtils.isEmpty(messageResponse.getHour()));
 		}
 
 		@Override
 		public void onTreatmentListChange(ArrayList<TreatmentType> treatments) {
-			mBackPressedListener = null;
+            ((ActivityMessage)getActivity()).setBackPressedListener(null);
 			ArrayList<TreatmentType> arr = new ArrayList<TreatmentType>();
 			for (TreatmentType tt : treatments) {
 				if (tt.getAmount() > 0) {
 					arr.add(tt);
 				}
 			}
-			mMessageResponse.setTreatments(getReleventTreatmentList(arr));
+			messageResponse.setTreatments(getReleventTreatmentList(arr));
 
 			Formatter.getSelf(getActivity()).setTreatmentsList(tvWantedTreatment1, tvWantedTreatment2,
 					getReleventTreatmentList(arr));
@@ -306,7 +309,7 @@ public class ActivityMessage extends ActivityWithFragment {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			String hour = (hourOfDay < 10 ? "0" + hourOfDay : String.valueOf(hourOfDay)) + ":"
 					+ (minute < 10 ? "0" + minute : String.valueOf(minute));
-			mMessageResponse.setHour(hour);
+			messageResponse.setHour(hour);
 			timeDivider.setVisibility(View.VISIBLE);
 			tvHour.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
 			tvHour.setBackground(null);
@@ -315,14 +318,18 @@ public class ActivityMessage extends ActivityWithFragment {
 
 		private void onLocationSelected(String location) {
 			tvLocation.setText(location);
-			mMessageResponse.setPlace(location);
+			messageResponse.setPlace(location);
 		}
 
 		private void onCommentsChanged(String comments) {
 			if (!TextUtils.isEmpty(comments)) {
-				mMessageResponse.setComments(comments);
+				messageResponse.setComments(comments);
 				StringBuilder commentBuilder = new StringBuilder();
-				commentBuilder.append("\"").append(mMessage.getComments()).append("\"").append("\n\n").append(comments);
+				commentBuilder.append("\"");
+                commentBuilder.append(message.getComments());
+                commentBuilder.append("\"");
+                commentBuilder.append("\n\n");
+                commentBuilder.append(comments);
 				tvRemarks.setText(commentBuilder.toString());
 			}
 		}
@@ -363,7 +370,7 @@ public class ActivityMessage extends ActivityWithFragment {
 						editPrice.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
 						editPrice.setText("");
 						editPrice.setBackgroundResource(R.drawable.btn_edit);
-						mMessageResponse.setPrice(String.valueOf(np.getValue()));
+						messageResponse.setPrice(String.valueOf(np.getValue()));
 						priceDialog.dismiss();
 					}
 				});
@@ -406,7 +413,6 @@ public class ActivityMessage extends ActivityWithFragment {
 
 									@Override
 									public void onAnswerReturn(Object answer) {
-										Log.i(answer.toString());
 										if (answer != null)
 											onLocationSelected((String) answer);
 									}
@@ -427,7 +433,7 @@ public class ActivityMessage extends ActivityWithFragment {
 			if (remarksDialog == null) {
 				remarksDialog = new MyCustomDialog(getActivity());
 				final EditText beauticianRemarks = remarksDialog.getEditText();
-				remarksDialog.setMessage("\"" + mMessage.getComments() + "\"").setDialogTitle(R.string.remarks)
+				remarksDialog.setMessage("\"" + message.getComments() + "\"").setDialogTitle(R.string.remarks)
 						.setPositiveButton(R.string.dialog_ok_text, new DialogInterface.OnClickListener() {
 
 							@Override
@@ -440,9 +446,9 @@ public class ActivityMessage extends ActivityWithFragment {
 		}
 
 		private void onFinish() {
-			DataUtils.get(getActivity()).deleteOrderAroundMe(mMessage.getOrderid());
-			setResult(RESULT_OK, new Intent().putExtra(Constant.EXTRA_ORDER_ID, mMessage.getOrderid()));
-			backPressed();
+			DataUtils.get(getActivity()).deleteOrderAroundMe(message.getOrderid());
+			getActivity().setResult(RESULT_OK, new Intent().putExtra(Constant.EXTRA_ORDER_ID, message.getOrderid()));
+            ((ActivityMessage)getActivity()).backPressed();
 		}
 
 	}

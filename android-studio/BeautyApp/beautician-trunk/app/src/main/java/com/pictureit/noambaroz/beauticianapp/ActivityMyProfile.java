@@ -3,6 +3,7 @@ package com.pictureit.noambaroz.beauticianapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -70,7 +71,27 @@ public class ActivityMyProfile extends ActivityWithFragment {
 		FRAGMENT_TAG = "my_profile_fragment";
 	}
 
-	private class FragmentMyProfile extends Fragment implements OnClickListener {
+    public MyProfileDetails getDetails(){
+        return ((FragmentMyProfile)fragment).getDetails();
+    }
+
+    public void updateHeader(){
+        ((FragmentMyProfile)fragment).updateHeader();
+    }
+
+    public ImageView getProfilePicture() {
+        return ((FragmentMyProfile)fragment).getProfilePicture();
+    }
+
+    public void updateContactDetails() {
+        ((FragmentMyProfile)fragment).updateContactDetails();
+    }
+
+    public void updatePersonalDetails(){
+        ((FragmentMyProfile)fragment).updatePersonalDetails();
+    }
+
+	public static class FragmentMyProfile extends BaseFragment implements OnClickListener {
 
 		private MyProfileDetails mDetails;
 
@@ -83,6 +104,14 @@ public class ActivityMyProfile extends ActivityWithFragment {
 		private TextView tvDiplomas;
 		private TextView tvAbout, tvExperience, tvPaymentMethod;
 		private RatingBar ratingBar;
+
+        public MyProfileDetails getDetails(){
+            return mDetails;
+        }
+
+        public ImageView getProfilePicture() {
+            return ivImage;
+        }
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -360,7 +389,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					.addToBackStack(null).commit();
 		}
 
-		private class FragmentEditHeader extends Fragment implements HttpCallback {
+		public static class FragmentEditHeader extends BaseFragment implements HttpCallback {
 			private EditText etPrivateName, etBusinessName;
 			private TextView tvClassification;
 			private ViewGroup bDone;
@@ -391,10 +420,10 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 			@Override
 			public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-				registerReceiver(receiver, new IntentFilter(Crop.cropFilter));
+				getActivity().registerReceiver(receiver, new IntentFilter(Crop.cropFilter));
 
 				View v = inflater.inflate(R.layout.dialog_my_profile_edit_header, container, false);
-				classificationId = mDetails.getClassification();
+				classificationId = ((ActivityMyProfile) getActivity()).getDetails().getClassification();
 				image = findView(v, R.id.iv_dialog_my_profile_editing_header);
 				etPrivateName = findView(v, R.id.et_dialog_my_profile_editing_header_name);
 				etBusinessName = findView(v, R.id.et_dialog_my_profile_editing_header_business_name);
@@ -403,21 +432,21 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 				resetImage();
 
-				etBusinessName.setText(mDetails.getBusinessName());
-				etPrivateName.setText(mDetails.getName());
+				etBusinessName.setText(((ActivityMyProfile) getActivity()).getDetails().getBusinessName());
+				etPrivateName.setText(((ActivityMyProfile) getActivity()).getDetails().getName());
 				tvClassification.setText(Formatter.getSelf(getActivity()).getClassificationById(classificationId));
 
 				return v;
 			}
 
 			private void resetImage() {
-				ivImage.setDrawingCacheEnabled(true);
-				ivImage.buildDrawingCache(false);
-				Bitmap b = Bitmap.createBitmap(ivImage.getDrawingCache());
+                ((ActivityMyProfile) getActivity()).getProfilePicture().setDrawingCacheEnabled(true);
+                ((ActivityMyProfile) getActivity()).getProfilePicture().buildDrawingCache(false);
+				Bitmap b = Bitmap.createBitmap(((ActivityMyProfile) getActivity()).getProfilePicture().getDrawingCache());
 				if (b != null)
 					image.setImageBitmap(b);
 
-				ivImage.setDrawingCacheEnabled(false);
+                ((ActivityMyProfile) getActivity()).getProfilePicture().setDrawingCacheEnabled(false);
 			}
 
 			@Override
@@ -454,7 +483,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 			@Override
 			public void onDestroy() {
-				unregisterReceiver(receiver);
+				getActivity().unregisterReceiver(receiver);
 				super.onDestroy();
 			}
 
@@ -489,19 +518,19 @@ public class ActivityMyProfile extends ActivityWithFragment {
 					Dialogs.showServerFailedDialog(getActivity());
 				} else {
 					Dialogs.successToast(getActivity());
-					mDetails.setName(etPrivateName.getText().toString());
-					mDetails.setBusiness_name(etBusinessName.getText().toString());
-					mDetails.setClassification(classificationId);
+                    ((ActivityMyProfile) getActivity()).getDetails().setName(etPrivateName.getText().toString());
+                    ((ActivityMyProfile) getActivity()).getDetails().setBusiness_name(etBusinessName.getText().toString());
+                    ((ActivityMyProfile) getActivity()).getDetails().setClassification(classificationId);
 					if (bitmap != null) {
-						int h = ivImage.getLayoutParams().height;
-						int w = ivImage.getLayoutParams().width;
-						ivImage.setImageBitmap(bitmap);
-						ivImage.getLayoutParams().height = h;
-						ivImage.getLayoutParams().width = w;
+						int h = ((ActivityMyProfile) getActivity()).getProfilePicture().getLayoutParams().height;
+						int w = ((ActivityMyProfile) getActivity()).getProfilePicture().getLayoutParams().width;
+                        ((ActivityMyProfile) getActivity()).getProfilePicture().setImageBitmap(bitmap);
+                        ((ActivityMyProfile) getActivity()).getProfilePicture().getLayoutParams().height = h;
+                        ((ActivityMyProfile) getActivity()).getProfilePicture().getLayoutParams().width = w;
 					}
-					updateHeader();
+                    ((ActivityMyProfile)getActivity()).updateHeader();
 					SoftKeyboard.hide(getActivity());
-					backPressed();
+                    ((ActivityMyProfile)getActivity()).backPressed();
 				}
 			}
 
@@ -514,7 +543,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 		}
 
-		private class FragmentEditContactOptions extends Fragment {
+		public static class FragmentEditContactOptions extends BaseFragment {
 
 			private ViewGroup bFinish;
 			private TextView phone;
@@ -536,12 +565,12 @@ public class ActivityMyProfile extends ActivityWithFragment {
 				noArrived = findView(v, R.id.rb_not_mobile);
 				tvArea = findView(v, R.id.tv_dialog_my_profile_editing_contact_area);
 
-				tvArea.setText(Formatter.getSelf(getActivity()).getAreaById(mDetails.getArea()));
-				phone.setText(mDetails.getPhone());
-				mail.setText(mDetails.getEmail());
-				businessAddress.setText(mDetails.getBusinessAddress());
-				billingAddress.setText(mDetails.getBillingAddress());
-				boolean arrivedHome = mDetails.isArrivedHome();
+				tvArea.setText(Formatter.getSelf(getActivity()).getAreaById(((ActivityMyProfile) getActivity()).getDetails().getArea()));
+				phone.setText(((ActivityMyProfile) getActivity()).getDetails().getPhone());
+				mail.setText(((ActivityMyProfile) getActivity()).getDetails().getEmail());
+				businessAddress.setText(((ActivityMyProfile) getActivity()).getDetails().getBusinessAddress());
+				billingAddress.setText(((ActivityMyProfile) getActivity()).getDetails().getBillingAddress());
+				boolean arrivedHome = ((ActivityMyProfile) getActivity()).getDetails().isArrivedHome();
 				arrived.setChecked(arrivedHome);
 				noArrived.setChecked(!arrivedHome);
 				return v;
@@ -575,7 +604,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 						i++;
 					}
 					areaDialog = new MySingleChoiseDialog(getActivity(), list);
-					int area = Integer.parseInt(mDetails.getArea()) - 1;
+					int area = Integer.parseInt(((ActivityMyProfile) getActivity()).getDetails().getArea()) - 1;
 					areaDialog.setChecked(area > -1 ? area : 0);
 					areaDialog.showButtons(new DialogInterface.OnClickListener() {
 
@@ -605,14 +634,14 @@ public class ActivityMyProfile extends ActivityWithFragment {
 							Dialogs.showServerFailedDialog(getActivity());
 						} else {
 							Dialogs.successToast(getActivity());
-							mDetails.setArea(String.valueOf(areaID));
-							mDetails.setArrivedHome(arrived.isChecked());
-							mDetails.setBillingAddress(billingAddress.getText().toString());
-							mDetails.setBusinessAddress(businessAddress.getText().toString());
-							mDetails.setEmail(mail.getText().toString());
-							updateContactDetails();
+                            ((ActivityMyProfile) getActivity()).getDetails().setArea(String.valueOf(areaID));
+                            ((ActivityMyProfile) getActivity()).getDetails().setArrivedHome(arrived.isChecked());
+                            ((ActivityMyProfile) getActivity()).getDetails().setBillingAddress(billingAddress.getText().toString());
+                            ((ActivityMyProfile) getActivity()).getDetails().setBusinessAddress(businessAddress.getText().toString());
+                            ((ActivityMyProfile) getActivity()).getDetails().setEmail(mail.getText().toString());
+                            ((ActivityMyProfile) getActivity()).updateContactDetails();
 							SoftKeyboard.hide(getActivity());
-							backPressed();
+                            ((ActivityMyProfile)getActivity()).backPressed();
 						}
 					}
 				});
@@ -690,7 +719,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 
 		}
 
-		private class FragmentEditPrsonalDetails extends Fragment {
+		public static class FragmentEditPrsonalDetails extends BaseFragment {
 
 			private ViewGroup bFinish;
 			private TextView tvExperience;
@@ -704,17 +733,17 @@ public class ActivityMyProfile extends ActivityWithFragment {
 			@Override
 			public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 				View v = inflater.inflate(R.layout.dialog_my_profile_edit_about_section, container, false);
-				experience = Integer.parseInt(mDetails.getExperience());
-				paymentID = Integer.parseInt(mDetails.getPayment());
+				experience = Integer.parseInt( ((ActivityMyProfile) getActivity()).getDetails().getExperience());
+				paymentID = Integer.parseInt( ((ActivityMyProfile) getActivity()).getDetails().getPayment());
 				bFinish = findView(v, R.id.dialog_my_profile_editing_personal_details_finish);
 				about = findView(v, R.id.et_dialog_my_profile_editing_about);
 				tvExperience = findView(v, R.id.tv_dialog_my_profile_editing_years_of_experience);
 				tvPaymentMethod = findView(v, R.id.tv_dialog_my_profile_editing_payment_method);
 
-				about.setText(mDetails.getAbout());
+				about.setText( ((ActivityMyProfile) getActivity()).getDetails().getAbout());
 
 				String experience = getString(R.string.years_of_experience) + " "
-						+ (TextUtils.isEmpty(mDetails.getExperience()) ? "" : mDetails.getExperience());
+						+ (TextUtils.isEmpty( ((ActivityMyProfile) getActivity()).getDetails().getExperience()) ? "" :  ((ActivityMyProfile) getActivity()).getDetails().getExperience());
 				tvExperience.setText(experience);
 
 				String paymentId = String.valueOf(paymentID);
@@ -752,7 +781,7 @@ public class ActivityMyProfile extends ActivityWithFragment {
 				if (dialogExperience == null) {
 					dialogExperience = new MyNumberPickerDialog(getActivity());
 					dialogExperience.setTitle(R.string.title_years_of_experience);
-					dialogExperience.setValue(Integer.parseInt(mDetails.getExperience()));
+					dialogExperience.setValue(Integer.parseInt( ((ActivityMyProfile) getActivity()).getDetails().getExperience()));
 					dialogExperience.setPositiveButtonListener(new DialogInterface.OnClickListener() {
 
 						@Override
@@ -813,11 +842,11 @@ public class ActivityMyProfile extends ActivityWithFragment {
 									Dialogs.showServerFailedDialog(getActivity());
 								} else {
 									Dialogs.successToast(getActivity());
-									mDetails.setAbout(ssb.toString());
-									mDetails.setExperience(String.valueOf(experience));
-									mDetails.setPayment(String.valueOf(paymentID));
-									updatePersonalDetails();
-									backPressed();
+                                    ((ActivityMyProfile) getActivity()).getDetails().setAbout(ssb.toString());
+                                    ((ActivityMyProfile) getActivity()).getDetails().setExperience(String.valueOf(experience));
+                                    ((ActivityMyProfile) getActivity()).getDetails().setPayment(String.valueOf(paymentID));
+                                    ((ActivityMyProfile) getActivity()).updatePersonalDetails();
+                                    ((ActivityMyProfile)getActivity()).backPressed();
 								}
 							}
 						}).execute();

@@ -62,7 +62,7 @@
                 android:id="@+id/tv_row_dialog_reminder_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/iv_row_dialog_reminder"
+                android:layout_toLeftOf="@+id/iv_dialog_reminder"
                 android:text="date"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/common_text_size" />
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_row_dialog_reminder_date"
-                android:layout_toLeftOf="@+id/iv_row_dialog_reminder"
+                android:layout_toLeftOf="@+id/iv_dialog_reminder"
                 android:text="name"
                 android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/common_text_size" />
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_row_dialog_reminder_customer_name"
-                android:layout_toLeftOf="@+id/iv_row_dialog_reminder"
+                android:layout_toLeftOf="@+id/iv_dialog_reminder"
                 android:text="treatment name"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/common_text_size" />

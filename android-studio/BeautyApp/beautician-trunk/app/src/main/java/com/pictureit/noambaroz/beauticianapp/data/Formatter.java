@@ -177,7 +177,7 @@ public class Formatter {
 
 		public static ArrayList<TreatmentType> genarate(Context context, String[] treatments) {
 			HashSet<String> temp = new HashSet<String>();
-			boolean needToCompareWithBeauticianTretmantsList = treatments == null ? false : true;
+			boolean needToCompareWithBeauticianTretmantsList = treatments != null;
 			if (needToCompareWithBeauticianTretmantsList)
 				for (int i = 0; i < treatments.length; i++) {
 					temp.add(treatments[i]);
@@ -242,7 +242,7 @@ public class Formatter {
 		StringBuilder sb2 = new StringBuilder();
 		int count = 0;
 		for (TreatmentType t : treatmentsList) {
-			if (Integer.valueOf(t.getAmount()) > 0 || !considerAmount) {
+			if (t.getAmount() > 0 || !considerAmount) {
 				String treatmentName = getTreatmentType(t.getTreatmentId()).getName();
 				String text = mContext.getString(R.string.bullet) + treatmentName
 						+ (t.getAmount() > 1 ? " (" + t.getAmount() + ")" : "") + "\n";

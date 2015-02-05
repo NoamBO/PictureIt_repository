@@ -46,7 +46,7 @@ public class ActivityStatistics extends ActivityWithFragment {
 		FRAGMENT_TAG = "fragment_statistics";
 	}
 
-	private class FragmentStatistics extends Fragment {
+	public static class FragmentStatistics extends BaseFragment {
 
 		private HttpCallback taskCallback = new HttpCallback() {
 

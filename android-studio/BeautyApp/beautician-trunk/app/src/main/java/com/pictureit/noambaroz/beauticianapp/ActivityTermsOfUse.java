@@ -22,7 +22,7 @@ public class ActivityTermsOfUse extends ActivityWithFragment {
 		FRAGMENT_TAG = "fragment_terms_of_use";
 	}
 
-	private class FragmentTermsOfUse extends Fragment {
+	public static class FragmentTermsOfUse extends Fragment {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_terms_of_service, container, false);
