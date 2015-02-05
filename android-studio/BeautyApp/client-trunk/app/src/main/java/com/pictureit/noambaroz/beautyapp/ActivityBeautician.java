@@ -51,7 +51,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 
 	public static class FragmentBeautician extends BaseFragment {
 
-		private String beautycianId;
+		private String beauticianId;
 		private Beautician mBeautician;
 
 		private ImageView ivPic;
@@ -73,19 +73,21 @@ public class ActivityBeautician extends ActivityWithFragment {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			Bundle extras = getActivity().getIntent().getExtras();
-			if (extras == null)
+
+			// extras must contain Beautician or BeauticianID
+            if (extras == null)
 				return;
 			if (extras.containsKey(Constants.EXTRA_BEAUTICIAN_ID))
-				beautycianId = extras.getString(Constants.EXTRA_BEAUTICIAN_ID, "");
+				beauticianId = extras.getString(Constants.EXTRA_BEAUTICIAN_ID, "");
 
-			if (beautycianId == null || beautycianId.equalsIgnoreCase(""))
+			if (beauticianId == null || beauticianId.equalsIgnoreCase(""))
 				mBeautician = getActivity().getIntent().getExtras().getParcelable(Constants.EXTRA_BEAUTICIAN_OBJECT);
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-			if (beautycianId != null && beautycianId.equalsIgnoreCase("") && mBeautician == null) {
+			if (beauticianId != null && beauticianId.equalsIgnoreCase("") && mBeautician == null) {
 				getFragmentManager().popBackStack();
 				Dialogs.showErrorDialog(getActivity(), R.string.cant_load_beautician);
 				return super.onCreateView(inflater, container, savedInstanceState);
@@ -116,7 +118,7 @@ public class ActivityBeautician extends ActivityWithFragment {
 							Dialogs.showErrorDialog(getActivity(), R.string.cant_load_beautician);
 						}
 					}
-				}, beautycianId);
+				}, beauticianId);
 				httpGet.execute();
 			} else {
 				initPage();

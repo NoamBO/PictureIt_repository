@@ -49,7 +49,7 @@ public class GcmUtil {
 	public void registerToGcm() {
 		gcm = GoogleCloudMessaging.getInstance(context);
 		String registrationId = getRegistrationId();
-		if (TextUtils.isEmpty(registrationId))
+		//if (TextUtils.isEmpty(registrationId))
 			registerInBackground();
 	}
 

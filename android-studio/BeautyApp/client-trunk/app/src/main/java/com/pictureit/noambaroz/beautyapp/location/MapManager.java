@@ -53,23 +53,39 @@ public class MapManager implements
         OnCameraChangeListener, ConnectionCallbacks, OnConnectionFailedListener,
 		OnInfoWindowClickListener, LocationListener, OnMarkerClickListener {
 
-	public interface MapMoovingListener {
-		public void onZoomChange(CameraPosition position);
-	}
-
 	private static final float INITIAL_ZOOM = 17;
-	private static final float MIN_ZOOM_ALLOWED = INITIAL_ZOOM - 1;
+
+    /**
+     * Sets the maximum zoom out before hiding all markers and stop updating the map with new markers
+     */
+    private static final float MIN_ZOOM_ALLOWED = INITIAL_ZOOM - 1;
 
 	private Activity mActivity;
 	private GoogleMap mMap;
 
+    /**
+     * Helps to recognize if the current zoom is more then the maximum
+     */
 	private int currentZoom = -1;
+
 	private static MapManager INSTANCE;
 	private HashMap<Marker, String> mVisibleMarkers;
 	private boolean hideAllMarkers;
+
+    /**
+     * The center point of the screen when updating the markers. while this point is still visible, we won't update the map with new markers
+     */
 	private LatLng latsPositionBeforeUpdating;
+
+    /**
+     * My current location Marker
+     */
 	private Marker mMyPositionMarker;
-	private MarkerOptions mMyPositionMarkerOptions;
+
+    /**
+     * My current location MarkerOptions
+     */
+    private MarkerOptions mMyPositionMarkerOptions;
 
 	private LoadingMapIndicator mLoadingMapIndicator;
 
@@ -92,11 +108,10 @@ public class MapManager implements
 		return INSTANCE;
 	}
 
-	private static final LocationRequest LOCATION_REQUEST = LocationRequest.create().setInterval(1 * 1 * 1000) // 5
-																												// minutes
-			.setFastestInterval(16) // 16ms = 60fps
-			.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
+    /**
+     * Initiate the MapManager singleton
+     * @param activity
+     */
 	private MapManager(Activity activity) {
 		mActivity = activity;
 		mVisibleMarkers = new HashMap<Marker, String>();
@@ -183,6 +198,9 @@ public class MapManager implements
 		});
 	}
 
+    /**
+     * @param arrayList contains {@code MarkerData}
+     */
 	public void setUpMarkers(ArrayList<MarkerData> arrayList) {
 		if (hideAllMarkers)
 			return;
@@ -204,6 +222,11 @@ public class MapManager implements
 		mVisibleMarkers.clear();
 	}
 
+    /**
+     *
+     * @param markerData as is
+     * @return MarkerOptions
+     */
 	private MarkerOptions getMarkerForItem(MarkerData markerData) {
 		MarkerOptions mo = new MarkerOptions();
 
@@ -315,6 +338,9 @@ public class MapManager implements
     public void onConnectionSuspended(int i) {
     }
 
+    /**
+     * Called as backup only if mLocationService can't get location
+     */
 	private void setCurrentLocation() {
 		LocationResult locationResult = new LocationResult() {
 
@@ -352,6 +378,10 @@ public class MapManager implements
 		return true;
 	}
 
+    /**
+     * Updating the map's Markers when {@code lastPositionBeforeUpdating} is no longer on screen
+     * @param latLng new position of the center of screen
+     */
 	public void updateMarkersOnbackground(LatLng latLng) {
 		latsPositionBeforeUpdating = latLng;
 		if (hideAllMarkers)
@@ -376,10 +406,6 @@ public class MapManager implements
 			}
 		}, latLng.latitude, latLng.longitude);
 		getMarkers.execute();
-	}
-
-	public GoogleMap getMap() {
-		return mMap;
 	}
 
 	public boolean onMyLocationButtonClick() {
@@ -416,11 +442,17 @@ public class MapManager implements
 		return false;
 	}
 
+    /**
+     * Called from activity's {@code onStart} in order to get location updates from google api
+     */
     public void onStart() {
         if(mGoogleApiClient != null)
             mGoogleApiClient.connect();
     }
 
+    /**
+     * Called from activity's {@code onStop} in order to stop location updates from google api
+     */
     public void onStop() {
         if(mGoogleApiClient != null)
             mGoogleApiClient.disconnect();

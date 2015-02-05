@@ -7,7 +7,6 @@ import utilities.Dialogs;
 import utilities.OutgoingCommunication;
 import utilities.TimeUtils;
 import utilities.server.HttpBase.HttpCallback;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -120,7 +119,7 @@ public class ActivityMessagesInner extends ActivityWithFragment {
 			StringBuilder sb2 = new StringBuilder();
 			int count = 0;
 			for (TreatmentType t : treatments) {
-				if (Integer.valueOf(t.getAmount()) > 0) {
+				if (t.getAmount() > 0) {
 					String treatmentName = StringArrays.getTreatmentType(getActivity(), t.getTreatments_id()).getName();
 					if (count % 2 == 0)
 						sb1.append(treatmentName).append("\n");

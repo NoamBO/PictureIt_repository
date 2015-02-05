@@ -202,28 +202,6 @@ public class ActivityMessages extends ActivityWithFragment {
 					findView(view, R.id.pb_row_order_notification_spinner).setVisibility(View.GONE);
 					findView(view, R.id.vg_row_order_notification_data_container).setVisibility(View.VISIBLE);
 				}
-
-				// Button b = findView(view,
-				// R.id.b_row_order_notification_dismiss);
-				// b.setOnClickListener(new OnClickListener() {
-				//
-				// @Override
-				// public void onClick(View v) {
-				// AnimationManager.collapseCursorAdapterRow(view, 0, new
-				// OnRowCollapseCallback() {
-				//
-				// @Override
-				// public void onCollapse(View v, int initialHeight) {
-				// context.getContentResolver().delete(
-				// Uri.withAppendedPath(DataProvider.CONTENT_URI_ORDER_OPTIONS,
-				// cursor.getString(cursor.getColumnIndex("_id"))), null, null);
-				// mRowViewInitialHeight = initialHeight;
-				// mRowViewToRemove = v;
-				// }
-				//
-				// });
-				// }
-				// });
 			}
 		}
 

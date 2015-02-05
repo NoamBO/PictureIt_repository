@@ -33,6 +33,10 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		initActionBar(getActionBar());
 	}
 
+    /**
+     * Add thin line above the {@code ActionBar}
+      * @param context
+     */
 	public static void addViewToTopOfActionBar(Activity context) {
 		Resources r = context.getResources();
 		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
@@ -89,12 +93,24 @@ public abstract class ActivityWithFragment extends BaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+    /**
+     * 1st method called in Activity's {onCreate()}
+     */
 	protected abstract void initActivity();
 
+    /**
+     * 2nd method called in Activity's {onCreate()} after {@code initActivity()}
+     */
 	protected abstract void setFragment();
 
+    /**
+     * 3rd method called in Activity's {onCreate()} after {@code setFragment()}
+     */
 	protected abstract void setFragmentTag();
 
+    /**
+     * Closed the activity or pop back stack if move fragments live in this session
+     */
 	protected void backPressed() {
 		if (getFragmentManager().getBackStackEntryCount() == 0) {
 			finish();

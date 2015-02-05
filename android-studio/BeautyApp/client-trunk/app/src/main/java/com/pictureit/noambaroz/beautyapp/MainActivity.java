@@ -77,6 +77,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	}
 
+    /*
+     * Initiate the activity
+     */
 	private void initActivity() {
 		setContentView(R.layout.activity_main);
 		mTouchToOpenSlider = findView(R.id.vg_main_touch_to_slide_list);
@@ -90,6 +93,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 
 	ListView listView;
 
+    /*
+     * Called to set the "providers around me" list
+     */
 	private void setListView() {
 		listView = findView(R.id.lv_main_providers_list);
 		mAdapter = new MainProviderListAdapter(MainActivity.this, android.R.layout.simple_list_item_1,
@@ -114,6 +120,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		});
 	}
 
+    /*
+     * Called when clicking on providers listView's upper view
+     */
 	private void onFooterClick() {
 		View sliderContainer = findView(R.id.fl_main_providers_slider_list_container);
 		final boolean isSliderInvisible = sliderContainer.getVisibility() == View.GONE;
@@ -149,6 +158,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		return loader;
 	}
 
+    /*
+    Called on every change on table MESSAGES and update the messages badge at the actionBar
+     */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		int count = data.getCount();
@@ -212,6 +224,11 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		return true;
 	}
 
+    /**
+     *
+     * @param T which activity you want to be launched
+     * @return true always
+     */
 	private <T> boolean launchActivity(Class<T> T) {
 		Intent intent = new Intent(MainActivity.this, T);
 		startActivity(intent);
@@ -219,6 +236,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		return true;
 	}
 
+    /*
+    Called to get the providers-around-me list from backend and populate it in its list
+     */
 	private void changeProvidersUiList() {
 		if (getBeauticianArrayByIds != null) {
 			getBeauticianArrayByIds.cancel(true);
@@ -263,6 +283,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		Dialogs.showErrorDialog(MainActivity.this, resId);
 	}
 
+    /**
+     *
+     * @return true if google play services apk are up to date. if not, the user redirected to google play to update it and get back to onActivityResult.
+     */
 	private boolean googlePlayServicesAvailable() {
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 		if (resultCode != ConnectionResult.SUCCESS) {
@@ -306,6 +330,10 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		onPendingDialog(isUserWaitingForTreatmentOrderResponse());
 	}
 
+    /**
+     * Show or hide the PendingDialog
+     * @param isPending
+     */
 	public void onPendingDialog(boolean isPending) {
 		if (mPendingDialog == null) {
 			mPendingDialog = new PendingDialog(MainActivity.this);
@@ -373,8 +401,9 @@ public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor
 		return super.onKeyDown(keyCode, event);
 	}
 
-	/**
+	/*
 	 * work on API Level 11+
+     * Hackish way to set font on the actionBar's drop down textViews
 	 */
 	private void setDropdownTextViewFont() {
 		getLayoutInflater().setFactory(new LayoutInflater.Factory() {

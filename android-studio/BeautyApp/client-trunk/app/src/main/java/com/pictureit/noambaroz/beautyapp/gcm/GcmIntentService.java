@@ -43,7 +43,6 @@ public class GcmIntentService extends IntentService {
 	private static final String ORDER_ID = "response_id";
 	private static final String IS_LAST_NOTIFICATION = "is_last_beautician";
 
-	NotificationCompat.Builder builder;
 	private NotificationManager mNotificationManager;
 
 	public GcmIntentService() {

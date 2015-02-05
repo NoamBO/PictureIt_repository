@@ -89,6 +89,10 @@ public class ActivityHistory extends ActivityWithFragment {
 			httpRequest.execute();
 		}
 
+        /**
+         * Initiate the fragment's ListView
+         * @param listView
+         */
 		private void initListview(ListView listView) {
 			listView.setPadding(15, 0, 15, 0);
 			listView.setDivider(new ColorDrawable(getResources().getColor(R.color.transparent)));
@@ -97,6 +101,9 @@ public class ActivityHistory extends ActivityWithFragment {
 
 	}
 
+    /**
+     * {@link android.widget.ArrayAdapter} contains all {@code HistoryObject}s
+     */
 	private static class HistoryListAdapter extends ArrayAdapter<HistoryObject> {
 
 		public HistoryListAdapter(Context context, int resource, List<HistoryObject> objects) {

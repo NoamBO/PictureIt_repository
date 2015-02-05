@@ -252,7 +252,8 @@ public class ServiceOrderManager {
 			}
 		};
 
-		dDate = new DatePickerFragment().setDate(mTreatment.date).setSelectionListener(l);
+        if(dDate == null)
+		    dDate = new DatePickerFragment().setDate(mTreatment.date).setSelectionListener(l);
 		dDate.show(activity.getFragmentManager(), "timePicker");
 	}
 
@@ -368,10 +369,6 @@ public class ServiceOrderManager {
 				.putString(Application.PENDING_TREATMENT_ID, treatmentId).commit();
 	}
 
-	public static String getPendingTreatmentId(Context ctx) {
-		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(Application.PENDING_TREATMENT_ID, "");
-	}
-
 	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 		private OnItemSelectedListener mListener;
@@ -410,10 +407,10 @@ public class ServiceOrderManager {
 				calendar.setTime(yourDate);
 			}
 
-			DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, calendar.get(Calendar.YEAR),
+            return new DatePickerDialog(getActivity(), this, calendar.get(Calendar.YEAR),
 					calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
-			return dpd;
+
 		}
 
 		@Override
@@ -424,10 +421,9 @@ public class ServiceOrderManager {
 				return;
 			}
 
-			StringBuilder sb = new StringBuilder();
-			sb.append(day).append("/").append(month + 1).append("/").append(year);
-			String selection = sb.toString();
-			mListener.onItemSelected(selection);
+			String s = day +"/"+(month + 1)+"/"+year;
+
+			mListener.onItemSelected(s);
 		}
 
 		@Override
