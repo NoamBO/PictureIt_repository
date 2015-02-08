@@ -1,0 +1,5 @@
+include ':app'
+include ':number_picker'
+project(':number_picker').projectDir = new File('../libraryNumberPicker/app')
+include ':calendar_view'
+project(':calendar_view').projectDir = new File('../libraryCalendarView/app')

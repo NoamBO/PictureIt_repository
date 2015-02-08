@@ -1,0 +1,6 @@
+include ':app'
+include ':calendar_view', ':number_picker',':date_picker', ':crop_image'
+project(':calendar_view').projectDir = new File('../3rd party/libraryCalendarView/app')
+project(':number_picker').projectDir = new File('../3rd party/libraryNumberPicker/app')
+project(':date_picker').projectDir = new File('../3rd party/libraryDatePicker/app')
+project(':crop_image').projectDir = new File('../3rd party/crop_image/app')
