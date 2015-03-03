@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/themes.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/themes.xml -->
     <eat-comment/>
     <attr format="reference" name="numberPickerStyle"/>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <attr format="reference" name="timePickerStyle"/>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="transparent">#00000000</color>
     <declare-styleable name="NumberPicker"><attr format="color|reference" name="solidColor"/><attr format="reference" name="selectionDivider"/><attr format="dimension" name="selectionDividerHeight"/><attr format="dimension" name="selectionDividersDistance"/><attr format="dimension" name="internalMinHeight"/><attr format="dimension" name="internalMaxHeight"/><attr format="dimension" name="internalMinWidth"/><attr format="dimension" name="internalMaxWidth"/><attr format="reference" name="internalLayout"/><attr format="reference" name="virtualButtonPressedDrawable"/></declare-styleable>
     <declare-styleable name="TimePicker"><attr format="boolean" name="is24HourView"/><attr format="reference" name="tp_internalLayout"/></declare-styleable>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/ids.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/ids.xml -->
     <eat-comment/>
     <item name="np__decrement" type="id"/>
     <item name="np__increment" type="id"/>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="time_picker_decrement_hour_button">Decrement hour</string>
     <string name="time_picker_decrement_minute_button">Decrement minute</string>
@@ -24,7 +24,7 @@
     <string name="time_picker_increment_minute_button">Increment minute</string>
     <string name="time_picker_increment_set_pm_button">Set PM</string>
     <string name="time_picker_separator">:</string>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
@@ -39,7 +39,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/themes.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/themes.xml -->
     <eat-comment/>
     <style name="NPWidget">
         <item name="android:textAppearance">?android:attr/textAppearance</item>
@@ -61,7 +61,7 @@
         <item name="android:fadingEdge">vertical</item>
         <item name="android:fadingEdgeLength">50dip</item>
     </style>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="Widget">
         <item name="android:textAppearance">?android:attr/textAppearance</item>

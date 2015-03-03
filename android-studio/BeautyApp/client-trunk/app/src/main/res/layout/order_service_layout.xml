@@ -65,7 +65,7 @@
                         android:layout_toLeftOf="@+id/tvServiceOrderFor"
                         android:orientation="horizontal" >
 
-                        <utilities.view.MyFontTextView
+                        <utilities.view.MyFontTextView android:padding="@dimen/service_order_buttons_padding"
                             android:id="@+id/b_service_order_for"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                         android:layout_toLeftOf="@+id/tvServiceOrderWhen"
                         android:orientation="horizontal" >
 
-                        <utilities.view.MyFontTextView
+                        <utilities.view.MyFontTextView android:padding="@dimen/service_order_buttons_padding"
                             android:id="@+id/b_service_order_when"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_toLeftOf="@id/tvServiceOrderSelectTreatment" >
 
-                        <utilities.view.MyFontTextView
+                        <utilities.view.MyFontTextView android:padding="@dimen/service_order_buttons_padding"
                             android:id="@+id/b_service_order_select_treatment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
                         android:layout_toLeftOf="@+id/tvServiceOrderLocation"
                         android:orientation="horizontal" >
 
-                        <utilities.view.MyFontTextView
+                        <utilities.view.MyFontTextView android:padding="@dimen/service_order_buttons_padding"
                             android:id="@+id/b_service_order_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

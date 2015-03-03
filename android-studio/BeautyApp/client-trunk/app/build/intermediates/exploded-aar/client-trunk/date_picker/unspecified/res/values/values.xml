@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/attrs.xml -->
     <eat-comment/>
     <attr format="reference" name="datePickerStyle"/>
     <declare-styleable name="DatePicker"><attr format="integer" name="dp_startYear"/><attr format="integer" name="dp_endYear"/><attr format="boolean" name="dp_spinnersShown"/><attr format="boolean" name="dp_calendarViewShown"/><attr format="string" name="dp_minDate"/><attr format="string" name="dp_maxDate"/><attr format="reference" name="dp_internalLayout"/></declare-styleable>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="cancel">Cancel</string>
     <string name="date_picker_decrement_day_button">Decrement day</string>
@@ -16,7 +16,7 @@
     <string name="date_picker_increment_year_button">Increment year</string>
     <string name="date_time_done">Done</string>
     <string name="date_time_set">Set</string>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/themes.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/themes.xml -->
     <eat-comment/>
     <style name="SampleTheme" parent="@android:style/Theme">
         <item name="datePickerStyle">@style/Widget.Holo.DatePicker</item>
@@ -26,7 +26,7 @@
         <item name="datePickerStyle">@style/Widget.Holo.Light.DatePicker</item>
         <item name="numberPickerStyle">@style/NPWidget.Holo.Light.NumberPicker</item>
     </style>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="Theme.Dialog.Alert" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>

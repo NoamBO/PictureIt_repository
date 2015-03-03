@@ -18,4 +18,4 @@
     <item android:drawable="@drawable/list_pressed_holo_light"  />
     <item android:drawable="@drawable/list_longpressed_holo"  />
 </transition>
-<!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/drawable/list_selector_background_transition_holo_light.xml -->
+<!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryNumberPicker/app/src/main/res/drawable/list_selector_background_transition_holo_light.xml -->

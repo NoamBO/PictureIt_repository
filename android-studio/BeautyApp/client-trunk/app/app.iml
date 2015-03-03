@@ -83,15 +83,15 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="ParseCrashReporting-1.8.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="Parse-1.8.0" level="project" />
+    <orderEntry type="library" exported="" name="universal-image-loader-1.9.1-with-sources" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="android-support-v13" level="project" />
-    <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
-    <orderEntry type="library" exported="" name="universal-image-loader-1.9.1-with-sources" level="project" />
-    <orderEntry type="module" module-name="date_picker" exported="" />
     <orderEntry type="module" module-name="pager_indicator" exported="" />
+    <orderEntry type="module" module-name="date_picker" exported="" />
   </component>
 </module>
 

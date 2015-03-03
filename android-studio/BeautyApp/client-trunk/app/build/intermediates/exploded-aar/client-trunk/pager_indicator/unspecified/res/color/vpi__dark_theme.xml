@@ -22,4 +22,4 @@
     <!--item android:state_activated="true" android:color="@color/vpi__bright_foreground_holo_dark"/-->
     <item android:color="@color/vpi__bright_foreground_holo_dark"/> <!-- not selected -->
 </selector>
-<!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryAndroid-ViewPagerIndicator-master/app/src/main/res/color/vpi__dark_theme.xml -->
+<!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryAndroid-ViewPagerIndicator-master/app/src/main/res/color/vpi__dark_theme.xml -->

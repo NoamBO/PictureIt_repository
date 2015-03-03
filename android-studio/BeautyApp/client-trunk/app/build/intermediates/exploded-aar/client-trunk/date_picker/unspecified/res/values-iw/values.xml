@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/user/Android/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values-iw/strings.xml -->
+    <!-- From: file:/C:/src/PictureIt_repository/android-studio/BeautyApp/3rd%20party/libraryDatePicker/app/src/main/res/values-iw/strings.xml -->
     <eat-comment/>
     <string name="cancel">ביטול</string>
     <string name="date_picker_decrement_day_button">יום אחורה</string>
